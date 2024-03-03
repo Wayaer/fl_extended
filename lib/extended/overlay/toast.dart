@@ -46,11 +46,7 @@ class Toast extends StatelessWidget {
     }
     current = Universal(
         onTap: currentOptions.onToastTap,
-        margin: currentOptions.margin,
-        decoration: currentOptions.decoration ??
-            BoxDecoration(
-                color: currentOptions.backgroundColor,
-                borderRadius: BorderRadius.circular(6)),
+        decoration: currentOptions.decoration,
         padding: currentOptions.padding,
         child: current);
 
@@ -103,9 +99,10 @@ typedef ToastOptionsBuildText = Widget Function(String text, Color color);
 
 class ToastOptions extends BaseModalOptions {
   const ToastOptions({
-    this.backgroundColor = const Color(0xEE000000),
     this.iconColor = const Color(0xFFFFFFFF),
-    this.decoration,
+    this.decoration = const BoxDecoration(
+        color: Color(0xEE000000),
+        borderRadius: BorderRadius.all(Radius.circular(6))),
     this.onToastTap,
     this.textStyle,
     this.duration = const Duration(milliseconds: 1500),
@@ -113,7 +110,6 @@ class ToastOptions extends BaseModalOptions {
     this.iconSize = 18,
     this.spacing = 10,
     this.padding = const EdgeInsets.all(14),
-    this.margin = const EdgeInsets.all(30),
     this.direction = Axis.horizontal,
     this.buildText,
     super.rect,
@@ -133,10 +129,6 @@ class ToastOptions extends BaseModalOptions {
 
   final FlAnimationStyle? animationStyle;
 
-  /// 背景色
-  final Color? backgroundColor;
-
-  final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
 
   /// Toast 装饰器 会替换 [backgroundColor]
@@ -167,8 +159,6 @@ class ToastOptions extends BaseModalOptions {
   final ToastOptionsBuildText? buildText;
 
   ToastOptions copyWith({
-    Color? backgroundColor,
-    EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
     BoxDecoration? decoration,
     GestureTapCallback? onToastTap,
@@ -192,8 +182,6 @@ class ToastOptions extends BaseModalOptions {
     AlignmentGeometry? alignment,
   }) =>
       ToastOptions(
-          backgroundColor: backgroundColor ?? this.backgroundColor,
-          margin: margin ?? this.margin,
           padding: padding ?? this.padding,
           decoration: decoration ?? this.decoration,
           onToastTap: onToastTap ?? this.onToastTap,
@@ -216,8 +204,6 @@ class ToastOptions extends BaseModalOptions {
           fuzzyDegree: fuzzyDegree ?? this.fuzzyDegree);
 
   ToastOptions merge([ToastOptions? options]) => ToastOptions(
-      backgroundColor: options?.backgroundColor ?? backgroundColor,
-      margin: options?.margin ?? margin,
       padding: options?.padding ?? padding,
       decoration: options?.decoration ?? decoration,
       onToastTap: options?.onToastTap ?? onToastTap,

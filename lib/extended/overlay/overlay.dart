@@ -48,7 +48,7 @@ class ExtendedOverlay {
 
   /// 关闭所有Overlay
   void closeAllOverlay() {
-    for (final ExtendedOverlayEntry element in _overlayEntryList) {
+    for (final element in _overlayEntryList) {
       element.removeEntry();
     }
   }

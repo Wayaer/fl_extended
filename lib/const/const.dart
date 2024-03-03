@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String refreshEvent = 'refreshEvent';
-
 /// icons
 class FlExtendedIcons {
   FlExtendedIcons._();

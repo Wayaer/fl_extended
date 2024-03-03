@@ -13,16 +13,6 @@ class UniversalPage extends StatefulWidget {
 
 class _UniversalPageState extends ExtendedState<UniversalPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
-    controller.forward();
-  }
-
   @override
   Widget build(BuildContext context) {
     Color color = context.theme.primaryColor;
@@ -73,8 +63,6 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
           size: const Size(200, 50)),
       const SizedBox(height: 20),
     ];
-    children = children.builder((Widget item) => SizeTransition(
-        sizeFactor: controller, axis: Axis.horizontal, child: item));
     return ExtendedScaffold(
         appBar: AppBarText('Universal'),
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +71,8 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
           await showToast('onRefresh');
           RefreshControllers().call(EasyRefreshType.refreshSuccess);
         }),
-        children: children);
+        children: children.builder((Widget item) => Row(
+            mainAxisAlignment: MainAxisAlignment.center, children: [item])));
   }
 }
 
