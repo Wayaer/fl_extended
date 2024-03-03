@@ -150,18 +150,17 @@ class LoadingOptions extends BaseModalOptions {
     this.onLoadingTap,
     this.custom,
     this.style = LoadingStyle.circular,
-    super.rect,
-    super.alignment,
+    Color? modalColor,
+    super.alignment = Alignment.center,
     super.gaussian = false,
     super.addMaterial = false,
     super.ignoring = false,
     super.absorbing = false,
     super.fuzzyDegree = 4,
-    super.color,
     super.blendMode = BlendMode.srcOver,
     super.filter,
     super.onModalTap,
-  });
+  }) : super(color: modalColor);
 
   final Widget? custom;
 
@@ -176,14 +175,13 @@ class LoadingOptions extends BaseModalOptions {
     Widget? custom,
     LoadingStyle? style,
     GestureTapCallback? onTap,
-    Color? color,
+    Color? modalColor,
     bool? ignoring,
     bool? absorbing,
     bool? addMaterial,
     ImageFilter? filter,
     bool? gaussian,
     double? fuzzyDegree,
-    ModelRect? rect,
     AlignmentGeometry? alignment,
     GestureTapCallback? onModalTap,
   }) =>
@@ -191,14 +189,13 @@ class LoadingOptions extends BaseModalOptions {
           onLoadingTap: onLoadingTap ?? this.onLoadingTap,
           custom: custom ?? this.custom,
           style: style ?? this.style,
-          color: color ?? this.color,
+          modalColor: modalColor ?? color,
           ignoring: ignoring ?? this.ignoring,
           absorbing: absorbing ?? this.absorbing,
           addMaterial: addMaterial ?? this.addMaterial,
           filter: filter ?? this.filter,
           gaussian: gaussian ?? this.gaussian,
           fuzzyDegree: fuzzyDegree ?? this.fuzzyDegree,
-          rect: rect ?? this.rect,
           alignment: alignment ?? this.alignment,
           onModalTap: onModalTap ?? this.onModalTap);
 
@@ -206,14 +203,13 @@ class LoadingOptions extends BaseModalOptions {
       onLoadingTap: options?.onLoadingTap ?? onLoadingTap,
       custom: options?.custom ?? custom,
       style: options?.style ?? style,
-      color: options?.color ?? color,
+      modalColor: options?.color ?? color,
       ignoring: options?.ignoring ?? ignoring,
       absorbing: options?.absorbing ?? absorbing,
       addMaterial: options?.addMaterial ?? addMaterial,
       filter: options?.filter ?? filter,
       gaussian: options?.gaussian ?? gaussian,
       fuzzyDegree: options?.fuzzyDegree ?? fuzzyDegree,
-      rect: options?.rect ?? rect,
       alignment: options?.alignment ?? alignment,
       onModalTap: options?.onModalTap ?? onModalTap);
 }

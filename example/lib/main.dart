@@ -22,8 +22,8 @@ void main() {
   flExtended.pushStyle = RoutePushStyle.material;
 
   /// 设置全局Toast配置
-  flExtended.toastOptions =
-      ToastOptions(alignment: Alignment.center, duration: 2.seconds);
+  flExtended.toastOptions = ToastOptions(
+      modalColor: Colors.red.withOpacity(0.3), duration: 2.seconds);
 
   /// 设置全局BottomSheet配置
   flExtended.bottomSheetOptions = const BottomSheetOptions(
@@ -38,9 +38,9 @@ void main() {
   flExtended.logCrossLine = true;
 
   /// 设置全局Loading配置
-  flExtended.loadingOptions = const LoadingOptions(
-      alignment: Alignment.center,
-      custom: BText('全局设置loading', fontSize: 20),
+  flExtended.loadingOptions = LoadingOptions(
+      modalColor: Colors.red.withOpacity(0.3),
+      custom: const BText('全局设置loading', fontSize: 20),
       onModalTap: closeLoading);
 
   runApp(DevicePreview(

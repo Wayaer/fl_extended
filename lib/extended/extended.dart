@@ -49,8 +49,6 @@ class FlExtended {
   /// Set the global route push style
   RoutePushStyle pushStyle = RoutePushStyle.cupertino;
 
-  final EventBus eventBus = EventBus();
-
   /// 设置全局 ModalWindowsOptions 配置
   /// Set the global [ModalWindowsOptions] 配置
   ModalWindowsOptions modalWindowsOptions =

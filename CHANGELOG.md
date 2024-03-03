@@ -1,3 +1,4 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Split [flutter_waya](https://pub.dev/packages/flutter_waya)'s extension core into the current
+  package

@@ -6,7 +6,6 @@ export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 /// components
 export 'components/decorator_box.dart';
-export 'components/event.dart';
 export 'components/animation.dart';
 export 'components/builder.dart';
 
@@ -14,6 +13,7 @@ export 'components/builder.dart';
 export 'const/typedef.dart';
 export 'const/const.dart';
 export 'const/platform.dart';
+export 'components/universal.dart';
 
 /// extended
 export 'extended/extended.dart';
@@ -30,7 +30,6 @@ export 'extended/scroll_list.dart';
 export 'extended/tab_bar.dart';
 export 'extended/text.dart';
 export 'extended/text_field.dart';
-export 'components/universal.dart';
 export 'extended/navigator.dart';
 
 /// extension

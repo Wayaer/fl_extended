@@ -45,6 +45,10 @@ class Toast extends StatelessWidget {
           title: current);
     }
     current = Universal(
+        safeTop: true,
+        safeBottom: true,
+        safeRight: true,
+        safeLeft: true,
         onTap: currentOptions.onToastTap,
         decoration: currentOptions.decoration,
         padding: currentOptions.padding,
@@ -112,20 +116,19 @@ class ToastOptions extends BaseModalOptions {
     this.padding = const EdgeInsets.all(14),
     this.direction = Axis.horizontal,
     this.buildText,
-    super.rect,
-    super.alignment,
+    Color? modalColor,
+    super.alignment = Alignment.center,
     super.onModalTap,
     super.gaussian = false,
     super.addMaterial = false,
     super.fuzzyDegree = 4,
-    super.color,
     super.blendMode = BlendMode.srcOver,
     super.filter,
     super.ignoring = false,
     super.absorbing = false,
     super.canPop = true,
     super.onPopInvoked,
-  });
+  }) : super(color: modalColor);
 
   final FlAnimationStyle? animationStyle;
 
@@ -171,14 +174,13 @@ class ToastOptions extends BaseModalOptions {
     ModalWindowsOptions? modalWindowsOptions,
     ToastOptionsBuildText? buildText,
     GestureTapCallback? onModalTap,
-    Color? color,
+    Color? modalColor,
     bool? addMaterial,
     ImageFilter? filter,
     bool? gaussian,
     double? fuzzyDegree,
     bool? ignoring,
     bool? absorbing,
-    ModelRect? rect,
     AlignmentGeometry? alignment,
   }) =>
       ToastOptions(
@@ -194,10 +196,9 @@ class ToastOptions extends BaseModalOptions {
           direction: direction ?? this.direction,
           ignoring: ignoring ?? this.ignoring,
           absorbing: ignoring ?? this.absorbing,
-          rect: rect ?? this.rect,
           alignment: alignment ?? this.alignment,
           onModalTap: onModalTap ?? this.onModalTap,
-          color: color ?? this.color,
+          modalColor: modalColor ?? color,
           addMaterial: addMaterial ?? this.addMaterial,
           filter: filter ?? this.filter,
           gaussian: gaussian ?? this.gaussian,
@@ -214,10 +215,9 @@ class ToastOptions extends BaseModalOptions {
       spacing: options?.spacing ?? spacing,
       buildText: options?.buildText ?? buildText,
       direction: options?.direction ?? direction,
-      rect: options?.rect ?? rect,
       alignment: options?.alignment ?? alignment,
       onModalTap: options?.onModalTap ?? onModalTap,
-      color: options?.color ?? color,
+      modalColor: options?.color ?? color,
       ignoring: options?.ignoring ?? ignoring,
       absorbing: options?.absorbing ?? absorbing,
       addMaterial: options?.addMaterial ?? addMaterial,
