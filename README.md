@@ -14,11 +14,10 @@ void setGlobalNavigatorKey() {
 }
 
 /// 使用自己的 MaterialApp
-class _CustomAppState extends ExtendedState<_App> {
+class _AppState extends ExtendedState<_App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
         navigatorKey: FlExtended().globalNavigatorKey,
         scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
         title: 'Fl Extended',
@@ -26,15 +25,6 @@ class _CustomAppState extends ExtendedState<_App> {
   }
 }
 
-/// 根组件使用  ExtendedWidgetsApp , 默认 移出 banner
-class _AppState extends ExtendedState<_App> {
-  @override
-  Widget build(BuildContext context) {
-    return ExtendedWidgetsApp(
-        title: 'Fl Extended', home: _Home(), pushStyle: RoutePushStyle.material);
-  }
-}
-
 ```
 
-- 使用 `ExtendedPopScope` 可自动管理 android 物理返回键 关闭 loading 等Overlay弹窗
+- 使用 `ExtendedPopScope` 可自动管理 android 物理返回键 关闭 `loading` 等 `Overlay` 弹窗

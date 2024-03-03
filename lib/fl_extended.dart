@@ -1,5 +1,4 @@
 export 'package:easy_refresh/easy_refresh.dart';
-export 'package:path_drawing/path_drawing.dart';
 export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 /// components

@@ -66,7 +66,7 @@ class FlAnimation extends _FlAnimation {
   State<FlAnimation> createState() => _FlAnimationState();
 }
 
-class _FlAnimationState extends State<FlAnimation>
+class _FlAnimationState extends ExtendedState<FlAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
