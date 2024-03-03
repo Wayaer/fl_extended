@@ -77,7 +77,6 @@ class _Home extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         isWrap: true,
         isScroll: true,
-        wrapSpacing: 10,
         wrapAlignment: WrapAlignment.center,
         direction: Axis.horizontal,
         scrollDirection: Axis.vertical,
@@ -120,7 +119,7 @@ class ElevatedText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.all(5),
         child: ElevatedButton(onPressed: onTap, child: BText(text)));
   }
 }
