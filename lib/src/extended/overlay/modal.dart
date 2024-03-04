@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
 class ModelRect {
-  ModelRect(
+  const ModelRect(
       {this.left, this.top, this.right, this.bottom, this.width, this.height});
 
   /// left
@@ -40,6 +40,29 @@ class ModelRect {
     this.bottom = 0.0,
   })  : width = null,
         height = null;
+
+  ModelRect copyWith(
+          {double? left,
+          double? top,
+          double? right,
+          double? bottom,
+          double? width,
+          double? height}) =>
+      ModelRect(
+          left: left ?? this.left,
+          top: top ?? this.top,
+          right: right ?? this.right,
+          bottom: bottom ?? this.bottom,
+          width: width ?? this.width,
+          height: height ?? this.height);
+
+  ModelRect marge([ModelRect? rect]) => ModelRect(
+      left: rect?.left ?? left,
+      top: rect?.top ?? top,
+      right: rect?.right ?? right,
+      bottom: rect?.bottom ?? bottom,
+      width: rect?.width ?? width,
+      height: rect?.height ?? height);
 
   @override
   String toString() =>
