@@ -386,11 +386,16 @@ class BText extends StatelessWidget {
     if (inherit && (style?.inherit ?? true)) {
       effectiveTextStyle = defaultTextStyle.style.merge(effectiveTextStyle);
     }
+
     if (MediaQuery.boldTextOf(context)) {
       effectiveTextStyle = effectiveTextStyle
           .merge(const TextStyle(fontWeight: FontWeight.bold));
     }
     final SelectionRegistrar? registrar = SelectionContainer.maybeOf(context);
+    final TextScaler textScaler = switch ((this.textScaler, textScaleFactor)) {
+      (final TextScaler textScaler, _) => textScaler
+    };
+
     Widget result = RText(
         texts: isRich ? texts : [text],
         style: effectiveTextStyle,
@@ -416,7 +421,10 @@ class BText extends StatelessWidget {
             DefaultSelectionStyle.of(context).selectionColor ??
             DefaultSelectionStyle.defaultColor);
     if (registrar != null) {
-      result = MouseRegion(cursor: SystemMouseCursors.text, child: result);
+      result = MouseRegion(
+          cursor: DefaultSelectionStyle.of(context).mouseCursor ??
+              SystemMouseCursors.text,
+          child: result);
     }
     if (semanticsLabel != null) {
       result = Semantics(

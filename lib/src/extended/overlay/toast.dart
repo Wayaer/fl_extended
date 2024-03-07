@@ -42,7 +42,7 @@ class Toast extends StatelessWidget {
           spacing: currentOptions.spacing,
           size: currentOptions.iconSize,
           color: currentOptions.iconColor,
-          title: current);
+          label: current);
     }
     current = Universal(
         safeTop: true,

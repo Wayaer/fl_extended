@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:example/main.dart';
 import 'package:flutter/material.dart';
+import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
 
 class UniversalPage extends StatefulWidget {

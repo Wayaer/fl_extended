@@ -5,6 +5,7 @@ export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 export 'src/components/decorator_box.dart';
 export 'src/components/animation.dart';
 export 'src/components/builder.dart';
+export 'src/components/button.dart';
 
 /// const
 export 'src/const/typedef.dart';
@@ -14,7 +15,7 @@ export 'src/components/universal.dart';
 
 /// extended
 export 'src/extended/extended.dart';
-export 'src/extended/icon.dart';
+export 'src/components/icon_box.dart';
 export 'src/extended/sliver/sliver_list_grid.dart';
 export 'src/extended/sliver/sliver_persistent_header.dart';
 export 'src/extended/sliver/sliver_pinned_to_box_adapter.dart';

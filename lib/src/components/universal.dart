@@ -23,7 +23,6 @@ class Universal extends StatelessWidget {
     this.isClipRect = false,
     this.visible = true,
     this.offstage = false,
-    this.enabled = false,
     this.reverse = false,
     this.maintainState = false,
     this.transitionOnUserGestures = false,
@@ -39,6 +38,7 @@ class Universal extends StatelessWidget {
     this.safeTop = false,
     this.safeRight = false,
     this.safeBottom = false,
+    this.enabled = false,
     this.wrapSpacing = 0.0,
     this.runSpacing = 0.0,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -73,6 +73,7 @@ class Universal extends StatelessWidget {
     this.decoration,
     this.textBaseline,
     this.textDirection,
+    this.onPressed,
     this.onTap,
     this.onTapDown,
     this.onTapUp,
@@ -160,6 +161,13 @@ class Universal extends StatelessWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
     this.blendMode = BlendMode.srcOver,
+    this.unifiedButtonCategory,
+    this.onHover,
+    this.onFocusChange,
+    this.style,
+    this.focusNode,
+    this.autofocus = false,
+    this.statesController,
   });
 
   /// ****** [AnnotatedRegion]  ****** ///
@@ -306,12 +314,25 @@ class Universal extends StatelessWidget {
   final double? opacity;
 
   /// ****** 点击事件相关 ****** ///
-
+  ///
   /// [enabled]默认为false
-  /// ([enabled]=false) 除[onTap]外[GestureDetector]属性无效
-  /// ([enabled]=true) [GestureDetector]属性全部有效
+  /// 想要使用[GestureDetector]or[UnifiedButton]的全部属性,必须[enabled]=true
   final bool enabled;
 
+  /// [unifiedButtonCategory]!=null 使用[UnifiedButton]处理点击事件
+  /// ****** [UnifiedButton] ****** ///
+  final VoidCallback? onPressed;
+  final UnifiedButtonCategory? unifiedButtonCategory;
+  final ValueChanged<bool>? onHover;
+  final ValueChanged<bool>? onFocusChange;
+  final ButtonStyle? style;
+  final FocusNode? focusNode;
+  final bool autofocus;
+  final MaterialStatesController? statesController;
+
+  /// ****** [GestureDetector] ****** ///
+  /// [unifiedButtonCategory]==null 使用[GestureDetector]处理点击事件
+  ///
   /// 手指点击时的回调函数
   final GestureTapCallback? onTap;
 
@@ -540,9 +561,14 @@ class Universal extends StatelessWidget {
     }
     if (enabled ||
         onTap != null ||
+        onPressed != null ||
         onDoubleTap != null ||
         onLongPress != null) {
-      current = buildGestureDetector(current);
+      if (unifiedButtonCategory != null) {
+        current = buildUnifiedButtonCategory(current);
+      } else {
+        current = buildGestureDetector(current);
+      }
     }
     if (expand) current = SizedBox.expand(child: current);
     if (width != null || height != null) {
@@ -715,8 +741,21 @@ class Universal extends StatelessWidget {
       clipBehavior: clipBehavior ?? Clip.hardEdge,
       children: children);
 
+  Widget buildUnifiedButtonCategory(Widget current) => UnifiedButton(
+      category: unifiedButtonCategory!,
+      onPressed: onTap ?? onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      style: style,
+      clipBehavior: clipBehavior ?? Clip.none,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      statesController: statesController,
+      child: current);
+
   Widget buildGestureDetector(Widget current) => GestureDetector(
-      onTap: onTap,
+      onTap: onTap ?? onPressed,
       onTapDown: onTapDown,
       onTapUp: onTapUp,
       onTapCancel: onTapCancel,

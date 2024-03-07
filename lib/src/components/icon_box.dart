@@ -19,8 +19,8 @@ class IconBox extends StatelessWidget {
     this.color,
     this.semanticLabel,
     this.textDirection,
-    this.titleText,
-    this.titleStyle,
+    this.labelText,
+    this.labelStyle,
     this.onTap,
     this.padding,
     this.margin,
@@ -30,9 +30,18 @@ class IconBox extends StatelessWidget {
     this.alignment,
     this.imageProvider,
     this.image,
-    this.title,
-    this.visible = true,
+    this.label,
     this.widget,
+    this.onPressed,
+    this.unifiedButtonCategory,
+    this.onHover,
+    this.onFocusChange,
+    this.style,
+    this.focusNode,
+    this.autofocus = false,
+    this.statesController,
+    this.onLongPress,
+    this.clipBehavior,
   });
 
   /// icon > image > imageProvider > widget
@@ -44,21 +53,21 @@ class IconBox extends StatelessWidget {
   final TextDirection? textDirection;
 
   /// 文字
-  final String? titleText;
-  final TextStyle? titleStyle;
+  final String? labelText;
+  final TextStyle? labelStyle;
   final TextAlign textAlign;
   final TextOverflow overflow;
 
-  /// [titleText]显示时最大行数
+  /// [labelText]显示时最大行数
   final int maxLines;
 
-  final Widget? title;
+  final Widget? label;
 
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? background;
 
-  /// [icon]、[imageProvider]、[titleText] 颜色
+  /// [icon]、[imageProvider]、[labelText] 颜色
   final Color? color;
 
   /// 仅支持 [icon]、[imageProvider]
@@ -88,38 +97,56 @@ class IconBox extends StatelessWidget {
   /// 收尾颠倒 [false]
   final bool reversal;
 
-  /// 显示 [false]
-  final bool visible;
-
-  /// 与[title]或者[titleText]间距
+  /// 与[label]或者[labelText]间距
   final double spacing;
 
   /// add [Hero]
   final String? heroTag;
 
+  /// ****** [UnifiedButton] ****** ///
+  final VoidCallback? onPressed;
+  final GestureLongPressCallback? onLongPress;
+  final UnifiedButtonCategory? unifiedButtonCategory;
+  final ValueChanged<bool>? onHover;
+  final ValueChanged<bool>? onFocusChange;
+  final ButtonStyle? style;
+  final FocusNode? focusNode;
+  final bool autofocus;
+  final MaterialStatesController? statesController;
+  final Clip? clipBehavior;
+
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listWidget = [];
+    final List<Widget> list = [];
     if (isChildren) {
       if (reversal) {
-        listWidget.add(titleWidget);
-        listWidget.add(spacingWidget);
-        listWidget.addAll(iconWidget);
+        list.add(buildTitle);
+        list.add(buildSpacing);
+        list.addAll(buildIcon);
       } else {
-        listWidget.addAll(iconWidget);
-        listWidget.add(spacingWidget);
-        listWidget.add(titleWidget);
+        list.addAll(buildIcon);
+        list.add(buildSpacing);
+        list.add(buildTitle);
       }
-      return universal(children: listWidget);
+      return universal(children: list);
     }
-    if (iconWidget.isNotEmpty) return universal(child: iconWidget[0]);
+    if (buildIcon.isNotEmpty) return universal(child: buildIcon[0]);
     return Container();
   }
 
   Widget universal({List<Widget>? children, Widget? child}) => Universal(
       heroTag: heroTag,
+      unifiedButtonCategory: unifiedButtonCategory,
+      onPressed: onTap ?? onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      style: style,
+      clipBehavior: clipBehavior ?? Clip.none,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      statesController: statesController,
       child: child,
-      visible: visible,
       direction: direction,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: crossAxisAlignment,
@@ -134,14 +161,14 @@ class IconBox extends StatelessWidget {
       padding: padding,
       alignment: alignment);
 
-  Widget get spacingWidget => SizedBox(
+  Widget get buildSpacing => SizedBox(
       width: direction == Axis.horizontal ? spacing : 0,
       height: direction == Axis.vertical ? spacing : 0);
 
-  Widget get titleWidget {
-    if (title != null) return title!;
-    final TextStyle style = BTextStyle(color: color).merge(titleStyle);
-    return BText(titleText ?? '',
+  Widget get buildTitle {
+    if (label != null) return label!;
+    final TextStyle style = BTextStyle(color: color).merge(labelStyle);
+    return BText(labelText ?? '',
         style: style,
         textAlign: textAlign,
         maxLines: maxLines,
@@ -150,24 +177,24 @@ class IconBox extends StatelessWidget {
   }
 
   bool get isChildren =>
-      (titleText != null || title != null) &&
+      (labelText != null || label != null) &&
       (icon != null ||
           image != null ||
           widget != null ||
           imageProvider != null);
 
-  List<Widget> get iconWidget {
-    final List<Widget> listWidget = [];
+  List<Widget> get buildIcon {
+    final List<Widget> list = [];
     if (icon != null) {
-      listWidget.add(Icon(icon,
+      list.add(Icon(icon,
           color: color,
           size: size,
           textDirection: textDirection,
           semanticLabel: semanticLabel));
     }
-    if (image != null) listWidget.add(image!);
+    if (image != null) list.add(image!);
     if (imageProvider != null) {
-      listWidget.add(Image(
+      list.add(Image(
           image: imageProvider!,
           width: size,
           height: size,
@@ -177,7 +204,7 @@ class IconBox extends StatelessWidget {
           excludeFromSemantics: true,
           semanticLabel: semanticLabel));
     }
-    if (widget != null) listWidget.add(widget!);
-    return listWidget;
+    if (widget != null) list.add(widget!);
+    return list;
   }
 }
