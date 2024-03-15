@@ -6,6 +6,7 @@ export 'src/components/decorator_box.dart';
 export 'src/components/animation.dart';
 export 'src/components/builder.dart';
 export 'src/components/button.dart';
+export 'src/components/easy_refreshed.dart';
 
 /// const
 export 'src/const/typedef.dart';
