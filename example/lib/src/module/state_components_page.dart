@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-class StateTextPage extends StatelessWidget {
-  const StateTextPage({super.key});
+class StateComponentsPage extends StatelessWidget {
+  const StateComponentsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class StateTextPage extends StatelessWidget {
         children: [
           const Partition('ValueBuilder'),
           ValueBuilder<int>(
-              initialValue: 0,
+              initial: 0,
               builder: (_, int? value, ValueCallback<int> updater) {
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class StateTextPage extends StatelessWidget {
               }),
           const Partition('ValueListenBuilder'),
           ValueListenBuilder<int>(
-              initialValue: 1,
+              initial: 1,
               builder: (_, ValueNotifier<int?> valueListenable) {
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -107,6 +107,40 @@ class StateTextPage extends StatelessWidget {
                 builder: (bool value, onChanged) =>
                     CupertinoSwitch(value: value, onChanged: onChanged)),
           ]),
+          const Partition('ExtendedListenableBuilder'),
+          DefaultTabController(
+              length: 2,
+              child: Builder(builder: (context) {
+                final controller = DefaultTabController.of(context);
+                return Column(children: [
+                  ExtendedListenableBuilder<TabController>(
+                      listenable: controller,
+                      builder: (_, TabController controller) {
+                        final icons = [
+                          Icons.home,
+                          Icons.account_circle_outlined
+                        ];
+                        return Row(
+                            children: 2.generate((index) => Icon(
+                                  icons[index],
+                                  color: controller.index == index
+                                      ? Colors.blueAccent
+                                      : null,
+                                ).expanded));
+                      }),
+                  10.heightBox,
+                  SizedBox(
+                      height: 50,
+                      child: TabBarView(children: [
+                        Container(
+                            color: Colors.yellow,
+                            child: const Center(child: Text('往左滑动'))),
+                        Container(
+                            color: Colors.blueAccent,
+                            child: const Center(child: Text('往左滑动'))),
+                      ]))
+                ]);
+              })),
           const SizedBox(height: 100),
         ]);
   }

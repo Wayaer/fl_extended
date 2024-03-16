@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Add `ExtendedListenableBuilder()`
+
 ## 0.2.0
 
 * Added the `UnifiedButton()`,It is based on several subclasses of `ButtonStyleButton`

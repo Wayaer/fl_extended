@@ -15,7 +15,7 @@ class ExtendedBuilderPage extends StatelessWidget {
         children: [
           const Partition('CustomFutureBuilder'),
           CustomFutureBuilder<String>(
-              initialData: '初始的数据 点击刷新',
+              initial: '初始的数据 点击刷新',
               future: () => future(showError),
               onDone: (_, data, reset) {
                 return ElevatedText(data, onTap: reset);

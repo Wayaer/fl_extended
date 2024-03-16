@@ -2,6 +2,7 @@ import 'package:example/src/module/animation_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
 import 'package:example/src/module/icon_box_page.dart';
+import 'package:example/src/module/state_components_page.dart';
 import 'package:example/src/module/text_page.dart';
 import 'package:example/src/module/decorator_page.dart';
 import 'package:example/src/module/list_wheel_page.dart';
@@ -86,6 +87,8 @@ class _Home extends StatelessWidget {
         children: [
           ElevatedText('Text', onTap: () => push(const TextPage())),
           ElevatedText('Button', onTap: () => push(const ButtonPage())),
+          ElevatedText('State Components',
+              onTap: () => push(const StateComponentsPage())),
           ElevatedText('IconBox', onTap: () => push(const IconBoxPage())),
           ElevatedText('FlAnimation',
               onTap: () => push(const FlAnimationPage())),
