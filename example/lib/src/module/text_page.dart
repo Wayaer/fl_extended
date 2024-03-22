@@ -19,12 +19,12 @@ class TextPage extends StatelessWidget {
                 style: BTextStyle(color: Color(0xFF42A5F5)),
                 texts: [
                   'BText',
-                  ' . ',
+                  ' * ',
                   'rich',
                 ],
                 styles: [
                   BTextStyle(color: Color(0xFFD32F2F)),
-                  BTextStyle(color: Colors.white),
+                  BTextStyle(color: Colors.blue),
                   BTextStyle(color: Color(0xFFFFC400)),
                 ]),
             const Partition('RText'),
