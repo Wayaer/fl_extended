@@ -176,6 +176,7 @@ class BText extends StatelessWidget {
     this.textHeightBehavior,
     this.selectionColor,
     this.textScaler = TextScaler.noScaling,
+    this.leadingDistribution,
   })  : assert(color == null || foreground == null, _kColorForegroundWarning),
         assert(backgroundColor == null || background == null,
             _kColorBackgroundWarning),
@@ -227,6 +228,7 @@ class BText extends StatelessWidget {
     this.fontFeatures,
     this.selectionColor,
     this.textScaler = TextScaler.noScaling,
+    this.leadingDistribution,
   })  : isRich = true,
         text = '',
         recognizer = null,
@@ -277,16 +279,23 @@ class BText extends StatelessWidget {
 
   /// 字体颜色，注意： 如果有特殊的foreground，此值必须是null
   final Color? color;
+
+  /// text的前景色，与 [color] 不能同时设置
+  final Paint? foreground;
+
+  /// [text]的背景色
+  final Paint? background;
+
   final Color? backgroundColor;
   final String? fontFamily;
-  final List<String>? fontFamilyFallback;
-  final String? package;
 
   /// 字体大小 默认的是 14
   final double? fontSize;
 
   /// 字体的粗细程度 FontWeight.w100 -- FontWeight.w900 . 默认是FontWeight.w400，
   final FontWeight? fontWeight;
+  final List<String>? fontFamilyFallback;
+  final String? package;
 
   /// [FontStyle.normal]正常 [FontStyle.italic]斜体
   final FontStyle? fontStyle;
@@ -303,12 +312,6 @@ class BText extends StatelessWidget {
 
   /// 文本的高度 主要用于[TextSpan] 来设置不同的高度
   final double? height;
-
-  /// text的前景色，与 [color] 不能同时设置
-  final Paint? foreground;
-
-  /// [text]的背景色
-  final Paint? background;
 
   /// [text]的划线
   /// [TextDecoration.none] 没有 默认
@@ -355,23 +358,27 @@ class BText extends StatelessWidget {
 
   final TextScaler textScaler;
 
+  final TextLeadingDistribution? leadingDistribution;
+
   @override
   Widget build(BuildContext context) {
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
     TextStyle effectiveTextStyle = BTextStyle(
             inherit: inherit,
             color: color,
+            foreground: foreground,
+            background: background,
             backgroundColor: backgroundColor,
             fontSize: fontSize,
             fontWeight: fontWeight,
             fontStyle: fontStyle,
+            fontFamily: fontFamily,
+            fontFamilyFallback: fontFamilyFallback,
             letterSpacing: letterSpacing,
             wordSpacing: wordSpacing,
             textBaseline: textBaseline,
             height: height,
             locale: locale,
-            foreground: foreground,
-            background: background,
             shadows: shadows,
             fontFeatures: fontFeatures,
             decoration: decoration,
@@ -379,8 +386,7 @@ class BText extends StatelessWidget {
             decorationStyle: decorationStyle,
             decorationThickness: decorationThickness,
             debugLabel: debugLabel,
-            fontFamily: fontFamily,
-            fontFamilyFallback: fontFamilyFallback,
+            leadingDistribution: leadingDistribution,
             package: package)
         .merge(style);
     if (inherit && (style?.inherit ?? true)) {
@@ -470,77 +476,77 @@ class BText extends StatelessWidget {
 }
 
 class BTextStyle extends TextStyle {
-  const BTextStyle(
-      {
-      /// 默认样式会继承层级最为接近的 DefaultTextStyle，为true 表示继承，false 表示完全重写
-      super.inherit = true,
+  const BTextStyle({
+    /// 默认样式会继承层级最为接近的 DefaultTextStyle，为true 表示继承，false 表示完全重写
+    super.inherit = true,
 
-      /// 字体颜色，注意： 如果有特殊的foreground，此值必须是null
-      super.color,
-      super.backgroundColor,
-      super.fontFamily,
-      super.fontFamilyFallback,
-      super.package,
+    /// [TextBaseline.ideographic]用来对齐表意文字的水平线
+    /// [TextBaseline.alphabetic ]以标准的字母顺序为基线
+    super.textBaseline,
 
-      /// Locale，当相同的Unicode字符可以根据不同的地区以不同的方式呈现时，用于选择字体
-      super.locale,
+    /// 字体颜色，注意： 如果有特殊的foreground，此值必须是null
+    super.color,
 
-      /// 字体大小 默认的是 14
-      super.fontSize,
+    /// text的前景色，与 [color] 不能同时设置
+    super.foreground,
 
-      /// 字体的粗细程度 FontWeight.w100 -- FontWeight.w900 . 默认是FontWeight.w400，
-      super.fontWeight,
+    /// [text]的背景色
+    super.background,
+    super.backgroundColor,
 
-      /// [FontStyle.normal]正常 [FontStyle.italic]斜体
-      super.fontStyle,
+    /// 字体大小 默认的是 14
+    super.fontSize,
 
-      /// 单个字母或者汉字的距离，默认是1.0，负数可以拉近距离
-      super.letterSpacing,
+    /// 字体的粗细程度 FontWeight.w100 -- FontWeight.w900 . 默认是FontWeight.w400，
+    super.fontWeight,
 
-      /// 单词之间添加的空间间隔，负数可以拉近距离
-      super.wordSpacing,
+    /// [FontStyle.normal]正常 [FontStyle.italic]斜体
+    super.fontStyle,
+    super.fontFamily,
+    super.fontFamilyFallback,
+    super.fontFeatures,
+    super.fontVariations,
+    super.package,
 
-      /// [TextBaseline.ideographic]用来对齐表意文字的水平线
-      /// [TextBaseline.alphabetic ]以标准的字母顺序为基线
-      super.textBaseline,
+    /// Locale，当相同的Unicode字符可以根据不同的地区以不同的方式呈现时，用于选择字体
+    super.locale,
 
-      /// 文本的高度 主要用于[TextSpan] 来设置不同的高度
-      super.height,
+    /// 单个字母或者汉字的距离，默认是1.0，负数可以拉近距离
+    super.letterSpacing,
+    super.leadingDistribution,
 
-      /// text的前景色，与 [color] 不能同时设置
-      super.foreground,
+    /// 单词之间添加的空间间隔，负数可以拉近距离
+    super.wordSpacing,
 
-      /// [text]的背景色
-      super.background,
+    /// 文本的高度 主要用于[TextSpan] 来设置不同的高度
+    super.height,
 
-      /// [text]的划线
-      /// [TextDecoration.none] 没有 默认
-      /// [TextDecoration.underline] 下划线
-      /// [TextDecoration.overline] 上划线
-      /// [TextDecoration.lineThrough] 中间的线（删除线）
-      super.decoration = TextDecoration.none,
+    /// [text]的划线
+    /// [TextDecoration.none] 没有 默认
+    /// [TextDecoration.underline] 下划线
+    /// [TextDecoration.overline] 上划线
+    /// [TextDecoration.lineThrough] 中间的线（删除线）
+    super.decoration = TextDecoration.none,
 
-      /// [decoration]划线的颜色
-      super.decorationColor,
+    /// [decoration]划线的颜色
+    super.decorationColor,
 
-      /// [decoration]划线的样式
-      /// [TextDecorationStyle.solid]实线
-      /// [TextDecorationStyle.double] 画两条线
-      /// [TextDecorationStyle.dotted] 点线（一个点一个点的）
-      /// [TextDecorationStyle.dashed] 虚线（一个长方形一个长方形的线）
-      /// [TextDecorationStyle.wavy] 正玄曲线
-      super.decorationStyle,
-      super.decorationThickness,
+    /// [decoration]划线的样式
+    /// [TextDecorationStyle.solid]实线
+    /// [TextDecorationStyle.double] 画两条线
+    /// [TextDecorationStyle.dotted] 点线（一个点一个点的）
+    /// [TextDecorationStyle.dashed] 虚线（一个长方形一个长方形的线）
+    /// [TextDecorationStyle.wavy] 正玄曲线
+    super.decorationStyle,
+    super.decorationThickness,
 
-      /// 只在调试的使用
-      super.debugLabel,
+    /// 只在调试的使用
+    super.debugLabel,
 
-      /// 将在[text]下方绘制的阴影列表
-      super.shadows,
-      super.fontFeatures,
-      super.fontVariations,
-      super.leadingDistribution,
-      super.overflow});
+    /// 将在[text]下方绘制的阴影列表
+    super.shadows,
+    super.overflow,
+  });
 }
 
 const String _kColorForegroundWarning =
