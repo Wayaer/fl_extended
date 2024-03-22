@@ -340,29 +340,27 @@ class RefreshConfig {
           scrollBehaviorBuilder:
               scrollBehaviorBuilder ?? this.scrollBehaviorBuilder);
 
-  RefreshConfig marge([RefreshConfig? config]) => RefreshConfig(
-      controller: config?.controller ?? controller,
-      onRefresh: config?.onRefresh ?? onRefresh,
-      onLoading: config?.onLoading ?? onLoading,
-      header: config?.header ?? header,
-      footer: config?.footer ?? footer,
-      spring: config?.spring ?? spring,
-      frictionFactor: config?.frictionFactor ?? frictionFactor,
-      simultaneously: config?.simultaneously ?? simultaneously,
-      canRefreshAfterNoMore:
-          config?.canRefreshAfterNoMore ?? canRefreshAfterNoMore,
-      canLoadAfterNoMore: config?.canLoadAfterNoMore ?? canLoadAfterNoMore,
-      resetAfterRefresh: config?.resetAfterRefresh ?? resetAfterRefresh,
-      refreshOnStart: config?.refreshOnStart ?? refreshOnStart,
-      refreshOnStartHeader: refreshOnStartHeader ?? refreshOnStartHeader,
-      callRefreshOverOffset:
-          config?.callRefreshOverOffset ?? callRefreshOverOffset,
-      callLoadOverOffset: config?.callLoadOverOffset ?? callLoadOverOffset,
-      fit: config?.fit ?? fit,
-      clipBehavior: config?.clipBehavior ?? clipBehavior,
-      scrollController: config?.scrollController ?? scrollController,
-      notLoadFooter: config?.notLoadFooter ?? notLoadFooter,
-      notRefreshHeader: config?.notRefreshHeader ?? notRefreshHeader,
-      triggerAxis: config?.triggerAxis ?? triggerAxis,
-      scrollBehaviorBuilder: scrollBehaviorBuilder ?? scrollBehaviorBuilder);
+  RefreshConfig marge([RefreshConfig? config]) => copyWith(
+      controller: config?.controller,
+      onRefresh: config?.onRefresh,
+      onLoading: config?.onLoading,
+      header: config?.header,
+      footer: config?.footer,
+      spring: config?.spring,
+      frictionFactor: config?.frictionFactor,
+      simultaneously: config?.simultaneously,
+      canRefreshAfterNoMore: config?.canRefreshAfterNoMore,
+      canLoadAfterNoMore: config?.canLoadAfterNoMore,
+      resetAfterRefresh: config?.resetAfterRefresh,
+      refreshOnStart: config?.refreshOnStart,
+      refreshOnStartHeader: refreshOnStartHeader,
+      callRefreshOverOffset: config?.callRefreshOverOffset,
+      callLoadOverOffset: config?.callLoadOverOffset,
+      fit: config?.fit,
+      clipBehavior: config?.clipBehavior,
+      scrollController: config?.scrollController,
+      notLoadFooter: config?.notLoadFooter,
+      notRefreshHeader: config?.notRefreshHeader,
+      triggerAxis: config?.triggerAxis,
+      scrollBehaviorBuilder: scrollBehaviorBuilder);
 }

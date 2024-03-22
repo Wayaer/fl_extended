@@ -5,8 +5,7 @@ extension ExtensionToast on Toast {
 }
 
 class Toast extends StatelessWidget {
-  const Toast(
-    this.message, {
+  const Toast(this.message, {
     super.key,
     this.options,
     this.style,
@@ -69,7 +68,7 @@ class Toast extends StatelessWidget {
 /// 关闭 closeToast();
 /// 添加 await Toast 关闭后继续执行之后的方法
 Future<ExtendedOverlayEntry?> showToast(String message,
-        {ToastStyle? style, IconData? icon, ToastOptions? options}) =>
+    {ToastStyle? style, IconData? icon, ToastOptions? options}) =>
     Toast(message, options: options, icon: icon, style: style).show();
 
 bool closeToast() => ExtendedOverlay().closeToast();
@@ -80,7 +79,7 @@ enum ToastStyle { success, fail, info, warning, smile }
 
 extension ExtensionToastStyle on ToastStyle {
   Future<ExtendedOverlayEntry?> show(String message,
-          {IconData? icon, ToastOptions? options}) =>
+      {IconData? icon, ToastOptions? options}) =>
       Toast(message, options: options, icon: icon, style: this).show();
 
   IconData get value {
@@ -204,24 +203,25 @@ class ToastOptions extends BaseModalOptions {
           gaussian: gaussian ?? this.gaussian,
           fuzzyDegree: fuzzyDegree ?? this.fuzzyDegree);
 
-  ToastOptions merge([ToastOptions? options]) => ToastOptions(
-      padding: options?.padding ?? padding,
-      decoration: options?.decoration ?? decoration,
-      onToastTap: options?.onToastTap ?? onToastTap,
-      textStyle: options?.textStyle ?? textStyle,
-      duration: options?.duration ?? duration,
-      iconColor: options?.iconColor ?? iconColor,
-      iconSize: options?.iconSize ?? iconSize,
-      spacing: options?.spacing ?? spacing,
-      buildText: options?.buildText ?? buildText,
-      direction: options?.direction ?? direction,
-      alignment: options?.alignment ?? alignment,
-      onModalTap: options?.onModalTap ?? onModalTap,
-      modalColor: options?.color ?? color,
-      ignoring: options?.ignoring ?? ignoring,
-      absorbing: options?.absorbing ?? absorbing,
-      addMaterial: options?.addMaterial ?? addMaterial,
-      filter: options?.filter ?? filter,
-      gaussian: options?.gaussian ?? gaussian,
-      fuzzyDegree: options?.fuzzyDegree ?? fuzzyDegree);
+  ToastOptions merge([ToastOptions? options]) =>
+      copyWith(
+          padding: options?.padding,
+          decoration: options?.decoration,
+          onToastTap: options?.onToastTap,
+          textStyle: options?.textStyle,
+          duration: options?.duration,
+          iconColor: options?.iconColor,
+          iconSize: options?.iconSize,
+          spacing: options?.spacing,
+          buildText: options?.buildText,
+          direction: options?.direction,
+          alignment: options?.alignment,
+          onModalTap: options?.onModalTap,
+          modalColor: options?.color,
+          ignoring: options?.ignoring,
+          absorbing: options?.absorbing,
+          addMaterial: options?.addMaterial,
+          filter: options?.filter,
+          gaussian: options?.gaussian,
+          fuzzyDegree: options?.fuzzyDegree);
 }

@@ -131,18 +131,18 @@ class DialogOptions extends GeneralModalOptions {
           useRootNavigator: useRootNavigator ?? this.useRootNavigator,
           routeSettings: routeSettings ?? this.routeSettings);
 
-  DialogOptions merge([DialogOptions? options]) => DialogOptions(
-      useSafeArea: options?.useSafeArea ?? useSafeArea,
-      anchorPoint: options?.anchorPoint ?? anchorPoint,
-      startOffset: options?.startOffset ?? startOffset,
-      fromStyle: options?.fromStyle ?? fromStyle,
-      barrierDismissible: options?.barrierDismissible ?? barrierDismissible,
-      barrierLabel: options?.barrierLabel ?? barrierLabel,
-      barrierColor: options?.barrierColor ?? barrierColor,
-      transitionDuration: options?.transitionDuration ?? transitionDuration,
-      transitionBuilder: options?.transitionBuilder ?? transitionBuilder,
-      useRootNavigator: options?.useRootNavigator ?? useRootNavigator,
-      routeSettings: options?.routeSettings ?? routeSettings);
+  DialogOptions merge([DialogOptions? options]) => copyWith(
+      useSafeArea: options?.useSafeArea,
+      anchorPoint: options?.anchorPoint,
+      startOffset: options?.startOffset,
+      fromStyle: options?.fromStyle,
+      barrierDismissible: options?.barrierDismissible,
+      barrierLabel: options?.barrierLabel,
+      barrierColor: options?.barrierColor,
+      transitionDuration: options?.transitionDuration,
+      transitionBuilder: options?.transitionBuilder,
+      useRootNavigator: options?.useRootNavigator,
+      routeSettings: options?.routeSettings);
 }
 
 class BottomSheetOptions extends GeneralModalOptions {
@@ -213,21 +213,20 @@ class BottomSheetOptions extends GeneralModalOptions {
           transitionAnimationController: transitionAnimationController ??
               this.transitionAnimationController);
 
-  BottomSheetOptions merge([BottomSheetOptions? options]) => BottomSheetOptions(
-      anchorPoint: options?.anchorPoint ?? anchorPoint,
-      constraints: options?.constraints ?? constraints,
-      backgroundColor: options?.backgroundColor ?? backgroundColor,
-      elevation: options?.elevation ?? elevation,
-      shape: options?.shape ?? shape,
-      clipBehavior: options?.clipBehavior ?? clipBehavior,
-      barrierColor: options?.barrierColor ?? barrierColor,
-      barrierDismissible: options?.barrierDismissible ?? barrierDismissible,
-      enableDrag: options?.enableDrag ?? enableDrag,
-      isScrollControlled: options?.isScrollControlled ?? isScrollControlled,
-      routeSettings: options?.routeSettings ?? routeSettings,
-      useRootNavigator: options?.useRootNavigator ?? useRootNavigator,
-      transitionAnimationController: options?.transitionAnimationController ??
-          transitionAnimationController);
+  BottomSheetOptions merge([BottomSheetOptions? options]) => copyWith(
+      anchorPoint: options?.anchorPoint,
+      constraints: options?.constraints,
+      backgroundColor: options?.backgroundColor,
+      elevation: options?.elevation,
+      shape: options?.shape,
+      clipBehavior: options?.clipBehavior,
+      barrierColor: options?.barrierColor,
+      barrierDismissible: options?.barrierDismissible,
+      enableDrag: options?.enableDrag,
+      isScrollControlled: options?.isScrollControlled,
+      routeSettings: options?.routeSettings,
+      useRootNavigator: options?.useRootNavigator,
+      transitionAnimationController: options?.transitionAnimationController);
 }
 
 class CupertinoModalPopupOptions extends GeneralModalOptions {
@@ -265,13 +264,12 @@ class CupertinoModalPopupOptions extends GeneralModalOptions {
               semanticsDismissible ?? this.semanticsDismissible);
 
   CupertinoModalPopupOptions merge([CupertinoModalPopupOptions? options]) =>
-      CupertinoModalPopupOptions(
-          barrierDismissible: options?.barrierDismissible ?? barrierDismissible,
-          useRootNavigator: options?.useRootNavigator ?? useRootNavigator,
-          routeSettings: options?.routeSettings ?? routeSettings,
-          barrierColor: options?.barrierColor ?? barrierColor,
-          anchorPoint: options?.anchorPoint ?? anchorPoint,
-          filter: options?.filter ?? filter,
-          semanticsDismissible:
-              options?.semanticsDismissible ?? semanticsDismissible);
+      copyWith(
+          barrierDismissible: options?.barrierDismissible,
+          useRootNavigator: options?.useRootNavigator,
+          routeSettings: options?.routeSettings,
+          barrierColor: options?.barrierColor,
+          anchorPoint: options?.anchorPoint,
+          filter: options?.filter,
+          semanticsDismissible: options?.semanticsDismissible);
 }

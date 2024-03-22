@@ -14,6 +14,7 @@ class TextPage extends StatelessWidget {
           children: [
             const Partition('BText'),
             const BText('BText'),
+            const Partition('BText.rich'),
             const BText.rich(
                 style: BTextStyle(color: Color(0xFF42A5F5)),
                 texts: [
@@ -26,6 +27,7 @@ class TextPage extends StatelessWidget {
                   BTextStyle(color: Colors.white),
                   BTextStyle(color: Color(0xFFFFC400)),
                 ]),
+            const Partition('RText'),
             RText(
                 style: const BTextStyle(color: Color(0xFF42A5F5)),
                 texts: const [
@@ -37,6 +39,11 @@ class TextPage extends StatelessWidget {
                   BTextStyle(color: Color(0xFFD32F2F)),
                   BTextStyle(color: Colors.white),
                   // BTextStyle(color: Color(0xFFFFC400)),
-                ])
+                ]),
+            const Partition('BText set color'),
+            const BText('BText', color: Colors.red),
+            const Partition('BText set style color'),
+            const BText('BText',
+                color: Colors.red, style: TextStyle(color: Colors.blue)),
           ]);
 }

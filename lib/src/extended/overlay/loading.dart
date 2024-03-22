@@ -199,17 +199,17 @@ class LoadingOptions extends BaseModalOptions {
           alignment: alignment ?? this.alignment,
           onModalTap: onModalTap ?? this.onModalTap);
 
-  LoadingOptions merge([LoadingOptions? options]) => LoadingOptions(
-      onLoadingTap: options?.onLoadingTap ?? onLoadingTap,
-      custom: options?.custom ?? custom,
-      style: options?.style ?? style,
-      modalColor: options?.color ?? color,
-      ignoring: options?.ignoring ?? ignoring,
-      absorbing: options?.absorbing ?? absorbing,
-      addMaterial: options?.addMaterial ?? addMaterial,
-      filter: options?.filter ?? filter,
-      gaussian: options?.gaussian ?? gaussian,
-      fuzzyDegree: options?.fuzzyDegree ?? fuzzyDegree,
-      alignment: options?.alignment ?? alignment,
-      onModalTap: options?.onModalTap ?? onModalTap);
+  LoadingOptions merge([LoadingOptions? options]) => copyWith(
+      onLoadingTap: options?.onLoadingTap,
+      custom: options?.custom,
+      style: options?.style,
+      modalColor: options?.color,
+      ignoring: options?.ignoring,
+      absorbing: options?.absorbing,
+      addMaterial: options?.addMaterial,
+      filter: options?.filter,
+      gaussian: options?.gaussian,
+      fuzzyDegree: options?.fuzzyDegree,
+      alignment: options?.alignment,
+      onModalTap: options?.onModalTap);
 }

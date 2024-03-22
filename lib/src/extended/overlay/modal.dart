@@ -169,19 +169,19 @@ class ModalWindowsOptions extends BaseModalOptions {
           gaussian: gaussian ?? this.gaussian,
           fuzzyDegree: fuzzyDegree ?? this.fuzzyDegree);
 
-  ModalWindowsOptions merge([BaseModalOptions? options]) => ModalWindowsOptions(
-      onPopInvoked: options?.onPopInvoked ?? onPopInvoked,
-      canPop: options?.canPop ?? canPop,
-      rect: options?.rect ?? rect,
-      alignment: options?.alignment ?? alignment,
-      onModalTap: options?.onModalTap ?? onModalTap,
-      color: options?.color ?? color,
-      ignoring: options?.ignoring ?? ignoring,
-      absorbing: options?.absorbing ?? absorbing,
-      addMaterial: options?.addMaterial ?? addMaterial,
-      filter: options?.filter ?? filter,
-      gaussian: options?.gaussian ?? gaussian,
-      fuzzyDegree: options?.fuzzyDegree ?? fuzzyDegree);
+  ModalWindowsOptions merge([BaseModalOptions? options]) => copyWith(
+      onPopInvoked: options?.onPopInvoked,
+      canPop: options?.canPop,
+      rect: options?.rect,
+      alignment: options?.alignment,
+      onModalTap: options?.onModalTap,
+      color: options?.color,
+      ignoring: options?.ignoring,
+      absorbing: options?.absorbing,
+      addMaterial: options?.addMaterial,
+      filter: options?.filter,
+      gaussian: options?.gaussian,
+      fuzzyDegree: options?.fuzzyDegree);
 }
 
 /// 模态框背景
