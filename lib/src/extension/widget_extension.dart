@@ -7,30 +7,25 @@ import 'package:flutter/services.dart';
 import 'package:fl_extended/fl_extended.dart';
 
 extension ExtensionWidgetMethod on Widget {
-  /// [push] or [pushReplacement]
-  Future<T?> push<T extends Object?, TO extends Object?>(
-      {bool maintainState = true,
-      bool fullscreenDialog = false,
-      RoutePushStyle? pushStyle,
-      RouteSettings? settings,
-      bool replacement = false,
-      TO? result}) {
+  /// [push]
+  Future<T?> push<T extends Object?>({
+    bool maintainState = true,
+    bool fullscreenDialog = false,
+    RoutePushStyle? pushStyle,
+    RouteSettings? settings,
+    bool allowSnapshotting = true,
+    bool barrierDismissible = false,
+  }) {
     assert(FlExtended().navigatorKey.currentState != null,
         'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    if (replacement) {
-      return pushReplacement(
-          settings: settings,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          pushStyle: pushStyle,
-          result: result);
-    } else {
-      return FlExtended().navigatorKey.currentState!.push(buildPageRoute(
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          settings: settings,
-          pushStyle: pushStyle));
-    }
+    return FlExtended().navigatorKey.currentState!.push<T>(buildPageRoute(
+        pageRoute: PageRouteOptions(
+            allowSnapshotting: allowSnapshotting,
+            barrierDismissible: barrierDismissible,
+            maintainState: maintainState,
+            fullscreenDialog: fullscreenDialog,
+            settings: settings),
+        pushStyle: pushStyle));
   }
 
   /// [pushReplacement]
@@ -39,32 +34,43 @@ extension ExtensionWidgetMethod on Widget {
       bool fullscreenDialog = false,
       RoutePushStyle? pushStyle,
       RouteSettings? settings,
+      bool allowSnapshotting = true,
+      bool barrierDismissible = false,
       TO? result}) {
     assert(FlExtended().navigatorKey.currentState != null,
         'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended().navigatorKey.currentState!.pushReplacement(
+    return FlExtended().navigatorKey.currentState!.pushReplacement<T, TO>(
         buildPageRoute(
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
+            pageRoute: PageRouteOptions(
+                allowSnapshotting: allowSnapshotting,
+                barrierDismissible: barrierDismissible,
+                maintainState: maintainState,
+                fullscreenDialog: fullscreenDialog,
+                settings: settings),
             pushStyle: pushStyle),
         result: result);
   }
 
   /// [pushAndRemoveUntil]
-  Future<T?> pushAndRemoveUntil<T extends Object?>(
-      {bool maintainState = true,
-      bool fullscreenDialog = false,
-      RoutePushStyle? pushStyle,
-      RouteSettings? settings,
-      RoutePredicate? predicate}) {
+  Future<T?> pushAndRemoveUntil<T extends Object?>({
+    RoutePushStyle? pushStyle,
+    bool maintainState = true,
+    bool fullscreenDialog = false,
+    RouteSettings? settings,
+    RoutePredicate? predicate,
+    bool allowSnapshotting = true,
+    bool barrierDismissible = false,
+  }) {
     assert(FlExtended().navigatorKey.currentState != null,
         'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended().navigatorKey.currentState!.pushAndRemoveUntil(
+    return FlExtended().navigatorKey.currentState!.pushAndRemoveUntil<T>(
         buildPageRoute(
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
+            pageRoute: PageRouteOptions(
+                allowSnapshotting: allowSnapshotting,
+                barrierDismissible: barrierDismissible,
+                maintainState: maintainState,
+                fullscreenDialog: fullscreenDialog,
+                settings: settings),
             pushStyle: pushStyle),
         predicate ?? (_) => false);
   }
@@ -113,7 +119,7 @@ extension ExtensionWidgetMethod on Widget {
           };
     }
     assert(FlExtended().navigatorKey.currentContext != null);
-    return showGeneralDialog(
+    return showGeneralDialog<T>(
         context: FlExtended().navigatorKey.currentContext!,
         pageBuilder: builder ?? (_, Animation<double> animation, __) => this,
         barrierDismissible: options.barrierDismissible,
@@ -133,7 +139,7 @@ extension ExtensionWidgetMethod on Widget {
   }) {
     options = FlExtended().dialogOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
-    return showCupertinoDialog(
+    return showCupertinoDialog<T>(
         context: FlExtended().navigatorKey.currentContext!,
         builder: builder ?? toWidgetBuilder,
         barrierLabel: options.barrierLabel,
@@ -144,13 +150,11 @@ extension ExtensionWidgetMethod on Widget {
   }
 
   /// Material 风格的 Dialog [showDialog]
-  Future<T?> popupMaterialDialog<T>({
-    WidgetBuilder? builder,
-    DialogOptions? options,
-  }) {
+  Future<T?> popupMaterialDialog<T>(
+      {WidgetBuilder? builder, DialogOptions? options}) {
     options = FlExtended().dialogOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
-    return showDialog(
+    return showDialog<T>(
         context: FlExtended().navigatorKey.currentContext!,
         builder: builder ?? toWidgetBuilder,
         barrierColor: options.barrierColor,
@@ -168,7 +172,7 @@ extension ExtensionWidgetMethod on Widget {
       {WidgetBuilder? builder, BottomSheetOptions? options}) {
     options = FlExtended().bottomSheetOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
-    return showModalBottomSheet(
+    return showModalBottomSheet<T>(
         context: FlExtended().navigatorKey.currentContext!,
         builder: builder ?? toWidgetBuilder,
         backgroundColor: options.backgroundColor,
@@ -185,15 +189,12 @@ extension ExtensionWidgetMethod on Widget {
         enableDrag: options.enableDrag);
   }
 
-  /// [showCupertinoModalPopup]
-  /// 全屏显示
-  Future<T?> popupCupertinoModal<T>({
-    WidgetBuilder? builder,
-    CupertinoModalPopupOptions? options,
-  }) {
+  /// 全屏显示 [showCupertinoModalPopup]
+  Future<T?> popupCupertinoModal<T>(
+      {WidgetBuilder? builder, CupertinoModalPopupOptions? options}) {
     options = FlExtended().cupertinoModalPopupOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
-    return showCupertinoModalPopup(
+    return showCupertinoModalPopup<T>(
         context: FlExtended().navigatorKey.currentContext!,
         builder: builder ?? toWidgetBuilder,
         filter: options.filter,
@@ -222,17 +223,10 @@ extension ExtensionWidget on Widget {
       this;
 
   PageRoute<T> buildPageRoute<T>(
-          {bool maintainState = true,
-          bool fullscreenDialog = false,
-          String? title,
-          RoutePushStyle? pushStyle,
-          RouteSettings? settings}) =>
-      (pushStyle ?? FlExtended().pushStyle).pageRoute(
-          title: title,
-          settings: settings,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          widget: this);
+          {PageRouteOptions pageRoute = const PageRouteOptions(),
+          RoutePushStyle? pushStyle}) =>
+      (pushStyle ?? FlExtended().pushStyle)
+          .pageRoute<T>(pageRoute.copyWith(widget: this));
 
   BackdropFilter backdropFilter(
           {Key? key, ImageFilter? filter, double fuzzyDegree = 4}) =>

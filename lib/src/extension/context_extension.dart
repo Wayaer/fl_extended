@@ -10,29 +10,30 @@ extension ExtensionNavigatorStateContext on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   /// [push]
-  Future<T?> push<T extends Object?>(Route<T> route) => navigator.push(route);
+  Future<T?> push<T extends Object?>(Route<T> route) =>
+      navigator.push<T>(route);
 
   /// [pushNamed]
   Future<T?> pushNamed<T extends Object?>(String routeName,
           {Object? arguments}) =>
-      navigator.pushNamed(routeName, arguments: arguments);
+      navigator.pushNamed<T>(routeName, arguments: arguments);
 
   /// [restorablePush]
   String restorablePush<T extends Object?>(
           RestorableRouteBuilder<T> routeBuilder,
           {Object? arguments}) =>
-      navigator.restorablePush(routeBuilder, arguments: arguments);
+      navigator.restorablePush<T>(routeBuilder, arguments: arguments);
 
   /// [restorablePushNamed]
   String restorablePushNamed<T extends Object?>(String routeName,
           {Object? arguments}) =>
-      navigator.restorablePushNamed(routeName, arguments: arguments);
+      navigator.restorablePushNamed<T>(routeName, arguments: arguments);
 
   /// [pushReplacement]
   Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
           Route<T> newRoute,
           {TO? result}) =>
-      navigator.pushReplacement(newRoute, result: result);
+      navigator.pushReplacement<T, TO>(newRoute, result: result);
 
   /// [pushReplacementNamed]
   Future<T?> pushReplacementNamed<T extends Object?, TO extends Object?>(
@@ -47,7 +48,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
           RestorableRouteBuilder<T> routeBuilder,
           {TO? result,
           Object? arguments}) =>
-      navigator.restorablePushReplacement(routeBuilder,
+      navigator.restorablePushReplacement<T, TO>(routeBuilder,
           result: result, arguments: arguments);
 
   /// [restorablePushReplacementNamed]
@@ -55,24 +56,24 @@ extension ExtensionNavigatorStateContext on BuildContext {
           String routeName,
           {TO? result,
           Object? arguments}) =>
-      navigator.restorablePushReplacementNamed(routeName,
+      navigator.restorablePushReplacementNamed<T, TO>(routeName,
           result: result, arguments: arguments);
 
   /// [pushAndRemoveUntil]
   Future<T?> pushAndRemoveUntil<T extends Object?>(
           Route<T> newRoute, RoutePredicate predicate) =>
-      navigator.pushAndRemoveUntil(newRoute, predicate);
+      navigator.pushAndRemoveUntil<T>(newRoute, predicate);
 
   /// [pushNamedAndRemoveUntil]
   Future<T?> pushNamedAndRemoveUntil<T extends Object?>(
           String newRouteName, RoutePredicate predicate, {Object? arguments}) =>
-      navigator.pushNamedAndRemoveUntil(newRouteName, predicate,
+      navigator.pushNamedAndRemoveUntil<T>(newRouteName, predicate,
           arguments: arguments);
 
   /// [restorablePushNamedAndRemoveUntil]
   String restorablePushNamedAndRemoveUntil<T extends Object?>(
           String newRouteName, RoutePredicate predicate, {Object? arguments}) =>
-      navigator.restorablePushNamedAndRemoveUntil(newRouteName, predicate,
+      navigator.restorablePushNamedAndRemoveUntil<T>(newRouteName, predicate,
           arguments: arguments);
 
   /// [popAndPushNamed]
@@ -80,7 +81,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
           String routeName,
           {TO? result,
           Object? arguments}) =>
-      navigator.popAndPushNamed(routeName,
+      navigator.popAndPushNamed<T, TO>(routeName,
           result: result, arguments: arguments);
 
   /// [restorablePopAndPushNamed]
@@ -88,7 +89,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
           String routeName,
           {TO? result,
           Object? arguments}) =>
-      navigator.restorablePopAndPushNamed(routeName,
+      navigator.restorablePopAndPushNamed<T, TO>(routeName,
           result: result, arguments: arguments);
 
   /// [restorableReplace]
@@ -96,7 +97,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
           {required Route<dynamic> oldRoute,
           required RestorableRouteBuilder<T> newRouteBuilder,
           Object? arguments}) =>
-      navigator.restorableReplace(
+      navigator.restorableReplace<T>(
           oldRoute: oldRoute,
           newRouteBuilder: newRouteBuilder,
           arguments: arguments);
@@ -106,16 +107,17 @@ extension ExtensionNavigatorStateContext on BuildContext {
           {required Route<dynamic> anchorRoute,
           required RestorableRouteBuilder<T> newRouteBuilder,
           Object? arguments}) =>
-      navigator.restorableReplaceRouteBelow(
+      navigator.restorableReplaceRouteBelow<T>(
           anchorRoute: anchorRoute,
           newRouteBuilder: newRouteBuilder,
           arguments: arguments);
 
   /// [pop]
-  void pop<T extends Object?>([T? result]) => navigator.pop(result);
+  void pop<T extends Object?>([T? result]) => navigator.pop<T>(result);
 
   /// [maybePop]
-  Future<bool> maybePop<T extends Object?>([T? result]) => navigator.maybePop();
+  Future<bool> maybePop<T extends Object?>([T? result]) =>
+      navigator.maybePop<T>();
 
   /// [popUntil]
   void popUntil(RoutePredicate predicate) => navigator.popUntil(predicate);

@@ -26,6 +26,74 @@ class ExtendedPopScope extends PopScope {
         });
 }
 
+/// page route
+class PageRouteOptions {
+  const PageRouteOptions({
+    this.maintainState = true,
+    this.fullscreenDialog = false,
+    this.title,
+    this.settings,
+    this.allowSnapshotting = true,
+    this.barrierDismissible = false,
+    this.builder,
+    this.widget,
+  });
+
+  /// maintainState
+  final bool maintainState;
+
+  /// fullscreenDialog
+  final bool fullscreenDialog;
+
+  /// title
+  final String? title;
+
+  /// settings
+  final RouteSettings? settings;
+
+  /// allowSnapshotting
+  final bool allowSnapshotting;
+
+  /// barrierDismissible
+  final bool barrierDismissible;
+
+  /// builder
+  final WidgetBuilder? builder;
+
+  /// widget
+  final Widget? widget;
+
+  PageRouteOptions copyWith({
+    bool? maintainState,
+    bool? fullscreenDialog,
+    String? title,
+    RouteSettings? settings,
+    bool? allowSnapshotting,
+    bool? barrierDismissible,
+    WidgetBuilder? builder,
+    Widget? widget,
+  }) =>
+      PageRouteOptions(
+          maintainState: maintainState ?? this.maintainState,
+          fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
+          title: title ?? this.title,
+          settings: settings ?? this.settings,
+          allowSnapshotting: allowSnapshotting ?? this.allowSnapshotting,
+          barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+          builder: builder ?? this.builder,
+          widget: widget ?? this.widget);
+
+  PageRouteOptions merge([PageRouteOptions? options]) => copyWith(
+      maintainState: options?.maintainState,
+      fullscreenDialog: options?.fullscreenDialog,
+      title: options?.title,
+      settings: options?.settings,
+      allowSnapshotting: options?.allowSnapshotting,
+      barrierDismissible: options?.barrierDismissible,
+      builder: options?.builder,
+      widget: options?.widget);
+}
+
 enum RoutePushStyle {
   /// Cupertino风格
   cupertino,
@@ -35,28 +103,26 @@ enum RoutePushStyle {
   ;
 
   /// Builds the primary contents of the route.
-  PageRoute<T> pageRoute<T>(
-      {WidgetBuilder? builder,
-      Widget? widget,
-      bool maintainState = true,
-      bool fullscreenDialog = false,
-      String? title,
-      RouteSettings? settings}) {
-    assert(widget != null || builder != null);
+  PageRoute<T> pageRoute<T>(PageRouteOptions pageRoute) {
+    assert(pageRoute.widget != null || pageRoute.builder != null);
     switch (this) {
       case RoutePushStyle.cupertino:
         return CupertinoPageRoute<T>(
-            title: title,
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            builder: builder ?? widget!.toWidgetBuilder);
+            title: pageRoute.title,
+            settings: pageRoute.settings,
+            maintainState: pageRoute.maintainState,
+            fullscreenDialog: pageRoute.fullscreenDialog,
+            barrierDismissible: pageRoute.barrierDismissible,
+            allowSnapshotting: pageRoute.allowSnapshotting,
+            builder: pageRoute.builder ?? pageRoute.widget!.toWidgetBuilder);
       case RoutePushStyle.material:
         return MaterialPageRoute<T>(
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            builder: builder ?? widget!.toWidgetBuilder);
+            settings: pageRoute.settings,
+            maintainState: pageRoute.maintainState,
+            fullscreenDialog: pageRoute.fullscreenDialog,
+            barrierDismissible: pageRoute.barrierDismissible,
+            allowSnapshotting: pageRoute.allowSnapshotting,
+            builder: pageRoute.builder ?? pageRoute.widget!.toWidgetBuilder);
     }
   }
 }
@@ -67,15 +133,16 @@ Future<T?> push<T extends Object?, TO extends Object?>(Widget widget,
         bool fullscreenDialog = false,
         RoutePushStyle? pushStyle,
         RouteSettings? settings,
-        bool replacement = false,
+        bool allowSnapshotting = true,
+        bool barrierDismissible = false,
         TO? result}) =>
-    widget.push(
+    widget.push<T>(
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,
         pushStyle: pushStyle ?? FlExtended().pushStyle,
-        result: result,
-        replacement: replacement);
+        allowSnapshotting: allowSnapshotting,
+        barrierDismissible: barrierDismissible);
 
 /// 打开新页面替换当前页面
 Future<T?> pushReplacement<T extends Object?, TO extends Object?>(Widget widget,
@@ -84,7 +151,7 @@ Future<T?> pushReplacement<T extends Object?, TO extends Object?>(Widget widget,
         RoutePushStyle? pushStyle,
         RouteSettings? settings,
         TO? result}) =>
-    widget.pushReplacement(
+    widget.pushReplacement<T, TO>(
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,
@@ -160,7 +227,7 @@ Future<T?> showMenuPopup<T>({
   bool useRootNavigator = false,
 }) {
   assert(FlExtended().navigatorKey.currentContext != null);
-  return showMenu(
+  return showMenu<T>(
       context: FlExtended().navigatorKey.currentContext!,
       position: position,
       useRootNavigator: useRootNavigator,

@@ -1,3 +1,8 @@
+## 0.3.2
+
+* Improved generics for popup and route related methods
+* Modified `pageRoute` method parameter for enumeration `RoutePushStyle`
+
 ## 0.3.1
 
 * Add `ExtendedListenableBuilder()`
