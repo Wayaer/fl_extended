@@ -177,6 +177,7 @@ class BText extends StatelessWidget {
     this.selectionColor,
     this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
+    this.fontVariations,
   })  : assert(color == null || foreground == null, _kColorForegroundWarning),
         assert(backgroundColor == null || background == null,
             _kColorBackgroundWarning),
@@ -229,6 +230,7 @@ class BText extends StatelessWidget {
     this.selectionColor,
     this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
+    this.fontVariations,
   })  : isRich = true,
         text = '',
         recognizer = null,
@@ -295,6 +297,8 @@ class BText extends StatelessWidget {
   /// 字体的粗细程度 FontWeight.w100 -- FontWeight.w900 . 默认是FontWeight.w400，
   final FontWeight? fontWeight;
   final List<String>? fontFamilyFallback;
+  final List<FontVariation>? fontVariations;
+
   final String? package;
 
   /// [FontStyle.normal]正常 [FontStyle.italic]斜体
@@ -374,6 +378,7 @@ class BText extends StatelessWidget {
             fontStyle: fontStyle,
             fontFamily: fontFamily,
             fontFamilyFallback: fontFamilyFallback,
+            fontVariations: fontVariations,
             letterSpacing: letterSpacing,
             wordSpacing: wordSpacing,
             textBaseline: textBaseline,
