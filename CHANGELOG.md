@@ -1,8 +1,8 @@
-## 0.3.0
+## 0.3.1
 
 * Add `ExtendedListenableBuilder()`
 * Change some `initialData` and `initialValue` to initial
-* `BText` adds `fontVariations`
+* `BText` adds `fontVariations`、`useStyleFirst`
 
 ## 0.2.0
 
