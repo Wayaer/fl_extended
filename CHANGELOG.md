@@ -1,4 +1,4 @@
-## 0.2.1
+## 0.3.0
 
 * Add `ExtendedListenableBuilder()`
 * Change some `initialData` and `initialValue` to initial
