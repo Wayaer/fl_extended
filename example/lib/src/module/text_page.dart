@@ -45,5 +45,10 @@ class TextPage extends StatelessWidget {
             const Partition('BText set style color'),
             const BText('BText',
                 color: Colors.red, style: TextStyle(color: Colors.blue)),
+            const Partition('BText set style color useStyleFirst=false'),
+            const BText('BText',
+                useStyleFirst: false,
+                color: Colors.red,
+                style: TextStyle(color: Colors.blue)),
           ]);
 }

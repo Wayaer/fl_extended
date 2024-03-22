@@ -178,6 +178,7 @@ class BText extends StatelessWidget {
     this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
     this.fontVariations,
+    this.useStyleFirst = true,
   })  : assert(color == null || foreground == null, _kColorForegroundWarning),
         assert(backgroundColor == null || background == null,
             _kColorBackgroundWarning),
@@ -231,6 +232,7 @@ class BText extends StatelessWidget {
     this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
     this.fontVariations,
+    this.useStyleFirst = true,
   })  : isRich = true,
         text = '',
         recognizer = null,
@@ -364,36 +366,44 @@ class BText extends StatelessWidget {
 
   final TextLeadingDistribution? leadingDistribution;
 
+  /// 当 [color]和[style]中都有值
+  /// [useStyleFirst]=true 优先使用style,
+  /// [useStyleFirst]=false 优先使用外层,
+  final bool useStyleFirst;
+
   @override
   Widget build(BuildContext context) {
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveTextStyle = BTextStyle(
-            inherit: inherit,
-            color: color,
-            foreground: foreground,
-            background: background,
-            backgroundColor: backgroundColor,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            fontStyle: fontStyle,
-            fontFamily: fontFamily,
-            fontFamilyFallback: fontFamilyFallback,
-            fontVariations: fontVariations,
-            letterSpacing: letterSpacing,
-            wordSpacing: wordSpacing,
-            textBaseline: textBaseline,
-            height: height,
-            locale: locale,
-            shadows: shadows,
-            fontFeatures: fontFeatures,
-            decoration: decoration,
-            decorationColor: decorationColor,
-            decorationStyle: decorationStyle,
-            decorationThickness: decorationThickness,
-            debugLabel: debugLabel,
-            leadingDistribution: leadingDistribution,
-            package: package)
-        .merge(style);
+
+    final outerStyle = BTextStyle(
+        inherit: inherit,
+        color: color,
+        foreground: foreground,
+        background: background,
+        backgroundColor: backgroundColor,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle,
+        fontFamily: fontFamily,
+        fontFamilyFallback: fontFamilyFallback,
+        fontVariations: fontVariations,
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+        textBaseline: textBaseline,
+        height: height,
+        locale: locale,
+        shadows: shadows,
+        fontFeatures: fontFeatures,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        decorationThickness: decorationThickness,
+        debugLabel: debugLabel,
+        leadingDistribution: leadingDistribution,
+        package: package);
+    TextStyle effectiveTextStyle = useStyleFirst
+        ? outerStyle.merge(style)
+        : (style ?? const TextStyle()).merge(outerStyle);
     if (inherit && (style?.inherit ?? true)) {
       effectiveTextStyle = defaultTextStyle.style.merge(effectiveTextStyle);
     }
