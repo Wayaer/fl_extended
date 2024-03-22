@@ -142,25 +142,23 @@ class WheelOptions {
           scrollBehavior: scrollBehavior ?? this.scrollBehavior,
           restorationId: restorationId ?? this.restorationId);
 
-  WheelOptions merge([WheelOptions? options]) => WheelOptions.custom(
-      itemExtent: options?.itemExtent ?? itemExtent,
-      diameterRatio: options?.diameterRatio ?? diameterRatio,
-      offAxisFraction: options?.offAxisFraction ?? offAxisFraction,
-      perspective: options?.perspective ?? perspective,
-      magnification: options?.magnification ?? magnification,
-      useMagnifier: options?.useMagnifier ?? useMagnifier,
-      squeeze: options?.squeeze ?? squeeze,
-      physics: options?.physics ?? physics,
-      selectionOverlay: options?.selectionOverlay ?? selectionOverlay,
-      backgroundColor: options?.backgroundColor ?? backgroundColor,
-      isCupertino: options?.isCupertino ?? isCupertino,
-      clipBehavior: options?.clipBehavior ?? clipBehavior,
-      overAndUnderCenterOpacity:
-          options?.overAndUnderCenterOpacity ?? overAndUnderCenterOpacity,
-      renderChildrenOutsideViewport: options?.renderChildrenOutsideViewport ??
-          renderChildrenOutsideViewport,
-      scrollBehavior: options?.scrollBehavior ?? scrollBehavior,
-      restorationId: options?.restorationId ?? restorationId);
+  WheelOptions merge([WheelOptions? options]) => copyWith(
+      itemExtent: options?.itemExtent,
+      diameterRatio: options?.diameterRatio,
+      offAxisFraction: options?.offAxisFraction,
+      perspective: options?.perspective,
+      magnification: options?.magnification,
+      useMagnifier: options?.useMagnifier,
+      squeeze: options?.squeeze,
+      physics: options?.physics,
+      selectionOverlay: options?.selectionOverlay,
+      backgroundColor: options?.backgroundColor,
+      isCupertino: options?.isCupertino,
+      clipBehavior: options?.clipBehavior,
+      overAndUnderCenterOpacity: options?.overAndUnderCenterOpacity,
+      renderChildrenOutsideViewport: options?.renderChildrenOutsideViewport,
+      scrollBehavior: options?.scrollBehavior,
+      restorationId: options?.restorationId);
 }
 
 class CupertinoListWheelScrollView extends CupertinoPicker {
