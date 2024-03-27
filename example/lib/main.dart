@@ -18,6 +18,7 @@ import 'package:example/src/scaffold.dart';
 import 'package:example/src/theme.dart';
 import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,11 +51,23 @@ void main() {
   runApp(DevicePreview(
       enabled: isDesktop || isWeb,
       defaultDevice: Devices.ios.iPhone13Mini,
-      builder: (context) => const _App()));
+      builder: (context) => const _MaterialApp()));
 }
 
-class _App extends StatelessWidget {
-  const _App();
+class _MaterialAppRouter extends StatelessWidget {
+  _MaterialAppRouter();
+
+  final GoRouter _router =
+      GoRouter(navigatorKey: FlExtended().navigatorKey, routes: <RouteBase>[]);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(routerConfig: _router);
+  }
+}
+
+class _MaterialApp extends StatelessWidget {
+  const _MaterialApp();
 
   @override
   Widget build(BuildContext context) {
