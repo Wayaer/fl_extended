@@ -150,7 +150,6 @@ class LoadingOptions extends BaseModalOptions {
     this.onLoadingTap,
     this.custom,
     this.style = LoadingStyle.circular,
-    Color? modalColor,
     super.alignment = Alignment.center,
     super.gaussian = false,
     super.addMaterial = false,
@@ -160,7 +159,8 @@ class LoadingOptions extends BaseModalOptions {
     super.blendMode = BlendMode.srcOver,
     super.filter,
     super.onModalTap,
-  }) : super(color: modalColor);
+    super.backgroundColor,
+  });
 
   final Widget? custom;
 
@@ -175,7 +175,7 @@ class LoadingOptions extends BaseModalOptions {
     Widget? custom,
     LoadingStyle? style,
     GestureTapCallback? onTap,
-    Color? modalColor,
+    Color? backgroundColor,
     bool? ignoring,
     bool? absorbing,
     bool? addMaterial,
@@ -189,7 +189,7 @@ class LoadingOptions extends BaseModalOptions {
           onLoadingTap: onLoadingTap ?? this.onLoadingTap,
           custom: custom ?? this.custom,
           style: style ?? this.style,
-          modalColor: modalColor ?? color,
+          backgroundColor: backgroundColor ?? this.backgroundColor,
           ignoring: ignoring ?? this.ignoring,
           absorbing: absorbing ?? this.absorbing,
           addMaterial: addMaterial ?? this.addMaterial,
@@ -203,7 +203,7 @@ class LoadingOptions extends BaseModalOptions {
       onLoadingTap: options?.onLoadingTap,
       custom: options?.custom,
       style: options?.style,
-      modalColor: options?.color,
+      backgroundColor: options?.backgroundColor,
       ignoring: options?.ignoring,
       absorbing: options?.absorbing,
       addMaterial: options?.addMaterial,

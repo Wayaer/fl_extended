@@ -18,11 +18,12 @@ class OverlayPage extends StatelessWidget {
             const Partition('Toast'),
             Wrap(
                 alignment: WrapAlignment.center,
-                children: ToastStyle.values.builder((ToastStyle style) =>
-                    ElevatedText(style.toString(), onTap: () async {
-                      await style.show(style.toString());
-                      '添加await第一个Toast完了之后弹出第二个Toast'.showToast();
-                    }))),
+                children: ToastIconStyle.values.builder(
+                    (ToastIconStyle style) =>
+                        ElevatedText(style.toString(), onTap: () async {
+                          await showToast(style.toString(), iconStyle: style);
+                          '添加await第一个Toast完了之后弹出第二个Toast'.showToast();
+                        }))),
             Wrap(
                 alignment: WrapAlignment.center,
                 children: [
@@ -38,15 +39,8 @@ class OverlayPage extends StatelessWidget {
                 ].builder((positioned) => ElevatedText(
                         positioned.toString().split('.')[1], onTap: () async {
                       showToast(positioned.toString(),
-                          icon: Icons.ac_unit_sharp,
-                          options: ToastOptions(
-                              alignment: positioned,
-                              onToastTap: () {
-                                '点击了Toast'.log();
-                              },
-                              onModalTap: () {
-                                '点击了背景'.log();
-                              }));
+                          animationStyle: FlAnimationStyle.fade,
+                          );
                     }))),
             const Partition('Loading'),
             ElevatedText('showLoading', onTap: () {

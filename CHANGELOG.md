@@ -1,3 +1,10 @@
+## 0.4.0
+
+* Fixed `Toast` animation not working,and add `animationDuration`
+* `Toast` changes a lot. See example
+* Change `modalColor` to `backgroundColor`
+* `ModalWindowsOptions` 的 `color` 修改为 `backgroundColor`
+
 ## 0.3.2
 
 * Improved generics for popup and route related methods

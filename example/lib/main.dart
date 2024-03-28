@@ -28,7 +28,21 @@ void main() {
 
   /// 设置全局Toast配置
   flExtended.toastOptions = ToastOptions(
-      modalColor: Colors.red.withOpacity(0.3), duration: 2.seconds);
+      addMaterial: true,
+      animationStyle: FlAnimationStyle.fade,
+      onModalTap: closeToast,
+      decoration: BoxDecoration(
+          color: Colors.grey, borderRadius: BorderRadius.circular(4)),
+      builder: (String text, IconData? icon, Color? color) {
+        return Universal(
+            margin: const EdgeInsets.all(10),
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) Icon(icon, color: Colors.amber),
+              Text(text, style: const TextStyle(color: Colors.amber))
+            ]);
+      },
+      backgroundColor: Colors.red.withOpacity(0.3));
 
   /// 设置全局BottomSheet配置
   flExtended.bottomSheetOptions = const BottomSheetOptions(
@@ -44,7 +58,7 @@ void main() {
 
   /// 设置全局Loading配置
   flExtended.loadingOptions = LoadingOptions(
-      modalColor: Colors.red.withOpacity(0.3),
+      backgroundColor: Colors.red.withOpacity(0.3),
       custom: const BText('全局设置loading', fontSize: 20),
       onModalTap: closeLoading);
 

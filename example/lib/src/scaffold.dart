@@ -95,8 +95,7 @@ class ExtendedScaffold extends StatelessWidget {
                 } else {
                   _dateTime = now;
                   showToast('再次点击返回键退出',
-                      options: const ToastOptions(
-                          duration: Duration(milliseconds: 1500)));
+                      duration: const Duration(milliseconds: 1500));
                 }
               } else {
                 pop();

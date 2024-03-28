@@ -39,9 +39,46 @@ extension ExtensionT<T> on T {
   ValueNotifier<T> get notifier => ValueNotifier<T>(this);
 
   /// toast 显示
-  Future<ExtendedOverlayEntry?> showToast(
-          {ToastStyle? style, IconData? icon, ToastOptions? options}) =>
-      Toast(toString(), options: options, icon: icon, style: style).show();
+  Future<ExtendedOverlayEntry?> showToast({
+    /// icon 样式 不传 仅显示文字
+    ToastIconStyle? iconStyle,
+
+    /// 动画样式
+    FlAnimationStyle? animationStyle,
+
+    /// 动画执行时间
+    Duration? animationDuration,
+
+    /// 显示文字样式
+    TextStyle? textStyle,
+
+    /// Toast显示时间
+    Duration? duration,
+
+    /// Toast 装饰器 会替换 [backgroundColor]
+    BoxDecoration? decoration,
+
+    /// Toast onTap
+    GestureTapCallback? onToastTap,
+
+    /// 重新 build  text icon
+    ToastOptionsBuilder? builder,
+
+    /// ToastOptions
+    ToastOptions? options,
+  }) =>
+      Toast(
+        toString(),
+        builder: builder,
+        onToastTap: onToastTap,
+        decoration: decoration,
+        duration: duration,
+        animationStyle: animationStyle,
+        animationDuration: animationDuration,
+        textStyle: textStyle,
+        iconStyle: iconStyle,
+        options: options,
+      ).show();
 
   List<T> get toList => [this];
 

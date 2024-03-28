@@ -64,9 +64,8 @@ class ExtendedOverlay {
     if (_toast != null) return _toast;
     _toast = showOverlay(toast, autoOff: true);
     _toast?.addListener(_toastListener);
-    final duration =
-        toast.options?.duration ?? FlExtended().toastOptions.duration;
-    await duration.delayed<dynamic>();
+    final duration = toast.duration ?? FlExtended().toastOptions.duration;
+    await duration.delayed();
     closeToast();
     return _toast;
   }

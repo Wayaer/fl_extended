@@ -76,7 +76,7 @@ abstract class BaseModalOptions {
     this.ignoring = false,
     this.absorbing = false,
     this.fuzzyDegree = 4,
-    this.color,
+    this.backgroundColor,
     this.onModalTap,
     this.blendMode = BlendMode.srcOver,
     this.filter,
@@ -90,7 +90,7 @@ abstract class BaseModalOptions {
   final GestureTapCallback? onModalTap;
 
   /// 背景色
-  final Color? color;
+  final Color? backgroundColor;
 
   /// 是否忽略子组件点击事件响应背景点击事件 默认 false
   final bool ignoring;
@@ -134,7 +134,7 @@ class ModalWindowsOptions extends BaseModalOptions {
       super.ignoring = false,
       super.absorbing = false,
       super.fuzzyDegree = 4,
-      super.color,
+      super.backgroundColor,
       super.onModalTap,
       super.blendMode = BlendMode.srcOver,
       super.filter,
@@ -143,7 +143,7 @@ class ModalWindowsOptions extends BaseModalOptions {
 
   ModalWindowsOptions copyWith({
     GestureTapCallback? onModalTap,
-    Color? color,
+    Color? backgroundColor,
     bool? ignoring,
     bool? absorbing,
     bool? addMaterial,
@@ -161,7 +161,7 @@ class ModalWindowsOptions extends BaseModalOptions {
           rect: rect ?? this.rect,
           alignment: alignment ?? this.alignment,
           onModalTap: onModalTap ?? this.onModalTap,
-          color: color ?? this.color,
+          backgroundColor: backgroundColor ?? this.backgroundColor,
           ignoring: ignoring ?? this.ignoring,
           absorbing: absorbing ?? this.absorbing,
           addMaterial: addMaterial ?? this.addMaterial,
@@ -175,7 +175,7 @@ class ModalWindowsOptions extends BaseModalOptions {
       rect: options?.rect,
       alignment: options?.alignment,
       onModalTap: options?.onModalTap,
-      color: options?.color,
+      backgroundColor: options?.backgroundColor,
       ignoring: options?.ignoring,
       absorbing: options?.absorbing,
       addMaterial: options?.addMaterial,
@@ -226,7 +226,7 @@ class ModalWindows extends StatelessWidget {
       child: child);
 
   Widget get buildBase => Universal(
-      color: options.color,
+      color: options.backgroundColor,
       onTap: options.onModalTap,
       child: isStack ? null : child,
       isStack: isStack,
@@ -299,12 +299,9 @@ class DoubleChooseWindows extends StatelessWidget {
     return ModalWindows(
         options: options,
         child: Universal(
-            margin: const EdgeInsets.symmetric(horizontal: 30),
             constraints: constraints,
-            decoration: decoration ??
-                BoxDecoration(
-                    color:
-                        backgroundColor ?? context.theme.dialogBackgroundColor),
+            color: backgroundColor ?? context.theme.dialogBackgroundColor,
+            decoration: decoration,
             padding: padding,
             mainAxisSize: MainAxisSize.min,
             children: widgets));

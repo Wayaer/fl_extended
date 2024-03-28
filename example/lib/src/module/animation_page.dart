@@ -21,6 +21,8 @@ class _FlAnimationPageState extends State<FlAnimationPage> {
         children: [
           FlAnimation(
               delayDuration: 2.seconds,
+              stayDuration: 6.seconds,
+              animationDuration: 3.seconds,
               style: FlAnimationStyle.fade,
               onAnimate: (running) {
                 animation.addAll({'fade': running});
