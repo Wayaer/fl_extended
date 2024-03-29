@@ -1,10 +1,5 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 
 part 'loading.dart';
 
@@ -70,7 +65,7 @@ class ExtendedOverlay {
     final duration = toast.duration ??
         toast.options?.duration ??
         FlExtended().toastOptions.duration;
-    await duration!.delayed();
+    await duration.delayed();
     closeToast();
     return _toast;
   }
