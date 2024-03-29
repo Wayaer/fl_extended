@@ -256,7 +256,7 @@ extension ExtensionWidget on Widget {
   Padding padding(EdgeInsetsGeometry padding) =>
       Padding(key: key, padding: padding, child: this);
 
-  Padding margin(EdgeInsetsGeometry margin, {Key? key}) =>
+  Padding widthmargin(EdgeInsetsGeometry margin, {Key? key}) =>
       Padding(key: key, padding: margin, child: this);
 
   Widget paddingAll(double padding) =>

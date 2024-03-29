@@ -259,10 +259,12 @@ class DoubleChooseWindows extends StatelessWidget {
     this.backgroundColor,
     required this.content,
     this.padding,
+    this.margin = const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
     this.left,
     this.right,
     this.decoration,
     this.options,
+    this.constraints,
   });
 
   /// 弹框内容
@@ -273,6 +275,12 @@ class DoubleChooseWindows extends StatelessWidget {
 
   /// 弹框 padding
   final EdgeInsetsGeometry? padding;
+
+  /// 弹框 margin
+  final EdgeInsetsGeometry? margin;
+
+  /// BoxConstraints
+  final BoxConstraints? constraints;
 
   /// 左边按钮
   final Widget? left;
@@ -293,15 +301,16 @@ class DoubleChooseWindows extends StatelessWidget {
     if (left != null && right != null) widgets.add(leftAndRight);
     var options = FlExtended().modalWindowsOptions.merge(this.options);
     BoxConstraints? constraints;
-    if (context.mediaQuery.size.width > 400) {
+    if (this.constraints == null && context.mediaQuery.size.width > 400) {
       constraints = const BoxConstraints(maxWidth: 350);
     }
     return ModalWindows(
         options: options,
         child: Universal(
-            constraints: constraints,
+            constraints: constraints ?? this.constraints,
             color: backgroundColor ?? context.theme.dialogBackgroundColor,
             decoration: decoration,
+            margin: margin,
             padding: padding,
             mainAxisSize: MainAxisSize.min,
             children: widgets));

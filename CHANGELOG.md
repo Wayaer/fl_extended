@@ -1,4 +1,4 @@
-## 0.4.0
+## 0.4.1
 
 * Fixed `Toast` animation not working,and add `animationDuration`
 * `Toast` changes a lot. See example
