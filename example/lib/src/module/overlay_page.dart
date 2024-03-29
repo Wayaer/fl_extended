@@ -28,19 +28,12 @@ class OverlayPage extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 children: [
                   Alignment.topCenter,
-                  Alignment.topLeft,
-                  Alignment.topRight,
                   Alignment.bottomCenter,
-                  Alignment.bottomLeft,
-                  Alignment.bottomRight,
                   Alignment.center,
-                  Alignment.centerLeft,
-                  Alignment.centerRight,
-                ].builder((positioned) => ElevatedText(
-                        positioned.toString().split('.')[1], onTap: () async {
-                      showToast(positioned.toString(),
-                          animationStyle: FlAnimationStyle.fade,
-                          );
+                ].builder((alignment) => ElevatedText(
+                        alignment.toString().split('.')[1], onTap: () async {
+                      showToast(alignment.toString(),
+                          options: ToastOptions(alignment: alignment));
                     }))),
             const Partition('Loading'),
             ElevatedText('showLoading', onTap: () {
@@ -54,7 +47,7 @@ class OverlayPage extends StatelessWidget {
                               onLoadingTap: () {
                                 '点击了Loading'.log();
                               },
-                              gaussian: true,
+                              gaussian: 4,
                               onModalTap: closeOverlay));
                     })),
             const SizedBox(height: 60),

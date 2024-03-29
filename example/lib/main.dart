@@ -27,22 +27,30 @@ void main() {
   flExtended.pushStyle = RoutePushStyle.material;
 
   /// 设置全局Toast配置
-  flExtended.toastOptions = ToastOptions(
-      addMaterial: true,
-      animationStyle: FlAnimationStyle.fade,
-      onModalTap: closeToast,
-      decoration: BoxDecoration(
-          color: Colors.grey, borderRadius: BorderRadius.circular(4)),
-      builder: (String text, IconData? icon, Color? color) {
-        return Universal(
-            margin: const EdgeInsets.all(10),
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null) Icon(icon, color: Colors.amber),
-              Text(text, style: const TextStyle(color: Colors.amber))
-            ]);
+  flExtended.toastOptions = ToastOptions.extended(
+      animationStyle: FlAnimationStyle.verticalHunting,
+      textStyle: const TextStyle(color: Colors.white),
+      onModalTap: () {
+        log('onModalTap');
       },
-      backgroundColor: Colors.red.withOpacity(0.3));
+      onToastTap: () {
+        log('onToastTap');
+      },
+      foregroundColor: Colors.grey,
+      backgroundColor: Colors.red.withOpacity(0.3),
+      constraints: const BoxConstraints(maxWidth: 250),
+      builder: (BuildContext context, ToastContent content) {
+        return Universal(
+            mainAxisSize: MainAxisSize.min,
+            padding: content.padding,
+            children: [
+              if (content.iconStyle != null)
+                Icon(content.iconStyle!.icon, color: Colors.amber),
+              Text(content.text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.amber))
+            ]);
+      });
 
   /// 设置全局BottomSheet配置
   flExtended.bottomSheetOptions = const BottomSheetOptions(
@@ -59,8 +67,26 @@ void main() {
   /// 设置全局Loading配置
   flExtended.loadingOptions = LoadingOptions(
       backgroundColor: Colors.red.withOpacity(0.3),
-      custom: const BText('全局设置loading', fontSize: 20),
-      onModalTap: closeLoading);
+      foregroundColor: Colors.black,
+      padding: const EdgeInsets.all(10),
+      builder: (_, LoadingContent content) {
+        if (content.style != null) return null;
+        return const Padding(
+            padding: EdgeInsets.all(10),
+            child: BText('全局设置loading', fontSize: 20));
+      },
+      onLoadingTap: () {
+        log('onLoadingTap');
+        closeLoading();
+      },
+      constraints: const BoxConstraints(maxWidth: 250),
+      borderRadius: BorderRadius.circular(10),
+      decoration: BoxDecoration(
+          color: Colors.yellow, borderRadius: BorderRadius.circular(30)),
+      onModalTap: () {
+        log('onModalTap');
+        closeLoading();
+      });
 
   runApp(DevicePreview(
       enabled: isDesktop || isWeb,

@@ -48,7 +48,7 @@ class PopupPage extends StatelessWidget {
 
   void doubleChooseWindows(BuildContext context) {
     DoubleChooseWindows(
-            options: const ModalWindowsOptions(),
+            options: const ModalBoxOptions(),
             decoration: BoxDecoration(
                 color: context.theme.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(10)),

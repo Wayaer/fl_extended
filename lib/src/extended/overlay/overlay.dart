@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 part 'loading.dart';
 
@@ -64,8 +67,10 @@ class ExtendedOverlay {
     if (_toast != null) return _toast;
     _toast = showOverlay(toast, autoOff: true);
     _toast?.addListener(_toastListener);
-    final duration = toast.duration ?? FlExtended().toastOptions.duration;
-    await duration.delayed();
+    final duration = toast.duration ??
+        toast.options?.duration ??
+        FlExtended().toastOptions.duration;
+    await duration!.delayed();
     closeToast();
     return _toast;
   }

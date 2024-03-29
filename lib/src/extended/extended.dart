@@ -49,19 +49,18 @@ class FlExtended {
   /// Set the global route push style
   RoutePushStyle pushStyle = RoutePushStyle.cupertino;
 
-  /// 设置全局 ModalWindowsOptions 配置
-  /// Set the global [ModalWindowsOptions] 配置
-  ModalWindowsOptions modalWindowsOptions =
-      const ModalWindowsOptions(alignment: Alignment.center);
+  /// 设置全局 ModalBoxOptions 配置
+  /// Set the global [ModalBoxOptions] 配置
+  ModalBoxOptions modalOptions = const ModalBoxOptions();
 
   /// 设置全局 [LoadingOptions] 配置
   /// Set the global [LoadingOptions] configuration
   LoadingOptions loadingOptions =
-      const LoadingOptions(alignment: Alignment.center);
+      const LoadingOptions(style: LoadingStyle.circular);
 
   /// 设置全局 [ToastOptions] 配置
   /// Set the global [ToastOptions] configuration
-  ToastOptions toastOptions = const ToastOptions(alignment: Alignment.center);
+  ToastOptions toastOptions = const ToastOptions.extended();
 
   /// 设置全局 [BottomSheet] 配置
   /// Set the global [BottomSheet] configuration

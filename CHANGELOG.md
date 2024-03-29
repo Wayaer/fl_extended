@@ -1,4 +1,12 @@
-## 0.4.1
+## 0.5.0
+
+* `ModalWindowsOptions` Name changed to `ModalBoxOptions`
+* `ModalWindows` Name changed to `ModalBox`
+* `ModalBoxOptions` removes `addMaterial`, `filter` ,`rect`
+* `Toast` and `Loading` are also optimized and adjusted,Global configuration is now perfectly
+  supported, and single custom configuration is supported
+
+## 0.4.2
 
 * Fixed `Toast` animation not working,and add `animationDuration`
 * `Toast` changes a lot. See example

@@ -61,8 +61,8 @@ extension ExtensionT<T> on T {
     /// Toast onTap
     GestureTapCallback? onToastTap,
 
-    /// 重新 build  text icon
-    ToastOptionsBuilder? builder,
+    /// builder
+    ToastBuilder? builder,
 
     /// ToastOptions
     ToastOptions? options,

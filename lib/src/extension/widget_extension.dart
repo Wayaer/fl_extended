@@ -79,10 +79,6 @@ extension ExtensionWidgetMethod on Widget {
   ExtendedOverlayEntry? showOverlay({bool autoOff = false}) =>
       ExtendedOverlay().showOverlay(this, autoOff: autoOff);
 
-  /// [ExtendedOverlay().showLoading(this)]
-  ExtendedOverlayEntry? showLoading({LoadingOptions? options}) =>
-      Loading(custom: this, options: options).show();
-
   /// [showGeneralDialog]
   Future<T?> popupDialog<T>({
     /// 这个参数是一个方法,入参是 context,animation,secondaryAnimation,返回一个 Widget
@@ -211,6 +207,10 @@ extension ExtensionWidget on Widget {
   Widget get toSliverBox => SliverToBoxAdapter(child: this);
 
   WidgetBuilder get toWidgetBuilder => (_) => this;
+
+  LoadingBuilder get toLoadingBuilder => (_, __) => this;
+
+  ToastBuilder get toToastBuilder => (_, __) => this;
 
   RoutePageBuilder get toRoutePageBuilder =>
       (_, Animation<double> animation, Animation<double> secondaryAnimation) =>

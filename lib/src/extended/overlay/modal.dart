@@ -3,88 +3,34 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-class ModelRect {
-  const ModelRect(
-      {this.left, this.top, this.right, this.bottom, this.width, this.height});
-
-  /// left
-  final double? left;
-
-  /// top
-  final double? top;
-
-  /// right
-  final double? right;
-
-  /// bottom
-  final double? bottom;
-
-  /// width
-  final double? width;
-
-  /// height
-  final double? height;
-
-  ModelRect.fromRect(Rect rect)
-      : left = rect.left,
-        top = rect.top,
-        width = rect.width,
-        height = rect.height,
-        right = null,
-        bottom = null;
-
-  const ModelRect.fill({
-    this.left = 0.0,
-    this.top = 0.0,
-    this.right = 0.0,
-    this.bottom = 0.0,
-  })  : width = null,
-        height = null;
-
-  ModelRect copyWith(
-          {double? left,
-          double? top,
-          double? right,
-          double? bottom,
-          double? width,
-          double? height}) =>
-      ModelRect(
-          left: left ?? this.left,
-          top: top ?? this.top,
-          right: right ?? this.right,
-          bottom: bottom ?? this.bottom,
-          width: width ?? this.width,
-          height: height ?? this.height);
-
-  ModelRect marge([ModelRect? rect]) => ModelRect(
-      left: rect?.left ?? left,
-      top: rect?.top ?? top,
-      right: rect?.right ?? right,
-      bottom: rect?.bottom ?? bottom,
-      width: rect?.width ?? width,
-      height: rect?.height ?? height);
-
-  @override
-  String toString() =>
-      'ModelRect(${left?.toStringAsFixed(1)}, ${top?.toStringAsFixed(1)}, ${right?.toStringAsFixed(1)}, ${bottom?.toStringAsFixed(1)})';
-}
-
-abstract class BaseModalOptions {
-  const BaseModalOptions({
-    this.gaussian = false,
-    this.addMaterial = false,
-    this.ignoring = false,
-    this.absorbing = false,
-    this.fuzzyDegree = 4,
+abstract class ModalOptions {
+  const ModalOptions({
+    this.gaussian = 0,
+    this.ignoring,
+    this.absorbing,
     this.backgroundColor,
+    this.foregroundColor,
     this.onModalTap,
-    this.blendMode = BlendMode.srcOver,
-    this.filter,
-    this.rect,
     this.alignment,
-    this.onPopInvoked,
-    this.canPop = true,
+    this.type,
+    this.elevation,
+    this.shadowColor,
+    this.textStyle,
+    this.borderRadius,
+    this.shape,
+    this.borderOnForeground,
+    this.animationDuration,
   });
+
+  /// [Material] 属性
+  final TextStyle? textStyle;
+  final BorderRadiusGeometry? borderRadius;
+  final MaterialType? type;
+  final double? elevation;
+  final Color? shadowColor;
+  final ShapeBorder? shape;
+  final bool? borderOnForeground;
+  final Duration? animationDuration;
 
   /// [Modal]背景点击事件
   final GestureTapCallback? onModalTap;
@@ -92,159 +38,137 @@ abstract class BaseModalOptions {
   /// 背景色
   final Color? backgroundColor;
 
+  /// 前景色
+  final Color? foregroundColor;
+
   /// 是否忽略子组件点击事件响应背景点击事件 默认 false
-  final bool ignoring;
+  final bool? ignoring;
 
   /// 是否吸收子组件的点击事件且不响应背景点击事件 默认 false
   /// [onTap] != null 时  无效
-  final bool absorbing;
+  final bool? absorbing;
 
-  /// 是否添加Material Widget 部分组件需要基于Material
-  final bool addMaterial;
+  final double gaussian;
 
-  /// [filter]!=null 时 [fuzzyDegree] 无效
-  /// [gaussian] 必须为 true
-  final ImageFilter? filter;
-
-  /// 是否开始背景模糊
-  final bool gaussian;
-
-  /// 模糊程度 0-100
-  /// [gaussian] 必须为 true
-  final double fuzzyDegree;
-  final BlendMode blendMode;
-
-  /// modal上的组件区域 [rect] > [alignment]
-  final ModelRect? rect;
-
-  /// modal上的组件对齐方式 [rect] > [alignment]
+  /// modal上的组件对齐方式 [alignment]
   final AlignmentGeometry? alignment;
-
-  /// 返回处理
-  final PopInvokedCallback? onPopInvoked;
-  final bool canPop;
 }
 
-class ModalWindowsOptions extends BaseModalOptions {
-  const ModalWindowsOptions(
-      {super.rect,
-      super.alignment,
-      super.gaussian = false,
-      super.addMaterial = false,
-      super.ignoring = false,
-      super.absorbing = false,
-      super.fuzzyDegree = 4,
-      super.backgroundColor,
-      super.onModalTap,
-      super.blendMode = BlendMode.srcOver,
-      super.filter,
-      super.canPop,
-      super.onPopInvoked});
+class ModalBoxOptions extends ModalOptions {
+  const ModalBoxOptions({
+    super.alignment,
+    super.gaussian,
+    super.ignoring,
+    super.absorbing,
+    super.backgroundColor,
+    super.onModalTap,
+    super.type,
+    super.elevation,
+    super.shadowColor,
+    super.textStyle,
+    super.borderRadius,
+    super.shape,
+    super.borderOnForeground,
+    super.animationDuration,
+  });
 
-  ModalWindowsOptions copyWith({
+  ModalBoxOptions copyWith({
     GestureTapCallback? onModalTap,
     Color? backgroundColor,
     bool? ignoring,
     bool? absorbing,
-    bool? addMaterial,
-    ImageFilter? filter,
-    bool? gaussian,
-    double? fuzzyDegree,
-    ModelRect? rect,
+    double? gaussian,
     AlignmentGeometry? alignment,
-    PopInvokedCallback? onPopInvoked,
-    bool? canPop,
+    TextStyle? textStyle,
+    BorderRadiusGeometry? borderRadius,
+    MaterialType? type,
+    double? elevation,
+    Color? shadowColor,
+    ShapeBorder? shape,
+    bool? borderOnForeground,
+    Duration? animationDuration,
   }) =>
-      ModalWindowsOptions(
-          onPopInvoked: onPopInvoked ?? this.onPopInvoked,
-          canPop: canPop ?? this.canPop,
-          rect: rect ?? this.rect,
-          alignment: alignment ?? this.alignment,
-          onModalTap: onModalTap ?? this.onModalTap,
-          backgroundColor: backgroundColor ?? this.backgroundColor,
-          ignoring: ignoring ?? this.ignoring,
-          absorbing: absorbing ?? this.absorbing,
-          addMaterial: addMaterial ?? this.addMaterial,
-          filter: filter ?? this.filter,
-          gaussian: gaussian ?? this.gaussian,
-          fuzzyDegree: fuzzyDegree ?? this.fuzzyDegree);
+      ModalBoxOptions(
+        alignment: alignment ?? this.alignment,
+        onModalTap: onModalTap ?? this.onModalTap,
+        backgroundColor: backgroundColor ?? this.backgroundColor,
+        ignoring: ignoring ?? this.ignoring,
+        absorbing: absorbing ?? this.absorbing,
+        gaussian: gaussian ?? this.gaussian,
+        type: type ?? this.type,
+        elevation: elevation ?? this.elevation,
+        shadowColor: shadowColor ?? this.shadowColor,
+        textStyle: textStyle ?? this.textStyle,
+        borderRadius: borderRadius ?? this.borderRadius,
+        shape: shape ?? this.shape,
+        borderOnForeground: borderOnForeground ?? this.borderOnForeground,
+        animationDuration: animationDuration ?? this.animationDuration,
+      );
 
-  ModalWindowsOptions merge([BaseModalOptions? options]) => copyWith(
-      onPopInvoked: options?.onPopInvoked,
-      canPop: options?.canPop,
-      rect: options?.rect,
-      alignment: options?.alignment,
-      onModalTap: options?.onModalTap,
-      backgroundColor: options?.backgroundColor,
-      ignoring: options?.ignoring,
-      absorbing: options?.absorbing,
-      addMaterial: options?.addMaterial,
-      filter: options?.filter,
-      gaussian: options?.gaussian,
-      fuzzyDegree: options?.fuzzyDegree);
+  ModalBoxOptions merge([ModalOptions? options]) => copyWith(
+        alignment: options?.alignment,
+        onModalTap: options?.onModalTap,
+        backgroundColor: options?.backgroundColor,
+        ignoring: options?.ignoring,
+        absorbing: options?.absorbing,
+        gaussian: options?.gaussian,
+        type: options?.type,
+        elevation: options?.elevation,
+        shadowColor: options?.shadowColor,
+        textStyle: options?.textStyle,
+        borderRadius: options?.borderRadius,
+        shape: options?.shape,
+        borderOnForeground: options?.borderOnForeground,
+        animationDuration: options?.animationDuration,
+      );
 }
 
 /// 模态框背景
-class ModalWindows extends StatelessWidget {
-  ModalWindows({super.key, this.child, BaseModalOptions? options})
-      : options = options ?? FlExtended().modalWindowsOptions;
+class ModalBox extends StatelessWidget {
+  const ModalBox({super.key, this.child, this.options, this.materialBuilder});
 
   /// 顶层组件
   final Widget? child;
 
   /// 弹框最底层配置
-  final BaseModalOptions options;
+  final ModalOptions? options;
+
+  /// builder material
+  final ValueCallbackTV<Widget, Widget>? materialBuilder;
 
   @override
   Widget build(BuildContext context) {
-    Widget child = buildBase;
-    if (options.gaussian) child = backdropFilter(child);
-    if (options.addMaterial) {
-      child = Material(
-          color: Colors.transparent,
-          child: MediaQuery(data: context.mediaQuery, child: child));
+    final options = this.options ?? FlExtended().modalOptions;
+
+    Widget current = Material(
+        color: options.foregroundColor ?? Colors.transparent,
+        type: options.type ?? MaterialType.card,
+        elevation: options.elevation ?? 0.0,
+        shadowColor: options.shadowColor,
+        textStyle: options.textStyle,
+        borderRadius: options.borderRadius,
+        shape: options.shape,
+        borderOnForeground: options.borderOnForeground ?? true,
+        animationDuration: options.animationDuration ?? kThemeChangeDuration,
+        child: child);
+    current = Universal(
+        onTap: options.onModalTap,
+        color: options.backgroundColor,
+        alignment: options.alignment ?? Alignment.center,
+        child: materialBuilder?.call(current) ?? current);
+    if (options.gaussian > 0) current = backdropFilter(options, current);
+    if (options.ignoring != null) {
+      current = IgnorePointer(ignoring: options.ignoring!, child: current);
+    } else if (options.onModalTap == null && options.absorbing != null) {
+      current = AbsorbPointer(absorbing: options.absorbing!, child: current);
     }
-    if (options.ignoring) {
-      child = IgnorePointer(child: child);
-    } else if (options.onModalTap == null && options.absorbing) {
-      child = AbsorbPointer(child: child);
-    }
-    if (options.onPopInvoked != null || !options.canPop) {
-      PopScope(
-          onPopInvoked: options.onPopInvoked,
-          canPop: options.canPop,
-          child: child);
-    }
-    return child;
+    return current;
   }
 
-  Widget backdropFilter(Widget child) => BackdropFilter(
-      blendMode: options.blendMode,
-      filter: options.filter ??
-          ImageFilter.blur(
-              sigmaX: options.fuzzyDegree, sigmaY: options.fuzzyDegree),
+  Widget backdropFilter(ModalOptions options, Widget child) => BackdropFilter(
+      filter:
+          ImageFilter.blur(sigmaX: options.gaussian, sigmaY: options.gaussian),
       child: child);
-
-  Widget get buildBase => Universal(
-      color: options.backgroundColor,
-      onTap: options.onModalTap,
-      child: isStack ? null : child,
-      isStack: isStack,
-      children: child != null
-          ? [
-              if (options.rect != null)
-                Positioned(
-                    left: options.rect!.left,
-                    top: options.rect!.top,
-                    right: options.rect!.right,
-                    bottom: options.rect!.bottom,
-                    child: child!)
-              else if (options.alignment != null)
-                Align(alignment: options.alignment!, child: child),
-            ]
-          : []);
-
-  bool get isStack => options.rect != null || options.alignment != null;
 }
 
 extension ExtensionDoubleChooseWindows on DoubleChooseWindows {
@@ -293,18 +217,17 @@ class DoubleChooseWindows extends StatelessWidget {
 
   /// 底层模态框配置
   /// 可设置宽高
-  final ModalWindowsOptions? options;
+  final ModalBoxOptions? options;
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgets = [content];
     if (left != null && right != null) widgets.add(leftAndRight);
-    var options = FlExtended().modalWindowsOptions.merge(this.options);
     BoxConstraints? constraints;
     if (this.constraints == null && context.mediaQuery.size.width > 400) {
       constraints = const BoxConstraints(maxWidth: 350);
     }
-    return ModalWindows(
+    return ModalBox(
         options: options,
         child: Universal(
             constraints: constraints ?? this.constraints,
