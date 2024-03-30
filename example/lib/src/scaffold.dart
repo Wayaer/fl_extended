@@ -26,7 +26,6 @@ class ExtendedScaffold extends StatelessWidget {
       this.children,
       this.mainAxisAlignment = MainAxisAlignment.start,
       this.crossAxisAlignment = CrossAxisAlignment.center,
-      this.refreshConfig,
       this.enableDoubleClickExit = false});
 
   /// 相当于给[body] 套用 [Column]、[Row]、[Stack]
@@ -50,9 +49,6 @@ class ExtendedScaffold extends StatelessWidget {
   /// true 点击android实体返回按键先关闭Overlay【toast loading ...】但不pop 当前页面
   /// false 点击android实体返回按键先关闭Overlay【toast loading ...】并pop 当前页面
   final bool isCloseOverlay;
-
-  /// ****** 刷新组件相关 ******  ///
-  final RefreshConfig? refreshConfig;
 
   /// Scaffold相关属性
   final Widget? child;
@@ -116,7 +112,6 @@ class ExtendedScaffold extends StatelessWidget {
 
   Universal get universal => Universal(
       expand: true,
-      refreshConfig: refreshConfig,
       padding: padding,
       isScroll: isScroll,
       safeLeft: safeLeft,

@@ -58,9 +58,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
           clipBehavior: Clip.antiAlias,
           color: color,
           opacity: 0.2,
-          onTap: () {
-            RefreshControllers().call(EasyRefreshType.refresh);
-          },
+          onTap: () {},
           size: const Size(200, 50)),
       const SizedBox(height: 20),
     ];
@@ -68,10 +66,6 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
         appBar: AppBarText('Universal'),
         mainAxisAlignment: MainAxisAlignment.center,
         isScroll: true,
-        refreshConfig: RefreshConfig(onRefresh: () async {
-          await showToast('onRefresh');
-          RefreshControllers().call(EasyRefreshType.refreshSuccess);
-        }),
         children: children.builder((Widget item) => Row(
             mainAxisAlignment: MainAxisAlignment.center, children: [item])));
   }
@@ -103,10 +97,6 @@ class _ScrollUniversalPage extends StatelessWidget {
               BoxShadow(color: Colors.indigo, blurRadius: 10),
               BoxShadow(color: Colors.yellowAccent, blurRadius: 5)
             ]),
-        refreshConfig: RefreshConfig(onRefresh: () async {
-          await showToast('onRefresh');
-          RefreshControllers().call(EasyRefreshType.refreshSuccess);
-        }),
         child: Container(
             margin: const EdgeInsets.all(10),
             width: 130,

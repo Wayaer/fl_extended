@@ -10,6 +10,7 @@ class Universal extends StatelessWidget {
     super.key,
     this.isScroll = false,
     this.useSingleChildScrollView = true,
+    this.useListView = false,
     this.isStack = false,
     this.isWrap = false,
     this.expanded = false,
@@ -152,7 +153,6 @@ class Universal extends StatelessWidget {
     this.flex,
     this.opacity,
     this.clipBehavior,
-    this.refreshConfig,
     this.widthFactor,
     this.heightFactor,
     this.filter,
@@ -172,6 +172,7 @@ class Universal extends StatelessWidget {
 
   /// ****** [AnnotatedRegion]  ****** ///
   final SystemUiOverlayStyle? systemOverlayStyle;
+
   final bool sized;
 
   /// [GestureDetector]、[SingleChildScrollView] 使用
@@ -281,6 +282,9 @@ class Universal extends StatelessWidget {
   /// 是否使用 [SingleChildScrollView]创建滚动组件
   /// 页面逻辑复杂时 设置为 false 以提高滑动性能
   final bool useSingleChildScrollView;
+
+  /// 使用[ListView]加载滚动
+  final bool useListView;
 
   /// 移出头部和底部蓝色阴影
   final bool noScrollBehavior;
@@ -467,9 +471,6 @@ class Universal extends StatelessWidget {
   final bool isStack;
   final StackFit stackFit;
 
-  /// ****** [Refreshed] ****** ///
-  final RefreshConfig? refreshConfig;
-
   /// ****** [ImageFilter] ****** ///
   final ImageFilter? filter;
   final BlendMode blendMode;
@@ -503,13 +504,9 @@ class Universal extends StatelessWidget {
     }
 
     if (intrinsicHeight) current = IntrinsicHeight(child: current);
-    if (isScroll || refreshConfig != null) {
-      if (refreshConfig == null && useSingleChildScrollView) {
-        current = noScrollBehavior
-            ? ScrollConfiguration(
-                behavior: NoScrollBehavior(),
-                child: buildSingleChildScrollView(current))
-            : buildSingleChildScrollView(current);
+    if (isScroll) {
+      if (useSingleChildScrollView) {
+        current = buildSingleChildScrollView(current);
 
         /// 添加padding
         current = buildPadding(current);
@@ -686,6 +683,18 @@ class Universal extends StatelessWidget {
       fit: expanded ? FlexFit.tight : FlexFit.loose,
       child: current);
 
+  Widget buildListView(List<Widget> children) => ListView(
+      physics: physics,
+      reverse: reverse,
+      primary: primary,
+      dragStartBehavior: dragStartBehavior,
+      controller: scrollController,
+      scrollDirection: scrollDirection ?? direction,
+      clipBehavior: clipBehavior ?? Clip.hardEdge,
+      restorationId: restorationId,
+      keyboardDismissBehavior: keyboardDismissBehavior,
+      children: children);
+
   Widget buildSingleChildScrollView(Widget current) => SingleChildScrollView(
       physics: physics,
       reverse: reverse,
@@ -698,18 +707,15 @@ class Universal extends StatelessWidget {
       keyboardDismissBehavior: keyboardDismissBehavior,
       child: current);
 
-  Widget buildRefreshed(List<Widget> slivers) => RefreshScrollView(
+  Widget buildRefreshed(List<Widget> slivers) => CustomScrollView(
       controller: scrollController,
       slivers: slivers,
       dragStartBehavior: dragStartBehavior,
-      padding: _paddingIncludingDecoration,
-      noScrollBehavior: noScrollBehavior,
       reverse: reverse,
       primary: primary,
       physics: physics,
       clipBehavior: clipBehavior ?? Clip.hardEdge,
-      scrollDirection: scrollDirection ?? direction,
-      refreshConfig: refreshConfig);
+      scrollDirection: scrollDirection ?? direction);
 
   Widget buildFlex(List<Widget> children) => Flex(
       mainAxisAlignment: mainAxisAlignment,

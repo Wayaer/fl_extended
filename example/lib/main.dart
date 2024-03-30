@@ -8,9 +8,6 @@ import 'package:example/src/module/decorator_page.dart';
 import 'package:example/src/module/list_wheel_page.dart';
 import 'package:example/src/module/overlay_page.dart';
 import 'package:example/src/module/popup_page.dart';
-import 'package:example/src/module/refresh_page.dart';
-import 'package:example/src/module/scroll_list_page.dart';
-import 'package:example/src/module/scroll_page.dart';
 import 'package:example/src/module/text_field_page.dart';
 import 'package:example/src/module/universal_page.dart';
 import 'package:device_preview_minus/device_preview_minus.dart';
@@ -60,7 +57,7 @@ void main() {
       const DialogOptions(fromStyle: PopupFromStyle.fromTop);
 
   /// 设置全局Wheel配置
-  flExtended.wheelOptions = const WheelOptions.cupertino();
+  // flExtended.wheelOptions = const WheelOptions.cupertino();
 
   flExtended.logCrossLine = true;
 
@@ -148,11 +145,7 @@ class _Home extends StatelessWidget {
           ElevatedText('Popup', onTap: () => push(const PopupPage())),
           ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
           ElevatedText('Universal', onTap: () => push(const UniversalPage())),
-          ElevatedText('ScrollView', onTap: () => push(const ScrollViewPage())),
-          ElevatedText('ScrollList', onTap: () => push(const ScrollListPage())),
-          ElevatedText('ListWheel', onTap: () => push(const ListWheelPage())),
-          ElevatedText('EasyRefreshed',
-              onTap: () => push(const EasyRefreshPage())),
+          // ElevatedText('ListWheel', onTap: () => push(const ListWheelPage())),
           ElevatedText('DecoratorBox',
               onTap: () => push(const DecoratorBoxPage())),
           ElevatedText('ExtendedTextField',
