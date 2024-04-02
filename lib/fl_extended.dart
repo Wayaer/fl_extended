@@ -9,7 +9,6 @@ export 'src/builder/value_builder.dart';
 export 'src/builder/listenable_builder.dart';
 
 /// components
-export 'src/components/decorator_box.dart';
 export 'src/components/animation.dart';
 export 'src/components/unified_button.dart';
 
@@ -21,12 +20,11 @@ export 'src/components/universal.dart';
 
 /// extended
 export 'src/extended/extended.dart';
-
+export 'src/extended/extended_state.dart';
 export 'src/extended/overlay/overlay.dart';
 export 'src/extended/overlay/modal.dart';
 export 'src/extended/popup.dart';
 export 'src/extended/text.dart';
-export 'src/extended/text_field.dart';
 export 'src/extended/navigator.dart';
 
 /// extension

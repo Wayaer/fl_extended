@@ -3,10 +3,8 @@ import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
 import 'package:example/src/module/state_components_page.dart';
 import 'package:example/src/module/text_page.dart';
-import 'package:example/src/module/decorator_page.dart';
 import 'package:example/src/module/overlay_page.dart';
 import 'package:example/src/module/popup_page.dart';
-import 'package:example/src/module/text_field_page.dart';
 import 'package:example/src/module/universal_page.dart';
 import 'package:device_preview_minus/device_preview_minus.dart';
 import 'package:example/src/scaffold.dart';
@@ -53,9 +51,6 @@ void main() {
           borderRadius: BorderRadius.vertical(top: Radius.circular(12))));
   flExtended.dialogOptions =
       const DialogOptions(fromStyle: PopupFromStyle.fromTop);
-
-  /// 设置全局Wheel配置
-  // flExtended.wheelOptions = const WheelOptions.cupertino();
 
   flExtended.logCrossLine = true;
 
@@ -142,10 +137,6 @@ class _Home extends StatelessWidget {
           ElevatedText('Popup', onTap: () => push(const PopupPage())),
           ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
           ElevatedText('Universal', onTap: () => push(const UniversalPage())),
-          ElevatedText('DecoratorBox',
-              onTap: () => push(const DecoratorBoxPage())),
-          ElevatedText('ExtendedTextField',
-              onTap: () => push(const TextFieldPage())),
           ElevatedText('ExtendedBuilder',
               onTap: () => push(const ExtendedBuilderPage())),
         ]);
