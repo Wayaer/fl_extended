@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/painting.dart';
 
 class PopupPage extends StatelessWidget {
   const PopupPage({super.key});
@@ -15,17 +16,17 @@ class PopupPage extends StatelessWidget {
           children: [
             const Partition('Dialog'),
             ElevatedText('popup Dialog', onTap: () {
-              const Center(child: _AlertDemo()).popupDialog<dynamic>();
+              const Center(child: _Dialog()).popupDialog<dynamic>();
             }),
             ElevatedText('popup MaterialDialog', onTap: () {
-              const Center(child: _AlertDemo()).popupMaterialDialog<dynamic>();
+              const Center(child: _Dialog()).popupMaterialDialog<dynamic>();
             }),
             ElevatedText('popup CupertinoDialog', onTap: () {
-              const Center(child: _AlertDemo()).popupCupertinoDialog<dynamic>();
+              const Center(child: _Dialog()).popupCupertinoDialog<dynamic>();
             }),
             const Partition('Bottom Sheet'),
             ElevatedText('popup BottomSheet', onTap: () {
-              const _AlertDemo().popupBottomSheet<dynamic>(
+              const _ActionSheet().popupBottomSheet<dynamic>(
                   options: const BottomSheetOptions(
                       backgroundColor: Colors.transparent));
             }),
@@ -33,13 +34,13 @@ class PopupPage extends StatelessWidget {
               Container(
                       color: Colors.blueGrey.withOpacity(0.4),
                       alignment: Alignment.center,
-                      child: const _AlertDemo())
+                      child: const _ActionSheet())
                   .popupBottomSheet<dynamic>(
                       options: const BottomSheetOptions(
                           backgroundColor: Colors.transparent));
             }),
             ElevatedText('popup CupertinoModal', onTap: () {
-              const _AlertDemo().popupCupertinoModal<dynamic>();
+              const _ActionSheet().popupCupertinoModal<dynamic>();
             }),
             const Partition('DoubleChooseWindows Popup'),
             ElevatedText('popup DoubleChooseWindows',
@@ -76,8 +77,46 @@ class PopupPage extends StatelessWidget {
   }
 }
 
-class _AlertDemo extends StatelessWidget {
-  const _AlertDemo();
+class _Dialog extends StatelessWidget {
+  const _Dialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return DoubleChooseWindows(
+        decoration: BoxDecoration(
+            color: context.theme.dialogBackgroundColor,
+            borderRadius: BorderRadius.circular(10)),
+        content: Container(
+            margin: const EdgeInsets.all(12),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(4)),
+            height: 200,
+            child: const Text('Dialog')),
+        left: Universal(
+            margin: const EdgeInsets.all(4),
+            alignment: Alignment.center,
+            onTap: () {
+              showToast('left');
+              pop();
+            },
+            unifiedButtonCategory: UnifiedButtonCategory.outlined,
+            child: const Text('left')),
+        right: Universal(
+            margin: const EdgeInsets.all(4),
+            alignment: Alignment.center,
+            onTap: () {
+              showToast('right');
+              pop();
+            },
+            unifiedButtonCategory: UnifiedButtonCategory.filled,
+            child: const Text('right')));
+  }
+}
+
+class _ActionSheet extends StatelessWidget {
+  const _ActionSheet();
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,5 @@
+## 1.0.0
+
 ## 0.5.1
 
 * `ModalWindowsOptions` Name changed to `ModalBoxOptions`
