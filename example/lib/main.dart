@@ -1,11 +1,9 @@
 import 'package:example/src/module/animation_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
-import 'package:example/src/module/icon_box_page.dart';
 import 'package:example/src/module/state_components_page.dart';
 import 'package:example/src/module/text_page.dart';
 import 'package:example/src/module/decorator_page.dart';
-import 'package:example/src/module/list_wheel_page.dart';
 import 'package:example/src/module/overlay_page.dart';
 import 'package:example/src/module/popup_page.dart';
 import 'package:example/src/module/text_field_page.dart';
@@ -139,13 +137,11 @@ class _Home extends StatelessWidget {
           ElevatedText('Button', onTap: () => push(const ButtonPage())),
           ElevatedText('State Components',
               onTap: () => push(const StateComponentsPage())),
-          ElevatedText('IconBox', onTap: () => push(const IconBoxPage())),
           ElevatedText('FlAnimation',
               onTap: () => push(const FlAnimationPage())),
           ElevatedText('Popup', onTap: () => push(const PopupPage())),
           ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
           ElevatedText('Universal', onTap: () => push(const UniversalPage())),
-          // ElevatedText('ListWheel', onTap: () => push(const ListWheelPage())),
           ElevatedText('DecoratorBox',
               onTap: () => push(const DecoratorBoxPage())),
           ElevatedText('ExtendedTextField',

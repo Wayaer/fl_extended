@@ -21,8 +21,8 @@ class StateComponentsPage extends StatelessWidget {
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconBox(
-                          icon: Icons.remove_circle_outline,
+                      Universal(
+                          child: const Icon(Icons.remove_circle_outline),
                           onTap: () {
                             int v = value ?? 0;
                             v -= 1;
@@ -31,8 +31,8 @@ class StateComponentsPage extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(value.toString())),
-                      IconBox(
-                          icon: Icons.add_circle_outline,
+                      Universal(
+                          child: const Icon(Icons.add_circle_outline),
                           onTap: () {
                             int v = value ?? 0;
                             v += 1;
@@ -47,8 +47,8 @@ class StateComponentsPage extends StatelessWidget {
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconBox(
-                          icon: Icons.remove_circle_outline,
+                      Universal(
+                          child: const Icon(Icons.remove_circle_outline),
                           onTap: () {
                             int num = valueListenable.value ?? 0;
                             num -= 1;
@@ -58,8 +58,8 @@ class StateComponentsPage extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(valueListenable.value.toString()),
                       ),
-                      IconBox(
-                          icon: Icons.add_circle_outline,
+                      Universal(
+                          child: const Icon(Icons.add_circle_outline),
                           onTap: () {
                             int num = valueListenable.value ?? 0;
                             num += 1;

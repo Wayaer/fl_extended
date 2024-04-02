@@ -1,3 +1,5 @@
+library fl_extended.dart;
+
 /// builder
 export 'src/builder/stateful_widget.dart';
 export 'src/builder/stateful_builder.dart';
@@ -9,8 +11,7 @@ export 'src/builder/listenable_builder.dart';
 /// components
 export 'src/components/decorator_box.dart';
 export 'src/components/animation.dart';
-export 'src/components/button.dart';
-export 'src/components/icon_box.dart';
+export 'src/components/unified_button.dart';
 
 /// const
 export 'src/const/typedef.dart';
@@ -21,7 +22,6 @@ export 'src/components/universal.dart';
 /// extended
 export 'src/extended/extended.dart';
 
-export 'src/extended/list_wheel.dart';
 export 'src/extended/overlay/overlay.dart';
 export 'src/extended/overlay/modal.dart';
 export 'src/extended/popup.dart';

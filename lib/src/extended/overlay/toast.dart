@@ -149,13 +149,13 @@ class ToastContent extends StatelessWidget {
     Widget current = Text(text,
         textAlign: TextAlign.center, style: textStyle, maxLines: maxLines);
     if (iconStyle != null) {
-      current = IconBox(
-          icon: iconStyle!.icon,
-          direction: direction ?? Axis.vertical,
-          spacing: spacing,
-          size: size,
-          color: color,
-          label: current);
+      current = Flex(direction: direction ?? Axis.vertical, children: [
+        Icon(iconStyle!.icon, size: size, color: color),
+        SizedBox(
+            width: direction == Axis.horizontal ? spacing : 0,
+            height: direction == Axis.vertical ? spacing : 0),
+        current,
+      ]);
     }
     return padding != null
         ? Padding(padding: padding!, child: current)

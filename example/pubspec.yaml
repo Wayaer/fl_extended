@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   device_preview_minus: ^1.0.2
-  go_router: ^13.2.1
+  go_router: ^13.2.2
   fl_extended:
     path: ../
 

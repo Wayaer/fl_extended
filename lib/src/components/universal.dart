@@ -505,24 +505,31 @@ class Universal extends StatelessWidget {
 
     if (intrinsicHeight) current = IntrinsicHeight(child: current);
     if (isScroll) {
-      if (useSingleChildScrollView) {
+      if (useListView) {
+        if (children != null && children!.isNotEmpty && !isStack && !isWrap) {
+          current = buildListView(children!);
+        } else {
+          current = buildListView([current]);
+        }
+      } else if (useSingleChildScrollView) {
+        if (padding != null) {
+          current = Padding(padding: padding!, child: current);
+        }
         current = buildSingleChildScrollView(current);
-
-        /// 添加padding
-        current = buildPadding(current);
       } else {
         if (children != null && children!.isNotEmpty && !isStack && !isWrap) {
-          current = buildRefreshed(children!
+          current = buildCustomScrollView(children!
               .builder((Widget item) => SliverToBoxAdapter(child: item)));
         } else {
-          current = buildRefreshed([SliverToBoxAdapter(child: current)]);
+          current = buildCustomScrollView([SliverToBoxAdapter(child: current)]);
+        }
+        if (padding != null) {
+          current = buildPadding(current);
         }
       }
     } else {
-      /// 添加padding
       current = buildPadding(current);
     }
-
     if (alignment != null) {
       current = Align(
           alignment: alignment!,
@@ -686,6 +693,7 @@ class Universal extends StatelessWidget {
   Widget buildListView(List<Widget> children) => ListView(
       physics: physics,
       reverse: reverse,
+      padding: padding,
       primary: primary,
       dragStartBehavior: dragStartBehavior,
       controller: scrollController,
@@ -707,7 +715,7 @@ class Universal extends StatelessWidget {
       keyboardDismissBehavior: keyboardDismissBehavior,
       child: current);
 
-  Widget buildRefreshed(List<Widget> slivers) => CustomScrollView(
+  Widget buildCustomScrollView(List<Widget> slivers) => CustomScrollView(
       controller: scrollController,
       slivers: slivers,
       dragStartBehavior: dragStartBehavior,
