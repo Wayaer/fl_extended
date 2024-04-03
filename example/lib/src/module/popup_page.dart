@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
-import 'package:flutter/painting.dart';
 
 class PopupPage extends StatelessWidget {
   const PopupPage({super.key});

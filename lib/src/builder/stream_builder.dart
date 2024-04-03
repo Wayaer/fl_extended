@@ -11,19 +11,19 @@ class ExtendedStreamBuilder<T> extends StreamBuilder {
     super.stream,
 
     /// [ConnectionState.none] 显示的内容
-    AsyncSnapshotBuilder<T>? onNone,
+    ValueTwoCallbackT<Widget, BuildContext, T>? onNone,
 
     /// [ConnectionState.waiting] 显示的内容
-    AsyncSnapshotBuilder<T>? onWaiting,
+    ValueTwoCallbackT<Widget, BuildContext, T>? onWaiting,
 
     /// [ConnectionState.active] 显示的内容
-    AsyncSnapshotBuilder<T>? onActive,
+    ValueTwoCallbackT<Widget, BuildContext, T>? onActive,
 
     /// [ConnectionState.done] 显示的内容
-    AsyncSnapshotBuilder<T>? onDone,
+    ValueTwoCallbackT<Widget, BuildContext, T>? onDone,
 
     /// [error] 显示的内容
-    AsyncSnapshotBuilder<Object?>? onError,
+    ValueTwoCallbackT<Widget, BuildContext, Object?>? onError,
   }) : super(builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasError) {
             return onError?.call(context, snapshot.error) ?? const SizedBox();
@@ -68,10 +68,10 @@ class CustomStreamBuilder<T> extends ExtendedStatefulWidget {
   final Stream<T> stream;
 
   /// 没有数据时 为 null UI回调
-  final CustomBuilderContext? onNone;
+  final ValueCallbackTV<Widget, BuildContext>? onNone;
 
   /// 等待异步执行 UI回调
-  final CustomBuilderContext? onWaiting;
+  final ValueCallbackTV<Widget, BuildContext>? onWaiting;
 
   /// 异步错误时或者返回值为null时 UI回调
   final ValueTwoCallbackT<Widget, BuildContext, Object?>? onError;

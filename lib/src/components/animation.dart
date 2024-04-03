@@ -42,8 +42,13 @@ abstract class _FlAnimation extends StatefulWidget {
 }
 
 enum FlAnimationStyle {
+  /// fade
   fade,
+
+  /// horizontal hunting
   horizontalHunting,
+
+  /// vertical hunting
   verticalHunting,
 }
 
@@ -80,7 +85,6 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
     } else {
       run();
     }
-
     widget.onAnimate?.call(forwardAndReverse);
   }
 

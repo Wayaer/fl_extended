@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
@@ -72,11 +70,23 @@ class _ValueBuilderState<T>
   }
 }
 
-typedef ValueWaitChanged<T> = Future<T> Function(T value);
-
-typedef ChangedBuilderWidget<T> = Widget Function(
-    T value, ValueChanged<T> onChanged);
-
+/// Example:
+/// ```
+/// ChangedBuilder<bool>(
+///   initial: false,
+///   onChanged:(bool value){
+///   return
+///   },
+///   onWaitChanged:(bool value)async{
+///   return !value;
+///   },
+///   builder: (bool value, ValueCallback<T> onChanged) {
+///
+///     return Switch.adaptive(value: value, onChanged: onChanged)
+///
+///   })
+/// ),
+/// ```
 class ChangedBuilder<T> extends StatelessWidget {
   const ChangedBuilder({
     super.key,
@@ -93,11 +103,11 @@ class ChangedBuilder<T> extends StatelessWidget {
 
   final T value;
 
-  final ChangedBuilderWidget<T> builder;
+  final ValueTwoCallbackT<Widget, T, ValueCallback<T>> builder;
 
-  final ValueChanged<T>? onChanged;
+  final ValueCallback<T>? onChanged;
 
-  final ValueWaitChanged<T>? onWaitChanged;
+  final ValueCallbackFutureT<T>? onWaitChanged;
 
   /// initState
   final ValueCallback<BuildContext>? initState;
