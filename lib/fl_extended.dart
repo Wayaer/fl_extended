@@ -11,6 +11,7 @@ export 'src/builder/listenable_builder.dart';
 /// components
 export 'src/components/animation.dart';
 export 'src/components/unified_button.dart';
+export 'src/components/icon_box.dart';
 
 /// const
 export 'src/const/typedef.dart';

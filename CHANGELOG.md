@@ -1,5 +1,13 @@
 ## 1.0.0
 
+* Removed `CustomBuilderContext`,use  `ValueCallbackTV<Widget, BuildContext>?`.
+* Migrate some components to the [fl_scroll_view](https://pub.dev/packages/fl_scroll_view)
+  package,[`ScrollList`,`EasyRefreshed`,`RefreshScrollView`,`SliverListGrid`,`SliverPinnedToBoxAdapter`,`FlSliverPersistentHeader`(`ExtendedSliverPersistentHeader`)]
+* Migrate some components to the [fl_list_wheel](https://pub.dev/packages/fl_list_wheel)
+  package,[`FlListWheel`(`ListWheel`),`FlListWheelState`(`ListWheelState`),`WheelOptions`]
+* Migrate some components to the [flutter_waya](https://pub.dev/packages/flutter_waya)
+  package,[`TextInputLimitFormatter`,`TextFieldWithDecoratorBox`(`ExtendedTextField`),`NumberLimitFormatter`]
+
 ## 0.5.1
 
 * `ModalWindowsOptions` Name changed to `ModalBoxOptions`
