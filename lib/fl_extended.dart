@@ -20,7 +20,6 @@ export 'src/components/universal.dart';
 
 /// extended
 export 'src/extended/extended.dart';
-export 'src/extended/extended_state.dart';
 export 'src/extended/overlay/overlay.dart';
 export 'src/extended/overlay/modal.dart';
 export 'src/extended/popup.dart';

@@ -213,35 +213,34 @@ extension ExtensionWidget on Widget {
   ToastBuilder get toToastBuilder => (_, __) => this;
 
   RoutePageBuilder get toRoutePageBuilder =>
-          (_, Animation<double> animation,
-          Animation<double> secondaryAnimation) =>
-      this;
+      (_, Animation<double> animation, Animation<double> secondaryAnimation) =>
+          this;
 
-  RouteTransitionsBuilder get toRouteTransitionsBuilder =>
-          (_,
+  RouteTransitionsBuilder get toRouteTransitionsBuilder => (_,
           Animation<double> animation,
           Animation<double> secondaryAnimation,
           Widget child) =>
       this;
 
   PageRoute<T> buildPageRoute<T>(
-      {PageRouteOptions pageRoute = const PageRouteOptions(),
-        RoutePushStyle? pushStyle}) =>
+          {PageRouteOptions pageRoute = const PageRouteOptions(),
+          RoutePushStyle? pushStyle}) =>
       (pushStyle ?? FlExtended().pushStyle)
           .pageRoute<T>(pageRoute.copyWith(widget: this));
 
   BackdropFilter backdropFilter(
-      {Key? key, ImageFilter? filter, double fuzzyDegree = 4}) =>
+          {Key? key, ImageFilter? filter, double fuzzyDegree = 4}) =>
       BackdropFilter(
           key: key,
           filter: filter ??
               ImageFilter.blur(sigmaX: fuzzyDegree, sigmaY: fuzzyDegree),
           child: this);
 
-  FittedBox fittedBox({Key? key,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    Clip clipBehavior = Clip.none}) =>
+  FittedBox fittedBox(
+          {Key? key,
+          BoxFit fit = BoxFit.contain,
+          AlignmentGeometry alignment = Alignment.center,
+          Clip clipBehavior = Clip.none}) =>
       FittedBox(
           key: key,
           fit: fit,
@@ -250,7 +249,7 @@ extension ExtensionWidget on Widget {
           child: this);
 
   AnnotatedRegion<SystemUiOverlayStyle> statusBarStyle(
-      SystemUiOverlayStyle style) =>
+          SystemUiOverlayStyle style) =>
       AnnotatedRegion<SystemUiOverlayStyle>(
           key: key, value: style, child: this);
 
@@ -266,13 +265,14 @@ extension ExtensionWidget on Widget {
   Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
       Padding(
           padding:
-          EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
           child: this);
 
-  Widget paddingOnly({double left = 0.0,
-    double top = 0.0,
-    double right = 0.0,
-    double bottom = 0.0}) =>
+  Widget paddingOnly(
+          {double left = 0.0,
+          double top = 0.0,
+          double right = 0.0,
+          double bottom = 0.0}) =>
       Padding(
           padding: EdgeInsets.only(
               top: top, left: left, right: right, bottom: bottom),
@@ -284,13 +284,14 @@ extension ExtensionWidget on Widget {
   Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
       Padding(
           padding:
-          EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
           child: this);
 
-  Widget marginOnly({double left = 0.0,
-    double top = 0.0,
-    double right = 0.0,
-    double bottom = 0.0}) =>
+  Widget marginOnly(
+          {double left = 0.0,
+          double top = 0.0,
+          double right = 0.0,
+          double bottom = 0.0}) =>
       Padding(
           padding: EdgeInsets.only(
               top: top, left: left, right: right, bottom: bottom),
@@ -374,7 +375,8 @@ extension ExtensionWidget on Widget {
   SizedBox fromSize(Size size, {Key? key}) =>
       SizedBox.fromSize(key: key, size: size, child: this);
 
-  Hero hero(Object tag, {
+  Hero hero(
+    Object tag, {
     Key? key,
     CreateRectTween? createRectTween,
     HeroFlightShuttleBuilder? flightShuttleBuilder,
@@ -469,9 +471,10 @@ extension ExtensionWidget on Widget {
   Visibility visibility(bool visible, {Key? key}) =>
       Visibility(key: key, visible: visible, child: this);
 
-  LimitedBox limitedBox({Key? key,
-    double maxWidth = double.infinity,
-    double maxHeight = double.infinity}) =>
+  LimitedBox limitedBox(
+          {Key? key,
+          double maxWidth = double.infinity,
+          double maxHeight = double.infinity}) =>
       LimitedBox(
           key: key, maxWidth: maxWidth, maxHeight: maxHeight, child: this);
 
@@ -493,12 +496,12 @@ extension ExtensionWidget on Widget {
           child: this);
 
   SizedOverflowBox sizedOverflowBox(Size size,
-      {Key? key, Alignment alignment = Alignment.center}) =>
+          {Key? key, Alignment alignment = Alignment.center}) =>
       SizedOverflowBox(key: key, size: size, alignment: alignment, child: this);
 
   DecoratedBox decoratedBox(Decoration decoration,
-      {Key? key,
-        DecorationPosition position = DecorationPosition.background}) =>
+          {Key? key,
+          DecorationPosition position = DecorationPosition.background}) =>
       DecoratedBox(
           key: key, decoration: decoration, position: position, child: this);
 
@@ -528,7 +531,7 @@ extension ExtensionWidget on Widget {
       gestureDetector(onDoubleTap: onDoubleTap, key: key);
 
   GestureDetector onLongPress(GestureLongPressCallback onLongPress,
-      {Key? key}) =>
+          {Key? key}) =>
       gestureDetector(onLongPress: onLongPress, key: key);
 
   GestureDetector gestureDetector({
@@ -613,5 +616,4 @@ extension ExtensionWidget on Widget {
           excludeFromSemantics: excludeFromSemantics,
           dragStartBehavior: dragStartBehavior,
           child: this);
-
 }

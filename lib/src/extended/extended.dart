@@ -69,3 +69,11 @@ void addPersistentFrameCallback(FrameCallback duration) =>
 
 void addTimingsCallback(TimingsCallback callback) =>
     FlExtended().widgetsBinding.addTimingsCallback(callback);
+
+abstract class ExtendedState<T extends StatefulWidget> extends State<T> {
+  @override
+  void setState(VoidCallback fn) {
+    if (!mounted) return;
+    super.setState(fn);
+  }
+}

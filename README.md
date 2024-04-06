@@ -27,4 +27,131 @@ class _AppState extends ExtendedState<_App> {
 
 ```
 
-- 使用 `ExtendedPopScope` 可自动管理 android 物理返回键 关闭 `loading` 等 `Overlay` 弹窗
+- 使用 `ExtendedPopScope` 可自动管理 android 物理返回键 关闭 `loading` 等 `Overlay` 弹
+
+## 路由使用
+
+```dart
+void func() {
+  /// push
+  push(Widget());
+  Widget().push();
+
+  /// pushReplacement
+  pushReplacement(Widget());
+  Widget().pushReplacement();
+
+  /// pushAndRemoveUntil
+  pushAndRemoveUntil(Widget());
+  Widget().pushAndRemoveUntil();
+
+  /// maybePop
+  maybePop();
+
+  /// pop
+  pop();
+
+  /// popUntil
+  popUntil();
+}
+```
+
+## overlay
+
+```dart
+void func() {
+
+
+  /// ******** overlay ******** ///
+  ExtendedOverlayEntry? overlay = Widget().showOverlay();
+  overlay?.remove();
+
+  /// ******** toast ******** ///
+  /// 设置全局Toast配置
+  FlExtended().toastOptions = ToastOptions.extended(
+      animationStyle: FlAnimationStyle.verticalHunting,
+      textStyle: const TextStyle(color: Colors.white),
+      onModalTap: () {
+        log('onModalTap');
+      },
+      onToastTap: () {
+        log('onToastTap');
+      },
+      foregroundColor: Colors.grey,
+      backgroundColor: Colors.red.withOpacity(0.3),
+      constraints: const BoxConstraints(maxWidth: 250),
+      builder: (BuildContext context, ToastContent content) {
+        return Universal(
+            mainAxisSize: MainAxisSize.min,
+            padding: content.padding,
+            children: [
+              if (content.iconStyle != null)
+                Icon(content.iconStyle!.icon, color: Colors.amber),
+              Text(content.text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.amber))
+            ]);
+      });
+
+  /// toast
+  showToast();
+  Toast().show();
+
+  /// ******** loading ******** ///
+  /// 设置全局Loading配置
+  FlExtended().loadingOptions = LoadingOptions(
+      backgroundColor: Colors.red.withOpacity(0.3),
+      foregroundColor: Colors.black,
+      padding: const EdgeInsets.all(10),
+      builder: (_, LoadingContent content) {
+        if (content.style != null) return null;
+        return const Padding(
+            padding: EdgeInsets.all(10),
+            child: BText('全局设置loading', fontSize: 20));
+      },
+      onLoadingTap: () {
+        log('onLoadingTap');
+        closeLoading();
+      },
+      constraints: const BoxConstraints(maxWidth: 250),
+      borderRadius: BorderRadius.circular(10),
+      decoration: BoxDecoration(
+          color: Colors.yellow, borderRadius: BorderRadius.circular(30)),
+      onModalTap: () {
+        log('onModalTap');
+        closeLoading();
+      });
+
+  /// loading
+  showLoading();
+
+  /// close
+  closeLoading();
+}
+
+```
+
+## popup
+
+```dart
+void func() {
+  FlExtended().dialogOptions =
+  const DialogOptions(fromStyle: PopupFromStyle.fromTop);
+
+  /// showGeneralDialog
+  Widget().popupDialog();
+
+  /// showCupertinoDialog
+  Widget().popupCupertinoDialog();
+
+  /// showDialog
+  Widget().popupMaterialDialog();
+
+  /// showModalBottomSheet
+  Widget().popupBottomSheet();
+
+  /// showCupertinoModalPopup
+  Widget().popupCupertinoModal();
+}
+
+```
