@@ -41,6 +41,7 @@ class IconBox extends StatelessWidget {
     this.statesController,
     this.onLongPress,
     this.clipBehavior,
+    this.unifiedButtonCategory,
   });
 
   /// icon > image > imageProvider > widget
@@ -81,6 +82,7 @@ class IconBox extends StatelessWidget {
 
   /// 整个组件装饰器
   final Decoration? decoration;
+  final UnifiedButtonCategory? unifiedButtonCategory;
 
   /// 整个组件点击事件
   final GestureTapCallback? onTap;
@@ -134,6 +136,7 @@ class IconBox extends StatelessWidget {
 
   Widget universal({List<Widget>? children, Widget? child}) => Universal(
       heroTag: heroTag,
+      unifiedButtonCategory: unifiedButtonCategory,
       onPressed: onTap ?? onPressed,
       onLongPress: onLongPress,
       onHover: onHover,
