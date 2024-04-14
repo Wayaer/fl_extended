@@ -39,6 +39,7 @@ class Universal extends StatelessWidget {
     this.safeTop = false,
     this.safeRight = false,
     this.safeBottom = false,
+    this.safeLTRB = false,
     this.enabled = false,
     this.wrapSpacing = 0.0,
     this.runSpacing = 0.0,
@@ -480,6 +481,7 @@ class Universal extends StatelessWidget {
   final bool safeTop;
   final bool safeRight;
   final bool safeBottom;
+  final bool safeLTRB;
 
   EdgeInsetsGeometry? get _paddingIncludingDecoration {
     if (decoration == null) return padding;
@@ -599,12 +601,12 @@ class Universal extends StatelessWidget {
     if (systemOverlayStyle != null) current = buildAnnotatedRegion(current);
     if (offstage) current = buildOffstage(current);
     if (!visible) current = buildVisibility(current);
-    if (safeLeft || safeTop || safeRight || safeBottom) {
+    if (safeLeft || safeTop || safeRight || safeBottom || safeLTRB) {
       current = SafeArea(
-          left: safeLeft,
-          top: safeTop,
-          right: safeRight,
-          bottom: safeBottom,
+          left: safeLTRB ? true : safeLeft,
+          top: safeLTRB ? true : safeTop,
+          right: safeLTRB ? true : safeRight,
+          bottom: safeLTRB ? true : safeBottom,
           child: current);
     }
     return current;

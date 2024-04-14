@@ -32,17 +32,15 @@ void main() {
       foregroundColor: Colors.grey,
       backgroundColor: Colors.red.withOpacity(0.3),
       constraints: const BoxConstraints(maxWidth: 250),
+      color: Colors.amber,
       builder: (BuildContext context, ToastContent content) {
-        return Universal(
-            mainAxisSize: MainAxisSize.min,
-            padding: content.padding,
-            children: [
-              if (content.iconStyle != null)
-                Icon(content.iconStyle!.icon, color: Colors.amber),
-              Text(content.text,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.amber))
-            ]);
+        return Universal(mainAxisSize: MainAxisSize.min, children: [
+          if (content.iconStyle != null)
+            Icon(content.iconStyle!.icon, color: content.color),
+          Text(content.text,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: content.color))
+        ]);
       });
 
   /// 设置全局BottomSheet配置
@@ -57,7 +55,7 @@ void main() {
   /// 设置全局Loading配置
   flExtended.loadingOptions = LoadingOptions(
       backgroundColor: Colors.red.withOpacity(0.3),
-      foregroundColor: Colors.black,
+      foregroundColor: Colors.yellow,
       padding: const EdgeInsets.all(10),
       builder: (_, LoadingContent content) {
         if (content.style != null) return null;
@@ -71,8 +69,6 @@ void main() {
       },
       constraints: const BoxConstraints(maxWidth: 250),
       borderRadius: BorderRadius.circular(10),
-      decoration: BoxDecoration(
-          color: Colors.yellow, borderRadius: BorderRadius.circular(30)),
       onModalTap: () {
         log('onModalTap');
         closeLoading();
@@ -164,7 +160,7 @@ class ElevatedText extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         unifiedButtonCategory: UnifiedButtonCategory.elevated,
         onTap: onTap,
-        child: BText(text));
+        child: BText(text, textAlign: TextAlign.center));
   }
 }
 

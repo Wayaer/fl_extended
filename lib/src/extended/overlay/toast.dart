@@ -13,7 +13,6 @@ class Toast extends StatelessWidget {
     this.duration,
     this.animationDuration,
     this.animationStyle,
-    this.decoration,
     this.onToastTap,
     this.color,
     this.direction,
@@ -40,9 +39,6 @@ class Toast extends StatelessWidget {
   /// Toast显示时间
   final Duration? duration;
 
-  /// Toast 装饰器 会替换 [backgroundColor]
-  final BoxDecoration? decoration;
-
   /// Toast onTap
   final GestureTapCallback? onToastTap;
 
@@ -68,7 +64,6 @@ class Toast extends StatelessWidget {
         textStyle: textStyle,
         animationDuration: animationDuration,
         animationStyle: animationStyle,
-        decoration: decoration,
         onToastTap: onToastTap,
         color: color,
         direction: direction,
@@ -78,15 +73,10 @@ class Toast extends StatelessWidget {
         text: text,
         iconStyle: iconStyle,
         color: options.color,
-        padding: options.padding,
         textStyle: options.textStyle,
         direction: options.direction);
     Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(
-        decoration: options.decoration,
-        constraints: options.constraints,
-        onTap: options.onToastTap,
-        child: current);
+    current = Universal(onTap: options.onToastTap, child: current);
     return ModalBox(
         options: options,
         materialBuilder: options.animationStyle == null
@@ -114,7 +104,6 @@ class ToastContent extends StatelessWidget {
     this.size = 18,
     this.maxLines = 5,
     this.textStyle,
-    this.padding,
   });
 
   /// text
@@ -141,25 +130,23 @@ class ToastContent extends StatelessWidget {
   /// text fontSize
   final TextStyle? textStyle;
 
-  /// content padding
-  final EdgeInsetsGeometry? padding;
-
   @override
   Widget build(BuildContext context) {
     Widget current = Text(text,
         textAlign: TextAlign.center, style: textStyle, maxLines: maxLines);
     if (iconStyle != null) {
-      current = Flex(direction: direction ?? Axis.vertical, children: [
-        Icon(iconStyle!.icon, size: size, color: color),
-        SizedBox(
-            width: direction == Axis.horizontal ? spacing : 0,
-            height: direction == Axis.vertical ? spacing : 0),
-        current,
-      ]);
+      current = Flex(
+          direction: direction ?? Axis.vertical,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(iconStyle!.icon, size: size, color: color),
+            SizedBox(
+                width: direction == Axis.horizontal ? spacing : 0,
+                height: direction == Axis.vertical ? spacing : 0),
+            current,
+          ]);
     }
-    return padding != null
-        ? Padding(padding: padding!, child: current)
-        : current;
+    return current;
   }
 }
 
@@ -206,9 +193,6 @@ Future<ExtendedOverlayEntry?> showToast(
   /// Toast显示时间
   Duration? duration,
 
-  /// Toast 装饰器 会替换 [backgroundColor]
-  BoxDecoration? decoration,
-
   /// Toast onTap
   GestureTapCallback? onToastTap,
 
@@ -226,7 +210,6 @@ Future<ExtendedOverlayEntry?> showToast(
       iconStyle: iconStyle,
       builder: builder,
       onToastTap: onToastTap,
-      decoration: decoration,
       duration: duration,
       options: options,
     ).show();
@@ -239,14 +222,12 @@ typedef ToastBuilder = Widget? Function(
 class ToastOptions extends ModalOptions {
   const ToastOptions({
     this.color,
-    this.decoration,
     this.onToastTap,
     this.duration = const Duration(milliseconds: 1500),
     this.animationStyle,
     this.direction,
     this.builder,
-    this.constraints,
-    this.padding,
+    this.animationDuration,
     super.backgroundColor,
     super.foregroundColor,
     super.alignment,
@@ -259,20 +240,20 @@ class ToastOptions extends ModalOptions {
     super.textStyle,
     super.borderRadius,
     super.borderOnForeground,
-    super.animationDuration,
+    super.shape,
+    super.constraints,
+    super.padding,
   });
 
   const ToastOptions.extended({
     this.color = const Color(0xFFFFFFFF),
-    this.decoration,
     this.onToastTap,
     this.duration = const Duration(milliseconds: 1500),
     this.animationStyle,
+    this.animationDuration = const Duration(milliseconds: 300),
     this.direction = Axis.vertical,
     this.builder,
-    this.constraints,
-    this.padding = const EdgeInsets.all(10),
-    super.animationDuration = const Duration(milliseconds: 300),
+    super.constraints,
     super.backgroundColor,
     super.foregroundColor = const Color(0xFF000000),
     super.alignment,
@@ -286,22 +267,15 @@ class ToastOptions extends ModalOptions {
     super.borderRadius = const BorderRadius.all(Radius.circular(4)),
     super.shape,
     super.borderOnForeground,
+    super.padding = const EdgeInsets.all(10),
   });
 
   /// 动画样式
   final FlAnimationStyle? animationStyle;
+  final Duration? animationDuration;
 
   /// Toast显示时间
   final Duration duration;
-
-  /// Toast 装饰器
-  final BoxDecoration? decoration;
-
-  /// Toast constraints
-  final BoxConstraints? constraints;
-
-  /// Toast padding
-  final EdgeInsetsGeometry? padding;
 
   /// Toast onTap
   final GestureTapCallback? onToastTap;
@@ -316,7 +290,6 @@ class ToastOptions extends ModalOptions {
   final ToastBuilder? builder;
 
   ToastOptions copyWith({
-    BoxDecoration? decoration,
     BoxConstraints? constraints,
     GestureTapCallback? onToastTap,
     TextStyle? textStyle,
@@ -345,7 +318,6 @@ class ToastOptions extends ModalOptions {
         foregroundColor: foregroundColor ?? this.foregroundColor,
         animationDuration: animationDuration ?? this.animationDuration,
         animationStyle: animationStyle ?? this.animationStyle,
-        decoration: decoration ?? this.decoration,
         constraints: constraints ?? this.constraints,
         onToastTap: onToastTap ?? this.onToastTap,
         textStyle: textStyle ?? this.textStyle,
@@ -367,7 +339,6 @@ class ToastOptions extends ModalOptions {
   ToastOptions merge([ToastOptions? options]) => copyWith(
         animationDuration: options?.animationDuration,
         animationStyle: options?.animationStyle,
-        decoration: options?.decoration,
         constraints: options?.constraints,
         onToastTap: options?.onToastTap,
         textStyle: options?.textStyle,
@@ -377,14 +348,15 @@ class ToastOptions extends ModalOptions {
         direction: options?.direction,
         alignment: options?.alignment,
         onModalTap: options?.onModalTap,
-        backgroundColor: options?.color,
+        backgroundColor: options?.backgroundColor,
+        foregroundColor: options?.foregroundColor,
         ignoring: options?.ignoring,
         absorbing: options?.absorbing,
         gaussian: options?.gaussian,
-        elevation: elevation,
-        shadowColor: shadowColor,
-        borderRadius: borderRadius,
-        shape: shape,
-        borderOnForeground: borderOnForeground,
+        elevation: options?.elevation,
+        shadowColor: options?.shadowColor,
+        borderRadius: options?.borderRadius,
+        shape: options?.shape,
+        borderOnForeground: options?.borderOnForeground,
       );
 }

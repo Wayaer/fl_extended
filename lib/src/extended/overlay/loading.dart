@@ -2,9 +2,6 @@ part of 'overlay.dart';
 
 /// loading 加载框 关闭 closeLoading();
 ExtendedOverlayEntry? showLoading({
-  /// 通常使用自定义的
-  Widget? custom,
-
   /// builder
   LoadingBuilder? builder,
 
@@ -12,15 +9,11 @@ ExtendedOverlayEntry? showLoading({
   LoadingOptions? options,
 
   /// 以下为 ProgressIndicator 配置
-  /// 官方 ProgressIndicator 底部加个组件
-  Widget? extra,
   LoadingProgressIndicator? progressIndicator,
   LoadingStyle? style,
 }) =>
     Loading(
             builder: builder,
-            custom: custom,
-            extra: extra,
             options: options,
             progressIndicator: progressIndicator,
             style: style)
@@ -48,16 +41,11 @@ class Loading extends StatelessWidget {
     super.key,
     this.style,
     this.options,
-    this.extra,
     this.progressIndicator,
     this.builder,
-    this.custom,
   });
 
   final LoadingProgressIndicator? progressIndicator;
-
-  /// 官方 ProgressIndicator 底部加个组件
-  final Widget? extra;
 
   /// 以下为官方三个 ProgressIndicator 配置
   final LoadingStyle? style;
@@ -68,26 +56,16 @@ class Loading extends StatelessWidget {
   /// builder
   final LoadingBuilder? builder;
 
-  /// custom
-  final Widget? custom;
-
   @override
   Widget build(BuildContext context) {
-    final options = FlExtended().loadingOptions.merge(this.options).copyWith(
-        extra: extra,
-        builder: custom?.toLoadingBuilder ?? builder,
-        style: style);
+    final options = FlExtended()
+        .loadingOptions
+        .merge(this.options)
+        .copyWith(builder: builder, style: style);
     LoadingContent content = LoadingContent(
-        padding: options.padding,
-        style: options.style,
-        extra: options.extra,
-        progressIndicator: progressIndicator);
+        style: options.style, progressIndicator: progressIndicator);
     Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(
-        decoration: options.decoration,
-        constraints: options.constraints,
-        onTap: options.onLoadingTap,
-        child: current);
+    current = Universal(onTap: options.onLoadingTap, child: current);
     return ModalBox(options: options, child: current);
   }
 }
@@ -113,55 +91,40 @@ class LoadingContent extends StatelessWidget {
   const LoadingContent({
     super.key,
     this.style,
-    this.extra,
     this.progressIndicator,
-    this.padding,
   });
 
   final LoadingStyle? style;
-  final Widget? extra;
   final LoadingProgressIndicator? progressIndicator;
-
-  /// content padding
-  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     double strokeWidth = progressIndicator?.strokeWidth ?? 4.0;
-    List<Widget> children = [];
-    switch (style) {
+    switch (style ?? LoadingStyle.circular) {
       case LoadingStyle.circular:
-        children.add(CircularProgressIndicator(
+        return CircularProgressIndicator(
             value: progressIndicator?.value,
             backgroundColor: progressIndicator?.backgroundColor,
             valueColor: progressIndicator?.valueColor,
             strokeWidth: strokeWidth,
             semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue));
-        break;
+            semanticsValue: progressIndicator?.semanticsValue);
       case LoadingStyle.linear:
-        children.add(LinearProgressIndicator(
+        return LinearProgressIndicator(
             value: progressIndicator?.value,
             backgroundColor: progressIndicator?.backgroundColor,
             valueColor: progressIndicator?.valueColor,
             semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue));
-        break;
+            semanticsValue: progressIndicator?.semanticsValue);
       case LoadingStyle.refresh:
-        children.add(RefreshProgressIndicator(
+        return RefreshProgressIndicator(
             value: progressIndicator?.value,
             backgroundColor: progressIndicator?.backgroundColor,
             valueColor: progressIndicator?.valueColor,
             strokeWidth: strokeWidth,
             semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue));
-        break;
-      case null:
-        break;
+            semanticsValue: progressIndicator?.semanticsValue);
     }
-    if (extra != null) children.add(extra!);
-    return Universal(
-        padding: padding, mainAxisSize: MainAxisSize.min, children: children);
   }
 }
 
@@ -171,40 +134,27 @@ typedef LoadingBuilder = Widget? Function(
 class LoadingOptions extends ModalOptions {
   const LoadingOptions({
     this.onLoadingTap,
-    this.extra,
     this.builder,
     this.style,
-    this.constraints,
-    this.decoration,
-    this.padding,
     super.alignment,
     super.gaussian,
     super.ignoring,
     super.absorbing,
     super.onModalTap,
     super.backgroundColor,
-    super.foregroundColor,
-    super.elevation,
-    super.shadowColor,
     super.textStyle,
+    super.foregroundColor,
     super.borderRadius,
     super.borderOnForeground,
-    super.animationDuration,
+    super.shape,
+    super.elevation,
+    super.shadowColor,
+    super.constraints,
+    super.padding,
   });
-
-  final Widget? extra;
-
-  /// Loading 装饰器
-  final BoxDecoration? decoration;
-
-  /// Loading constraints
-  final BoxConstraints? constraints;
 
   /// builder
   final LoadingBuilder? builder;
-
-  /// Toast padding
-  final EdgeInsetsGeometry? padding;
 
   /// style
   final LoadingStyle? style;
@@ -213,10 +163,8 @@ class LoadingOptions extends ModalOptions {
   final GestureTapCallback? onLoadingTap;
 
   LoadingOptions copyWith({
-    BoxDecoration? decoration,
     BoxConstraints? constraints,
     EdgeInsetsGeometry? padding,
-    Widget? extra,
     LoadingBuilder? builder,
     LoadingStyle? style,
     TextStyle? textStyle,
@@ -236,11 +184,9 @@ class LoadingOptions extends ModalOptions {
   }) =>
       LoadingOptions(
         padding: padding ?? this.padding,
-        decoration: decoration ?? this.decoration,
         constraints: constraints ?? this.constraints,
         onLoadingTap: onLoadingTap ?? this.onLoadingTap,
         builder: builder ?? this.builder,
-        extra: extra ?? this.extra,
         style: style ?? this.style,
         foregroundColor: foregroundColor ?? this.foregroundColor,
         backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -254,27 +200,27 @@ class LoadingOptions extends ModalOptions {
         shadowColor: shadowColor ?? this.shadowColor,
         borderRadius: borderRadius ?? this.borderRadius,
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
+        shape: shape ?? this.shape,
       );
 
   LoadingOptions merge([LoadingOptions? options]) => copyWith(
         padding: options?.padding,
         onLoadingTap: options?.onLoadingTap,
-        decoration: options?.decoration,
         constraints: options?.constraints,
-        extra: options?.extra,
         builder: options?.builder,
         style: options?.style,
         backgroundColor: options?.backgroundColor,
+        foregroundColor: options?.foregroundColor,
         ignoring: options?.ignoring,
         absorbing: options?.absorbing,
         gaussian: options?.gaussian,
         alignment: options?.alignment,
         onModalTap: options?.onModalTap,
         textStyle: options?.textStyle,
-        elevation: elevation,
-        shadowColor: shadowColor,
-        borderRadius: borderRadius,
-        shape: shape,
-        borderOnForeground: borderOnForeground,
+        elevation: options?.elevation,
+        shadowColor: options?.shadowColor,
+        borderRadius: options?.borderRadius,
+        shape: options?.shape,
+        borderOnForeground: options?.borderOnForeground,
       );
 }

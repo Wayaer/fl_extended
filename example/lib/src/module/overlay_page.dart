@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
 
+EdgeInsets insets = const EdgeInsets.all(20);
+
 class OverlayPage extends StatelessWidget {
   const OverlayPage({super.key});
 
@@ -21,8 +23,13 @@ class OverlayPage extends StatelessWidget {
                 children: ToastIconStyle.values.builder(
                     (ToastIconStyle style) =>
                         ElevatedText(style.toString(), onTap: () async {
-                          await showToast(style.toString(), iconStyle: style);
-                          '添加await第一个Toast完了之后弹出第二个Toast'.showToast();
+                          await showToast(style.toString(),
+                              iconStyle: style,
+                              options: const ToastOptions(
+                                  elevation: 6, shadowColor: Colors.red));
+                          showToast('添加await第一个Toast完了之后弹出第二个Toast',
+                              options: const ToastOptions(
+                                  elevation: 6, shadowColor: Colors.red));
                         }))),
             Wrap(
                 alignment: WrapAlignment.center,
@@ -37,17 +44,38 @@ class OverlayPage extends StatelessWidget {
                     }))),
             const Partition('Loading'),
             ElevatedText('showLoading', onTap: () {
-              showLoading();
+              showLoading(
+                  options: LoadingOptions(
+                backgroundColor: Colors.red.withOpacity(0.5),
+                foregroundColor: Colors.blue.withOpacity(0.5),
+                gaussian: 4,
+                elevation: 2,
+                padding: const EdgeInsets.all(20),
+                // padding:
+                //     const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                onModalTap: closeLoading,
+                builder: (_, __) =>
+                    Column(mainAxisSize: MainAxisSize.min, children: [
+                  __,
+                  const Text('Loading...'),
+                ]),
+                borderRadius: BorderRadius.circular(6),
+                constraints: const BoxConstraints(maxWidth: 250),
+                textStyle: TextStyle(
+                    height: 3,
+                    color: context.theme.primaryColor,
+                    fontWeight: FontWeight.bold),
+              ));
             }),
             ...LoadingStyle.values.builder(
                 (style) => ElevatedText('showLoading ($style)', onTap: () {
                       showLoading(
                           style: style,
                           options: LoadingOptions(
+                              gaussian: 4,
                               onLoadingTap: () {
                                 '点击了Loading'.log();
                               },
-                              gaussian: 4,
                               onModalTap: closeOverlay));
                     })),
             const SizedBox(height: 60),

@@ -1,3 +1,8 @@
+## 1.1.0
+
+* Removes some parameters for `ModalOptions`、`ModalBoxOptions`、`LoadingOptions` and `ToastOptions`
+* `DoubleChooseWindows` changed to `ActionDialog` and changed the parameters
+
 ## 1.0.0
 
 * Removed `CustomBuilderContext`,use  `ValueCallbackTV<Widget, BuildContext>?`.

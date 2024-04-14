@@ -19,7 +19,8 @@ abstract class ModalOptions {
     this.borderRadius,
     this.shape,
     this.borderOnForeground,
-    this.animationDuration,
+    this.constraints,
+    this.padding,
   });
 
   /// [Material] 属性
@@ -30,7 +31,6 @@ abstract class ModalOptions {
   final Color? shadowColor;
   final ShapeBorder? shape;
   final bool? borderOnForeground;
-  final Duration? animationDuration;
 
   /// [Modal]背景点击事件
   final GestureTapCallback? onModalTap;
@@ -48,10 +48,17 @@ abstract class ModalOptions {
   /// [onTap] != null 时  无效
   final bool? absorbing;
 
+  /// 高斯模糊
   final double gaussian;
 
   /// modal上的组件对齐方式 [alignment]
   final AlignmentGeometry? alignment;
+
+  /// padding
+  final EdgeInsetsGeometry? padding;
+
+  /// constraints
+  final BoxConstraints? constraints;
 }
 
 class ModalBoxOptions extends ModalOptions {
@@ -69,12 +76,15 @@ class ModalBoxOptions extends ModalOptions {
     super.borderRadius,
     super.shape,
     super.borderOnForeground,
-    super.animationDuration,
+    super.foregroundColor,
+    super.constraints,
+    super.padding,
   });
 
   ModalBoxOptions copyWith({
     GestureTapCallback? onModalTap,
     Color? backgroundColor,
+    Color? foregroundColor,
     bool? ignoring,
     bool? absorbing,
     double? gaussian,
@@ -86,7 +96,8 @@ class ModalBoxOptions extends ModalOptions {
     Color? shadowColor,
     ShapeBorder? shape,
     bool? borderOnForeground,
-    Duration? animationDuration,
+    BoxConstraints? constraints,
+    EdgeInsetsGeometry? padding,
   }) =>
       ModalBoxOptions(
         alignment: alignment ?? this.alignment,
@@ -102,13 +113,16 @@ class ModalBoxOptions extends ModalOptions {
         borderRadius: borderRadius ?? this.borderRadius,
         shape: shape ?? this.shape,
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
-        animationDuration: animationDuration ?? this.animationDuration,
+        foregroundColor: foregroundColor ?? this.foregroundColor,
+        constraints: constraints ?? this.constraints,
+        padding: padding ?? this.padding,
       );
 
-  ModalBoxOptions merge([ModalOptions? options]) => copyWith(
+  ModalBoxOptions merge([ModalBoxOptions? options]) => copyWith(
         alignment: options?.alignment,
         onModalTap: options?.onModalTap,
         backgroundColor: options?.backgroundColor,
+        foregroundColor: options?.foregroundColor,
         ignoring: options?.ignoring,
         absorbing: options?.absorbing,
         gaussian: options?.gaussian,
@@ -119,7 +133,8 @@ class ModalBoxOptions extends ModalOptions {
         borderRadius: options?.borderRadius,
         shape: options?.shape,
         borderOnForeground: options?.borderOnForeground,
-        animationDuration: options?.animationDuration,
+        constraints: options?.constraints,
+        padding: options?.padding,
       );
 }
 
@@ -142,20 +157,35 @@ class ModalBox extends StatelessWidget {
 
     Widget current = Material(
         color: options.foregroundColor ?? Colors.transparent,
-        type: options.type ?? MaterialType.card,
+        type: options.type ?? MaterialType.canvas,
         elevation: options.elevation ?? 0.0,
         shadowColor: options.shadowColor,
         textStyle: options.textStyle,
         borderRadius: options.borderRadius,
         shape: options.shape,
         borderOnForeground: options.borderOnForeground ?? true,
-        animationDuration: options.animationDuration ?? kThemeChangeDuration,
-        child: child);
-    current = Universal(
-        onTap: options.onModalTap,
-        color: options.backgroundColor,
-        alignment: options.alignment ?? Alignment.center,
-        child: materialBuilder?.call(current) ?? current);
+        child: options.padding != null
+            ? Padding(padding: options.padding!, child: child)
+            : child);
+
+    if (materialBuilder != null) {
+      current = materialBuilder!(current);
+    }
+    if (options.constraints != null) {
+      current =
+          ConstrainedBox(constraints: options.constraints!, child: current);
+    }
+    current = MediaQuery.removeViewInsets(
+        removeLeft: true,
+        removeTop: true,
+        removeRight: true,
+        removeBottom: true,
+        context: context,
+        child: Universal(
+            onTap: options.onModalTap,
+            color: options.backgroundColor,
+            alignment: options.alignment ?? Alignment.center,
+            child: current));
     if (options.gaussian > 0) current = backdropFilter(options, current);
     if (options.ignoring != null) {
       current = IgnorePointer(ignoring: options.ignoring!, child: current);
@@ -171,77 +201,112 @@ class ModalBox extends StatelessWidget {
       child: child);
 }
 
-extension ExtensionDoubleChooseWindows on DoubleChooseWindows {
+extension ExtensionActionDialog on ActionDialog {
   Future<T?> show<T>({DialogOptions? options}) => popupDialog<T>(
       options: const DialogOptions(fromStyle: PopupFromStyle.fromCenter)
           .merge(options));
 }
 
-class DoubleChooseWindows extends StatelessWidget {
-  const DoubleChooseWindows({
+class ActionDialog extends StatelessWidget {
+  const ActionDialog({
     super.key,
-    this.backgroundColor,
+    this.title,
     required this.content,
     this.padding,
-    this.margin = const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
-    this.left,
-    this.right,
-    this.decoration,
+    this.actions = const [],
     this.options,
     this.constraints,
+    this.actionsMaxHeight = 45,
+    this.dividerColor,
+    this.dividerMargin,
+    this.dividerThickness = 1,
   });
 
-  /// 弹框内容
+  /// content
   final Widget content;
 
-  /// 弹框背景色
-  final Color? backgroundColor;
+  /// title
+  final Widget? title;
 
-  /// 弹框 padding
+  /// content padding
   final EdgeInsetsGeometry? padding;
-
-  /// 弹框 margin
-  final EdgeInsetsGeometry? margin;
 
   /// BoxConstraints
   final BoxConstraints? constraints;
 
-  /// 左边按钮
-  final Widget? left;
-
-  /// 右边按钮
-  final Widget? right;
-
-  /// 弹框样式
-  final Decoration? decoration;
+  /// actions
+  final List<Widget> actions;
 
   /// 底层模态框配置
   /// 可设置宽高
   final ModalBoxOptions? options;
 
+  /// divider color
+  final Color? dividerColor;
+
+  /// divider padding
+  final EdgeInsets? dividerMargin;
+
+  /// divider height
+  final double dividerThickness;
+
+  /// actions max height
+  final double actionsMaxHeight;
+
   @override
   Widget build(BuildContext context) {
-    final List<Widget> widgets = [content];
-    if (left != null && right != null) widgets.add(leftAndRight);
-    BoxConstraints? constraints;
-    if (this.constraints == null && context.mediaQuery.size.width > 400) {
-      constraints = const BoxConstraints(maxWidth: 350);
+    final List<Widget> widgets = [
+      if (title != null) ...[
+        title!,
+        if (dividerColor != null && dividerThickness > 0) buildDivider()
+      ],
+      content
+    ];
+    if (dividerColor != null && dividerThickness > 0) {
+      widgets.add(buildDivider());
     }
+    if (actions.isNotEmpty) widgets.add(buildActions);
+    BoxConstraints? constraints =
+        this.constraints ?? BoxConstraints(maxWidth: context.width - 40);
     return ModalBox(
-        options: options,
+        options: ModalBoxOptions(
+                constraints: constraints,
+                foregroundColor: context.theme.dialogBackgroundColor)
+            .merge(options),
         child: Universal(
-            constraints: constraints ?? this.constraints,
-            color: backgroundColor ?? context.theme.dialogBackgroundColor,
-            decoration: decoration,
-            margin: margin,
+            crossAxisAlignment: CrossAxisAlignment.center,
             padding: padding,
             mainAxisSize: MainAxisSize.min,
             children: widgets));
   }
 
-  Widget get leftAndRight =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Expanded(child: left!),
-        Expanded(child: right!),
-      ]);
+  Widget buildDivider([bool isVertical = false]) {
+    EdgeInsets? margin;
+    if (dividerMargin != null) {
+      if (isVertical) {
+        margin = EdgeInsets.only(
+            top: dividerMargin!.top, bottom: dividerMargin!.bottom);
+      } else {
+        margin = EdgeInsets.only(
+            left: dividerMargin!.left, right: dividerMargin!.right);
+      }
+    }
+    return Container(
+        margin: margin,
+        width: isVertical ? dividerThickness : double.infinity,
+        height: isVertical ? double.infinity : dividerThickness,
+        color: dividerColor);
+  }
+
+  Widget get buildActions {
+    List<Widget> children = actions;
+    if (dividerColor != null && dividerThickness > 0) {
+      children = children.insertElementBetween(buildDivider(true));
+    }
+    return Universal(
+        constraints: BoxConstraints(maxHeight: actionsMaxHeight),
+        direction: Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: children);
+  }
 }

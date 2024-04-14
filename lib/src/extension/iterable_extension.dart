@@ -623,6 +623,21 @@ extension ExtensionIterableT<T> on Iterable<T> {
     list.shuffle(random);
     return list.take(min(count, length)).toList();
   }
+
+  /// insert Element Between
+  /// Example:
+  /// ```dart
+  /// [1, 2, 3].insertElementBetween(0); // [1, 0, 2, 0, 3]
+  /// ```
+  List<T> insertElementBetween(T element) => fold([], (result, item) {
+        if (result.isEmpty) {
+          result.add(item);
+        } else {
+          result.add(element);
+          result.add(item);
+        }
+        return result;
+      });
 }
 
 extension ExtensionIterableInt on Iterable<int> {
