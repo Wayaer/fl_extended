@@ -244,6 +244,10 @@ class ToastOptions extends ModalOptions {
     super.borderOnForeground,
     super.shape,
     super.constraints,
+    super.safeLTRB,
+    super.resizeToAvoidBottomInset,
+    super.insetAnimationCurve,
+    super.insetAnimationDuration,
   });
 
   const ToastOptions.extended({
@@ -269,6 +273,10 @@ class ToastOptions extends ModalOptions {
     super.borderRadius = const BorderRadius.all(Radius.circular(4)),
     super.shape,
     super.borderOnForeground,
+    super.safeLTRB,
+    super.resizeToAvoidBottomInset,
+    super.insetAnimationCurve,
+    super.insetAnimationDuration,
   });
 
   /// 动画样式
@@ -315,6 +323,10 @@ class ToastOptions extends ModalOptions {
     ShapeBorder? shape,
     bool? borderOnForeground,
     BorderRadiusGeometry? borderRadius,
+    bool? safeLTRB,
+    bool? resizeToAvoidBottomInset,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
   }) =>
       ToastOptions.extended(
         color: color ?? this.color,
@@ -338,6 +350,12 @@ class ToastOptions extends ModalOptions {
         borderRadius: borderRadius ?? this.borderRadius,
         shape: shape ?? this.shape,
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
+        safeLTRB: safeLTRB ?? this.safeLTRB,
+        resizeToAvoidBottomInset:
+            resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+        insetAnimationDuration:
+            insetAnimationDuration ?? this.insetAnimationDuration,
+        insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
       );
 
   ToastOptions merge([ToastOptions? options]) => copyWith(
@@ -362,5 +380,9 @@ class ToastOptions extends ModalOptions {
         borderRadius: options?.borderRadius,
         shape: options?.shape,
         borderOnForeground: options?.borderOnForeground,
+        safeLTRB: options?.safeLTRB,
+        resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
+        insetAnimationDuration: options?.insetAnimationDuration,
+        insetAnimationCurve: options?.insetAnimationCurve,
       );
 }

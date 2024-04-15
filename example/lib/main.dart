@@ -108,7 +108,7 @@ class _MaterialApp extends StatelessWidget {
         title: 'Fl Extended',
         home: ExtendedScaffold(
             enableDoubleClickExit: true,
-            appBar: AppBarText('Flutter extended example'),
+            appBar: AppBarText('Fl Extended example'),
             child: _Home()),
         builder: DevicePreview.appBuilder);
   }

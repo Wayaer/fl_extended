@@ -21,6 +21,9 @@ abstract class ModalOptions {
     this.borderOnForeground,
     this.constraints,
     this.safeLTRB = true,
+    this.resizeToAvoidBottomInset = true,
+    this.insetAnimationDuration = const Duration(milliseconds: 100),
+    this.insetAnimationCurve = Curves.decelerate,
   });
 
   /// [Material] 属性
@@ -54,11 +57,20 @@ abstract class ModalOptions {
   /// modal上的组件对齐方式 [alignment]
   final AlignmentGeometry? alignment;
 
+  /// constraints
+  final BoxConstraints? constraints;
+
   /// [SafeArea]
   final bool safeLTRB;
 
-  /// constraints
-  final BoxConstraints? constraints;
+  /// resizeToAvoidBottomInset
+  final bool resizeToAvoidBottomInset;
+
+  /// 当键盘弹出时 modal 顶起 动画 Duration
+  final Duration insetAnimationDuration;
+
+  /// 当键盘弹出时 modal 顶起 动画 Curve
+  final Curve insetAnimationCurve;
 }
 
 class ModalBoxOptions extends ModalOptions {
@@ -78,6 +90,10 @@ class ModalBoxOptions extends ModalOptions {
     super.borderOnForeground,
     super.foregroundColor,
     super.constraints,
+    super.safeLTRB,
+    super.resizeToAvoidBottomInset,
+    super.insetAnimationCurve,
+    super.insetAnimationDuration,
   });
 
   ModalBoxOptions copyWith({
@@ -96,6 +112,10 @@ class ModalBoxOptions extends ModalOptions {
     ShapeBorder? shape,
     bool? borderOnForeground,
     BoxConstraints? constraints,
+    bool? safeLTRB,
+    bool? resizeToAvoidBottomInset,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
   }) =>
       ModalBoxOptions(
         alignment: alignment ?? this.alignment,
@@ -113,6 +133,12 @@ class ModalBoxOptions extends ModalOptions {
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
         foregroundColor: foregroundColor ?? this.foregroundColor,
         constraints: constraints ?? this.constraints,
+        safeLTRB: safeLTRB ?? this.safeLTRB,
+        resizeToAvoidBottomInset:
+            resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+        insetAnimationDuration:
+            insetAnimationDuration ?? this.insetAnimationDuration,
+        insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
       );
 
   ModalBoxOptions merge([ModalBoxOptions? options]) => copyWith(
@@ -131,6 +157,10 @@ class ModalBoxOptions extends ModalOptions {
         shape: options?.shape,
         borderOnForeground: options?.borderOnForeground,
         constraints: options?.constraints,
+        safeLTRB: options?.safeLTRB,
+        resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
+        insetAnimationDuration: options?.insetAnimationDuration,
+        insetAnimationCurve: options?.insetAnimationCurve,
       );
 }
 
@@ -179,6 +209,13 @@ class ModalBox extends StatelessWidget {
                 safeLTRB: options.safeLTRB,
                 constraints: options.constraints,
                 child: current)));
+    if (options.resizeToAvoidBottomInset) {
+      current = AnimatedPadding(
+          padding: MediaQuery.viewInsetsOf(context),
+          duration: options.insetAnimationDuration,
+          curve: options.insetAnimationCurve,
+          child: current);
+    }
     if (options.gaussian > 0) current = backdropFilter(options, current);
     if (options.ignoring != null) {
       current = IgnorePointer(ignoring: options.ignoring!, child: current);

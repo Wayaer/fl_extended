@@ -152,6 +152,10 @@ class LoadingOptions extends ModalOptions {
     super.elevation,
     super.shadowColor,
     super.constraints,
+    super.safeLTRB,
+    super.resizeToAvoidBottomInset,
+    super.insetAnimationCurve,
+    super.insetAnimationDuration,
   });
 
   /// builder
@@ -185,6 +189,10 @@ class LoadingOptions extends ModalOptions {
     ShapeBorder? shape,
     bool? borderOnForeground,
     BorderRadiusGeometry? borderRadius,
+    bool? safeLTRB,
+    bool? resizeToAvoidBottomInset,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
   }) =>
       LoadingOptions(
         padding: padding ?? this.padding,
@@ -205,6 +213,12 @@ class LoadingOptions extends ModalOptions {
         borderRadius: borderRadius ?? this.borderRadius,
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
         shape: shape ?? this.shape,
+        safeLTRB: safeLTRB ?? this.safeLTRB,
+        resizeToAvoidBottomInset:
+            resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+        insetAnimationDuration:
+            insetAnimationDuration ?? this.insetAnimationDuration,
+        insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
       );
 
   LoadingOptions merge([LoadingOptions? options]) => copyWith(
@@ -226,5 +240,9 @@ class LoadingOptions extends ModalOptions {
         borderRadius: options?.borderRadius,
         shape: options?.shape,
         borderOnForeground: options?.borderOnForeground,
+        safeLTRB: options?.safeLTRB,
+        resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
+        insetAnimationDuration: options?.insetAnimationDuration,
+        insetAnimationCurve: options?.insetAnimationCurve,
       );
 }
