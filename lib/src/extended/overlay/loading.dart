@@ -65,7 +65,8 @@ class Loading extends StatelessWidget {
     LoadingContent content = LoadingContent(
         style: options.style, progressIndicator: progressIndicator);
     Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(onTap: options.onLoadingTap, child: current);
+    current = Universal(
+        onTap: options.onLoadingTap, padding: options.padding, child: current);
     return ModalBox(options: options, child: current);
   }
 }
@@ -136,6 +137,7 @@ class LoadingOptions extends ModalOptions {
     this.onLoadingTap,
     this.builder,
     this.style,
+    this.padding,
     super.alignment = Alignment.center,
     super.gaussian,
     super.ignoring,
@@ -150,7 +152,6 @@ class LoadingOptions extends ModalOptions {
     super.elevation,
     super.shadowColor,
     super.constraints,
-    super.padding,
   });
 
   /// builder
@@ -161,6 +162,9 @@ class LoadingOptions extends ModalOptions {
 
   /// Loading onTap
   final GestureTapCallback? onLoadingTap;
+
+  /// padding
+  final EdgeInsetsGeometry? padding;
 
   LoadingOptions copyWith({
     BoxConstraints? constraints,

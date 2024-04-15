@@ -56,6 +56,7 @@ void main() {
   flExtended.loadingOptions = LoadingOptions(
       backgroundColor: Colors.red.withOpacity(0.1),
       foregroundColor: Colors.yellow,
+      elevation: 2,
       padding: const EdgeInsets.all(10),
       builder: (_, LoadingContent content) {
         if (content.style != null) return null;

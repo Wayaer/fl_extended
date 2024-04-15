@@ -76,7 +76,8 @@ class Toast extends StatelessWidget {
         textStyle: options.textStyle,
         direction: options.direction);
     Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(onTap: options.onToastTap, child: current);
+    current = Universal(
+        onTap: options.onToastTap, padding: options.padding, child: current);
     return ModalBox(
         options: options,
         materialBuilder: options.animationStyle == null
@@ -228,6 +229,7 @@ class ToastOptions extends ModalOptions {
     this.direction,
     this.builder,
     this.animationDuration,
+    this.padding,
     super.backgroundColor,
     super.foregroundColor,
     super.alignment,
@@ -242,7 +244,6 @@ class ToastOptions extends ModalOptions {
     super.borderOnForeground,
     super.shape,
     super.constraints,
-    super.padding,
   });
 
   const ToastOptions.extended({
@@ -253,6 +254,7 @@ class ToastOptions extends ModalOptions {
     this.animationDuration = const Duration(milliseconds: 300),
     this.direction = Axis.vertical,
     this.builder,
+    this.padding = const EdgeInsets.all(10),
     super.constraints,
     super.backgroundColor,
     super.foregroundColor = const Color(0xFF000000),
@@ -267,7 +269,6 @@ class ToastOptions extends ModalOptions {
     super.borderRadius = const BorderRadius.all(Radius.circular(4)),
     super.shape,
     super.borderOnForeground,
-    super.padding = const EdgeInsets.all(10),
   });
 
   /// 动画样式
@@ -288,6 +289,9 @@ class ToastOptions extends ModalOptions {
 
   /// builder
   final ToastBuilder? builder;
+
+  /// padding
+  final EdgeInsetsGeometry? padding;
 
   ToastOptions copyWith({
     BoxConstraints? constraints,

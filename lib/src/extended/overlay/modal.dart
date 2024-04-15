@@ -20,7 +20,6 @@ abstract class ModalOptions {
     this.shape,
     this.borderOnForeground,
     this.constraints,
-    this.padding,
     this.safeLTRB = true,
   });
 
@@ -58,16 +57,13 @@ abstract class ModalOptions {
   /// [SafeArea]
   final bool safeLTRB;
 
-  /// padding
-  final EdgeInsetsGeometry? padding;
-
   /// constraints
   final BoxConstraints? constraints;
 }
 
 class ModalBoxOptions extends ModalOptions {
   const ModalBoxOptions({
-    super.alignment,
+    super.alignment = Alignment.center,
     super.gaussian,
     super.ignoring,
     super.absorbing,
@@ -82,7 +78,6 @@ class ModalBoxOptions extends ModalOptions {
     super.borderOnForeground,
     super.foregroundColor,
     super.constraints,
-    super.padding,
   });
 
   ModalBoxOptions copyWith({
@@ -101,7 +96,6 @@ class ModalBoxOptions extends ModalOptions {
     ShapeBorder? shape,
     bool? borderOnForeground,
     BoxConstraints? constraints,
-    EdgeInsetsGeometry? padding,
   }) =>
       ModalBoxOptions(
         alignment: alignment ?? this.alignment,
@@ -119,7 +113,6 @@ class ModalBoxOptions extends ModalOptions {
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
         foregroundColor: foregroundColor ?? this.foregroundColor,
         constraints: constraints ?? this.constraints,
-        padding: padding ?? this.padding,
       );
 
   ModalBoxOptions merge([ModalBoxOptions? options]) => copyWith(
@@ -138,7 +131,6 @@ class ModalBoxOptions extends ModalOptions {
         shape: options?.shape,
         borderOnForeground: options?.borderOnForeground,
         constraints: options?.constraints,
-        padding: options?.padding,
       );
 }
 
@@ -168,17 +160,11 @@ class ModalBox extends StatelessWidget {
         borderRadius: options.borderRadius,
         shape: options.shape,
         borderOnForeground: options.borderOnForeground ?? true,
-        child: options.padding != null
-            ? Padding(padding: options.padding!, child: child)
-            : child);
+        child: child);
 
     if (materialBuilder != null) {
       current = materialBuilder!(current);
     }
-    // if (options.constraints != null) {
-    //   current =
-    //       ConstrainedBox(constraints: options.constraints!, child: current);
-    // }
     current = MediaQuery.removeViewInsets(
         removeLeft: true,
         removeTop: true,

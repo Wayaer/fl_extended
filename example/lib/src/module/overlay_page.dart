@@ -43,7 +43,8 @@ class OverlayPage extends StatelessWidget {
                           options: ToastOptions(alignment: alignment));
                     }))),
             const Partition('Loading'),
-            ElevatedText('showLoading', onTap: () {
+            const ElevatedText('showLoading', onTap: showLoading),
+            ElevatedText('showLoading custom', onTap: () {
               showLoading(
                   options: LoadingOptions(
                 gaussian: 4,
