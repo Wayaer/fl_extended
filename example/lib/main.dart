@@ -54,7 +54,7 @@ void main() {
 
   /// 设置全局Loading配置
   flExtended.loadingOptions = LoadingOptions(
-      backgroundColor: Colors.red.withOpacity(0.3),
+      backgroundColor: Colors.red.withOpacity(0.1),
       foregroundColor: Colors.yellow,
       padding: const EdgeInsets.all(10),
       builder: (_, LoadingContent content) {

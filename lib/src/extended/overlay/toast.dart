@@ -256,7 +256,7 @@ class ToastOptions extends ModalOptions {
     super.constraints,
     super.backgroundColor,
     super.foregroundColor = const Color(0xFF000000),
-    super.alignment,
+    super.alignment = Alignment.center,
     super.onModalTap,
     super.gaussian,
     super.ignoring,

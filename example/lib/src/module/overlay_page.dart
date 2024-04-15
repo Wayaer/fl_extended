@@ -46,23 +46,20 @@ class OverlayPage extends StatelessWidget {
             ElevatedText('showLoading', onTap: () {
               showLoading(
                   options: LoadingOptions(
-                backgroundColor: Colors.red.withOpacity(0.5),
-                foregroundColor: Colors.blue.withOpacity(0.5),
                 gaussian: 4,
                 elevation: 2,
-                padding: const EdgeInsets.all(20),
-                // padding:
-                //     const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 onModalTap: closeLoading,
                 builder: (_, __) =>
                     Column(mainAxisSize: MainAxisSize.min, children: [
                   __,
+                  10.heightBox,
                   const Text('Loading...'),
                 ]),
                 borderRadius: BorderRadius.circular(6),
-                constraints: const BoxConstraints(maxWidth: 250),
+                alignment: Alignment.center,
                 textStyle: TextStyle(
-                    height: 3,
                     color: context.theme.primaryColor,
                     fontWeight: FontWeight.bold),
               ));

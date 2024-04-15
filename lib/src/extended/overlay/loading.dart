@@ -136,7 +136,7 @@ class LoadingOptions extends ModalOptions {
     this.onLoadingTap,
     this.builder,
     this.style,
-    super.alignment,
+    super.alignment = Alignment.center,
     super.gaussian,
     super.ignoring,
     super.absorbing,

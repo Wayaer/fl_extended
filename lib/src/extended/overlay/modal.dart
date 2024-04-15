@@ -21,6 +21,7 @@ abstract class ModalOptions {
     this.borderOnForeground,
     this.constraints,
     this.padding,
+    this.safeLTRB = true,
   });
 
   /// [Material] 属性
@@ -53,6 +54,9 @@ abstract class ModalOptions {
 
   /// modal上的组件对齐方式 [alignment]
   final AlignmentGeometry? alignment;
+
+  /// [SafeArea]
+  final bool safeLTRB;
 
   /// padding
   final EdgeInsetsGeometry? padding;
@@ -171,10 +175,10 @@ class ModalBox extends StatelessWidget {
     if (materialBuilder != null) {
       current = materialBuilder!(current);
     }
-    if (options.constraints != null) {
-      current =
-          ConstrainedBox(constraints: options.constraints!, child: current);
-    }
+    // if (options.constraints != null) {
+    //   current =
+    //       ConstrainedBox(constraints: options.constraints!, child: current);
+    // }
     current = MediaQuery.removeViewInsets(
         removeLeft: true,
         removeTop: true,
@@ -184,8 +188,11 @@ class ModalBox extends StatelessWidget {
         child: Universal(
             onTap: options.onModalTap,
             color: options.backgroundColor,
-            alignment: options.alignment ?? Alignment.center,
-            child: current));
+            alignment: options.alignment,
+            child: Universal(
+                safeLTRB: options.safeLTRB,
+                constraints: options.constraints,
+                child: current)));
     if (options.gaussian > 0) current = backdropFilter(options, current);
     if (options.ignoring != null) {
       current = IgnorePointer(ignoring: options.ignoring!, child: current);
@@ -256,10 +263,7 @@ class ActionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgets = [
-      if (title != null) ...[
-        title!,
-        if (dividerColor != null && dividerThickness > 0) buildDivider()
-      ],
+      if (title != null) ...[title!],
       content
     ];
     if (dividerColor != null && dividerThickness > 0) {

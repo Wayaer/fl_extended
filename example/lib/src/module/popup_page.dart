@@ -15,7 +15,7 @@ class PopupPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(10)),
         dividerColor: const Color(0xFF8F8F8F),
         title: const Universal(
-            alignment: Alignment.center, height: 50, child: Text('Title')),
+            margin: EdgeInsets.only(top: 16, bottom: 6), child: Text('Title')),
         content: Universal(
             margin: const EdgeInsets.all(10),
             alignment: Alignment.center,
