@@ -1,7 +1,8 @@
-## 1.1.0
+## 1.1.1
 
 * Removes some parameters for `ModalOptions`、`ModalBoxOptions`、`LoadingOptions` and `ToastOptions`
 * `DoubleChooseWindows` changed to `ActionDialog` and changed the parameters
+* The `ToastOptions` and `LoadingOptions` parameters have been modified.
 
 ## 1.0.0
 
