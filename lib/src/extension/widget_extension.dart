@@ -351,8 +351,6 @@ extension ExtensionWidget on Widget {
           heightFactor: heightFactor,
           child: this);
 
-  Expanded get expanded => Expanded(flex: 1, child: this);
-
   Flexible flexible({Key? key, int flex = 1, FlexFit fit = FlexFit.loose}) =>
       Flexible(key: key, flex: flex, fit: fit, child: this);
 
@@ -365,8 +363,18 @@ extension ExtensionWidget on Widget {
   SizedBox setHeight(double height, {Key? key}) =>
       SizedBox(key: key, height: height, child: this);
 
-  SizedBox setSize(Size size, {Key? key}) =>
-      SizedBox(key: key, height: size.height, width: size.width, child: this);
+  SizedBox setSize(Size size, {Key? key}) => fromSize(size, key: key);
+
+  PreferredSize setPreferredHeight(double height, {Key? key}) =>
+      PreferredSize(preferredSize: Size.fromHeight(height), child: this);
+
+  PreferredSize setPreferredWidth(double width, {Key? key}) =>
+      PreferredSize(preferredSize: Size.fromWidth(width), child: this);
+
+  PreferredSize setPreferredSize(Size size, {Key? key}) =>
+      PreferredSize(preferredSize: size, child: this);
+
+  Expanded get expanded => Expanded(flex: 1, child: this);
 
   SizedBox get expand => SizedBox.expand(child: this);
 

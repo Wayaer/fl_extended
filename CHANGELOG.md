@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Add a PreferredSize extension to the Widget
+
 ## 1.1.1
 
 * Removes some parameters for `ModalOptions`、`ModalBoxOptions`、`LoadingOptions` and `ToastOptions`
