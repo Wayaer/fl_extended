@@ -16,29 +16,29 @@ class TextPage extends StatelessWidget {
             const BText('BText'),
             const Partition('BText.rich'),
             const BText.rich(
-                style: BTextStyle(color: Color(0xFF42A5F5)),
+                style: TextStyle(color: Color(0xFF42A5F5)),
                 texts: [
                   'BText',
                   ' * ',
                   'rich',
                 ],
                 styles: [
-                  BTextStyle(color: Color(0xFFD32F2F)),
-                  BTextStyle(color: Colors.blue),
-                  BTextStyle(color: Color(0xFFFFC400)),
+                  TextStyle(color: Color(0xFFD32F2F)),
+                  TextStyle(color: Colors.blue),
+                  TextStyle(color: Color(0xFFFFC400)),
                 ]),
             const Partition('RText'),
             RText(
-                style: const BTextStyle(color: Color(0xFF42A5F5)),
+                style: const TextStyle(color: Color(0xFF42A5F5)),
                 texts: const [
                   'RText',
                   ' = ',
                   'RichText魔改版',
                 ],
                 styles: const [
-                  BTextStyle(color: Color(0xFFD32F2F)),
-                  BTextStyle(color: Colors.white),
-                  // BTextStyle(color: Color(0xFFFFC400)),
+                  TextStyle(color: Color(0xFFD32F2F)),
+                  TextStyle(color: Colors.white),
+                  // TextStyle(color: Color(0xFFFFC400)),
                 ]),
             const Partition('BText set color'),
             const BText('BText', color: Colors.red),

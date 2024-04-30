@@ -1,6 +1,7 @@
 ## 1.1.2
 
 * Add a PreferredSize extension to the Widget
+* Removed `BTextStyle`
 
 ## 1.1.1
 
