@@ -82,13 +82,13 @@ class Toast extends StatelessWidget {
         options: options,
         materialBuilder: options.animationStyle == null
             ? null
-            : (_) => FlAnimation(
+            : (Widget child) => FlAnimation(
                 style: options.animationStyle!,
                 animationDuration:
                     options.animationDuration ?? kThemeChangeDuration,
                 stayDuration: options.duration
                     .subtract(kFlAnimationDuration, kFlAnimationDuration),
-                child: _),
+                child: child),
         child: current);
   }
 }

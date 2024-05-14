@@ -52,9 +52,9 @@ class OverlayPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 onModalTap: closeLoading,
-                builder: (_, __) =>
+                builder: (_, LoadingContent content) =>
                     Column(mainAxisSize: MainAxisSize.min, children: [
-                  __,
+                  content,
                   10.heightBox,
                   const Text('Loading...'),
                 ]),

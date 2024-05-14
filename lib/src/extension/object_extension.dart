@@ -82,4 +82,6 @@ extension ExtensionSize on Size {
 
 extension ExtensionBool on bool {
   bool get toggle => !this;
+
+  int get toInt => this ? 1 : 0;
 }
