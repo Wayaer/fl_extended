@@ -112,7 +112,7 @@ class IconBox extends StatelessWidget {
   final ButtonStyle? style;
   final FocusNode? focusNode;
   final bool autofocus;
-  final MaterialStatesController? statesController;
+  final WidgetStatesController? statesController;
   final Clip? clipBehavior;
 
   @override

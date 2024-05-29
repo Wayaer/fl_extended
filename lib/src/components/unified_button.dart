@@ -1,5 +1,4 @@
-import 'dart:math' as math;
-import 'dart:ui' show lerpDouble;
+import 'dart:ui' show clampDouble, lerpDouble;
 import 'package:flutter/material.dart';
 
 enum UnifiedButtonCategory {
@@ -93,7 +92,7 @@ class UnifiedButton extends StatelessWidget {
   final bool autofocus;
 
   /// statesController
-  final MaterialStatesController? statesController;
+  final WidgetStatesController? statesController;
 
   /// child
   final Widget child;
@@ -117,9 +116,14 @@ class UnifiedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget current = child;
     if (icon != null) {
-      final double scale = MediaQuery.textScalerOf(context).textScaleFactor;
-      final double gap =
-          scale <= 1 ? 8 : lerpDouble(8, 4, math.min(scale - 1, 1))!;
+      final double defaultFontSize =
+          style?.textStyle?.resolve(const <WidgetState>{})?.fontSize ?? 14.0;
+      final double scale = clampDouble(
+              MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0,
+              1.0,
+              2.0) -
+          1.0;
+      final double gap = lerpDouble(8, 4, scale)!;
       current = Flex(
           mainAxisAlignment: mainAxisAlignment,
           crossAxisAlignment: crossAxisAlignment,

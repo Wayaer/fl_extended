@@ -333,7 +333,7 @@ class Universal extends StatelessWidget {
   final ButtonStyle? style;
   final FocusNode? focusNode;
   final bool autofocus;
-  final MaterialStatesController? statesController;
+  final WidgetStatesController? statesController;
 
   /// ****** [GestureDetector] ****** ///
   /// [unifiedButtonCategory]==null 使用[GestureDetector]处理点击事件
