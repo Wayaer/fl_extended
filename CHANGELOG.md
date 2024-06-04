@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Migration to 3.22
+
 ## 1.1.2
 
 * Add a PreferredSize extension to the Widget
