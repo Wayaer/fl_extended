@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension ExtensionTextEditingController on TextEditingController {
+  /// 在光标后插入文本
   void addTextAfterCursor(String text) {
     String value = this.text;
     int start = selection.start;
@@ -12,6 +13,7 @@ extension ExtensionTextEditingController on TextEditingController {
         selection: TextSelection.collapsed(offset: newSelection));
   }
 
+  /// 在光标前插入文本
   void addTextBeforeCursor(String text) {
     String value = this.text;
     int start = selection.start;
