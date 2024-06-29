@@ -1,3 +1,8 @@
+## 1.3.0
+
+* Added `FlInheritedWidget`
+* Modify the parameters of `push` `pushReplacement` `pushAndRemoveUntil`
+
 ## 1.2.0
 
 * Migration to 3.22

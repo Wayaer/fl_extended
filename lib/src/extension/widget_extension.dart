@@ -8,71 +8,42 @@ import 'package:fl_extended/fl_extended.dart';
 
 extension ExtensionWidgetMethod on Widget {
   /// [push]
-  Future<T?> push<T extends Object?>({
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-    RoutePushStyle? pushStyle,
-    RouteSettings? settings,
-    bool allowSnapshotting = true,
-    bool barrierDismissible = false,
-  }) {
+  Future<T?> push<T extends Object?>(Widget widget,
+      {PageRouteOptions options = const PageRouteOptions.material()}) {
     assert(FlExtended().navigatorKey.currentState != null,
         'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended().navigatorKey.currentState!.push<T>(buildPageRoute(
-        pageRoute: PageRouteOptions(
-            allowSnapshotting: allowSnapshotting,
-            barrierDismissible: barrierDismissible,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            settings: settings),
-        pushStyle: pushStyle));
+    return FlExtended()
+        .navigatorKey
+        .currentState!
+        .push<T>(options.buildPageRoute(widget));
   }
 
   /// [pushReplacement]
   Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
-      {bool maintainState = true,
-      bool fullscreenDialog = false,
-      RoutePushStyle? pushStyle,
-      RouteSettings? settings,
-      bool allowSnapshotting = true,
-      bool barrierDismissible = false,
-      TO? result}) {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended().navigatorKey.currentState!.pushReplacement<T, TO>(
-        buildPageRoute(
-            pageRoute: PageRouteOptions(
-                allowSnapshotting: allowSnapshotting,
-                barrierDismissible: barrierDismissible,
-                maintainState: maintainState,
-                fullscreenDialog: fullscreenDialog,
-                settings: settings),
-            pushStyle: pushStyle),
-        result: result);
-  }
-
-  /// [pushAndRemoveUntil]
-  Future<T?> pushAndRemoveUntil<T extends Object?>({
-    RoutePushStyle? pushStyle,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-    RouteSettings? settings,
-    RoutePredicate? predicate,
-    bool allowSnapshotting = true,
-    bool barrierDismissible = false,
+    Widget widget, {
+    PageRouteOptions options = const PageRouteOptions.material(),
+    TO? result,
   }) {
     assert(FlExtended().navigatorKey.currentState != null,
         'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended().navigatorKey.currentState!.pushAndRemoveUntil<T>(
-        buildPageRoute(
-            pageRoute: PageRouteOptions(
-                allowSnapshotting: allowSnapshotting,
-                barrierDismissible: barrierDismissible,
-                maintainState: maintainState,
-                fullscreenDialog: fullscreenDialog,
-                settings: settings),
-            pushStyle: pushStyle),
-        predicate ?? (_) => false);
+    return FlExtended()
+        .navigatorKey
+        .currentState!
+        .pushReplacement<T, TO>(options.buildPageRoute(widget), result: result);
+  }
+
+  /// [pushAndRemoveUntil]
+  Future<T?> pushAndRemoveUntil<T extends Object?>(
+    Widget widget, {
+    PageRouteOptions options = const PageRouteOptions.material(),
+    required RoutePredicate predicate,
+  }) {
+    assert(FlExtended().navigatorKey.currentState != null,
+        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
+    return FlExtended()
+        .navigatorKey
+        .currentState!
+        .pushAndRemoveUntil<T>(options.buildPageRoute(widget), predicate);
   }
 
   /// [ExtendedOverlay().showOverlay()]
@@ -221,12 +192,6 @@ extension ExtensionWidget on Widget {
           Animation<double> secondaryAnimation,
           Widget child) =>
       this;
-
-  PageRoute<T> buildPageRoute<T>(
-          {PageRouteOptions pageRoute = const PageRouteOptions(),
-          RoutePushStyle? pushStyle}) =>
-      (pushStyle ?? FlExtended().pushStyle)
-          .pageRoute<T>(pageRoute.copyWith(widget: this));
 
   BackdropFilter backdropFilter(
           {Key? key, ImageFilter? filter, double fuzzyDegree = 4}) =>
