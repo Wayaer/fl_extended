@@ -1,3 +1,7 @@
+## 1.3.1
+
+* Add new extension methods for `List` and `Map`
+
 ## 1.3.0
 
 * Added `FlInheritedWidget`

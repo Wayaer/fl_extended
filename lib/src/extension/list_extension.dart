@@ -66,17 +66,34 @@ extension ExtensionList<T> on List<T> {
     return String.fromCharCodes(chars);
   }
 
-  /// list.map.toList()
-  List<E> builder<E>(E Function(T) builder) =>
-      map<E>((T e) => builder(e)).toList();
-
+  /// List.generate((index)=>E);
   List<E> generate<E>(E Function(int index) generator,
           {bool growable = true}) =>
       length.generate<E>((int index) => generator(index), growable: growable);
 
+  /// list.map.toList()
+  List<E> mapToList<E>(E Function(T) builder) =>
+      map<E>((T e) => builder(e)).toList();
+
+  /// List.generate((index)=>E);
+  List<E> builder<E>(E Function(T) builder) =>
+      generate((int index) => builder(this[index]));
+
   /// list.asMap().entries.map.toList()
-  List<E> builderEntry<E>(E Function(MapEntry<int, T>) builder) =>
+  List<E> asMapEntriesMapToList<E>(E Function(MapEntry<int, T>) builder) =>
       asMap().entries.map((MapEntry<int, T> entry) => builder(entry)).toList();
+
+  /// list.asMap().entries.map
+  Iterable<E> asMapEntriesMap<E>(E Function(MapEntry<int, T>) builder) =>
+      asMap().entries.map((MapEntry<int, T> entry) => builder(entry));
+
+  /// List.generate((index)=>MapEntry<int,T>);
+  List<E> builderIV<E>(E Function(int, T) builder) =>
+      generate((int index) => builder(index, this[index]));
+
+  /// List.generate((index)=>MapEntry<int,T>);
+  List<E> builderEntry<E>(E Function(MapEntry<int, T>) builder) =>
+      generate((int index) => builder(MapEntry(index, this[index])));
 
   /// 添加子元素 并返回 新数组
   List<T> addT(T value, {bool isAdd = true}) {

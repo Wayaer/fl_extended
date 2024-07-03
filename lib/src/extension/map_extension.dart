@@ -4,7 +4,26 @@ extension ExtensionMap<K, V> on Map<K, V> {
   List<V> valuesList({bool growable = true}) =>
       values.toList(growable: growable);
 
+  ///  entries.map()
+  Iterable<E> entriesMapKV<E>(E Function(K, V) builder) =>
+      entries.map((MapEntry<K, V> entry) => builder(entry.key, entry.value));
+
+  ///  entries.map().toList()
+  List<E> entriesMapKVToList<E>(E Function(K, V) builder) => entries
+      .map((MapEntry<K, V> entry) => builder(entry.key, entry.value))
+      .toList();
+
+  /// entries.map().toList()
+  @Deprecated('Use entriesMapToList instead')
   List<E> builderEntry<E>(E Function(MapEntry<K, V>) builder) =>
+      entries.map((MapEntry<K, V> entry) => builder(entry)).toList();
+
+  /// entries.map()
+  Iterable<E> entriesMap<E>(E Function(MapEntry<K, V>) builder) =>
+      entries.map((MapEntry<K, V> entry) => builder(entry));
+
+  /// entries.map().toList()
+  List<E> entriesMapToList<E>(E Function(MapEntry<K, V>) builder) =>
       entries.map((MapEntry<K, V> entry) => builder(entry)).toList();
 
   /// addAll map 并返回 新map
