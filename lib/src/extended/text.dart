@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_extended/fl_extended.dart';
 
@@ -25,11 +24,19 @@ class RText extends RichText {
     /// [texts]内语义 - 语义描述标签，相当于此text的别名
     List<String?> semanticsLabels = const [],
 
-    /// 新增属性
+    /// [mouseCursors]
     List<MouseCursor?> mouseCursors = const [],
+
+    /// [onEnters]
     List<PointerEnterEventListener?> onEnters = const [],
+
+    /// [onExits]
     List<PointerExitEventListener?> onExits = const [],
+
+    /// [locales]
     List<Locale?> locales = const [],
+
+    /// [spellOuts]
     List<bool?> spellOuts = const [],
 
     /// StrutStyle,影响Text在垂直方向上的布局
@@ -61,8 +68,7 @@ class RText extends RichText {
     super.textHeightBehavior,
     super.selectionRegistrar,
     super.selectionColor,
-  })  : assert(texts.isNotEmpty),
-        super(
+  }) : super(
             text: buildTextSpan(buildTextSpans(
                 texts: texts,
                 style: style,
@@ -76,10 +82,15 @@ class RText extends RichText {
                 spellOuts: spellOuts)));
 
   static TextSpan buildTextSpan(List<TextSpan> textSpans) => TextSpan(
-      text: textSpans.first.text,
-      style: textSpans.first.style,
-      semanticsLabel: textSpans.first.semanticsLabel,
-      recognizer: textSpans.first.recognizer,
+      text: textSpans.firstOrNull?.text,
+      style: textSpans.firstOrNull?.style,
+      semanticsLabel: textSpans.firstOrNull?.semanticsLabel,
+      recognizer: textSpans.firstOrNull?.recognizer,
+      mouseCursor: textSpans.firstOrNull?.mouseCursor,
+      onEnter: textSpans.firstOrNull?.onEnter,
+      onExit: textSpans.firstOrNull?.onExit,
+      locale: textSpans.firstOrNull?.locale,
+      spellOut: textSpans.firstOrNull?.spellOut,
       children:
           textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null);
 
@@ -122,35 +133,33 @@ class RText extends RichText {
                   ? null
                   : recognizers[entry.key],
           style: styles.isEmpty || (styles.length - 1) < entry.key
-              ? const TextStyle().merge(style)
-              : const TextStyle().merge(style).merge(styles[entry.key])));
-
-  static convertTextStyle(BuildContext context, TextStyle style) {
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveTextStyle = style;
-    if (style.inherit) {
-      effectiveTextStyle = defaultTextStyle.style.merge(style);
-    }
-    return effectiveTextStyle;
-  }
+              ? style
+              : style == null
+                  ? styles[entry.key]
+                  : style.merge(styles[entry.key])));
 }
 
+/// 扩展 [Text]、[Text.rich]
 class BText extends StatelessWidget {
   const BText(
     this.text, {
     super.key,
+    this.style,
     this.recognizer,
     this.semanticsLabel,
+    this.mouseCursor,
+    this.onEnter,
+    this.onExit,
+    this.locale,
+    this.spellOut,
     this.strutStyle,
     this.textAlign,
     this.textDirection,
-    this.locale,
     this.softWrap,
     this.overflow,
     this.textScaleFactor,
     this.maxLines,
     this.textWidthBasis,
-    this.style,
     this.inherit = true,
     this.color,
     this.backgroundColor,
@@ -179,27 +188,42 @@ class BText extends StatelessWidget {
     this.leadingDistribution,
     this.fontVariations,
     this.useStyleFirst = true,
-  })  : assert(color == null || foreground == null, _kColorForegroundWarning),
-        assert(backgroundColor == null || background == null,
-            _kColorBackgroundWarning),
-        isRich = false,
-        texts = const [],
+  })  : texts = const [],
         styles = const [],
         recognizers = const [],
-        semanticsLabels = const [];
+        semanticsLabels = const [],
+        mouseCursors = const [],
+        onEnters = const [],
+        onExits = const [],
+        locales = const [],
+        spellOuts = const [];
 
   /// 与 [RText] 一致，仅增加 主题适配
+  /// [text]、[style]、[recognizer]、[semanticsLabel]、[mouseCursor]、[onEnter]、[onExit]、[locale]、[spellOut]
+  /// 这几个如果有值默认应用于 [texts][0]
   const BText.rich({
     super.key,
-    required this.texts,
+    this.text = '',
+    this.texts = const [],
     this.style,
     this.styles = const [],
+    this.recognizer,
     this.recognizers = const [],
+    this.semanticsLabel,
     this.semanticsLabels = const [],
+    this.mouseCursor,
+    this.mouseCursors = const [],
+    this.onEnter,
+    this.onEnters = const [],
+    this.onExit,
+    this.onExits = const [],
+    this.locale,
+    this.locales = const [],
+    this.spellOut,
+    this.spellOuts = const [],
     this.strutStyle,
     this.textAlign,
     this.textDirection,
-    this.locale,
     this.softWrap,
     this.overflow,
     this.textScaleFactor,
@@ -233,51 +257,9 @@ class BText extends StatelessWidget {
     this.leadingDistribution,
     this.fontVariations,
     this.useStyleFirst = true,
-  })  : isRich = true,
-        text = '',
-        recognizer = null,
-        semanticsLabel = null;
+  });
 
-  final String text;
-
-  /// [text]手势
-  final GestureRecognizer? recognizer;
-
-  /// [text]语义 - 语义描述标签，相当于此text的别名
-  final String? semanticsLabel;
-
-  /// StrutStyle,影响Text在垂直方向上的布局
-  final StrutStyle? strutStyle;
-
-  /// TextAlign,内容对齐方式
-  final TextAlign? textAlign;
-
-  /// TextDirection,内容的走向方式
-  final TextDirection? textDirection;
-
-  /// Locale，当相同的Unicode字符可以根据不同的地区以不同的方式呈现时，用于选择字体
-  final Locale? locale;
-
-  /// bool 文本是否应在软换行时断行
-  final bool? softWrap;
-
-  /// TextOverflow，内容溢出时的处理方式
-  final TextOverflow? overflow;
-
-  /// double 设置文字的放大缩小，例如，fontSize=10，this.textScaleFactor=2.0，最终得到的文字大小为10*2.0
-  final double? textScaleFactor;
-
-  /// int 设置文字的最大展示行数
-  final int? maxLines;
-
-  /// TextWidthBasis 测量一行或多行文本宽度
-  final TextWidthBasis? textWidthBasis;
-  final TextHeightBehavior? textHeightBehavior;
-
-  /// 使劲此参数 以下单独字体样式无效
-  final TextStyle? style;
-
-  /// TextStyle 以下是字体样式
+  /// ---------- [TextStyle] ----------
   /// 默认样式会继承层级最为接近的 DefaultTextStyle，为true 表示继承，false 表示完全重写
   final bool inherit;
 
@@ -345,9 +327,71 @@ class BText extends StatelessWidget {
   final List<Shadow>? shadows;
   final List<FontFeature>? fontFeatures;
 
+  final TextLeadingDistribution? leadingDistribution;
+
+  /// ---------- [TextSpan] ----------
+
+  final String? text;
+
+  /// 所有[texts]默认样式
+  final TextStyle? style;
+
+  /// [text]手势
+  final GestureRecognizer? recognizer;
+
+  /// [text]语义 - 语义描述标签，相当于此text的别名
+  final String? semanticsLabel;
+
+  /// [mouseCursor]
+  final MouseCursor? mouseCursor;
+
+  /// [onEnter]
+  final PointerEnterEventListener? onEnter;
+
+  /// [onExit]
+  final PointerExitEventListener? onExit;
+
+  /// [spellOut]
+  final bool? spellOut;
+
+  /// ---------- [Text] ----------
+  /// How the text should be aligned horizontally.
+  final TextAlign? textAlign;
+
+  /// StrutStyle,影响Text在垂直方向上的布局
+  final StrutStyle? strutStyle;
+
+  /// TextDirection,内容的走向方式
+  final TextDirection? textDirection;
+
+  /// Locale，当相同的Unicode字符可以根据不同的地区以不同的方式呈现时，用于选择字体
+  final Locale? locale;
+
+  /// bool 文本是否应在软换行时断行
+  final bool? softWrap;
+
+  /// TextOverflow，内容溢出时的处理方式
+  final TextOverflow? overflow;
+
+  /// double 设置文字的放大缩小，例如，fontSize=10，this.textScaleFactor=2.0，最终得到的文字大小为10*2.0
+  final double? textScaleFactor;
+
+  /// int 设置文字的最大展示行数
+  final int? maxLines;
+
+  /// {@macro flutter.painting.textPainter.textScaler}
+  final TextScaler? textScaler;
+
+  /// TextWidthBasis 测量一行或多行文本宽度
+  final TextWidthBasis? textWidthBasis;
+
+  /// {@macro dart.ui.textHeightBehavior}
+  final TextHeightBehavior? textHeightBehavior;
+
   /// The color to use when painting the selection.
   final Color? selectionColor;
 
+  /// ---------- [BText.rich] ----------
   /// 排在第一个[text]后面
   final List<String> texts;
 
@@ -360,11 +404,20 @@ class BText extends StatelessWidget {
   /// [texts]内语义 - 语义描述标签，相当于此text的别名
   final List<String> semanticsLabels;
 
-  final bool isRich;
+  /// [mouseCursors]
+  final List<MouseCursor?> mouseCursors;
 
-  final TextScaler textScaler;
+  /// [onEnters]
+  final List<PointerEnterEventListener?> onEnters;
 
-  final TextLeadingDistribution? leadingDistribution;
+  /// [onExits]
+  final List<PointerExitEventListener?> onExits;
+
+  /// [locales]
+  final List<Locale?> locales;
+
+  /// [spellOuts]
+  final List<bool?> spellOuts;
 
   /// 当 [color]和[style]中都有值
   /// [useStyleFirst]=true 优先使用style,
@@ -373,8 +426,7 @@ class BText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    final outerStyle = TextStyle(
+    TextStyle effectiveTextStyle = TextStyle(
         inherit: inherit,
         color: color,
         foreground: foreground,
@@ -400,99 +452,40 @@ class BText extends StatelessWidget {
         debugLabel: debugLabel,
         leadingDistribution: leadingDistribution,
         package: package);
-    TextStyle effectiveTextStyle = useStyleFirst
-        ? outerStyle.merge(style)
-        : (style ?? const TextStyle()).merge(outerStyle);
-    if (inherit && (style?.inherit ?? true)) {
-      effectiveTextStyle = defaultTextStyle.style.merge(effectiveTextStyle);
+    if (useStyleFirst) {
+      effectiveTextStyle = effectiveTextStyle.merge(style);
+    } else if (style != null) {
+      effectiveTextStyle = style!.merge(effectiveTextStyle);
     }
-
-    if (MediaQuery.boldTextOf(context)) {
-      effectiveTextStyle = effectiveTextStyle
-          .merge(const TextStyle(fontWeight: FontWeight.bold));
-    }
-    final SelectionRegistrar? registrar = SelectionContainer.maybeOf(context);
-    final TextScaler textScaler = switch ((this.textScaler, textScaleFactor)) {
-      (final TextScaler textScaler, _) => textScaler
-    };
-
-    Widget result = RText(
-        texts: isRich ? texts : [text],
+    return Text.rich(
+        RText.buildTextSpan(RText.buildTextSpans(
+          texts: [if (text != null) text!, ...texts],
+          styles: [effectiveTextStyle, ...styles],
+          recognizers: [if (recognizer != null) recognizer!, ...recognizers],
+          semanticsLabels: [
+            if (semanticsLabel != null) semanticsLabel!,
+            ...semanticsLabels
+          ],
+          mouseCursors: [
+            if (mouseCursor != null) mouseCursor!,
+            ...mouseCursors
+          ],
+          onEnters: [if (onEnter != null) onEnter!, ...onEnters],
+          onExits: [if (onExit != null) onExit!, ...onExits],
+          locales: [if (locale != null) locale!, ...locales],
+          spellOuts: [if (spellOut != null) spellOut!, ...spellOuts],
+        )),
         style: effectiveTextStyle,
-        styles: isRich ? styles : [effectiveTextStyle],
-        recognizers: isRich ? recognizers : [recognizer],
-        semanticsLabels: isRich ? semanticsLabels : [semanticsLabel],
-        textAlign: textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start,
+        textAlign: textAlign,
         textDirection: textDirection,
         locale: locale,
-        softWrap: softWrap ?? defaultTextStyle.softWrap,
-        overflow: overflow ??
-            effectiveTextStyle.overflow ??
-            defaultTextStyle.overflow,
+        softWrap: softWrap,
+        overflow: overflow,
         textScaler: textScaler,
-        maxLines: maxLines ?? defaultTextStyle.maxLines,
+        maxLines: maxLines,
         strutStyle: strutStyle,
-        textWidthBasis: textWidthBasis ?? defaultTextStyle.textWidthBasis,
-        textHeightBehavior: textHeightBehavior ??
-            defaultTextStyle.textHeightBehavior ??
-            DefaultTextHeightBehavior.maybeOf(context),
-        selectionRegistrar: registrar,
-        selectionColor: selectionColor ??
-            DefaultSelectionStyle.of(context).selectionColor ??
-            DefaultSelectionStyle.defaultColor);
-    if (registrar != null) {
-      result = MouseRegion(
-          cursor: DefaultSelectionStyle.of(context).mouseCursor ??
-              SystemMouseCursors.text,
-          child: result);
-    }
-    if (semanticsLabel != null) {
-      result = Semantics(
-          textDirection: textDirection,
-          label: semanticsLabel,
-          child: ExcludeSemantics(child: result));
-    }
-    return result;
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('data', text, showName: false));
-
-    style?.debugFillProperties(properties);
-    properties.add(
-        EnumProperty<TextAlign>('textAlign', textAlign, defaultValue: null));
-    properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
-        defaultValue: null));
-    properties
-        .add(DiagnosticsProperty<Locale>('locale', locale, defaultValue: null));
-    properties.add(FlagProperty('softWrap',
-        value: softWrap,
-        ifTrue: 'wrapping at box width',
-        ifFalse: 'no wrapping except at line break characters',
-        showName: true));
-    properties.add(
-        EnumProperty<TextOverflow>('overflow', overflow, defaultValue: null));
-    properties.add(
-        DoubleProperty('textScaleFactor', textScaleFactor, defaultValue: null));
-    properties.add(IntProperty('maxLines', maxLines, defaultValue: null));
-    properties.add(EnumProperty<TextWidthBasis>(
-        'textWidthBasis', textWidthBasis,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<TextHeightBehavior>(
-        'textHeightBehavior', textHeightBehavior,
-        defaultValue: null));
-    if (semanticsLabel != null) {
-      properties.add(StringProperty('semanticsLabel', semanticsLabel));
-    }
+        textWidthBasis: textWidthBasis,
+        textHeightBehavior: textHeightBehavior,
+        selectionColor: selectionColor);
   }
 }
-
-const String _kColorForegroundWarning =
-    'Cannot provide both a color and a foreground\n'
-    'The color argument is just a shorthand for "foreground: new Paint()..color = color".';
-
-const String _kColorBackgroundWarning =
-    'Cannot provide both a backgroundColor and a background\n'
-    'The backgroundColor argument is just a shorthand for "background: new Paint()..color = color".';

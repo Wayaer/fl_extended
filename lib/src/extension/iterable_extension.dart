@@ -278,10 +278,10 @@ extension ExtensionIterableT<T> on Iterable<T> {
   ///
   /// Example:
   /// ```dart
-  /// ['a', 'b'].firstOrNull(); // 'a'
-  /// [].firstOrNull();         // null
+  /// ['a', 'b'].firstOrNull); // 'a'
+  /// [].firstOrNull);         // null
   /// ```
-  T? firstOrNull() => length == 0 ? null : first;
+  T? get firstOrNull => length == 0 ? null : first;
 
   /// Returns the last element. If there is no last element the [orElse]
   /// supplier function is called to provide a value.
@@ -301,10 +301,10 @@ extension ExtensionIterableT<T> on Iterable<T> {
   ///
   /// Example:
   /// ```dart
-  /// ['a', 'b'].lastOrElse(); // 'a'
-  /// [].lastOrElse();         // null
+  /// ['a', 'b'].lastOrNull); // 'b'
+  /// [].lastOrNull);         // null
   /// ```
-  T? lastOrNull() => length == 0 ? null : last;
+  T? get lastOrNull => length == 0 ? null : last;
 
   /// Groups the elements of the list into a map by a key
   /// that is defined by a [keySelector] function.
@@ -478,10 +478,10 @@ extension ExtensionIterableT<T> on Iterable<T> {
   ///
   /// Example:
   /// ```dart
-  /// [1, 2, 3].withoutFirst(); // [2, 3]
-  /// [].withoutFirst(); // [];
+  /// [1, 2, 3].withoutFirst; // [2, 3]
+  /// [].withoutFirst; // [];
   /// ```
-  Iterable<T> withoutFirst() sync* {
+  Iterable<T> get withoutFirst sync* {
     iterator.moveNext(); // eat the first
     while (iterator.moveNext()) {
       yield iterator.current;
@@ -492,10 +492,10 @@ extension ExtensionIterableT<T> on Iterable<T> {
   ///
   /// Example:
   /// ```dart
-  /// [1, 2, 3].withoutLast(); // [1, 2]
-  /// [].withoutLast(); // [];
+  /// [1, 2, 3].withoutLast; // [1, 2]
+  /// [].withoutLast; // [];
   /// ```
-  Iterable<T> withoutLast() sync* {
+  Iterable<T> get withoutLast sync* {
     final hasFirst = iterator.moveNext();
     if (!hasFirst) return;
     while (true) {

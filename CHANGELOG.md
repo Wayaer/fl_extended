@@ -1,6 +1,12 @@
 ## 1.3.1
 
 * Add new extension methods for `List` and `Map`
+* Change `[].firstOrNull()` to `[].firstOrNull`
+* Change `[].lastOrNull()` to `[].lastOrNull`
+* Change `[].withoutFirst()` to `[].withoutFirst`
+* Change `[].withoutLast()` to `[].withoutLast`
+* Change `[].withoutLast()` to `[].withoutLast`
+* `BText.rich` adds multiple parameters
 
 ## 1.3.0
 
