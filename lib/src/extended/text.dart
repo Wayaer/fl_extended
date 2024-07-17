@@ -144,14 +144,19 @@ class BText extends StatelessWidget {
   const BText(
     this.text, {
     super.key,
+    this.useStyleFirst = true,
+
+    /// [TextSpan]
     this.style,
     this.recognizer,
     this.semanticsLabel,
     this.mouseCursor,
     this.onEnter,
     this.onExit,
-    this.locale,
     this.spellOut,
+
+    /// [Text]
+    this.locale,
     this.strutStyle,
     this.textAlign,
     this.textDirection,
@@ -160,6 +165,11 @@ class BText extends StatelessWidget {
     this.textScaleFactor,
     this.maxLines,
     this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+    this.textScaler = TextScaler.noScaling,
+
+    /// [TextStyle]
     this.inherit = true,
     this.color,
     this.backgroundColor,
@@ -182,12 +192,8 @@ class BText extends StatelessWidget {
     this.debugLabel,
     this.shadows,
     this.fontFeatures,
-    this.textHeightBehavior,
-    this.selectionColor,
-    this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
     this.fontVariations,
-    this.useStyleFirst = true,
   })  : texts = const [],
         styles = const [],
         recognizers = const [],
@@ -203,6 +209,9 @@ class BText extends StatelessWidget {
   /// 这几个如果有值默认应用于 [texts][0]
   const BText.rich({
     super.key,
+    this.useStyleFirst = true,
+
+    /// [TextSpan]
     this.text = '',
     this.texts = const [],
     this.style,
@@ -221,6 +230,8 @@ class BText extends StatelessWidget {
     this.locales = const [],
     this.spellOut,
     this.spellOuts = const [],
+
+    /// [Text]
     this.strutStyle,
     this.textAlign,
     this.textDirection,
@@ -230,6 +241,10 @@ class BText extends StatelessWidget {
     this.maxLines,
     this.textWidthBasis,
     this.textHeightBehavior,
+    this.selectionColor,
+    this.textScaler = TextScaler.noScaling,
+
+    /// [TextStyle]
     this.inherit = true,
     this.color,
     this.backgroundColor,
@@ -252,12 +267,14 @@ class BText extends StatelessWidget {
     this.debugLabel,
     this.shadows,
     this.fontFeatures,
-    this.selectionColor,
-    this.textScaler = TextScaler.noScaling,
     this.leadingDistribution,
     this.fontVariations,
-    this.useStyleFirst = true,
   });
+
+  /// 当 [color]和[style]中都有值
+  /// [useStyleFirst]=true 优先使用style,
+  /// [useStyleFirst]=false 优先使用外层,
+  final bool useStyleFirst;
 
   /// ---------- [TextStyle] ----------
   /// 默认样式会继承层级最为接近的 DefaultTextStyle，为true 表示继承，false 表示完全重写
@@ -418,11 +435,6 @@ class BText extends StatelessWidget {
 
   /// [spellOuts]
   final List<bool?> spellOuts;
-
-  /// 当 [color]和[style]中都有值
-  /// [useStyleFirst]=true 优先使用style,
-  /// [useStyleFirst]=false 优先使用外层,
-  final bool useStyleFirst;
 
   @override
   Widget build(BuildContext context) {
