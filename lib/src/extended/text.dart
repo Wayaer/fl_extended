@@ -272,7 +272,7 @@ class BText extends StatelessWidget {
   });
 
   /// 当 [color]和[style]中都有值
-  /// [useStyleFirst]=true 优先使用style,
+  /// [useStyleFirst]=true 优先使用 [style],
   /// [useStyleFirst]=false 优先使用外层,
   final bool useStyleFirst;
 
@@ -471,6 +471,7 @@ class BText extends StatelessWidget {
     }
     return Text.rich(
         RText.buildTextSpan(RText.buildTextSpans(
+          style: effectiveTextStyle,
           texts: [if (text != null) text!, ...texts],
           styles: [effectiveTextStyle, ...styles],
           recognizers: [if (recognizer != null) recognizer!, ...recognizers],
