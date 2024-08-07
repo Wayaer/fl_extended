@@ -1,3 +1,8 @@
+## 1.4.0
+
+* Migrate to 3.24
+* `ExtendedPopScope` adds `onPopInvokedWithResult`
+
 ## 1.3.1
 
 * Add new extension methods for `List` and `Map`
@@ -15,7 +20,7 @@
 
 ## 1.2.0
 
-* Migration to 3.22
+* Migrate to 3.22
 
 ## 1.1.2
 

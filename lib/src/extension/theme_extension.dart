@@ -19,7 +19,6 @@ extension ExtensionThemeData on ThemeData {
       splashFactory: themeData?.splashFactory ?? splashFactory,
       useMaterial3: themeData?.useMaterial3 ?? useMaterial3,
       visualDensity: themeData?.visualDensity ?? visualDensity,
-      // COLOR
       canvasColor: themeData?.canvasColor ?? canvasColor,
       cardColor: themeData?.cardColor ?? cardColor,
       colorScheme: themeData?.colorScheme ?? colorScheme,
@@ -58,7 +57,6 @@ extension ExtensionThemeData on ThemeData {
       bottomNavigationBarTheme:
           themeData?.bottomNavigationBarTheme ?? bottomNavigationBarTheme,
       bottomSheetTheme: themeData?.bottomSheetTheme ?? bottomSheetTheme,
-      buttonBarTheme: themeData?.buttonBarTheme ?? buttonBarTheme,
       buttonTheme: themeData?.buttonTheme ?? buttonTheme,
       cardTheme: themeData?.cardTheme ?? cardTheme,
       checkboxTheme: themeData?.checkboxTheme ?? checkboxTheme,

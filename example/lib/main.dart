@@ -81,8 +81,8 @@ void main() {
       builder: (context) => const _MaterialApp()));
 }
 
-class _MaterialAppRouter extends StatelessWidget {
-  _MaterialAppRouter();
+class MaterialAppRouter extends StatelessWidget {
+  MaterialAppRouter({super.key});
 
   final GoRouter _router =
       GoRouter(navigatorKey: FlExtended().navigatorKey, routes: <RouteBase>[]);

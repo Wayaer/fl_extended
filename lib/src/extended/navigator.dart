@@ -4,25 +4,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
+typedef PopInvokedWithResultAndOverlayCallback<T> = void Function(
+    bool didPop, T? result, bool didCloseOverlay);
+
 typedef PopInvokedWithOverlayCallback = void Function(
     bool didPop, bool didCloseOverlay);
 
-class ExtendedPopScope extends PopScope {
+class ExtendedPopScope<T> extends PopScope<T> {
   ExtendedPopScope({
     super.key,
     required super.child,
     super.canPop = false,
+
+    /// 支持 3.24
+    PopInvokedWithResultAndOverlayCallback? onPopInvokedWithResult,
+
+    /// 3.24之前的版本保留
     PopInvokedWithOverlayCallback? onPopInvoked,
 
     /// true 点击android实体返回按键先关闭Overlay【loading ...】但不pop 当前页面
     bool isCloseOverlay = true,
-  }) : super(onPopInvoked: (bool didPop) {
+  }) : super(onPopInvokedWithResult: (bool didPop, T? result) {
           bool isClose = false;
           if (isCloseOverlay && ExtendedOverlay().overlayEntryList.isNotEmpty) {
             isClose = true;
             closeOverlay();
           }
           onPopInvoked?.call(didPop, isClose);
+          onPopInvokedWithResult?.call(didPop, result, isClose);
         });
 }
 
