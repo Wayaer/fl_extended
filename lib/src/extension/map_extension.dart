@@ -13,11 +13,6 @@ extension ExtensionMap<K, V> on Map<K, V> {
       .map((MapEntry<K, V> entry) => builder(entry.key, entry.value))
       .toList();
 
-  /// entries.map().toList()
-  @Deprecated('Use entriesMapToList instead')
-  List<E> builderEntry<E>(E Function(MapEntry<K, V>) builder) =>
-      entries.map((MapEntry<K, V> entry) => builder(entry)).toList();
-
   /// entries.map()
   Iterable<E> entriesMap<E>(E Function(MapEntry<K, V>) builder) =>
       entries.map((MapEntry<K, V> entry) => builder(entry));
@@ -44,6 +39,19 @@ extension ExtensionMap<K, V> on Map<K, V> {
       {V Function()? ifAbsent, bool isUpdate = true}) {
     if (isUpdate) this.update(key, update, ifAbsent: ifAbsent);
     return this;
+  }
+
+  /// Map<dynamic,dynamic> to Map<String,dynamic>
+  Map<String, dynamic> get keyToString {
+    Map<String, dynamic> resultMap = {};
+    forEach((key, value) {
+      if (value is Map) {
+        resultMap[key.toString()] = value.keyToString;
+      } else {
+        resultMap[key.toString()] = value;
+      }
+    });
+    return resultMap;
   }
 }
 
