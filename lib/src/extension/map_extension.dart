@@ -47,6 +47,11 @@ extension ExtensionMap<K, V> on Map<K, V> {
     forEach((key, value) {
       if (value is Map) {
         resultMap[key.toString()] = value.keyToString;
+      } else if (value is List && value.isNotEmpty) {
+        value = value.map((e) {
+          if (e is Map) return e.keyToString;
+          return e;
+        }).toList() as V;
       } else {
         resultMap[key.toString()] = value;
       }
