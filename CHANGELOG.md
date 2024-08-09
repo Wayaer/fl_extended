@@ -1,3 +1,10 @@
+## 1.5.0
+
+* Remove `LoadingProgressIndicator` and `LoadingContent`
+* Added `ProgressIndicatorOptions` and `FlProgressIndicator`,
+* Change the callback parameter of the builder parameter in LoadingOptions to ProgressIndicator Options
+* `LoadingStyle` changed to `ProgressIndicatorStyle`
+
 ## 1.4.0
 
 * Migrate to 3.24

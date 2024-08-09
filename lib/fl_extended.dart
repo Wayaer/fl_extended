@@ -13,6 +13,7 @@ export 'src/components/animation.dart';
 export 'src/components/unified_button.dart';
 export 'src/components/icon_box.dart';
 export 'src/components/fl_inherited.dart';
+export 'src/components/progress_indicator.dart';
 
 /// const
 export 'src/const/typedef.dart';

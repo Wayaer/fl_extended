@@ -12,7 +12,7 @@ class TextPage extends StatelessWidget {
           appBar: AppBarText('Text'),
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
           children: [
-            const Partition('BText  DefaultTextStyle'),
+            const Partition('BText  DefaultTextStyle', marginTop: 0),
             DefaultTextStyle(
                 style: context.textTheme.bodyLarge ?? const TextStyle(),
                 child: const Row(

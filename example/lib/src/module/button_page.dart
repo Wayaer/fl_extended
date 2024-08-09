@@ -17,7 +17,7 @@ class ButtonPage extends StatelessWidget {
             runSpacing: 12,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              const Partition('UnifiedButton'),
+              const Partition('UnifiedButton', marginTop: 0),
               ...UnifiedButtonCategory.values.builder((item) => UnifiedButton(
                   category: item,
                   child: const Text('UnifiedButton'),

@@ -1,6 +1,7 @@
 import 'package:example/src/module/animation_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
+import 'package:example/src/module/progress_indicator_page.dart';
 import 'package:example/src/module/state_components_page.dart';
 import 'package:example/src/module/text_page.dart';
 import 'package:example/src/module/overlay_page.dart';
@@ -58,8 +59,10 @@ void main() {
       foregroundColor: Colors.yellow,
       elevation: 2,
       padding: const EdgeInsets.all(10),
-      builder: (_, LoadingContent content) {
-        if (content.style != null) return null;
+      builder: (_, ProgressIndicatorOptions? progressIndicator) {
+        if (progressIndicator != null) {
+          return FlProgressIndicator(progressIndicator);
+        }
         return const Padding(
             padding: EdgeInsets.all(10),
             child: BText('全局设置loading', fontSize: 20));
@@ -134,6 +137,8 @@ class _Home extends StatelessWidget {
           ElevatedText('Popup', onTap: () => push(const PopupPage())),
           ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
           ElevatedText('Universal', onTap: () => push(const UniversalPage())),
+          ElevatedText('FlProgressIndicator',
+              onTap: () => push(const ProgressIndicatorPage())),
           ElevatedText('ExtendedBuilder',
               onTap: () => push(const ExtendedBuilderPage())),
         ]);
@@ -166,10 +171,11 @@ class ElevatedText extends StatelessWidget {
 }
 
 class Partition extends StatelessWidget {
-  const Partition(this.title, {super.key, this.onTap});
+  const Partition(this.title, {super.key, this.onTap, this.marginTop = 20});
 
   final String title;
   final GestureTapCallback? onTap;
+  final double marginTop;
 
   @override
   Widget build(BuildContext context) => Universal(
@@ -178,7 +184,7 @@ class Partition extends StatelessWidget {
       color: Colors.grey.withOpacity(0.2),
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.only(top: marginTop, bottom: 20),
       child: BText(title,
           textAlign: TextAlign.center, fontWeight: FontWeight.bold));
 }

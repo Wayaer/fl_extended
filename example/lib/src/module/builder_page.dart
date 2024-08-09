@@ -13,7 +13,7 @@ class ExtendedBuilderPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         appBar: AppBarText('ExtendedBuilder'),
         children: [
-          const Partition('CustomFutureBuilder'),
+          const Partition('CustomFutureBuilder', marginTop: 0),
           CustomFutureBuilder<String>(
               initial: '初始的数据 点击刷新',
               future: () => future(showError),

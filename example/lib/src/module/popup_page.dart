@@ -55,7 +55,7 @@ class PopupPage extends StatelessWidget {
         appBar: AppBarText('Popup'),
         isScroll: true,
         children: [
-          const Partition('ActionDialog'),
+          const Partition('ActionDialog', marginTop: 0),
           ElevatedText('popup Dialog', onTap: () {
             actionsDialog.popupDialog<dynamic>();
           }),

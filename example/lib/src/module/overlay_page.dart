@@ -52,9 +52,9 @@ class OverlayPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 onModalTap: closeLoading,
-                builder: (_, LoadingContent content) =>
+                builder: (_, ProgressIndicatorOptions? progressIndicator) =>
                     Column(mainAxisSize: MainAxisSize.min, children: [
-                  content,
+                  FlProgressIndicator(ProgressIndicatorStyle.circular.options),
                   10.heightBox,
                   const Text('Loading...'),
                 ]),
@@ -65,15 +65,15 @@ class OverlayPage extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ));
             }),
-            ...LoadingStyle.values.builder(
+            ...ProgressIndicatorStyle.values.builder(
                 (style) => ElevatedText('showLoading ($style)', onTap: () {
                       showLoading(
-                          style: style,
                           options: LoadingOptions(
                               gaussian: 4,
                               onLoadingTap: () {
                                 '点击了Loading'.log();
                               },
+                              progressIndicator: style.options,
                               onModalTap: closeOverlay));
                     })),
             const SizedBox(height: 60),

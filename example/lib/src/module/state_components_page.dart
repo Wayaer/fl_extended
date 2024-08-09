@@ -14,7 +14,7 @@ class StateComponentsPage extends StatelessWidget {
         appBar: AppBarText('State Components'),
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         children: [
-          const Partition('ValueBuilder'),
+          const Partition('ValueBuilder', marginTop: 0),
           ValueBuilder<int>(
               initial: 0,
               builder: (_, int? value, ValueCallback<int> updater) {

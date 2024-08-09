@@ -1,143 +1,10 @@
 part of 'overlay.dart';
 
-/// loading 加载框 关闭 closeLoading();
-ExtendedOverlayEntry? showLoading({
-  /// builder
-  LoadingBuilder? builder,
-
-  /// 底层模态框配置
-  LoadingOptions? options,
-
-  /// 以下为 ProgressIndicator 配置
-  LoadingProgressIndicator? progressIndicator,
-  LoadingStyle? style,
-}) =>
-    Loading(
-            builder: builder,
-            options: options,
-            progressIndicator: progressIndicator,
-            style: style)
-        .show();
-
-bool closeLoading() => ExtendedOverlay().closeLoading();
-
-enum LoadingStyle {
-  /// 圆圈
-  circular,
-
-  /// 横条
-  linear,
-
-  /// 不常用 下拉刷新圆圈
-  refresh,
-}
-
-extension ExtensionLoading on Loading {
-  ExtendedOverlayEntry? show() => ExtendedOverlay().showLoading(this);
-}
-
-class Loading extends StatelessWidget {
-  const Loading({
-    super.key,
-    this.style,
-    this.options,
-    this.progressIndicator,
-    this.builder,
-  });
-
-  final LoadingProgressIndicator? progressIndicator;
-
-  /// 以下为官方三个 ProgressIndicator 配置
-  final LoadingStyle? style;
-
-  /// LoadingOptions
-  final LoadingOptions? options;
-
-  /// builder
-  final LoadingBuilder? builder;
-
-  @override
-  Widget build(BuildContext context) {
-    final options = FlExtended()
-        .loadingOptions
-        .merge(this.options)
-        .copyWith(builder: builder, style: style);
-    LoadingContent content = LoadingContent(
-        style: options.style, progressIndicator: progressIndicator);
-    Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(
-        onTap: options.onLoadingTap, padding: options.padding, child: current);
-    return ModalBox(options: options, child: current);
-  }
-}
-
-class LoadingProgressIndicator {
-  LoadingProgressIndicator(
-      {this.value,
-      this.valueColor,
-      this.semanticsLabel,
-      this.semanticsValue,
-      this.backgroundColor,
-      this.strokeWidth});
-
-  final double? value;
-  final Animation<Color>? valueColor;
-  final String? semanticsLabel;
-  final String? semanticsValue;
-  final Color? backgroundColor;
-  final double? strokeWidth;
-}
-
-class LoadingContent extends StatelessWidget {
-  const LoadingContent({
-    super.key,
-    this.style,
-    this.progressIndicator,
-  });
-
-  final LoadingStyle? style;
-  final LoadingProgressIndicator? progressIndicator;
-
-  @override
-  Widget build(BuildContext context) {
-    double strokeWidth = progressIndicator?.strokeWidth ?? 4.0;
-    switch (style ?? LoadingStyle.circular) {
-      case LoadingStyle.circular:
-        return CircularProgressIndicator(
-            value: progressIndicator?.value,
-            backgroundColor: progressIndicator?.backgroundColor,
-            valueColor: progressIndicator?.valueColor,
-            strokeWidth: strokeWidth,
-            semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue);
-      case LoadingStyle.linear:
-        return LinearProgressIndicator(
-            value: progressIndicator?.value,
-            backgroundColor: progressIndicator?.backgroundColor,
-            valueColor: progressIndicator?.valueColor,
-            semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue);
-      case LoadingStyle.refresh:
-        return RefreshProgressIndicator(
-            value: progressIndicator?.value,
-            backgroundColor: progressIndicator?.backgroundColor,
-            valueColor: progressIndicator?.valueColor,
-            strokeWidth: strokeWidth,
-            semanticsLabel: progressIndicator?.semanticsLabel,
-            semanticsValue: progressIndicator?.semanticsValue);
-    }
-  }
-}
-
 typedef LoadingBuilder = Widget? Function(
-    BuildContext context, LoadingContent content);
+    BuildContext context, ProgressIndicatorOptions? progressIndicator);
 
 class LoadingOptions extends ModalOptions {
   const LoadingOptions({
-    this.onLoadingTap,
-    this.builder,
-    this.style,
-    this.padding,
     super.alignment = Alignment.center,
     super.gaussian,
     super.ignoring,
@@ -156,13 +23,17 @@ class LoadingOptions extends ModalOptions {
     super.resizeToAvoidBottomInset,
     super.insetAnimationCurve,
     super.insetAnimationDuration,
+    this.onLoadingTap,
+    this.builder,
+    this.progressIndicator,
+    this.padding,
   });
 
   /// builder
   final LoadingBuilder? builder;
 
-  /// style
-  final LoadingStyle? style;
+  /// progressIndicator
+  final ProgressIndicatorOptions? progressIndicator;
 
   /// Loading onTap
   final GestureTapCallback? onLoadingTap;
@@ -174,7 +45,7 @@ class LoadingOptions extends ModalOptions {
     BoxConstraints? constraints,
     EdgeInsetsGeometry? padding,
     LoadingBuilder? builder,
-    LoadingStyle? style,
+    ProgressIndicatorOptions? progressIndicator,
     TextStyle? textStyle,
     GestureTapCallback? onLoadingTap,
     bool? ignoring,
@@ -199,7 +70,7 @@ class LoadingOptions extends ModalOptions {
         constraints: constraints ?? this.constraints,
         onLoadingTap: onLoadingTap ?? this.onLoadingTap,
         builder: builder ?? this.builder,
-        style: style ?? this.style,
+        progressIndicator: progressIndicator ?? this.progressIndicator,
         foregroundColor: foregroundColor ?? this.foregroundColor,
         backgroundColor: backgroundColor ?? this.backgroundColor,
         ignoring: ignoring ?? this.ignoring,
@@ -226,7 +97,7 @@ class LoadingOptions extends ModalOptions {
         onLoadingTap: options?.onLoadingTap,
         constraints: options?.constraints,
         builder: options?.builder,
-        style: options?.style,
+        progressIndicator: options?.progressIndicator,
         backgroundColor: options?.backgroundColor,
         foregroundColor: options?.foregroundColor,
         ignoring: options?.ignoring,
@@ -245,4 +116,52 @@ class LoadingOptions extends ModalOptions {
         insetAnimationDuration: options?.insetAnimationDuration,
         insetAnimationCurve: options?.insetAnimationCurve,
       );
+}
+
+/// loading 加载框 关闭 closeLoading();
+ExtendedOverlayEntry? showLoading({
+  /// builder
+  LoadingBuilder? builder,
+
+  /// 底层模态框配置
+  LoadingOptions? options,
+}) =>
+    Loading(builder: builder, options: options).show();
+
+bool closeLoading() => ExtendedOverlay().closeLoading();
+
+extension ExtensionLoading on Loading {
+  ExtendedOverlayEntry? show() => ExtendedOverlay().showLoading(this);
+}
+
+class Loading extends StatelessWidget {
+  const Loading({
+    super.key,
+    this.options,
+    this.builder,
+  });
+
+  /// LoadingOptions
+  final LoadingOptions? options;
+
+  /// builder
+  final LoadingBuilder? builder;
+
+  /// use global loading
+  final bool useGlobal = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final options = FlExtended()
+        .loadingOptions
+        .merge(this.options)
+        .copyWith(builder: builder);
+    Widget current = FlProgressIndicator(
+        options.progressIndicator ?? ProgressIndicatorStyle.circular.options);
+    current =
+        options.builder?.call(context, options.progressIndicator) ?? current;
+    current = Universal(
+        onTap: options.onLoadingTap, padding: options.padding, child: current);
+    return ModalBox(options: options, child: current);
+  }
 }

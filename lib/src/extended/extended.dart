@@ -32,8 +32,7 @@ class FlExtended {
 
   /// 设置全局 [LoadingOptions] 配置
   /// Set the global [LoadingOptions] configuration
-  LoadingOptions loadingOptions =
-      const LoadingOptions(style: LoadingStyle.circular);
+  LoadingOptions loadingOptions = const LoadingOptions();
 
   /// 设置全局 [ToastOptions] 配置
   /// Set the global [ToastOptions] configuration
