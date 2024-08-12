@@ -47,14 +47,22 @@ extension ExtensionMap<K, V> on Map<K, V> {
     forEach((key, value) {
       if (value is Map) {
         resultMap[key.toString()] = value.keyToString;
-      } else if (value is List && value.isNotEmpty) {
-        value = value.map((e) {
-          if (e is Map) return e.keyToString;
-          return e;
-        }).toList() as V;
+      } else if (value is List<Map> && value.isNotEmpty) {
+        resultMap[key.toString()] = value.keyToString;
       } else {
         resultMap[key.toString()] = value;
       }
+    });
+    return resultMap;
+  }
+}
+
+extension ExtensionListMap on List<Map> {
+  /// List<Map> to List<Map<String,dynamic>>
+  List<Map<String, dynamic>> get keyToString {
+    List<Map<String, dynamic>> resultMap = [];
+    forEach((element) {
+      resultMap.add(element.keyToString);
     });
     return resultMap;
   }
