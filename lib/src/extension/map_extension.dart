@@ -1,3 +1,5 @@
+import 'package:fl_extended/fl_extended.dart';
+
 extension ExtensionMap<K, V> on Map<K, V> {
   List<K> keysList({bool growable = true}) => keys.toList(growable: growable);
 
@@ -59,13 +61,8 @@ extension ExtensionMap<K, V> on Map<K, V> {
 
 extension ExtensionListMap on List<Map> {
   /// List<Map> to List<Map<String,dynamic>>
-  List<Map<String, dynamic>> get keyToString {
-    List<Map<String, dynamic>> resultMap = [];
-    forEach((element) {
-      resultMap.add(element.keyToString);
-    });
-    return resultMap;
-  }
+  List<Map<String, dynamic>> get keyToString =>
+      builder((element) => element.keyToString);
 }
 
 extension ExtensionMapUnsafe on Map? {
