@@ -1,6 +1,3 @@
-library fl_extended.dart;
-
-/// builder
 export 'src/builder/stateful_widget.dart';
 export 'src/builder/stateful_builder.dart';
 export 'src/builder/future_builder.dart';
