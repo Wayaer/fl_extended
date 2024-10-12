@@ -40,3 +40,6 @@ export 'src/extension/object_extension.dart';
 export 'src/extension/string_extension.dart';
 export 'src/extension/widget_extension.dart';
 export 'src/extension/text_editing_controller_extension.dart';
+
+/// logcat
+export 'src/logcat/logcat.dart';

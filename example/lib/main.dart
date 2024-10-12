@@ -15,73 +15,75 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  FlExtended flExtended = FlExtended();
+  FlLogcat.runZone(() {
+    WidgetsFlutterBinding.ensureInitialized();
+    FlExtended flExtended = FlExtended();
 
-  flExtended.pushStyle = RoutePushStyle.material;
+    flExtended.pushStyle = RoutePushStyle.material;
 
-  /// 设置全局Toast配置
-  flExtended.toastOptions = ToastOptions.extended(
-      animationStyle: FlAnimationStyle.verticalHunting,
-      textStyle: const TextStyle(color: Colors.white),
-      onModalTap: () {
-        log('onModalTap');
-      },
-      onToastTap: () {
-        log('onToastTap');
-      },
-      foregroundColor: Colors.grey,
-      backgroundColor: Colors.red.withOpacity(0.3),
-      constraints: const BoxConstraints(maxWidth: 250),
-      color: Colors.amber,
-      builder: (BuildContext context, ToastContent content) {
-        return Universal(mainAxisSize: MainAxisSize.min, children: [
-          if (content.iconStyle != null)
-            Icon(content.iconStyle!.icon, color: content.color),
-          Text(content.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: content.color))
-        ]);
-      });
+    /// 设置全局Toast配置
+    flExtended.toastOptions = ToastOptions.extended(
+        animationStyle: FlAnimationStyle.verticalHunting,
+        textStyle: const TextStyle(color: Colors.white),
+        onModalTap: () {
+          log('onModalTap');
+        },
+        onToastTap: () {
+          log('onToastTap');
+        },
+        foregroundColor: Colors.grey,
+        backgroundColor: Colors.red.withOpacity(0.3),
+        constraints: const BoxConstraints(maxWidth: 250),
+        color: Colors.amber,
+        builder: (BuildContext context, ToastContent content) {
+          return Universal(mainAxisSize: MainAxisSize.min, children: [
+            if (content.iconStyle != null)
+              Icon(content.iconStyle!.icon, color: content.color),
+            Text(content.text,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: content.color))
+          ]);
+        });
 
-  /// 设置全局BottomSheet配置
-  flExtended.bottomSheetOptions = const BottomSheetOptions(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(12))));
-  flExtended.dialogOptions =
-      const DialogOptions(fromStyle: PopupFromStyle.fromTop);
+    /// 设置全局BottomSheet配置
+    flExtended.bottomSheetOptions = const BottomSheetOptions(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(12))));
+    flExtended.dialogOptions =
+        const DialogOptions(fromStyle: PopupFromStyle.fromTop);
 
-  flExtended.logCrossLine = true;
+    flExtended.logCrossLine = true;
 
-  /// 设置全局Loading配置
-  flExtended.loadingOptions = LoadingOptions(
-      backgroundColor: Colors.red.withOpacity(0.1),
-      foregroundColor: Colors.yellow,
-      elevation: 2,
-      padding: const EdgeInsets.all(10),
-      builder: (_, ProgressIndicatorOptions? progressIndicator) {
-        if (progressIndicator != null) {
-          return FlProgressIndicator(progressIndicator);
-        }
-        return const Padding(
-            padding: EdgeInsets.all(10),
-            child: BText('全局设置loading', fontSize: 20));
-      },
-      onLoadingTap: () {
-        log('onLoadingTap');
-        closeLoading();
-      },
-      constraints: const BoxConstraints(maxWidth: 250),
-      borderRadius: BorderRadius.circular(10),
-      onModalTap: () {
-        log('onModalTap');
-        closeLoading();
-      });
+    /// 设置全局Loading配置
+    flExtended.loadingOptions = LoadingOptions(
+        backgroundColor: Colors.red.withOpacity(0.1),
+        foregroundColor: Colors.yellow,
+        elevation: 2,
+        padding: const EdgeInsets.all(10),
+        builder: (_, ProgressIndicatorOptions? progressIndicator) {
+          if (progressIndicator != null) {
+            return FlProgressIndicator(progressIndicator);
+          }
+          return const Padding(
+              padding: EdgeInsets.all(10),
+              child: BText('全局设置loading', fontSize: 20));
+        },
+        onLoadingTap: () {
+          log('onLoadingTap');
+          closeLoading();
+        },
+        constraints: const BoxConstraints(maxWidth: 250),
+        borderRadius: BorderRadius.circular(10),
+        onModalTap: () {
+          log('onModalTap');
+          closeLoading();
+        });
 
-  runApp(DevicePreview(
-      enabled: isDesktop || isWeb,
-      defaultDevice: Devices.ios.iPhone13Mini,
-      builder: (context) => const _MaterialApp()));
+    runApp(DevicePreview(
+        enabled: isDesktop || isWeb,
+        defaultDevice: Devices.ios.iPhone13Mini,
+        builder: (context) => const _MaterialApp()));
+  }, enable: true);
 }
 
 class MaterialAppRouter extends StatelessWidget {
@@ -117,7 +119,20 @@ class _MaterialApp extends StatelessWidget {
   }
 }
 
-class _Home extends StatelessWidget {
+class _Home extends StatefulWidget {
+  @override
+  State<_Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<_Home> {
+  @override
+  void initState() {
+    super.initState();
+    addPostFrameCallback((_) {
+      FlLogcat.isRunning = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Universal(

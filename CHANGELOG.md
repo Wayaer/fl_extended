@@ -1,3 +1,7 @@
+## 1.5.1
+
+* Add `FlLogcat`
+
 ## 1.5.0
 
 * Remove `LoadingProgressIndicator` and `LoadingContent`
