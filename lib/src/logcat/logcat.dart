@@ -93,9 +93,8 @@ class FlLogcat {
   }
 
   void _addLog(_LogContent log) {
-    _logs.value.add(log);
+    _logs.value.insert(0, log);
     _logs.notify();
-    _scrollEnd();
     show();
   }
 
@@ -112,17 +111,6 @@ class FlLogcat {
   void hide() {
     _overlayEntry?.remove();
     _overlayEntry = null;
-  }
-
-  final ScrollController _scrollController = ScrollController();
-
-  void _scrollEnd() {
-    if (_scrollController.hasClients) {
-      0.5.seconds.delayed(() {
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-      });
-    }
   }
 
   Future<void> showLog() async {
@@ -188,7 +176,6 @@ class _LogIconState extends State<_LogIcon> {
     } else {
       hasWindows = true;
       await widget.show();
-      FlLogcat()._scrollEnd();
       hasWindows = false;
     }
   }
@@ -229,7 +216,7 @@ class _LogList extends StatelessWidget {
                   child: ValueListenableBuilder<List<_LogContent>>(
                       valueListenable: FlLogcat()._logs,
                       builder: (_, map, __) => ListView.builder(
-                          controller: FlLogcat()._scrollController,
+                          reverse: true,
                           padding: EdgeInsets.all(6),
                           itemCount: map.length,
                           itemBuilder: (_, int index) =>
@@ -244,7 +231,7 @@ class _LogList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BText.rich(style: TextStyle(fontSize: 12), texts: [
-            '[${item.dateTime} ${item.type.name.toUpperCase()}] : \n',
+            '[${item.dateTime} - ${item.type.name}] : \n',
             if (item.line != null) item.line!,
             if (item.error != null) item.error.toString(),
             if (item.stackTrace != null) item.stackTrace.toString(),
