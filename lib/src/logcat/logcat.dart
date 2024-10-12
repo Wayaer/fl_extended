@@ -27,11 +27,15 @@ class _LogContent {
 }
 
 class FlLogcat {
+  factory FlLogcat() => _singleton ??= FlLogcat._();
+
   FlLogcat._();
 
-  static final ValueNotifiers<List<_LogContent>> _logs = ValueNotifiers([]);
+  static FlLogcat? _singleton;
 
-  static R? runZone<R>(R Function() body,
+  final ValueNotifiers<List<_LogContent>> _logs = ValueNotifiers([]);
+
+  R? runZone<R>(R Function() body,
       {RunZonedGuardedOnError? onError,
       bool enable = isDebug,
       Map<Object?, Object?>? zoneValues,
@@ -88,36 +92,40 @@ class FlLogcat {
     }, zoneSpecification: zoneSpecification);
   }
 
-  static void _addLog(_LogContent log) {
+  void _addLog(_LogContent log) {
     _logs.value.add(log);
     _logs.notify();
+    _scrollEnd();
+    show();
+  }
+
+  bool isRunning = false;
+
+  ExtendedOverlayEntry? _overlayEntry;
+
+  void show() {
+    if (isRunning) {
+      _overlayEntry ??= _LogIcon(show: showLog, hide: hide).showOverlay();
+    }
+  }
+
+  void hide() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollEnd() {
     if (_scrollController.hasClients) {
       0.5.seconds.delayed(() {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: Duration(milliseconds: 200), curve: Curves.linear);
       });
     }
-    show();
   }
 
-  static bool isRunning = false;
-
-  static ExtendedOverlayEntry? _overlayEntry;
-
-  static void show() {
-    if (isRunning) {
-      _overlayEntry ??= _LogIcon(show: showLog, hide: hide).showOverlay();
-    }
-  }
-
-  static void hide() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  static final ScrollController _scrollController = ScrollController();
-
-  static Future<void> showLog() async {
+  Future<void> showLog() async {
     if (isRunning && FlExtended().navigatorKey.currentContext != null) {
       await showModalBottomSheet(
           context: FlExtended().navigatorKey.currentContext!,
@@ -180,6 +188,7 @@ class _LogIconState extends State<_LogIcon> {
     } else {
       hasWindows = true;
       await widget.show();
+      FlLogcat()._scrollEnd();
       hasWindows = false;
     }
   }
@@ -208,8 +217,8 @@ class _LogList extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           _Toolbar(onDelete: () {
-            FlLogcat._logs.value.clear();
-            FlLogcat._logs.notify();
+            FlLogcat()._logs.value.clear();
+            FlLogcat()._logs.notify();
           }),
           Universal(
               padding: EdgeInsets.fromLTRB(2, 0, 2, 2),
@@ -218,9 +227,9 @@ class _LogList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   child: ValueListenableBuilder<List<_LogContent>>(
-                      valueListenable: FlLogcat._logs,
+                      valueListenable: FlLogcat()._logs,
                       builder: (_, map, __) => ListView.builder(
-                          controller: FlLogcat._scrollController,
+                          controller: FlLogcat()._scrollController,
                           padding: EdgeInsets.all(6),
                           itemCount: map.length,
                           itemBuilder: (_, int index) =>

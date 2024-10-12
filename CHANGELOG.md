@@ -1,6 +1,6 @@
-## 1.5.1
+## 1.5.2
 
-* Add `FlLogcat`
+* Add `FlLogcat()`
 
 ## 1.5.0
 

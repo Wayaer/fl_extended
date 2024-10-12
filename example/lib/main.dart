@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
-  FlLogcat.runZone(() {
+  FlLogcat().runZone(() {
     WidgetsFlutterBinding.ensureInitialized();
     FlExtended flExtended = FlExtended();
 
@@ -129,7 +129,7 @@ class _HomeState extends State<_Home> {
   void initState() {
     super.initState();
     addPostFrameCallback((_) {
-      FlLogcat.isRunning = true;
+      FlLogcat().isRunning = true;
     });
   }
 
