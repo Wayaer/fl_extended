@@ -5,21 +5,29 @@ import 'package:flutter/material.dart';
 typedef RunZonedGuardedOnError = void Function(
     Object error, StackTrace stackTrace);
 
-enum _LogType {
+enum LogType {
+  /// print
   print,
+
+  /// error
   error,
+
+  /// errorCallback
   errorCallback,
+
+  /// other
+  other,
 }
 
-class _LogContent {
-  const _LogContent(
+class LogContent {
+  const LogContent(
       {required this.type,
       required this.dateTime,
       this.line,
       this.error,
       this.stackTrace});
 
-  final _LogType type;
+  final LogType type;
   final DateTime dateTime;
   final String? line;
   final Object? error;
@@ -33,7 +41,7 @@ class FlLogcat {
 
   static FlLogcat? _singleton;
 
-  final ValueNotifiers<List<_LogContent>> _logs = ValueNotifiers([]);
+  final ValueNotifiers<List<LogContent>> _logs = ValueNotifiers([]);
 
   R? runZone<R>(R Function() body,
       {RunZonedGuardedOnError? onError,
@@ -46,8 +54,8 @@ class FlLogcat {
           errorCallback: (Zone self, ZoneDelegate parent, Zone zone,
               Object error, StackTrace? stackTrace) {
         parent.errorCallback(zone, error, stackTrace);
-        _addLog(_LogContent(
-          type: _LogType.errorCallback,
+        insertLog(LogContent(
+          type: LogType.errorCallback,
           dateTime: DateTime.now(),
           error: error,
           stackTrace: stackTrace,
@@ -58,8 +66,8 @@ class FlLogcat {
       }, print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
         zoneSpecification!.print?.call(self, parent, zone, line);
         parent.print(zone, line);
-        _addLog(_LogContent(
-            type: _LogType.print, dateTime: DateTime.now(), line: line));
+        insertLog(LogContent(
+            type: LogType.print, dateTime: DateTime.now(), line: line));
       });
     } else {
       zoneSpecification = ZoneSpecification(errorCallback: (Zone self,
@@ -68,8 +76,8 @@ class FlLogcat {
           Object error,
           StackTrace? stackTrace) {
         parent.errorCallback(zone, error, stackTrace);
-        _addLog(_LogContent(
-          type: _LogType.errorCallback,
+        insertLog(LogContent(
+          type: LogType.errorCallback,
           dateTime: DateTime.now(),
           error: error,
           stackTrace: stackTrace,
@@ -77,14 +85,14 @@ class FlLogcat {
         return null;
       }, print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
         parent.print(zone, line);
-        _addLog(_LogContent(
-            type: _LogType.print, dateTime: DateTime.now(), line: line));
+        insertLog(LogContent(
+            type: LogType.print, dateTime: DateTime.now(), line: line));
       });
     }
     return runZonedGuarded(body, (Object error, StackTrace stackTrace) {
       onError?.call(error, stackTrace);
-      _addLog(_LogContent(
-        type: _LogType.error,
+      insertLog(LogContent(
+        type: LogType.error,
         dateTime: DateTime.now(),
         error: error,
         stackTrace: stackTrace,
@@ -92,7 +100,8 @@ class FlLogcat {
     }, zoneSpecification: zoneSpecification);
   }
 
-  void _addLog(_LogContent log) {
+  /// 插入日志
+  void insertLog(LogContent log) {
     _logs.value.insert(0, log);
     _logs.notify();
     show();
@@ -213,7 +222,7 @@ class _LogList extends StatelessWidget {
               child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  child: ValueListenableBuilder<List<_LogContent>>(
+                  child: ValueListenableBuilder<List<LogContent>>(
                       valueListenable: FlLogcat()._logs,
                       builder: (_, map, __) => ListView.builder(
                           reverse: true,
@@ -224,13 +233,14 @@ class _LogList extends StatelessWidget {
         ]));
   }
 
-  Widget itemBuilder(BuildContext context, List<_LogContent> log, int index) {
+  Widget itemBuilder(BuildContext context, List<LogContent> log, int index) {
     final item = log[index];
     return Universal(
         width: double.infinity,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BText.rich(style: TextStyle(fontSize: 12), texts: [
+          SelectionArea(
+              child: BText.rich(style: TextStyle(fontSize: 12), texts: [
             '[${item.dateTime} - ${item.type.name}] : \n',
             if (item.line != null) item.line!,
             if (item.error != null) item.error.toString(),
@@ -242,7 +252,7 @@ class _LogList extends StatelessWidget {
                 color: item.error != null
                     ? context.theme.colorScheme.error
                     : null),
-          ]),
+          ])),
           10.heightBox,
         ]);
   }

@@ -78,6 +78,12 @@ void main() {
           log('onModalTap');
           closeLoading();
         });
+    10000.generate((int index) {
+      FlLogcat().insertLog(LogContent(
+          type: LogType.other,
+          dateTime: DateTime.now(),
+          line: 'insertLog  $index'));
+    });
 
     runApp(DevicePreview(
         enabled: isDesktop || isWeb,
