@@ -140,7 +140,7 @@ class _LogIcon extends StatefulWidget {
 
 class _LogIconState extends State<_LogIcon> {
   bool hasWindows = false;
-  Offset offSet = const Offset(10, 10);
+  Offset offSet = const Offset(100, 10);
 
   @override
   void initState() {
