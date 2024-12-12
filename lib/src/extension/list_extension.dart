@@ -52,7 +52,7 @@ extension ExtensionList<T> on List<T> {
     return result;
   }
 
-  /// List<int> toUtf8
+  /// `List<int>` toUtf8
   String? get toUtf8 {
     if (T != int) return null;
     final List<int?> words = this as List<int>;
@@ -87,11 +87,11 @@ extension ExtensionList<T> on List<T> {
   Iterable<E> asMapEntriesMap<E>(E Function(MapEntry<int, T>) builder) =>
       asMap().entries.map((MapEntry<int, T> entry) => builder(entry));
 
-  /// List.generate((index)=>MapEntry<int,T>);
+  /// `List.generate((index)=>MapEntry<int,T>)`;
   List<E> builderIV<E>(E Function(int, T) builder) =>
       generate((int index) => builder(index, this[index]));
 
-  /// List.generate((index)=>MapEntry<int,T>);
+  /// `List.generate((index)=>MapEntry<int,T>)`;
   List<E> builderEntry<E>(E Function(MapEntry<int, T>) builder) =>
       generate((int index) => builder(MapEntry(index, this[index])));
 

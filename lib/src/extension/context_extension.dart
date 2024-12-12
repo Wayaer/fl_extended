@@ -230,7 +230,7 @@ extension ExtensionContext on BuildContext {
 
   IconButtonThemeData get iconButtonTheme => Theme.of(this).iconButtonTheme;
 
-  TabBarTheme get tabBarTheme => Theme.of(this).tabBarTheme;
+  TabBarThemeData get tabBarTheme => Theme.of(this).tabBarTheme;
 
   /// Check if dark mode theme is enable
   bool get isDarkMode => theme.brightness == Brightness.dark;

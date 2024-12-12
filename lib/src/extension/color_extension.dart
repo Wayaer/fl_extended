@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension ExtensionColor on Color {
-  bool get isTransparent => alpha == 0;
-
-  MaterialColor get swatch =>
-      Colors.primaries.firstWhere((Color c) => c.value == value,
-          orElse: () => MaterialColor(value, getMaterialColorValues));
+  bool get isTransparent => a == 0;
 
   Map<int, Color> get getMaterialColorValues => {
         50: _swatchShade(50),
@@ -33,11 +29,4 @@ extension ExtensionColor on Color {
       return getMaterialColorValues[800]!;
     }
   }
-
-  /// Prefixes a hash sign if [leadingHashSign] is set to `true`.
-  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
-      '${alpha.toRadixString(16).padLeft(2, '0')}'
-      '${red.toRadixString(16).padLeft(2, '0')}'
-      '${green.toRadixString(16).padLeft(2, '0')}'
-      '${blue.toRadixString(16).padLeft(2, '0')}';
 }

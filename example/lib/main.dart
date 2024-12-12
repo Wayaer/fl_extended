@@ -32,7 +32,7 @@ void main() {
           log('onToastTap');
         },
         foregroundColor: Colors.grey,
-        backgroundColor: Colors.red.withOpacity(0.3),
+        backgroundColor: Colors.red.withValues(alpha: 0.3),
         constraints: const BoxConstraints(maxWidth: 250),
         color: Colors.amber,
         builder: (BuildContext context, ToastContent content) {
@@ -56,7 +56,7 @@ void main() {
 
     /// 设置全局Loading配置
     flExtended.loadingOptions = LoadingOptions(
-        backgroundColor: Colors.red.withOpacity(0.1),
+        backgroundColor: Colors.red.withValues(alpha: 0.1),
         foregroundColor: Colors.yellow,
         elevation: 2,
         padding: const EdgeInsets.all(10),
@@ -202,7 +202,7 @@ class Partition extends StatelessWidget {
   Widget build(BuildContext context) => Universal(
       onTap: onTap,
       width: double.infinity,
-      color: Colors.grey.withOpacity(0.2),
+      color: Colors.grey.withValues(alpha: 0.2),
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       margin: EdgeInsets.only(top: marginTop, bottom: 20),

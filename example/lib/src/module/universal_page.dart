@@ -29,7 +29,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
           child: const BText('ScrollUniversal', color: Colors.white),
           onTap: () => push(_ScrollUniversalPage())),
       Universal(
-          color: color.withOpacity(0.2),
+          color: color.withValues(alpha: 0.2),
           isStack: true,
           size: const Size(100, 100),
           children: [
@@ -40,7 +40,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
       Universal(
           size: const Size(300, 20),
           direction: Axis.horizontal,
-          color: Colors.green.withOpacity(0.2),
+          color: Colors.green.withValues(alpha: 0.2),
           children: const [
             Universal(flex: 1, color: Colors.red),
             Universal(flex: 2, color: Colors.greenAccent),

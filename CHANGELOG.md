@@ -1,3 +1,7 @@
+## 1.6.0
+
+* Migrate to 3.27
+
 ## 1.5.3
 
 * Add `FlLogcat()`

@@ -20,7 +20,7 @@ class PopupPage extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.4),
+                color: Colors.grey.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(4)),
             height: 200,
             child: const Text('ActionDialog')),

@@ -43,7 +43,7 @@ extension ExtensionMap<K, V> on Map<K, V> {
     return this;
   }
 
-  /// Map<dynamic,dynamic> to Map<String,dynamic>
+  /// `Map<dynamic,dynamic>` to `Map<String,dynamic>`
   Map<String, dynamic> get keyToString {
     Map<String, dynamic> resultMap = {};
     forEach((key, value) {
@@ -60,7 +60,7 @@ extension ExtensionMap<K, V> on Map<K, V> {
 }
 
 extension ExtensionListMap on List<Map> {
-  /// List<Map> to List<Map<String,dynamic>>
+  /// `List<Map>` to `List<Map<String,dynamic>>`
   List<Map<String, dynamic>> get keyToString =>
       builder((element) => element.keyToString);
 }
