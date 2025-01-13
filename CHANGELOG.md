@@ -1,7 +1,7 @@
 ## 1.6.1
 
 * Change the `wrapSpacing` in `Universal` to `spacing` and support `Row`, `Column`, and `Flex`
-* Change `IconBox` to `IconLabel`
+* Change `IconBox` to `IconLabel`, Change `reverse` to `reverse`
 * Add `slice` extension to `List`
 
 ## 1.6.0

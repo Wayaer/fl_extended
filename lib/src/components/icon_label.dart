@@ -129,12 +129,14 @@ class IconLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = [];
-    if (buildLabel != null) children.add(buildLabel!);
-    if (buildIcon != null) {
+    final labelWidget = buildLabel;
+    final iconWidget = buildIcon;
+    if (labelWidget != null) children.add(labelWidget);
+    if (iconWidget != null) {
       if (reverse) {
-        children.add(buildIcon!);
+        children.add(iconWidget);
       } else {
-        children.insert(0, buildIcon!);
+        children.insert(0, iconWidget);
       }
     }
     return Universal(
