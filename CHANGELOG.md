@@ -1,4 +1,4 @@
-## 1.6.1
+## 1.6.2
 
 * Change the `wrapSpacing` in `Universal` to `spacing` and support `Row`, `Column`, and `Flex`
 * Change `IconBox` to `IconLabel`, Change `reverse` to `reverse`
