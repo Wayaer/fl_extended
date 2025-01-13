@@ -1,3 +1,7 @@
+## 1.6.1
+
+* Change the `wrapSpacing` in `Universal` to `spacing` and support `Row`, `Column`, and `Flex`
+
 ## 1.6.0
 
 * Migrate to 3.27

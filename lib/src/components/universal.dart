@@ -41,7 +41,7 @@ class Universal extends StatelessWidget {
     this.safeBottom = false,
     this.safeLTRB = false,
     this.enabled = false,
-    this.wrapSpacing = 0.0,
+    this.spacing = 0.0,
     this.runSpacing = 0.0,
     this.dragStartBehavior = DragStartBehavior.start,
     this.replacement = const SizedBox.shrink(),
@@ -174,6 +174,7 @@ class Universal extends StatelessWidget {
   /// ****** [AnnotatedRegion]  ****** ///
   final SystemUiOverlayStyle? systemOverlayStyle;
 
+  /// [AnnotatedRegion] sized
   final bool sized;
 
   /// [GestureDetector]、[SingleChildScrollView] 使用
@@ -210,7 +211,7 @@ class Universal extends StatelessWidget {
   /// ****** [Wrap] ****** ///
   final bool isWrap;
   final WrapAlignment wrapAlignment;
-  final double wrapSpacing;
+  final double spacing;
   final WrapAlignment runAlignment;
   final double runSpacing;
   final WrapCrossAlignment wrapCrossAlignment;
@@ -462,7 +463,7 @@ class Universal extends StatelessWidget {
   final HitTestBehavior behavior;
 
   /// ****** [Hero] ****** ///
-  final String? heroTag;
+  final Object? heroTag;
   final CreateRectTween? createRectTween;
   final HeroFlightShuttleBuilder? flightShuttleBuilder;
   final bool transitionOnUserGestures;
@@ -495,8 +496,13 @@ class Universal extends StatelessWidget {
     Widget current = const SizedBox();
     if (children != null && children!.isNotEmpty) {
       if (child != null) children!.insert(0, child!);
-      current = isStack ? buildStack(children!) : buildFlex(children!);
-      if (isWrap) current = buildWrap(children!);
+      if (isStack) {
+        current = buildStack(children!);
+      } else if (isWrap) {
+        current = buildWrap(children!);
+      } else {
+        current = buildFlex(children!);
+      }
       if (intrinsicWidth) {
         current = IntrinsicWidth(
             stepWidth: stepWidth, stepHeight: stepHeight, child: current);
@@ -728,6 +734,7 @@ class Universal extends StatelessWidget {
       scrollDirection: scrollDirection ?? direction);
 
   Widget buildFlex(List<Widget> children) => Flex(
+      spacing: spacing,
       mainAxisAlignment: mainAxisAlignment,
       crossAxisAlignment: crossAxisAlignment,
       direction: direction,
@@ -741,7 +748,7 @@ class Universal extends StatelessWidget {
   Widget buildWrap(List<Widget> children) => Wrap(
       direction: direction,
       alignment: wrapAlignment,
-      spacing: wrapSpacing,
+      spacing: spacing,
       runAlignment: runAlignment,
       runSpacing: runSpacing,
       crossAxisAlignment: wrapCrossAlignment,
