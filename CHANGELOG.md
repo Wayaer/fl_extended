@@ -1,6 +1,8 @@
 ## 1.6.1
 
 * Change the `wrapSpacing` in `Universal` to `spacing` and support `Row`, `Column`, and `Flex`
+* Change `IconBox` to `IconLabel`
+* Add `slice` extension to `List`
 
 ## 1.6.0
 
@@ -94,7 +96,7 @@
 * Add the `unifiedButtonCategory` parameter to `Universal()`
 * Add some examples
 * Add a `marge` extension to `ThemeData`
-* Change the name of the `IconBox` `title` parameter to `label`
+* Change the name of the `IconLabel` `title` parameter to `label`
 
 ## 0.1.0
 

@@ -125,6 +125,12 @@ extension ExtensionList<T> on List<T> {
     if (isReplace) replaceRange(start, end, replacement);
     return this;
   }
+
+  /// list 切片
+  List<T> slice(int start, [int? end]) {
+    if (end != null && end > length) end = length;
+    return sublist(start, end);
+  }
 }
 
 extension ExtensionListString on List<String> {

@@ -18,6 +18,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
   Widget build(BuildContext context) {
     Color color = context.theme.primaryColor;
     List<Widget> children = [
+      Partition('Universal', marginTop: 0),
       Universal(
           width: 200,
           height: 50,
@@ -61,13 +62,34 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
           onTap: () {},
           size: const Size(200, 50)),
       const SizedBox(height: 20),
+      Partition('IconLabel', marginTop: 0),
+      IconLabel(icon: Icons.add_circle_outline, labelText: 'Add', color: color),
+      IconLabel(
+          icon: Icons.add_circle_outline,
+          labelText: 'Add',
+          color: color,
+          onTap: () {},
+          unifiedButtonCategory: UnifiedButtonCategory.elevated),
+      IconLabel(
+          icon: Icons.add_circle_outline,
+          labelText: 'Text Add',
+          label: Text('Text Add'),
+          onTap: () {},
+          unifiedButtonCategory: UnifiedButtonCategory.filled),
+      IconLabel(
+          widget: Icon(Icons.wallet),
+          label: Text('Wallet'),
+          onTap: () {},
+          unifiedButtonCategory: UnifiedButtonCategory.filledTonal),
+      IconLabel(
+          icon: Icons.wallet,
+          labelText: 'Wallet',
+          onTap: () {},
+          unifiedButtonCategory: UnifiedButtonCategory.outlined),
+      const SizedBox(height: 20),
     ];
     return ExtendedScaffold(
-        appBar: AppBarText('Universal'),
-        mainAxisAlignment: MainAxisAlignment.center,
-        isScroll: true,
-        children: children.builder((Widget item) => Row(
-            mainAxisAlignment: MainAxisAlignment.center, children: [item])));
+        appBar: AppBarText('Universal'), isScroll: true, children: children);
   }
 }
 
