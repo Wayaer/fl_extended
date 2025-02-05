@@ -1,3 +1,9 @@
+## 1.6.3
+
+* Add multiple extensions to `num` type, such as `EdgeInsets`,`EdgeInsetsDirectional`,`BorderRadius`,`Offset`
+* Change the extension method `toClipboard` to `toClipboard()`
+* Add `toBoxDecoration()` extension method to `BorderRadius` `BoxBorder` `BoxShadow` `BoxShape` `Gradient`
+
 ## 1.6.2
 
 * Change the `wrapSpacing` in `Universal` to `spacing` and support `Row`, `Column`, and `Flex`

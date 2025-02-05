@@ -559,7 +559,16 @@ class Universal extends StatelessWidget {
               decoration: decoration!));
     }
     if (decoration != null) {
-      current = DecoratedBox(decoration: decoration!, child: current);
+      if (decoration is BoxDecoration) {
+        final boxDecoration = (decoration as BoxDecoration);
+        current = DecoratedBox(
+            decoration: boxDecoration.copyWith(
+                color: boxDecoration.color ?? color,
+                borderRadius: boxDecoration.borderRadius ?? borderRadius),
+            child: current);
+      } else {
+        current = DecoratedBox(decoration: decoration!, child: current);
+      }
     }
     if (foregroundDecoration != null) {
       current = DecoratedBox(

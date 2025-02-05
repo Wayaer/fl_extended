@@ -2,7 +2,7 @@
 
 ## 为Flutter添加了一些扩展组件和方法，并简化了路由功能.
 
-## 运行[Example](https://wayaer.github.io/fl_extended/example/app/web/index.html#/)查看UI组件
+## 运行[Example](https://wayaer.github.io/fl_extended/example/app/web/index.html#/)查看UI
 
 ### 初始化 navigatorKey 两种方式
 

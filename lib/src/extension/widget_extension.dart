@@ -590,3 +590,23 @@ extension ExtensionWidget on Widget {
           dragStartBehavior: dragStartBehavior,
           child: this);
 }
+
+extension ExtensionBorderRadius on BorderRadius {
+  BoxDecoration toBoxDecoration() => BoxDecoration(borderRadius: this);
+}
+
+extension ExtensionBorder on BoxBorder {
+  BoxDecoration toBoxDecoration() => BoxDecoration(border: this);
+}
+
+extension ExtensionBoxShadow on List<BoxShadow> {
+  BoxDecoration toBoxDecoration() => BoxDecoration(boxShadow: this);
+}
+
+extension ExtensionBoxShape on BoxShape {
+  BoxDecoration toBoxDecoration() => BoxDecoration(shape: this);
+}
+
+extension ExtensionGradient on Gradient {
+  BoxDecoration toBoxDecoration() => BoxDecoration(gradient: this);
+}

@@ -161,14 +161,144 @@ extension ExtensionNum on num {
   /// Returns if the number is negative
   bool get isNegative => this < 0;
 
-  ///Converts the number into a [SizedBox] with the width as that number.
+  /// Converts the number into a [SizedBox] with the width as that number.
   Widget get widthBox => SizedBox(width: toDouble());
 
-  ///Converts the number into a [SizedBox] with the height as that number.
+  /// Converts the number into a [SizedBox] with the height as that number.
   Widget get heightBox => SizedBox(height: toDouble());
 
-  ///Converts the number into a [SizedBox] with the width & height as that number.
+  /// Converts the number into a [SizedBox] with the width & height as that number.
   Widget get squareBox => SizedBox(height: toDouble(), width: toDouble());
+
+  /// Converts the number into a [Offset]
+  Offset get offsetX => Offset(toDouble(), 0);
+
+  /// Converts the number into a [Offset]
+  Offset get offsetY => Offset(0, toDouble());
+
+  /// Converts the number into a [Offset]
+  Offset get offset => Offset(toDouble(), toDouble());
+
+  /// Converts the number into a [EdgeInsets.all]
+  EdgeInsets get edgeInsetsAll => EdgeInsets.all(toDouble());
+
+  /// Converts the number into a [EdgeInsets.left]
+  EdgeInsets get edgeInsetsLeft => EdgeInsets.only(left: toDouble());
+
+  /// Converts the number into a [EdgeInsets.right]
+  EdgeInsets get edgeInsetsRight => EdgeInsets.only(right: toDouble());
+
+  /// Converts the number into a [EdgeInsets.top]
+  EdgeInsets get edgeInsetsTop => EdgeInsets.only(top: toDouble());
+
+  /// Converts the number into a [EdgeInsets.bottom]
+  EdgeInsets get edgeInsetsBottom => EdgeInsets.only(bottom: toDouble());
+
+  /// Converts the number into a [EdgeInsets.symmetric]
+  EdgeInsets get edgeInsetsSymmetric =>
+      EdgeInsets.symmetric(horizontal: toDouble(), vertical: toDouble());
+
+  /// Converts the number into a [EdgeInsets.horizontal]
+  EdgeInsets get edgeInsetsHorizontal =>
+      EdgeInsets.symmetric(horizontal: toDouble());
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromL => EdgeInsets.fromLTRB(toDouble(), 0, 0, 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromT => EdgeInsets.fromLTRB(0, toDouble(), 0, 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromR => EdgeInsets.fromLTRB(0, 0, toDouble(), 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromB => EdgeInsets.fromLTRB(0, 0, 0, toDouble());
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromLR => EdgeInsets.fromLTRB(toDouble(), 0, toDouble(), 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromTB => EdgeInsets.fromLTRB(0, toDouble(), 0, toDouble());
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromLT => EdgeInsets.fromLTRB(toDouble(), toDouble(), 0, 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromLB => EdgeInsets.fromLTRB(toDouble(), 0, 0, toDouble());
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromRT => EdgeInsets.fromLTRB(0, toDouble(), toDouble(), 0);
+
+  /// Converts the number into a [EdgeInsets.fromLTRB]
+  EdgeInsets get fromRB => EdgeInsets.fromLTRB(0, 0, toDouble(), toDouble());
+
+  /// Converts the number into a [EdgeInsets.vertical]
+  EdgeInsets get edgeInsetsVertical =>
+      EdgeInsets.symmetric(vertical: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional]
+  EdgeInsetsDirectional get edgeInsetsDirectional =>
+      EdgeInsetsDirectional.all(toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.only]
+  EdgeInsetsDirectional get edgeInsetsDirectionalStart =>
+      EdgeInsetsDirectional.only(start: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.only]
+  EdgeInsetsDirectional get edgeInsetsDirectionalEnd =>
+      EdgeInsetsDirectional.only(end: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.only]
+  EdgeInsetsDirectional get edgeInsetsDirectionalTop =>
+      EdgeInsetsDirectional.only(top: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.only]
+  EdgeInsetsDirectional get edgeInsetsDirectionalBottom =>
+      EdgeInsetsDirectional.only(bottom: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.symmetric]
+  EdgeInsetsDirectional get edgeInsetsDirectionalHorizontal =>
+      EdgeInsetsDirectional.symmetric(horizontal: toDouble());
+
+  /// Converts the number into a [EdgeInsetsDirectional.symmetric]
+  EdgeInsetsDirectional get edgeInsetsDirectionalVertical =>
+      EdgeInsetsDirectional.symmetric(vertical: toDouble());
+
+  /// Converts the number into a [BorderRadius.all]
+  BorderRadius get borderRadiusAll =>
+      BorderRadius.all(Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.topLeft]
+  BorderRadius get borderRadiusTopLeft =>
+      BorderRadius.only(topLeft: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.topRight]
+  BorderRadius get borderRadiusTopRight =>
+      BorderRadius.only(topRight: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.bottomLeft]
+  BorderRadius get borderRadiusBottomLeft =>
+      BorderRadius.only(bottomLeft: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.bottomRight]
+  BorderRadius get borderRadiusBottomRight =>
+      BorderRadius.only(bottomRight: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.horizontal]
+  BorderRadius get borderRadiusLeft =>
+      BorderRadius.horizontal(left: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.horizontal]
+  BorderRadius get borderRadiusRight =>
+      BorderRadius.horizontal(right: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.vertical]
+  BorderRadius get borderRadiusTop =>
+      BorderRadius.vertical(top: Radius.circular(toDouble()));
+
+  /// Converts the number into a [BorderRadius.vertical]
+  BorderRadius get borderRadiusBottom =>
+      BorderRadius.vertical(bottom: Radius.circular(toDouble()));
 }
 
 /// int 扩展

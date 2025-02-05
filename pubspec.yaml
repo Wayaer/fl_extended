@@ -1,6 +1,6 @@
 name: fl_extended
 description: "Some extension components and methods have been added to flutter and the routing functionality has been simplified"
-version: 1.6.2
+version: 1.6.3
 repository: https://github.com/Wayaer/fl_extended
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  collection: ^1.18.0
+  collection: ^1.19.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0

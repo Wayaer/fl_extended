@@ -37,8 +37,7 @@ extension ExtensionString on String {
   String get toDecodeBase64 => String.fromCharCodes(base64Decode(this));
 
   /// 复制到粘贴板
-  Future<void> get toClipboard async =>
-      await Clipboard.setData(ClipboardData(text: this));
+  Future<void> toClipboard() => Clipboard.setData(ClipboardData(text: this));
 
   /// 验证邮箱
   bool get isEmail =>
