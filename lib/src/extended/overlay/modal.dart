@@ -298,7 +298,7 @@ class ActionDialog extends StatelessWidget {
     return ModalBox(
         options: ModalBoxOptions(
                 constraints: constraints,
-                foregroundColor: context.theme.dialogBackgroundColor)
+                foregroundColor: context.theme.dialogTheme.backgroundColor)
             .merge(options),
         child: Universal(
             crossAxisAlignment: CrossAxisAlignment.center,

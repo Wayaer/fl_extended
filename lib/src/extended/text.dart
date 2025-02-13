@@ -57,7 +57,7 @@ class RText extends RichText {
     /// TextOverflow，内容溢出时的处理方式
     super.overflow = TextOverflow.clip,
 
-    /// double 设置文字的放大缩小，例如，fontSize=10，this.textScaleFactor=2.0，最终得到的文字大小为10*2.0
+    /// double 设置文字的放大缩小，例如，fontSize=10，最终得到的文字大小为10*2.0
     super.textScaler = TextScaler.noScaling,
 
     /// int 设置文字的最大展示行数
@@ -162,7 +162,6 @@ class BText extends StatelessWidget {
     this.textDirection,
     this.softWrap,
     this.overflow,
-    this.textScaleFactor,
     this.maxLines,
     this.textWidthBasis,
     this.textHeightBehavior,
@@ -237,7 +236,6 @@ class BText extends StatelessWidget {
     this.textDirection,
     this.softWrap,
     this.overflow,
-    this.textScaleFactor,
     this.maxLines,
     this.textWidthBasis,
     this.textHeightBehavior,
@@ -389,9 +387,6 @@ class BText extends StatelessWidget {
 
   /// TextOverflow，内容溢出时的处理方式
   final TextOverflow? overflow;
-
-  /// double 设置文字的放大缩小，例如，fontSize=10，this.textScaleFactor=2.0，最终得到的文字大小为10*2.0
-  final double? textScaleFactor;
 
   /// int 设置文字的最大展示行数
   final int? maxLines;

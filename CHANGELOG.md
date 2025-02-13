@@ -1,3 +1,7 @@
+## 1.7.0
+
+* Migrate to 3.29
+
 ## 1.6.3
 
 * Add multiple extensions to `num` type, such as `EdgeInsets`,`EdgeInsetsDirectional`,`BorderRadius`,`Offset`

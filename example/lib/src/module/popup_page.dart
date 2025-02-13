@@ -11,7 +11,7 @@ class PopupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final actionsDialog = ActionDialog(
         options: ModalBoxOptions(
-            foregroundColor: context.theme.dialogBackgroundColor,
+            foregroundColor: context.theme.dialogTheme.backgroundColor,
             borderRadius: BorderRadius.circular(10)),
         dividerColor: const Color(0xFF8F8F8F),
         title: const Universal(

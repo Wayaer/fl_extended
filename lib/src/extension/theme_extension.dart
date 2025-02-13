@@ -23,7 +23,7 @@ extension ExtensionThemeData on ThemeData {
       cardColor: themeData?.cardColor ?? cardColor,
       colorScheme: themeData?.colorScheme ?? colorScheme,
       dialogBackgroundColor:
-          themeData?.dialogBackgroundColor ?? dialogBackgroundColor,
+          themeData?.dialogTheme.backgroundColor ?? dialogBackgroundColor,
       disabledColor: themeData?.disabledColor ?? disabledColor,
       dividerColor: themeData?.dividerColor ?? dividerColor,
       focusColor: themeData?.focusColor ?? focusColor,
