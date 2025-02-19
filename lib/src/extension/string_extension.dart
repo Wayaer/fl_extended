@@ -5,6 +5,68 @@ import 'package:fl_extended/fl_extended.dart';
 
 /// String 扩展
 extension ExtensionString on String {
+  /// Base64.encode()
+  Uint8List base64Decode() => base64.decode(this);
+
+  /// base64url.encode()
+  Uint8List base64UrlDecode() => base64Url.decode(this);
+
+  /// base64.normalize()
+  String base64Normalize([int start = 0, int? end]) => base64.normalize(this);
+
+  /// base64url.normalize()
+  String base64UrlNormalize([int start = 0, int? end]) =>
+      base64Url.normalize(this);
+
+  /// utf8.encode()
+  Uint8List utf8Encode() => utf8.encode(this);
+
+  /// ascii.encode()
+  Uint8List asciiEncode() => ascii.encode(this);
+
+  /// latin1.encode()
+  Uint8List latin1Encode() => latin1.encode(this);
+
+  /// jsonDecode
+  dynamic jsonDecode({Object? Function(Object? key, Object? value)? reviver}) =>
+      json.decode(this, reviver: reviver);
+
+  /// htmlEscape.convert()
+  String htmlEscapeConvert() => htmlEscape.convert(this);
+
+  /// Uri.decodeComponent()
+  String uriDecodeComponent() => Uri.decodeComponent(this);
+
+  /// Uri.decodeFull()
+  String uriDecodeFull() => Uri.decodeFull(this);
+
+  /// Uri.decodeQueryComponent()
+  String uriDecodeQueryComponent({Encoding encoding = utf8}) =>
+      Uri.decodeQueryComponent(this, encoding: encoding);
+
+  /// Uri.encodeComponent()
+  String uriEncodeComponent() => Uri.encodeComponent(this);
+
+  /// Uri.encodeFull()
+  String uriEncodeFull() => Uri.encodeFull(this);
+
+  /// Uri.encodeQueryComponent()
+  String uriEncodeQueryComponent({Encoding encoding = utf8}) =>
+      Uri.encodeQueryComponent(this, encoding: encoding);
+
+  /// Uri.parse()
+  Uri uriParse() => Uri.parse(this);
+
+  /// Uri.tryParse()
+  Uri? uriTryParse() => Uri.tryParse(this);
+
+  /// Uri.parseIPv4Address()
+  List<int> uriParseIPv4Address() => Uri.parseIPv4Address(this);
+
+  /// Uri.parseIPv6Address()
+  List<int> uriParseIPv6Address([int start = 0, int? end]) =>
+      Uri.parseIPv6Address(this, start, end);
+
   num get parseNum => num.parse(this);
 
   num? get tryParseNum => num.tryParse(this);
@@ -30,12 +92,6 @@ extension ExtensionString on String {
   String insert(int index, String element) =>
       '${substring(0, index)}$element${substring(index, length)}';
 
-  /// Base64加密
-  String get toEncodeBase64 => base64Encode(utf8.encode(this));
-
-  /// Base64解密
-  String get toDecodeBase64 => String.fromCharCodes(base64Decode(this));
-
   /// 复制到粘贴板
   Future<void> toClipboard() => Clipboard.setData(ClipboardData(text: this));
 
@@ -57,9 +113,6 @@ extension ExtensionString on String {
     }
     return words;
   }
-
-  /// 进行utf8编码
-  List<int> get utf8Encode => utf8.encode(this);
 
   /// 每隔 x位 加 pattern
   String formatDigitPattern({int digit = 4, String pattern = ' '}) {
@@ -139,13 +192,13 @@ extension ExtensionString on String {
   bool get isLetter => RegExp("[A-Za-z]").hasMatch(this);
 
   /// Check if string is json decode
-  bool get isJsonDecode {
+  bool get isJson {
     try {
-      jsonDecode(this) as Map<String, dynamic>;
+      jsonDecode();
+      return true;
     } on FormatException catch (_) {
       return false;
     }
-    return true;
   }
 
   /// Format: 'aabbcc' or 'ffaabbcc' with an optional leading '#'.

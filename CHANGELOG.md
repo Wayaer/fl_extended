@@ -1,3 +1,7 @@
+## 1.7.1
+
+* Modify or add extension methods for String and List<int>, including `base64`, `base64URL`, `UTF8`, `ASCII`, `Latin1`, `JSON`, and `URI`
+
 ## 1.7.0
 
 * Migrate to 3.29

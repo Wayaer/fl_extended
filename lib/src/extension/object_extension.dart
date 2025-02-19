@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fl_extended/fl_extended.dart';
@@ -74,6 +76,12 @@ extension ExtensionT<T> on T {
           '└------------------------------------------------------------------------------');
     }
   }
+}
+
+extension ExtensionObject on Object {
+  /// json.encode
+  String jsonEncode({Object? Function(Object? nonEncodable)? toEncodable}) =>
+      json.encode(this, toEncodable: toEncodable);
 }
 
 extension ExtensionSize on Size {
