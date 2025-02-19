@@ -20,13 +20,17 @@ class ExtendedOverlay {
 
   /// 自定义Overlay
   ExtendedOverlayEntry? showOverlay(Widget widget, {bool autoOff = false}) {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
+    assert(
+      FlExtended().navigatorKey.currentState != null,
+      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+    );
     final OverlayState? overlay =
         FlExtended().navigatorKey.currentState!.overlay;
     if (overlay == null) return null;
-    final ExtendedOverlayEntry entry =
-        ExtendedOverlayEntry(autoOff: autoOff, widget: widget);
+    final ExtendedOverlayEntry entry = ExtendedOverlayEntry(
+      autoOff: autoOff,
+      widget: widget,
+    );
     overlay.insert(entry);
     if (!autoOff) _overlayEntryList.add(entry);
     return entry;
@@ -62,7 +66,8 @@ class ExtendedOverlay {
     if (_toast != null) return _toast;
     _toast = showOverlay(toast, autoOff: true);
     _toast?.addListener(_toastListener);
-    final duration = toast.duration ??
+    final duration =
+        toast.duration ??
         toast.options?.duration ??
         FlExtended().toastOptions.duration;
     await duration.delayed();
@@ -118,8 +123,8 @@ class ExtendedOverlayEntry extends OverlayEntry {
     Widget? widget,
     super.opaque = false,
     super.maintainState = false,
-  })  : assert(builder != null || widget != null),
-        super(builder: builder ?? (_) => widget!);
+  }) : assert(builder != null || widget != null),
+       super(builder: builder ?? (_) => widget!);
 
   /// 是否自动关闭
   final bool autoOff;

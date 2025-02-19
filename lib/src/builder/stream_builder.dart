@@ -24,22 +24,25 @@ class ExtendedStreamBuilder<T> extends StreamBuilder {
 
     /// [error] 显示的内容
     ValueTwoCallbackT<Widget, BuildContext, Object?>? onError,
-  }) : super(builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasError) {
-            return onError?.call(context, snapshot.error) ?? const SizedBox();
-          }
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return onNone?.call(context, snapshot.data) ?? const SizedBox();
-            case ConnectionState.waiting:
-              return onWaiting?.call(context, snapshot.data) ??
-                  const SizedBox();
-            case ConnectionState.active:
-              return onActive?.call(context, snapshot.data) ?? const SizedBox();
-            case ConnectionState.done:
-              return onDone?.call(context, snapshot.data) ?? const SizedBox();
-          }
-        });
+  }) : super(
+         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+           if (snapshot.hasError) {
+             return onError?.call(context, snapshot.error) ?? const SizedBox();
+           }
+           switch (snapshot.connectionState) {
+             case ConnectionState.none:
+               return onNone?.call(context, snapshot.data) ?? const SizedBox();
+             case ConnectionState.waiting:
+               return onWaiting?.call(context, snapshot.data) ??
+                   const SizedBox();
+             case ConnectionState.active:
+               return onActive?.call(context, snapshot.data) ??
+                   const SizedBox();
+             case ConnectionState.done:
+               return onDone?.call(context, snapshot.data) ?? const SizedBox();
+           }
+         },
+       );
 }
 
 /// 自定义版 StreamBuilder
@@ -111,17 +114,20 @@ class _CustomStreamBuilderState<T>
   void _subscribe() {
     state = BuilderState.waiting;
     if (mounted && widget.onWaiting != null) setState(() {});
-    _subscription = widget.stream.listen((T value) {
-      if (value != null) {
-        state = BuilderState.done;
-        data = value;
-      }
-      setState(() {});
-    }, onError: (Object error, StackTrace stackTrace) {
-      state = BuilderState.error;
-      _error = error;
-      setState(() {});
-    });
+    _subscription = widget.stream.listen(
+      (T value) {
+        if (value != null) {
+          state = BuilderState.done;
+          data = value;
+        }
+        setState(() {});
+      },
+      onError: (Object error, StackTrace stackTrace) {
+        state = BuilderState.error;
+        _error = error;
+        setState(() {});
+      },
+    );
   }
 
   @override

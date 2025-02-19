@@ -100,15 +100,16 @@ extension ExtensionString on String {
       RegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$').hasMatch(this);
 
   /// 手机号验证
-  bool get isChinaPhone =>
-      RegExp(r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$')
-          .hasMatch(this);
+  bool get isChinaPhone => RegExp(
+    r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$',
+  ).hasMatch(this);
 
   /// utf8ToList
   List<int> get utf8ToList {
     final List<int> words = length.generate((_) => 0);
     for (int i = 0; i < length; i++) {
-      words[i >> 2] |= (codeUnitAt(i) & 0xff).toSigned(32) <<
+      words[i >> 2] |=
+          (codeUnitAt(i) & 0xff).toSigned(32) <<
           (24 - (i % 4) * 8).toSigned(32);
     }
     return words;
@@ -118,14 +119,19 @@ extension ExtensionString on String {
   String formatDigitPattern({int digit = 4, String pattern = ' '}) {
     String text = this;
     text = text.replaceAllMapped(
-        RegExp('(.{$digit})'), (Match match) => '${match.group(0)}$pattern');
+      RegExp('(.{$digit})'),
+      (Match match) => '${match.group(0)}$pattern',
+    );
     if (text.endsWith(pattern)) text = text.substring(0, text.length - 1);
     return text;
   }
 
   /// 每隔 x位 加 pattern, 从末尾开始
-  String formatDigitPatternEnd(String text,
-      {int digit = 4, String pattern = ' '}) {
+  String formatDigitPatternEnd(
+    String text, {
+    int digit = 4,
+    String pattern = ' ',
+  }) {
     String temp = reverse;
     temp = formatDigitPattern(digit: digit, pattern: pattern);
     temp = reverse;

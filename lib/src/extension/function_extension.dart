@@ -12,11 +12,14 @@ extension ExtensionFutureFunction on Future Function() {
     void func() {
       if (enable) {
         _funcThrottle[hashCode] = false;
-        this.call().then((_) {
-          _funcThrottle[hashCode] = false;
-        }).whenComplete(() {
-          _funcThrottle.remove(hashCode);
-        });
+        this
+            .call()
+            .then((_) {
+              _funcThrottle[hashCode] = false;
+            })
+            .whenComplete(() {
+              _funcThrottle.remove(hashCode);
+            });
       }
     }
 

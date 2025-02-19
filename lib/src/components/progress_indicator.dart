@@ -8,17 +8,14 @@ enum ProgressIndicatorStyle {
   circular,
 
   /// [RefreshProgressIndicator]
-  refresh,
-  ;
+  refresh;
 
   ProgressIndicatorOptions get options => switch (this) {
-        ProgressIndicatorStyle.linear =>
-          const ProgressIndicatorOptions.linear(),
-        ProgressIndicatorStyle.circular =>
-          const ProgressIndicatorOptions.circular(),
-        ProgressIndicatorStyle.refresh =>
-          const ProgressIndicatorOptions.refresh(),
-      };
+    ProgressIndicatorStyle.linear => const ProgressIndicatorOptions.linear(),
+    ProgressIndicatorStyle.circular =>
+      const ProgressIndicatorOptions.circular(),
+    ProgressIndicatorStyle.refresh => const ProgressIndicatorOptions.refresh(),
+  };
 }
 
 class ProgressIndicatorOptions {
@@ -59,13 +56,13 @@ class ProgressIndicatorOptions {
     this.semanticsValue,
     this.minHeight,
     this.borderRadius = BorderRadius.zero,
-  })  : style = ProgressIndicatorStyle.linear,
-        strokeWidth = 4,
-        strokeAlign = 0,
-        strokeCap = null,
-        elevation = 2.0,
-        indicatorMargin = const EdgeInsets.all(4.0),
-        indicatorPadding = const EdgeInsets.all(12.0);
+  }) : style = ProgressIndicatorStyle.linear,
+       strokeWidth = 4,
+       strokeAlign = 0,
+       strokeCap = null,
+       elevation = 2.0,
+       indicatorMargin = const EdgeInsets.all(4.0),
+       indicatorPadding = const EdgeInsets.all(12.0);
 
   const ProgressIndicatorOptions.circular({
     this.width,
@@ -79,12 +76,12 @@ class ProgressIndicatorOptions {
     this.strokeWidth = 4,
     this.strokeAlign = 0,
     this.strokeCap,
-  })  : style = ProgressIndicatorStyle.circular,
-        minHeight = null,
-        borderRadius = BorderRadius.zero,
-        elevation = 2.0,
-        indicatorMargin = const EdgeInsets.all(4.0),
-        indicatorPadding = const EdgeInsets.all(12.0);
+  }) : style = ProgressIndicatorStyle.circular,
+       minHeight = null,
+       borderRadius = BorderRadius.zero,
+       elevation = 2.0,
+       indicatorMargin = const EdgeInsets.all(4.0),
+       indicatorPadding = const EdgeInsets.all(12.0);
 
   const ProgressIndicatorOptions.refresh({
     this.width,
@@ -101,9 +98,9 @@ class ProgressIndicatorOptions {
     this.elevation = 2.0,
     this.indicatorMargin = const EdgeInsets.all(4.0),
     this.indicatorPadding = const EdgeInsets.all(12.0),
-  })  : style = ProgressIndicatorStyle.refresh,
-        minHeight = null,
-        borderRadius = BorderRadius.zero;
+  }) : style = ProgressIndicatorStyle.refresh,
+       minHeight = null,
+       borderRadius = BorderRadius.zero;
 
   /// [ProgressIndicator]
   final double? value;
@@ -147,41 +144,47 @@ class FlProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget current = switch (options.style) {
       ProgressIndicatorStyle.linear => LinearProgressIndicator(
-          value: options.value,
-          backgroundColor: options.backgroundColor,
-          color: options.color,
-          valueColor: options.valueColor,
-          minHeight: options.minHeight,
-          borderRadius: options.borderRadius,
-          semanticsLabel: options.semanticsLabel,
-          semanticsValue: options.semanticsValue),
+        value: options.value,
+        backgroundColor: options.backgroundColor,
+        color: options.color,
+        valueColor: options.valueColor,
+        minHeight: options.minHeight,
+        borderRadius: options.borderRadius,
+        semanticsLabel: options.semanticsLabel,
+        semanticsValue: options.semanticsValue,
+      ),
       ProgressIndicatorStyle.circular => CircularProgressIndicator(
-          value: options.value,
-          backgroundColor: options.backgroundColor,
-          color: options.color,
-          valueColor: options.valueColor,
-          strokeWidth: options.strokeWidth,
-          strokeAlign: options.strokeAlign,
-          semanticsLabel: options.semanticsLabel,
-          semanticsValue: options.semanticsValue,
-          strokeCap: options.strokeCap),
+        value: options.value,
+        backgroundColor: options.backgroundColor,
+        color: options.color,
+        valueColor: options.valueColor,
+        strokeWidth: options.strokeWidth,
+        strokeAlign: options.strokeAlign,
+        semanticsLabel: options.semanticsLabel,
+        semanticsValue: options.semanticsValue,
+        strokeCap: options.strokeCap,
+      ),
       ProgressIndicatorStyle.refresh => RefreshProgressIndicator(
-          value: options.value,
-          backgroundColor: options.backgroundColor,
-          color: options.color,
-          valueColor: options.valueColor,
-          strokeWidth: options.strokeWidth,
-          strokeAlign: options.strokeAlign,
-          semanticsLabel: options.semanticsLabel,
-          semanticsValue: options.semanticsValue,
-          strokeCap: options.strokeCap,
-          elevation: options.elevation,
-          indicatorMargin: options.indicatorMargin,
-          indicatorPadding: options.indicatorPadding)
+        value: options.value,
+        backgroundColor: options.backgroundColor,
+        color: options.color,
+        valueColor: options.valueColor,
+        strokeWidth: options.strokeWidth,
+        strokeAlign: options.strokeAlign,
+        semanticsLabel: options.semanticsLabel,
+        semanticsValue: options.semanticsValue,
+        strokeCap: options.strokeCap,
+        elevation: options.elevation,
+        indicatorMargin: options.indicatorMargin,
+        indicatorPadding: options.indicatorPadding,
+      ),
     };
 
     if (options.width == null && options.height == null) return current;
     return SizedBox(
-        width: options.width, height: options.height, child: current);
+      width: options.width,
+      height: options.height,
+      child: current,
+    );
   }
 }

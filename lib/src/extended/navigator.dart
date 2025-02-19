@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-typedef PopInvokedWithResultAndOverlayCallback<T> = void Function(
-    bool didPop, T? result, bool didCloseOverlay);
+typedef PopInvokedWithResultAndOverlayCallback<T> =
+    void Function(bool didPop, T? result, bool didCloseOverlay);
 
-typedef PopInvokedWithOverlayCallback = void Function(
-    bool didPop, bool didCloseOverlay);
+typedef PopInvokedWithOverlayCallback =
+    void Function(bool didPop, bool didCloseOverlay);
 
 class ExtendedPopScope<T> extends PopScope<T> {
   ExtendedPopScope({
@@ -24,15 +24,18 @@ class ExtendedPopScope<T> extends PopScope<T> {
 
     /// true 点击android实体返回按键先关闭Overlay【loading ...】但不pop 当前页面
     bool isCloseOverlay = true,
-  }) : super(onPopInvokedWithResult: (bool didPop, T? result) {
-          bool isClose = false;
-          if (isCloseOverlay && ExtendedOverlay().overlayEntryList.isNotEmpty) {
-            isClose = true;
-            closeOverlay();
-          }
-          onPopInvoked?.call(didPop, isClose);
-          onPopInvokedWithResult?.call(didPop, result, isClose);
-        });
+  }) : super(
+         onPopInvokedWithResult: (bool didPop, T? result) {
+           bool isClose = false;
+           if (isCloseOverlay &&
+               ExtendedOverlay().overlayEntryList.isNotEmpty) {
+             isClose = true;
+             closeOverlay();
+           }
+           onPopInvoked?.call(didPop, isClose);
+           onPopInvokedWithResult?.call(didPop, result, isClose);
+         },
+       );
 }
 
 /// page route
@@ -55,8 +58,8 @@ class PageRouteOptions {
     this.allowSnapshotting = true,
     this.barrierDismissible = false,
     this.builder,
-  })  : title = null,
-        style = RoutePushStyle.material;
+  }) : title = null,
+       style = RoutePushStyle.material;
 
   const PageRouteOptions.cupertino({
     this.maintainState = true,
@@ -101,49 +104,50 @@ class PageRouteOptions {
     bool? barrierDismissible,
     WidgetBuilder? builder,
     RoutePushStyle? style,
-  }) =>
-      PageRouteOptions(
-        maintainState: maintainState ?? this.maintainState,
-        fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-        title: title ?? this.title,
-        settings: settings ?? this.settings,
-        allowSnapshotting: allowSnapshotting ?? this.allowSnapshotting,
-        barrierDismissible: barrierDismissible ?? this.barrierDismissible,
-        builder: builder ?? this.builder,
-        style: style ?? this.style,
-      );
+  }) => PageRouteOptions(
+    maintainState: maintainState ?? this.maintainState,
+    fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
+    title: title ?? this.title,
+    settings: settings ?? this.settings,
+    allowSnapshotting: allowSnapshotting ?? this.allowSnapshotting,
+    barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+    builder: builder ?? this.builder,
+    style: style ?? this.style,
+  );
 
   PageRouteOptions merge([PageRouteOptions? options]) => copyWith(
-        maintainState: options?.maintainState,
-        fullscreenDialog: options?.fullscreenDialog,
-        title: options?.title,
-        settings: options?.settings,
-        allowSnapshotting: options?.allowSnapshotting,
-        barrierDismissible: options?.barrierDismissible,
-        builder: options?.builder,
-        style: options?.style,
-      );
+    maintainState: options?.maintainState,
+    fullscreenDialog: options?.fullscreenDialog,
+    title: options?.title,
+    settings: options?.settings,
+    allowSnapshotting: options?.allowSnapshotting,
+    barrierDismissible: options?.barrierDismissible,
+    builder: options?.builder,
+    style: options?.style,
+  );
 
   /// Builds the primary contents of the route.
   PageRoute<T> buildPageRoute<T>(Widget widget) {
     switch (style) {
       case RoutePushStyle.cupertino:
         return CupertinoPageRoute<T>(
-            title: title,
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            barrierDismissible: barrierDismissible,
-            allowSnapshotting: allowSnapshotting,
-            builder: builder ?? widget.toWidgetBuilder);
+          title: title,
+          settings: settings,
+          maintainState: maintainState,
+          fullscreenDialog: fullscreenDialog,
+          barrierDismissible: barrierDismissible,
+          allowSnapshotting: allowSnapshotting,
+          builder: builder ?? widget.toWidgetBuilder,
+        );
       case RoutePushStyle.material:
         return MaterialPageRoute<T>(
-            settings: settings,
-            maintainState: maintainState,
-            fullscreenDialog: fullscreenDialog,
-            barrierDismissible: barrierDismissible,
-            allowSnapshotting: allowSnapshotting,
-            builder: builder ?? widget.toWidgetBuilder);
+          settings: settings,
+          maintainState: maintainState,
+          fullscreenDialog: fullscreenDialog,
+          barrierDismissible: barrierDismissible,
+          allowSnapshotting: allowSnapshotting,
+          builder: builder ?? widget.toWidgetBuilder,
+        );
     }
   }
 }
@@ -157,29 +161,42 @@ enum RoutePushStyle {
 }
 
 /// 打开新页面
-Future<T?> push<T extends Object?, TO extends Object?>(Widget widget,
-        {PageRouteOptions? options}) =>
-    widget.push<T>(widget,
-        options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)));
+Future<T?> push<T extends Object?, TO extends Object?>(
+  Widget widget, {
+  PageRouteOptions? options,
+}) => widget.push<T>(
+  widget,
+  options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
+);
 
 /// 打开新页面替换当前页面
-Future<T?> pushReplacement<T extends Object?, TO extends Object?>(Widget widget,
-        {PageRouteOptions? options, TO? result}) =>
-    widget.pushReplacement<T, TO>(widget,
-        options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
-        result: result);
+Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
+  Widget widget, {
+  PageRouteOptions? options,
+  TO? result,
+}) => widget.pushReplacement<T, TO>(
+  widget,
+  options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
+  result: result,
+);
 
 /// 打开新页面 并移出堆栈所有页面
-Future<T?> pushAndRemoveUntil<T extends Object?>(Widget widget,
-        {PageRouteOptions? options, RoutePredicate? predicate}) =>
-    widget.pushAndRemoveUntil(widget,
-        options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
-        predicate: predicate ?? (Route<dynamic> route) => route.isFirst);
+Future<T?> pushAndRemoveUntil<T extends Object?>(
+  Widget widget, {
+  PageRouteOptions? options,
+  RoutePredicate? predicate,
+}) => widget.pushAndRemoveUntil(
+  widget,
+  options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
+  predicate: predicate ?? (Route<dynamic> route) => route.isFirst,
+);
 
 /// 可能返回到上一个页面
 Future<bool> maybePop<T extends Object>([T? result]) {
-  assert(FlExtended().navigatorKey.currentState != null,
-      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
+  assert(
+    FlExtended().navigatorKey.currentState != null,
+    'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+  );
   return FlExtended().navigatorKey.currentState!.maybePop<T>(result);
 }
 
@@ -188,16 +205,21 @@ Future<bool> pop<T extends Object>([T? result, bool isMaybe = false]) {
   if (isMaybe) {
     return maybePop<T>(result);
   } else {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
+    assert(
+      FlExtended().navigatorKey.currentState != null,
+      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+    );
     FlExtended().navigatorKey.currentState!.pop<T>(result);
     return Future.value(true);
   }
 }
 
 /// pop 返回简写 带参数  [nullBack] =true  navigator 返回为空 就继续返回上一页面
-void popBack(Future<dynamic> navigator,
-    {bool nullBack = false, bool useMaybePop = false}) {
+void popBack(
+  Future<dynamic> navigator, {
+  bool nullBack = false,
+  bool useMaybePop = false,
+}) {
   final Future<dynamic> future = navigator;
   future.then((dynamic value) {
     if (nullBack) {
@@ -210,18 +232,22 @@ void popBack(Future<dynamic> navigator,
 
 /// 循环pop 直到pop至指定页面
 void popUntil([RoutePredicate? predicate]) {
-  assert(FlExtended().navigatorKey.currentState != null,
-      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-  return FlExtended()
-      .navigatorKey
-      .currentState!
-      .popUntil(predicate ?? (Route<dynamic> route) => route.isFirst);
+  assert(
+    FlExtended().navigatorKey.currentState != null,
+    'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+  );
+  return FlExtended().navigatorKey.currentState!.popUntil(
+    predicate ?? (Route<dynamic> route) => route.isFirst,
+  );
 }
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? showSnackBar(
-    SnackBar snackBar) {
-  assert(FlExtended().scaffoldMessengerKey.currentState != null,
-      'Set FlExtended().scaffoldMessengerKey to the MaterialApp');
+  SnackBar snackBar,
+) {
+  assert(
+    FlExtended().scaffoldMessengerKey.currentState != null,
+    'Set FlExtended().scaffoldMessengerKey to the MaterialApp',
+  );
   return FlExtended().scaffoldMessengerKey.currentState?.showSnackBar(snackBar);
 }
 
@@ -237,13 +263,14 @@ Future<T?> showMenuPopup<T>({
 }) {
   assert(FlExtended().navigatorKey.currentContext != null);
   return showMenu<T>(
-      context: FlExtended().navigatorKey.currentContext!,
-      position: position,
-      useRootNavigator: useRootNavigator,
-      initialValue: initialValue,
-      elevation: elevation,
-      semanticLabel: semanticLabel,
-      shape: shape,
-      color: color,
-      items: items);
+    context: FlExtended().navigatorKey.currentContext!,
+    position: position,
+    useRootNavigator: useRootNavigator,
+    initialValue: initialValue,
+    elevation: elevation,
+    semanticLabel: semanticLabel,
+    shape: shape,
+    color: color,
+    items: items,
+  );
 }

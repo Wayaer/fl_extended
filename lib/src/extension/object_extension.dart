@@ -49,7 +49,8 @@ extension ExtensionT<T> on T {
     final String message = msg.toString();
     if (crossLine) {
       debugPrint(
-          '┌------------------------------------------------------------------------------');
+        '┌------------------------------------------------------------------------------',
+      );
     }
     const int limitLength = 800;
     if (message.length < limitLength) {
@@ -63,8 +64,10 @@ extension ExtensionT<T> on T {
           outStr.clear();
           final int lastIndex = index + 1;
           if (message.length - lastIndex < limitLength) {
-            final String remainderStr =
-                message.substring(lastIndex, message.length);
+            final String remainderStr = message.substring(
+              lastIndex,
+              message.length,
+            );
             debugPrint(remainderStr);
             break;
           }
@@ -73,7 +76,8 @@ extension ExtensionT<T> on T {
     }
     if (crossLine) {
       debugPrint(
-          '└------------------------------------------------------------------------------');
+        '└------------------------------------------------------------------------------',
+      );
     }
   }
 }

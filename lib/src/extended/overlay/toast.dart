@@ -59,37 +59,49 @@ class Toast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = FlExtended().toastOptions.merge(this.options).copyWith(
-        duration: duration,
-        textStyle: textStyle,
-        animationDuration: animationDuration,
-        animationStyle: animationStyle,
-        onToastTap: onToastTap,
-        color: color,
-        direction: direction,
-        alignment: alignment,
-        builder: builder);
+    final options = FlExtended().toastOptions
+        .merge(this.options)
+        .copyWith(
+          duration: duration,
+          textStyle: textStyle,
+          animationDuration: animationDuration,
+          animationStyle: animationStyle,
+          onToastTap: onToastTap,
+          color: color,
+          direction: direction,
+          alignment: alignment,
+          builder: builder,
+        );
     ToastContent content = ToastContent(
-        text: text,
-        iconStyle: iconStyle,
-        color: options.color,
-        textStyle: options.textStyle,
-        direction: options.direction);
+      text: text,
+      iconStyle: iconStyle,
+      color: options.color,
+      textStyle: options.textStyle,
+      direction: options.direction,
+    );
     Widget current = options.builder?.call(context, content) ?? content;
     current = Universal(
-        onTap: options.onToastTap, padding: options.padding, child: current);
+      onTap: options.onToastTap,
+      padding: options.padding,
+      child: current,
+    );
     return ModalBox(
-        options: options,
-        materialBuilder: options.animationStyle == null
-            ? null
-            : (Widget child) => FlAnimation(
+      options: options,
+      materialBuilder:
+          options.animationStyle == null
+              ? null
+              : (Widget child) => FlAnimation(
                 style: options.animationStyle!,
                 animationDuration:
                     options.animationDuration ?? kThemeChangeDuration,
-                stayDuration: options.duration
-                    .subtract(kFlAnimationDuration, kFlAnimationDuration),
-                child: child),
-        child: current);
+                stayDuration: options.duration.subtract(
+                  kFlAnimationDuration,
+                  kFlAnimationDuration,
+                ),
+                child: child,
+              ),
+      child: current,
+    );
   }
 }
 
@@ -133,19 +145,25 @@ class ToastContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget current = Text(text,
-        textAlign: TextAlign.center, style: textStyle, maxLines: maxLines);
+    Widget current = Text(
+      text,
+      textAlign: TextAlign.center,
+      style: textStyle,
+      maxLines: maxLines,
+    );
     if (iconStyle != null) {
       current = Flex(
-          direction: direction ?? Axis.vertical,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(iconStyle!.icon, size: size, color: color),
-            SizedBox(
-                width: direction == Axis.horizontal ? spacing : 0,
-                height: direction == Axis.vertical ? spacing : 0),
-            current,
-          ]);
+        direction: direction ?? Axis.vertical,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(iconStyle!.icon, size: size, color: color),
+          SizedBox(
+            width: direction == Axis.horizontal ? spacing : 0,
+            height: direction == Axis.vertical ? spacing : 0,
+          ),
+          current,
+        ],
+      );
     }
     return current;
   }
@@ -179,6 +197,7 @@ enum ToastIconStyle {
 /// 添加 await Toast 关闭后继续执行之后的方法
 Future<ExtendedOverlayEntry?> showToast(
   String message, {
+
   /// icon 样式 不传 仅显示文字
   ToastIconStyle? iconStyle,
 
@@ -217,8 +236,8 @@ Future<ExtendedOverlayEntry?> showToast(
 
 bool closeToast() => ExtendedOverlay().closeToast();
 
-typedef ToastBuilder = Widget? Function(
-    BuildContext context, ToastContent content);
+typedef ToastBuilder =
+    Widget? Function(BuildContext context, ToastContent content);
 
 class ToastOptions extends ModalOptions {
   const ToastOptions({
@@ -327,62 +346,61 @@ class ToastOptions extends ModalOptions {
     bool? resizeToAvoidBottomInset,
     Duration? insetAnimationDuration,
     Curve? insetAnimationCurve,
-  }) =>
-      ToastOptions.extended(
-        color: color ?? this.color,
-        backgroundColor: backgroundColor ?? this.backgroundColor,
-        foregroundColor: foregroundColor ?? this.foregroundColor,
-        animationDuration: animationDuration ?? this.animationDuration,
-        animationStyle: animationStyle ?? this.animationStyle,
-        constraints: constraints ?? this.constraints,
-        onToastTap: onToastTap ?? this.onToastTap,
-        textStyle: textStyle ?? this.textStyle,
-        duration: duration ?? this.duration,
-        builder: builder ?? this.builder,
-        direction: direction ?? this.direction,
-        ignoring: ignoring ?? this.ignoring,
-        alignment: alignment ?? this.alignment,
-        onModalTap: onModalTap ?? this.onModalTap,
-        absorbing: ignoring ?? this.absorbing,
-        gaussian: gaussian ?? this.gaussian,
-        elevation: elevation ?? this.elevation,
-        shadowColor: shadowColor ?? this.shadowColor,
-        borderRadius: borderRadius ?? this.borderRadius,
-        shape: shape ?? this.shape,
-        borderOnForeground: borderOnForeground ?? this.borderOnForeground,
-        safeLTRB: safeLTRB ?? this.safeLTRB,
-        resizeToAvoidBottomInset:
-            resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
-        insetAnimationDuration:
-            insetAnimationDuration ?? this.insetAnimationDuration,
-        insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
-      );
+  }) => ToastOptions.extended(
+    color: color ?? this.color,
+    backgroundColor: backgroundColor ?? this.backgroundColor,
+    foregroundColor: foregroundColor ?? this.foregroundColor,
+    animationDuration: animationDuration ?? this.animationDuration,
+    animationStyle: animationStyle ?? this.animationStyle,
+    constraints: constraints ?? this.constraints,
+    onToastTap: onToastTap ?? this.onToastTap,
+    textStyle: textStyle ?? this.textStyle,
+    duration: duration ?? this.duration,
+    builder: builder ?? this.builder,
+    direction: direction ?? this.direction,
+    ignoring: ignoring ?? this.ignoring,
+    alignment: alignment ?? this.alignment,
+    onModalTap: onModalTap ?? this.onModalTap,
+    absorbing: ignoring ?? this.absorbing,
+    gaussian: gaussian ?? this.gaussian,
+    elevation: elevation ?? this.elevation,
+    shadowColor: shadowColor ?? this.shadowColor,
+    borderRadius: borderRadius ?? this.borderRadius,
+    shape: shape ?? this.shape,
+    borderOnForeground: borderOnForeground ?? this.borderOnForeground,
+    safeLTRB: safeLTRB ?? this.safeLTRB,
+    resizeToAvoidBottomInset:
+        resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+    insetAnimationDuration:
+        insetAnimationDuration ?? this.insetAnimationDuration,
+    insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
+  );
 
   ToastOptions merge([ToastOptions? options]) => copyWith(
-        animationDuration: options?.animationDuration,
-        animationStyle: options?.animationStyle,
-        constraints: options?.constraints,
-        onToastTap: options?.onToastTap,
-        textStyle: options?.textStyle,
-        duration: options?.duration,
-        color: options?.color,
-        builder: options?.builder,
-        direction: options?.direction,
-        alignment: options?.alignment,
-        onModalTap: options?.onModalTap,
-        backgroundColor: options?.backgroundColor,
-        foregroundColor: options?.foregroundColor,
-        ignoring: options?.ignoring,
-        absorbing: options?.absorbing,
-        gaussian: options?.gaussian,
-        elevation: options?.elevation,
-        shadowColor: options?.shadowColor,
-        borderRadius: options?.borderRadius,
-        shape: options?.shape,
-        borderOnForeground: options?.borderOnForeground,
-        safeLTRB: options?.safeLTRB,
-        resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
-        insetAnimationDuration: options?.insetAnimationDuration,
-        insetAnimationCurve: options?.insetAnimationCurve,
-      );
+    animationDuration: options?.animationDuration,
+    animationStyle: options?.animationStyle,
+    constraints: options?.constraints,
+    onToastTap: options?.onToastTap,
+    textStyle: options?.textStyle,
+    duration: options?.duration,
+    color: options?.color,
+    builder: options?.builder,
+    direction: options?.direction,
+    alignment: options?.alignment,
+    onModalTap: options?.onModalTap,
+    backgroundColor: options?.backgroundColor,
+    foregroundColor: options?.foregroundColor,
+    ignoring: options?.ignoring,
+    absorbing: options?.absorbing,
+    gaussian: options?.gaussian,
+    elevation: options?.elevation,
+    shadowColor: options?.shadowColor,
+    borderRadius: options?.borderRadius,
+    shape: options?.shape,
+    borderOnForeground: options?.borderOnForeground,
+    safeLTRB: options?.safeLTRB,
+    resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
+    insetAnimationDuration: options?.insetAnimationDuration,
+    insetAnimationCurve: options?.insetAnimationCurve,
+  );
 }

@@ -34,36 +34,37 @@ class UnifiedButton extends StatelessWidget {
     this.statesController,
     required this.child,
     this.padding,
-  })  : direction = Axis.horizontal,
-        mainAxisAlignment = MainAxisAlignment.center,
-        mainAxisSize = MainAxisSize.min,
-        crossAxisAlignment = CrossAxisAlignment.center,
-        textDirection = null,
-        verticalDirection = VerticalDirection.down,
-        textBaseline = null;
+  }) : direction = Axis.horizontal,
+       mainAxisAlignment = MainAxisAlignment.center,
+       mainAxisSize = MainAxisSize.min,
+       crossAxisAlignment = CrossAxisAlignment.center,
+       textDirection = null,
+       verticalDirection = VerticalDirection.down,
+       textBaseline = null;
 
-  const UnifiedButton.icon(
-      {super.key,
-      this.category = UnifiedButtonCategory.none,
-      this.icon,
-      required this.onPressed,
-      this.onLongPress,
-      this.onHover,
-      this.onFocusChange,
-      this.style,
-      this.clipBehavior = Clip.none,
-      this.focusNode,
-      this.autofocus = false,
-      this.statesController,
-      this.direction = Axis.horizontal,
-      this.mainAxisAlignment = MainAxisAlignment.center,
-      this.mainAxisSize = MainAxisSize.min,
-      this.crossAxisAlignment = CrossAxisAlignment.center,
-      this.textDirection,
-      this.verticalDirection = VerticalDirection.down,
-      this.textBaseline,
-      required this.child,
-      this.padding});
+  const UnifiedButton.icon({
+    super.key,
+    this.category = UnifiedButtonCategory.none,
+    this.icon,
+    required this.onPressed,
+    this.onLongPress,
+    this.onHover,
+    this.onFocusChange,
+    this.style,
+    this.clipBehavior = Clip.none,
+    this.focusNode,
+    this.autofocus = false,
+    this.statesController,
+    this.direction = Axis.horizontal,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.min,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.textDirection,
+    this.verticalDirection = VerticalDirection.down,
+    this.textBaseline,
+    required this.child,
+    this.padding,
+  });
 
   final UnifiedButtonCategory category;
 
@@ -118,22 +119,25 @@ class UnifiedButton extends StatelessWidget {
     if (icon != null) {
       final double defaultFontSize =
           style?.textStyle?.resolve(const <WidgetState>{})?.fontSize ?? 14.0;
-      final double scale = clampDouble(
-              MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0,
-              1.0,
-              2.0) -
+      final double scale =
+          clampDouble(
+            MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0,
+            1.0,
+            2.0,
+          ) -
           1.0;
       final double gap = lerpDouble(8, 4, scale)!;
       current = Flex(
-          mainAxisAlignment: mainAxisAlignment,
-          crossAxisAlignment: crossAxisAlignment,
-          direction: direction,
-          textBaseline: textBaseline,
-          verticalDirection: verticalDirection,
-          textDirection: textDirection,
-          mainAxisSize: mainAxisSize,
-          clipBehavior: clipBehavior,
-          children: [icon!, SizedBox(width: gap), Flexible(child: current)]);
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        direction: direction,
+        textBaseline: textBaseline,
+        verticalDirection: verticalDirection,
+        textDirection: textDirection,
+        mainAxisSize: mainAxisSize,
+        clipBehavior: clipBehavior,
+        children: [icon!, SizedBox(width: gap), Flexible(child: current)],
+      );
     }
     if (padding != null) {
       current = Padding(padding: padding!, child: current);
@@ -141,64 +145,69 @@ class UnifiedButton extends StatelessWidget {
     switch (category) {
       case UnifiedButtonCategory.none:
         return TextButton(
-            onLongPress: onLongPress,
-            onHover: onHover,
-            onFocusChange: onFocusChange,
-            style: style,
-            clipBehavior: clipBehavior,
-            focusNode: focusNode,
-            autofocus: autofocus,
-            statesController: statesController,
-            onPressed: onPressed,
-            child: current);
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          clipBehavior: clipBehavior,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          statesController: statesController,
+          onPressed: onPressed,
+          child: current,
+        );
       case UnifiedButtonCategory.filled:
         return FilledButton(
-            onLongPress: onLongPress,
-            onHover: onHover,
-            onFocusChange: onFocusChange,
-            style: style,
-            clipBehavior: clipBehavior,
-            focusNode: focusNode,
-            autofocus: autofocus,
-            statesController: statesController,
-            onPressed: onPressed,
-            child: current);
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          clipBehavior: clipBehavior,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          statesController: statesController,
+          onPressed: onPressed,
+          child: current,
+        );
       case UnifiedButtonCategory.filledTonal:
         return FilledButton.tonal(
-            onLongPress: onLongPress,
-            onHover: onHover,
-            onFocusChange: onFocusChange,
-            style: style,
-            clipBehavior: clipBehavior,
-            focusNode: focusNode,
-            autofocus: autofocus,
-            statesController: statesController,
-            onPressed: onPressed,
-            child: current);
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          clipBehavior: clipBehavior,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          statesController: statesController,
+          onPressed: onPressed,
+          child: current,
+        );
       case UnifiedButtonCategory.elevated:
         return ElevatedButton(
-            onLongPress: onLongPress,
-            onHover: onHover,
-            onFocusChange: onFocusChange,
-            style: style,
-            clipBehavior: clipBehavior,
-            focusNode: focusNode,
-            autofocus: autofocus,
-            statesController: statesController,
-            onPressed: onPressed,
-            child: current);
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          clipBehavior: clipBehavior,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          statesController: statesController,
+          onPressed: onPressed,
+          child: current,
+        );
       case UnifiedButtonCategory.outlined:
         return OutlinedButton(
-            onLongPress: onLongPress,
-            onHover: onHover,
-            onFocusChange: onFocusChange,
-            style: style,
-            clipBehavior: clipBehavior,
-            focusNode: focusNode,
-            autofocus: autofocus,
-            statesController: statesController,
-            onPressed: onPressed,
-            child: current);
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          clipBehavior: clipBehavior,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          statesController: statesController,
+          onPressed: onPressed,
+          child: current,
+        );
     }
   }
 }

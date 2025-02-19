@@ -505,7 +505,10 @@ class Universal extends StatelessWidget {
       }
       if (intrinsicWidth) {
         current = IntrinsicWidth(
-            stepWidth: stepWidth, stepHeight: stepHeight, child: current);
+          stepWidth: stepWidth,
+          stepHeight: stepHeight,
+          child: current,
+        );
       }
     } else if (child != null) {
       current = child!;
@@ -526,8 +529,9 @@ class Universal extends StatelessWidget {
         current = buildSingleChildScrollView(current);
       } else {
         if (children != null && children!.isNotEmpty && !isStack && !isWrap) {
-          current = buildCustomScrollView(children!
-              .builder((Widget item) => SliverToBoxAdapter(child: item)));
+          current = buildCustomScrollView(
+            children!.builder((Widget item) => SliverToBoxAdapter(child: item)),
+          );
         } else {
           current = buildCustomScrollView([SliverToBoxAdapter(child: current)]);
         }
@@ -540,10 +544,11 @@ class Universal extends StatelessWidget {
     }
     if (alignment != null) {
       current = Align(
-          alignment: alignment!,
-          widthFactor: widthFactor,
-          heightFactor: heightFactor,
-          child: current);
+        alignment: alignment!,
+        widthFactor: widthFactor,
+        heightFactor: heightFactor,
+        child: current,
+      );
     }
 
     if (color != null && decoration == null) {
@@ -553,32 +558,41 @@ class Universal extends StatelessWidget {
     if (decoration != null &&
         clipBehavior != null &&
         clipBehavior != Clip.none) {
-      current = buildClip(current,
-          clipper: _DecorationClipper(
-              textDirection: Directionality.of(context),
-              decoration: decoration!));
+      current = buildClip(
+        current,
+        clipper: _DecorationClipper(
+          textDirection: Directionality.of(context),
+          decoration: decoration!,
+        ),
+      );
     }
     if (decoration != null) {
       if (decoration is BoxDecoration) {
         final boxDecoration = (decoration as BoxDecoration);
         current = DecoratedBox(
-            decoration: boxDecoration.copyWith(
-                color: boxDecoration.color ?? color,
-                borderRadius: boxDecoration.borderRadius ?? borderRadius),
-            child: current);
+          decoration: boxDecoration.copyWith(
+            color: boxDecoration.color ?? color,
+            borderRadius: boxDecoration.borderRadius ?? borderRadius,
+          ),
+          child: current,
+        );
       } else {
         current = DecoratedBox(decoration: decoration!, child: current);
       }
     }
     if (foregroundDecoration != null) {
       current = DecoratedBox(
-          decoration: foregroundDecoration!,
-          position: DecorationPosition.foreground,
-          child: current);
+        decoration: foregroundDecoration!,
+        position: DecorationPosition.foreground,
+        child: current,
+      );
     }
     if (transform != null) {
-      current =
-          Transform(transform: transform!, origin: origin, child: current);
+      current = Transform(
+        transform: transform!,
+        origin: origin,
+        child: current,
+      );
     }
     if (enabled ||
         onTap != null ||
@@ -609,7 +623,12 @@ class Universal extends StatelessWidget {
     if (expanded || flex != null) current = buildFlexible(current);
     if (left != null || top != null || right != null || bottom != null) {
       current = Positioned(
-          left: left, top: top, right: right, bottom: bottom, child: current);
+        left: left,
+        top: top,
+        right: right,
+        bottom: bottom,
+        child: current,
+      );
     }
     if (fit != null) current = buildFittedBox(current);
     if (opacity != null) current = Opacity(opacity: opacity!, child: current);
@@ -618,28 +637,34 @@ class Universal extends StatelessWidget {
     if (!visible) current = buildVisibility(current);
     if (safeLeft || safeTop || safeRight || safeBottom || safeLTRB) {
       current = SafeArea(
-          left: safeLTRB ? true : safeLeft,
-          top: safeLTRB ? true : safeTop,
-          right: safeLTRB ? true : safeRight,
-          bottom: safeLTRB ? true : safeBottom,
-          child: current);
+        left: safeLTRB ? true : safeLeft,
+        top: safeLTRB ? true : safeTop,
+        right: safeLTRB ? true : safeRight,
+        bottom: safeLTRB ? true : safeBottom,
+        child: current,
+      );
     }
     return current;
   }
 
   Widget buildAnnotatedRegion(Widget current) =>
       AnnotatedRegion<SystemUiOverlayStyle>(
-          sized: sized, value: systemOverlayStyle!, child: current);
+        sized: sized,
+        value: systemOverlayStyle!,
+        child: current,
+      );
 
   Widget buildFittedBox(Widget current) => FittedBox(
-      fit: fit!,
-      alignment: alignment ?? Alignment.center,
-      clipBehavior: clipBehavior ?? Clip.none,
-      child: current);
+    fit: fit!,
+    alignment: alignment ?? Alignment.center,
+    clipBehavior: clipBehavior ?? Clip.none,
+    child: current,
+  );
 
-  Widget buildPadding(Widget current) => _paddingIncludingDecoration == null
-      ? current
-      : Padding(padding: _paddingIncludingDecoration!, child: current);
+  Widget buildPadding(Widget current) =>
+      _paddingIncludingDecoration == null
+          ? current
+          : Padding(padding: _paddingIncludingDecoration!, child: current);
 
   Widget buildBackdropFilter(Widget current) =>
       BackdropFilter(blendMode: blendMode, filter: filter!, child: current);
@@ -651,209 +676,226 @@ class Universal extends StatelessWidget {
   Widget buildClip(Widget current, {CustomClipper<dynamic>? clipper}) {
     if (isOval) {
       return ClipOval(
-          clipBehavior: clipBehavior ?? Clip.antiAlias, child: current);
+        clipBehavior: clipBehavior ?? Clip.antiAlias,
+        child: current,
+      );
     } else if (clipper is CustomClipper<Rect> || isClipRect) {
       return ClipRect(
-          clipper: clipper is CustomClipper<Rect> ? clipper : null,
-          clipBehavior: clipBehavior ?? Clip.hardEdge,
-          child: current);
+        clipper: clipper is CustomClipper<Rect> ? clipper : null,
+        clipBehavior: clipBehavior ?? Clip.hardEdge,
+        child: current,
+      );
     } else if (clipper is CustomClipper<Path>) {
       return ClipPath(
-          clipper: clipper,
-          clipBehavior: clipBehavior ?? Clip.antiAlias,
-          child: current);
+        clipper: clipper,
+        clipBehavior: clipBehavior ?? Clip.antiAlias,
+        child: current,
+      );
     } else if (clipper is CustomClipper<RRect> || isClipRRect) {
       return ClipRRect(
-          borderRadius: borderRadius ?? BorderRadius.zero,
-          clipper: clipper is CustomClipper<RRect> ? clipper : null,
-          clipBehavior: clipBehavior ?? Clip.antiAlias,
-          child: current);
+        borderRadius: borderRadius ?? BorderRadius.zero,
+        clipper: clipper is CustomClipper<RRect> ? clipper : null,
+        clipBehavior: clipBehavior ?? Clip.antiAlias,
+        child: current,
+      );
     }
     return current;
   }
 
   Widget buildCircleAvatar(Widget current) => CircleAvatar(
-      backgroundColor: color,
-      backgroundImage: backgroundImage,
-      onBackgroundImageError: onBackgroundImageError,
-      onForegroundImageError: onForegroundImageError,
-      foregroundColor: foregroundColor,
-      foregroundImage: foregroundImage,
-      radius: radius,
-      minRadius: minRadius,
-      maxRadius: maxRadius,
-      child: current);
+    backgroundColor: color,
+    backgroundImage: backgroundImage,
+    onBackgroundImageError: onBackgroundImageError,
+    onForegroundImageError: onForegroundImageError,
+    foregroundColor: foregroundColor,
+    foregroundImage: foregroundImage,
+    radius: radius,
+    minRadius: minRadius,
+    maxRadius: maxRadius,
+    child: current,
+  );
 
   Widget buildHero(Widget current) => Hero(
-      tag: heroTag!,
-      createRectTween: createRectTween,
-      flightShuttleBuilder: flightShuttleBuilder,
-      placeholderBuilder: placeholderBuilder,
-      transitionOnUserGestures: transitionOnUserGestures,
-      child: current);
+    tag: heroTag!,
+    createRectTween: createRectTween,
+    flightShuttleBuilder: flightShuttleBuilder,
+    placeholderBuilder: placeholderBuilder,
+    transitionOnUserGestures: transitionOnUserGestures,
+    child: current,
+  );
 
   Widget buildVisibility(Widget current) => Visibility(
-      replacement: replacement,
-      visible: visible,
-      maintainState: maintainState,
-      maintainAnimation: maintainAnimation,
-      maintainSize: maintainSize,
-      maintainSemantics: maintainSemantics,
-      maintainInteractivity: maintainInteractivity,
-      child: current);
+    replacement: replacement,
+    visible: visible,
+    maintainState: maintainState,
+    maintainAnimation: maintainAnimation,
+    maintainSize: maintainSize,
+    maintainSemantics: maintainSemantics,
+    maintainInteractivity: maintainInteractivity,
+    child: current,
+  );
 
   Widget buildFlexible(Widget current) => Flexible(
-      flex: flex ?? 1,
-      fit: expanded ? FlexFit.tight : FlexFit.loose,
-      child: current);
+    flex: flex ?? 1,
+    fit: expanded ? FlexFit.tight : FlexFit.loose,
+    child: current,
+  );
 
   Widget buildListView(List<Widget> children) => ListView(
-      physics: physics,
-      reverse: reverse,
-      padding: padding,
-      primary: primary,
-      dragStartBehavior: dragStartBehavior,
-      controller: scrollController,
-      scrollDirection: scrollDirection ?? direction,
-      clipBehavior: clipBehavior ?? Clip.hardEdge,
-      restorationId: restorationId,
-      keyboardDismissBehavior: keyboardDismissBehavior,
-      children: children);
+    physics: physics,
+    reverse: reverse,
+    padding: padding,
+    primary: primary,
+    dragStartBehavior: dragStartBehavior,
+    controller: scrollController,
+    scrollDirection: scrollDirection ?? direction,
+    clipBehavior: clipBehavior ?? Clip.hardEdge,
+    restorationId: restorationId,
+    keyboardDismissBehavior: keyboardDismissBehavior,
+    children: children,
+  );
 
   Widget buildSingleChildScrollView(Widget current) => SingleChildScrollView(
-      physics: physics,
-      reverse: reverse,
-      primary: primary,
-      dragStartBehavior: dragStartBehavior,
-      controller: scrollController,
-      scrollDirection: scrollDirection ?? direction,
-      clipBehavior: clipBehavior ?? Clip.hardEdge,
-      restorationId: restorationId,
-      keyboardDismissBehavior: keyboardDismissBehavior,
-      child: current);
+    physics: physics,
+    reverse: reverse,
+    primary: primary,
+    dragStartBehavior: dragStartBehavior,
+    controller: scrollController,
+    scrollDirection: scrollDirection ?? direction,
+    clipBehavior: clipBehavior ?? Clip.hardEdge,
+    restorationId: restorationId,
+    keyboardDismissBehavior: keyboardDismissBehavior,
+    child: current,
+  );
 
   Widget buildCustomScrollView(List<Widget> slivers) => CustomScrollView(
-      controller: scrollController,
-      slivers: slivers,
-      dragStartBehavior: dragStartBehavior,
-      reverse: reverse,
-      primary: primary,
-      physics: physics,
-      clipBehavior: clipBehavior ?? Clip.hardEdge,
-      scrollDirection: scrollDirection ?? direction);
+    controller: scrollController,
+    slivers: slivers,
+    dragStartBehavior: dragStartBehavior,
+    reverse: reverse,
+    primary: primary,
+    physics: physics,
+    clipBehavior: clipBehavior ?? Clip.hardEdge,
+    scrollDirection: scrollDirection ?? direction,
+  );
 
   Widget buildFlex(List<Widget> children) => Flex(
-      spacing: spacing,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      direction: direction,
-      textBaseline: textBaseline,
-      verticalDirection: verticalDirection,
-      textDirection: textDirection,
-      mainAxisSize: mainAxisSize,
-      clipBehavior: clipBehavior ?? Clip.none,
-      children: children);
+    spacing: spacing,
+    mainAxisAlignment: mainAxisAlignment,
+    crossAxisAlignment: crossAxisAlignment,
+    direction: direction,
+    textBaseline: textBaseline,
+    verticalDirection: verticalDirection,
+    textDirection: textDirection,
+    mainAxisSize: mainAxisSize,
+    clipBehavior: clipBehavior ?? Clip.none,
+    children: children,
+  );
 
   Widget buildWrap(List<Widget> children) => Wrap(
-      direction: direction,
-      alignment: wrapAlignment,
-      spacing: spacing,
-      runAlignment: runAlignment,
-      runSpacing: runSpacing,
-      crossAxisAlignment: wrapCrossAlignment,
-      clipBehavior: clipBehavior ?? Clip.none,
-      verticalDirection: verticalDirection,
-      textDirection: textDirection,
-      children: children);
+    direction: direction,
+    alignment: wrapAlignment,
+    spacing: spacing,
+    runAlignment: runAlignment,
+    runSpacing: runSpacing,
+    crossAxisAlignment: wrapCrossAlignment,
+    clipBehavior: clipBehavior ?? Clip.none,
+    verticalDirection: verticalDirection,
+    textDirection: textDirection,
+    children: children,
+  );
 
   Widget buildStack(List<Widget> children) => Stack(
-      alignment: alignment ?? AlignmentDirectional.topStart,
-      textDirection: textDirection,
-      fit: stackFit,
-      clipBehavior: clipBehavior ?? Clip.hardEdge,
-      children: children);
+    alignment: alignment ?? AlignmentDirectional.topStart,
+    textDirection: textDirection,
+    fit: stackFit,
+    clipBehavior: clipBehavior ?? Clip.hardEdge,
+    children: children,
+  );
 
   Widget buildUnifiedButtonCategory(Widget current) => UnifiedButton(
-      category: unifiedButtonCategory!,
-      onPressed: onTap ?? onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      style: style,
-      clipBehavior: clipBehavior ?? Clip.none,
-      focusNode: focusNode,
-      autofocus: autofocus,
-      statesController: statesController,
-      child: current);
+    category: unifiedButtonCategory!,
+    onPressed: onTap ?? onPressed,
+    onLongPress: onLongPress,
+    onHover: onHover,
+    onFocusChange: onFocusChange,
+    style: style,
+    clipBehavior: clipBehavior ?? Clip.none,
+    focusNode: focusNode,
+    autofocus: autofocus,
+    statesController: statesController,
+    child: current,
+  );
 
   Widget buildGestureDetector(Widget current) => GestureDetector(
-      onTap: onTap ?? onPressed,
-      onTapDown: onTapDown,
-      onTapUp: onTapUp,
-      onTapCancel: onTapCancel,
-      onDoubleTap: onDoubleTap,
-      onDoubleTapDown: onDoubleTapDown,
-      onDoubleTapCancel: onDoubleTapCancel,
-      onLongPress: onLongPress,
-      onLongPressStart: onLongPressStart,
-      onLongPressMoveUpdate: onLongPressMoveUpdate,
-      onLongPressUp: onLongPressUp,
-      onLongPressEnd: onLongPressEnd,
-      onLongPressCancel: onLongPressCancel,
-      onLongPressDown: onLongPressDown,
-      onSecondaryTapDown: onSecondaryTapDown,
-      onSecondaryTapUp: onSecondaryTapUp,
-      onSecondaryTapCancel: onSecondaryTapCancel,
-      onSecondaryTap: onSecondaryTap,
-      onSecondaryLongPressMoveUpdate: onSecondaryLongPressMoveUpdate,
-      onSecondaryLongPressUp: onSecondaryLongPressUp,
-      onSecondaryLongPress: onSecondaryLongPress,
-      onSecondaryLongPressEnd: onSecondaryLongPressEnd,
-      onSecondaryLongPressStart: onSecondaryLongPressStart,
-      onSecondaryLongPressCancel: onSecondaryLongPressCancel,
-      onSecondaryLongPressDown: onSecondaryLongPressDown,
-      onVerticalDragDown: onVerticalDragDown,
-      onVerticalDragStart: onVerticalDragStart,
-      onVerticalDragUpdate: onVerticalDragUpdate,
-      onVerticalDragEnd: onVerticalDragEnd,
-      onVerticalDragCancel: onVerticalDragCancel,
-      onHorizontalDragDown: onHorizontalDragDown,
-      onHorizontalDragStart: onHorizontalDragStart,
-      onHorizontalDragUpdate: onHorizontalDragUpdate,
-      onHorizontalDragEnd: onHorizontalDragEnd,
-      onHorizontalDragCancel: onHorizontalDragCancel,
-      onForcePressStart: onForcePressStart,
-      onForcePressPeak: onForcePressPeak,
-      onForcePressUpdate: onForcePressUpdate,
-      onForcePressEnd: onForcePressEnd,
-      onTertiaryLongPress: onTertiaryLongPress,
-      onTertiaryLongPressCancel: onTertiaryLongPressCancel,
-      onTertiaryLongPressDown: onTertiaryLongPressDown,
-      onTertiaryLongPressEnd: onTertiaryLongPressEnd,
-      onTertiaryLongPressMoveUpdate: onTertiaryLongPressMoveUpdate,
-      onTertiaryLongPressStart: onTertiaryLongPressStart,
-      onTertiaryLongPressUp: onTertiaryLongPressUp,
-      onTertiaryTapCancel: onTertiaryTapCancel,
-      onTertiaryTapDown: onTertiaryTapDown,
-      onTertiaryTapUp: onTertiaryTapUp,
-      onPanDown: onPanDown,
-      onPanStart: onPanStart,
-      onPanUpdate: onPanUpdate,
-      onPanEnd: onPanEnd,
-      onPanCancel: onPanCancel,
-      onScaleStart: onScaleStart,
-      onScaleUpdate: onScaleUpdate,
-      onScaleEnd: onScaleEnd,
-      behavior: behavior,
-      excludeFromSemantics: excludeFromSemantics,
-      dragStartBehavior: dragStartBehavior,
-      child: current);
+    onTap: onTap ?? onPressed,
+    onTapDown: onTapDown,
+    onTapUp: onTapUp,
+    onTapCancel: onTapCancel,
+    onDoubleTap: onDoubleTap,
+    onDoubleTapDown: onDoubleTapDown,
+    onDoubleTapCancel: onDoubleTapCancel,
+    onLongPress: onLongPress,
+    onLongPressStart: onLongPressStart,
+    onLongPressMoveUpdate: onLongPressMoveUpdate,
+    onLongPressUp: onLongPressUp,
+    onLongPressEnd: onLongPressEnd,
+    onLongPressCancel: onLongPressCancel,
+    onLongPressDown: onLongPressDown,
+    onSecondaryTapDown: onSecondaryTapDown,
+    onSecondaryTapUp: onSecondaryTapUp,
+    onSecondaryTapCancel: onSecondaryTapCancel,
+    onSecondaryTap: onSecondaryTap,
+    onSecondaryLongPressMoveUpdate: onSecondaryLongPressMoveUpdate,
+    onSecondaryLongPressUp: onSecondaryLongPressUp,
+    onSecondaryLongPress: onSecondaryLongPress,
+    onSecondaryLongPressEnd: onSecondaryLongPressEnd,
+    onSecondaryLongPressStart: onSecondaryLongPressStart,
+    onSecondaryLongPressCancel: onSecondaryLongPressCancel,
+    onSecondaryLongPressDown: onSecondaryLongPressDown,
+    onVerticalDragDown: onVerticalDragDown,
+    onVerticalDragStart: onVerticalDragStart,
+    onVerticalDragUpdate: onVerticalDragUpdate,
+    onVerticalDragEnd: onVerticalDragEnd,
+    onVerticalDragCancel: onVerticalDragCancel,
+    onHorizontalDragDown: onHorizontalDragDown,
+    onHorizontalDragStart: onHorizontalDragStart,
+    onHorizontalDragUpdate: onHorizontalDragUpdate,
+    onHorizontalDragEnd: onHorizontalDragEnd,
+    onHorizontalDragCancel: onHorizontalDragCancel,
+    onForcePressStart: onForcePressStart,
+    onForcePressPeak: onForcePressPeak,
+    onForcePressUpdate: onForcePressUpdate,
+    onForcePressEnd: onForcePressEnd,
+    onTertiaryLongPress: onTertiaryLongPress,
+    onTertiaryLongPressCancel: onTertiaryLongPressCancel,
+    onTertiaryLongPressDown: onTertiaryLongPressDown,
+    onTertiaryLongPressEnd: onTertiaryLongPressEnd,
+    onTertiaryLongPressMoveUpdate: onTertiaryLongPressMoveUpdate,
+    onTertiaryLongPressStart: onTertiaryLongPressStart,
+    onTertiaryLongPressUp: onTertiaryLongPressUp,
+    onTertiaryTapCancel: onTertiaryTapCancel,
+    onTertiaryTapDown: onTertiaryTapDown,
+    onTertiaryTapUp: onTertiaryTapUp,
+    onPanDown: onPanDown,
+    onPanStart: onPanStart,
+    onPanUpdate: onPanUpdate,
+    onPanEnd: onPanEnd,
+    onPanCancel: onPanCancel,
+    onScaleStart: onScaleStart,
+    onScaleUpdate: onScaleUpdate,
+    onScaleEnd: onScaleEnd,
+    behavior: behavior,
+    excludeFromSemantics: excludeFromSemantics,
+    dragStartBehavior: dragStartBehavior,
+    child: current,
+  );
 }
 
 /// A clipper that uses [Decoration.getClipPath] to clip.
 class _DecorationClipper extends CustomClipper<Path> {
   _DecorationClipper({TextDirection? textDirection, required this.decoration})
-      : textDirection = textDirection ?? TextDirection.ltr;
+    : textDirection = textDirection ?? TextDirection.ltr;
 
   final TextDirection textDirection;
   final Decoration decoration;

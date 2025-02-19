@@ -69,30 +69,35 @@ class RText extends RichText {
     super.selectionRegistrar,
     super.selectionColor,
   }) : super(
-            text: buildTextSpan(buildTextSpans(
-                texts: texts,
-                style: style,
-                styles: styles,
-                semanticsLabels: semanticsLabels,
-                recognizers: recognizers,
-                mouseCursors: mouseCursors,
-                onEnters: onEnters,
-                onExits: onExits,
-                locales: locales,
-                spellOuts: spellOuts)));
+         text: buildTextSpan(
+           buildTextSpans(
+             texts: texts,
+             style: style,
+             styles: styles,
+             semanticsLabels: semanticsLabels,
+             recognizers: recognizers,
+             mouseCursors: mouseCursors,
+             onEnters: onEnters,
+             onExits: onExits,
+             locales: locales,
+             spellOuts: spellOuts,
+           ),
+         ),
+       );
 
   static TextSpan buildTextSpan(List<TextSpan> textSpans) => TextSpan(
-      text: textSpans.firstOrNull?.text,
-      style: textSpans.firstOrNull?.style,
-      semanticsLabel: textSpans.firstOrNull?.semanticsLabel,
-      recognizer: textSpans.firstOrNull?.recognizer,
-      mouseCursor: textSpans.firstOrNull?.mouseCursor,
-      onEnter: textSpans.firstOrNull?.onEnter,
-      onExit: textSpans.firstOrNull?.onExit,
-      locale: textSpans.firstOrNull?.locale,
-      spellOut: textSpans.firstOrNull?.spellOut,
-      children:
-          textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null);
+    text: textSpans.firstOrNull?.text,
+    style: textSpans.firstOrNull?.style,
+    semanticsLabel: textSpans.firstOrNull?.semanticsLabel,
+    recognizer: textSpans.firstOrNull?.recognizer,
+    mouseCursor: textSpans.firstOrNull?.mouseCursor,
+    onEnter: textSpans.firstOrNull?.onEnter,
+    onExit: textSpans.firstOrNull?.onExit,
+    locale: textSpans.firstOrNull?.locale,
+    spellOut: textSpans.firstOrNull?.spellOut,
+    children:
+        textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null,
+  );
 
   static List<TextSpan> buildTextSpans({
     TextStyle? style,
@@ -105,38 +110,45 @@ class RText extends RichText {
     required List<PointerExitEventListener?> onExits,
     required List<Locale?> locales,
     required List<bool?> spellOuts,
-  }) =>
-      texts.builderEntry((MapEntry<int, String> entry) => TextSpan(
-          text: entry.value,
-          semanticsLabel: semanticsLabels.isEmpty ||
-                  (semanticsLabels.length - 1) < entry.key
+  }) => texts.builderEntry(
+    (MapEntry<int, String> entry) => TextSpan(
+      text: entry.value,
+      semanticsLabel:
+          semanticsLabels.isEmpty || (semanticsLabels.length - 1) < entry.key
               ? null
               : semanticsLabels[entry.key],
-          mouseCursor:
-              mouseCursors.isEmpty || (mouseCursors.length - 1) < entry.key
-                  ? null
-                  : mouseCursors[entry.key],
-          onEnter: onEnters.isEmpty || (onEnters.length - 1) < entry.key
+      mouseCursor:
+          mouseCursors.isEmpty || (mouseCursors.length - 1) < entry.key
+              ? null
+              : mouseCursors[entry.key],
+      onEnter:
+          onEnters.isEmpty || (onEnters.length - 1) < entry.key
               ? null
               : onEnters[entry.key],
-          onExit: onExits.isEmpty || (onExits.length - 1) < entry.key
+      onExit:
+          onExits.isEmpty || (onExits.length - 1) < entry.key
               ? null
               : onExits[entry.key],
-          spellOut: spellOuts.isEmpty || (spellOuts.length - 1) < entry.key
+      spellOut:
+          spellOuts.isEmpty || (spellOuts.length - 1) < entry.key
               ? null
               : spellOuts[entry.key],
-          locale: locales.isEmpty || (locales.length - 1) < entry.key
+      locale:
+          locales.isEmpty || (locales.length - 1) < entry.key
               ? null
               : locales[entry.key],
-          recognizer:
-              recognizers.isEmpty || (recognizers.length - 1) < entry.key
-                  ? null
-                  : recognizers[entry.key],
-          style: styles.isEmpty || (styles.length - 1) < entry.key
+      recognizer:
+          recognizers.isEmpty || (recognizers.length - 1) < entry.key
+              ? null
+              : recognizers[entry.key],
+      style:
+          styles.isEmpty || (styles.length - 1) < entry.key
               ? style
               : style == null
-                  ? styles[entry.key]
-                  : style.merge(styles[entry.key])));
+              ? styles[entry.key]
+              : style.merge(styles[entry.key]),
+    ),
+  );
 }
 
 /// 扩展 [Text]、[Text.rich]
@@ -193,15 +205,15 @@ class BText extends StatelessWidget {
     this.fontFeatures,
     this.leadingDistribution,
     this.fontVariations,
-  })  : texts = const [],
-        styles = const [],
-        recognizers = const [],
-        semanticsLabels = const [],
-        mouseCursors = const [],
-        onEnters = const [],
-        onExits = const [],
-        locales = const [],
-        spellOuts = const [];
+  }) : texts = const [],
+       styles = const [],
+       recognizers = const [],
+       semanticsLabels = const [],
+       mouseCursors = const [],
+       onEnters = const [],
+       onExits = const [],
+       locales = const [],
+       spellOuts = const [];
 
   /// 与 [RText] 一致，仅增加 主题适配
   /// [text]、[style]、[recognizer]、[semanticsLabel]、[mouseCursor]、[onEnter]、[onExit]、[locale]、[spellOut]
@@ -434,66 +446,70 @@ class BText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle effectiveTextStyle = TextStyle(
-        inherit: inherit,
-        color: color,
-        foreground: foreground,
-        background: background,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontStyle: fontStyle,
-        fontFamily: fontFamily,
-        fontFamilyFallback: fontFamilyFallback,
-        fontVariations: fontVariations,
-        letterSpacing: letterSpacing,
-        wordSpacing: wordSpacing,
-        textBaseline: textBaseline,
-        height: height,
-        locale: locale,
-        shadows: shadows,
-        fontFeatures: fontFeatures,
-        decoration: decoration,
-        decorationColor: decorationColor,
-        decorationStyle: decorationStyle,
-        decorationThickness: decorationThickness,
-        debugLabel: debugLabel,
-        leadingDistribution: leadingDistribution,
-        package: package);
+      inherit: inherit,
+      color: color,
+      foreground: foreground,
+      background: background,
+      backgroundColor: backgroundColor,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
+      fontVariations: fontVariations,
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+      textBaseline: textBaseline,
+      height: height,
+      locale: locale,
+      shadows: shadows,
+      fontFeatures: fontFeatures,
+      decoration: decoration,
+      decorationColor: decorationColor,
+      decorationStyle: decorationStyle,
+      decorationThickness: decorationThickness,
+      debugLabel: debugLabel,
+      leadingDistribution: leadingDistribution,
+      package: package,
+    );
     if (useStyleFirst) {
       effectiveTextStyle = effectiveTextStyle.merge(style);
     } else if (style != null) {
       effectiveTextStyle = style!.merge(effectiveTextStyle);
     }
     return Text.rich(
-        RText.buildTextSpan(RText.buildTextSpans(
+      RText.buildTextSpan(
+        RText.buildTextSpans(
           style: effectiveTextStyle,
           texts: [if (text != null) text!, ...texts],
           styles: [effectiveTextStyle, ...styles],
           recognizers: [if (recognizer != null) recognizer!, ...recognizers],
           semanticsLabels: [
             if (semanticsLabel != null) semanticsLabel!,
-            ...semanticsLabels
+            ...semanticsLabels,
           ],
           mouseCursors: [
             if (mouseCursor != null) mouseCursor!,
-            ...mouseCursors
+            ...mouseCursors,
           ],
           onEnters: [if (onEnter != null) onEnter!, ...onEnters],
           onExits: [if (onExit != null) onExit!, ...onExits],
           locales: [if (locale != null) locale!, ...locales],
           spellOuts: [if (spellOut != null) spellOut!, ...spellOuts],
-        )),
-        style: effectiveTextStyle,
-        textAlign: textAlign,
-        textDirection: textDirection,
-        locale: locale,
-        softWrap: softWrap,
-        overflow: overflow,
-        textScaler: textScaler,
-        maxLines: maxLines,
-        strutStyle: strutStyle,
-        textWidthBasis: textWidthBasis,
-        textHeightBehavior: textHeightBehavior,
-        selectionColor: selectionColor);
+        ),
+      ),
+      style: effectiveTextStyle,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaler: textScaler,
+      maxLines: maxLines,
+      strutStyle: strutStyle,
+      textWidthBasis: textWidthBasis,
+      textHeightBehavior: textHeightBehavior,
+      selectionColor: selectionColor,
+    );
   }
 }

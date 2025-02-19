@@ -38,43 +38,43 @@ typedef ValueTwoCallback<V1, V2> = void Function(V1 value1, V2 value2);
 typedef ValueTwoCallbackT<T, V1, V2> = T Function(V1 value1, V2 value2);
 
 /// Callback Two T
-typedef ValueTwoCallbackFuture<V1, V2> = Future<void> Function(
-    V1 value1, V2 value2);
+typedef ValueTwoCallbackFuture<V1, V2> =
+    Future<void> Function(V1 value1, V2 value2);
 
 /// Future Callback Two T
-typedef ValueTwoCallbackFutureT<T, V1, V2> = Future<T> Function(
-    V1 value1, V2 value2);
+typedef ValueTwoCallbackFutureT<T, V1, V2> =
+    Future<T> Function(V1 value1, V2 value2);
 
 /// ******** Callback Three ******** ///
 /// Callback Three
-typedef ValueThreeCallback<V1, V2, V3> = void Function(
-    V1 value1, V2 value2, V3 value3);
+typedef ValueThreeCallback<V1, V2, V3> =
+    void Function(V1 value1, V2 value2, V3 value3);
 
 /// Callback Three T
-typedef ValueThreeCallbackT<T, V1, V2, V3> = T Function(
-    V1 value1, V2 value2, V3 value3);
+typedef ValueThreeCallbackT<T, V1, V2, V3> =
+    T Function(V1 value1, V2 value2, V3 value3);
 
 /// Future Callback Three
-typedef ValueThreeCallbackFuture<V1, V2, V3> = Future<void> Function(
-    V1 value1, V2 value2, V3 value3);
+typedef ValueThreeCallbackFuture<V1, V2, V3> =
+    Future<void> Function(V1 value1, V2 value2, V3 value3);
 
 /// Future Callback Three T
-typedef ValueThreeCallbackFutureT<T, V1, V2, V3> = Future<T> Function(
-    V1 value1, V2 value2, V3 value3);
+typedef ValueThreeCallbackFutureT<T, V1, V2, V3> =
+    Future<T> Function(V1 value1, V2 value2, V3 value3);
 
 /// ******** Callback Four ******** ///
 /// Callback Four
-typedef ValueFourCallback<V1, V2, V3, V4> = void Function(
-    V1 value1, V2 value2, V3 value3, V4 value4);
+typedef ValueFourCallback<V1, V2, V3, V4> =
+    void Function(V1 value1, V2 value2, V3 value3, V4 value4);
 
 /// Callback Four T
-typedef ValueFourCallbackT<T, V1, V2, V3, V4> = T Function(
-    V1 value1, V2 value2, V3 value3, V4 value4);
+typedef ValueFourCallbackT<T, V1, V2, V3, V4> =
+    T Function(V1 value1, V2 value2, V3 value3, V4 value4);
 
 /// Future Callback Four
-typedef ValueFourCallbackFuture<V1, V2, V3, V4> = Future<void> Function(
-    V1 value1, V2 value2, V3 value3, V4 value4);
+typedef ValueFourCallbackFuture<V1, V2, V3, V4> =
+    Future<void> Function(V1 value1, V2 value2, V3 value3, V4 value4);
 
 /// Future Callback Four T
-typedef ValueFourCallbackFutureT<T, V1, V2, V3, V4> = Future<T> Function(
-    V1 value1, V2 value2, V3 value3, V4 value4);
+typedef ValueFourCallbackFutureT<T, V1, V2, V3, V4> =
+    Future<T> Function(V1 value1, V2 value2, V3 value3, V4 value4);

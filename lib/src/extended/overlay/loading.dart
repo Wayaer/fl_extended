@@ -1,7 +1,10 @@
 part of 'overlay.dart';
 
-typedef LoadingBuilder = Widget? Function(
-    BuildContext context, ProgressIndicatorOptions? progressIndicator);
+typedef LoadingBuilder =
+    Widget? Function(
+      BuildContext context,
+      ProgressIndicatorOptions? progressIndicator,
+    );
 
 class LoadingOptions extends ModalOptions {
   const LoadingOptions({
@@ -64,58 +67,57 @@ class LoadingOptions extends ModalOptions {
     bool? resizeToAvoidBottomInset,
     Duration? insetAnimationDuration,
     Curve? insetAnimationCurve,
-  }) =>
-      LoadingOptions(
-        padding: padding ?? this.padding,
-        constraints: constraints ?? this.constraints,
-        onLoadingTap: onLoadingTap ?? this.onLoadingTap,
-        builder: builder ?? this.builder,
-        progressIndicator: progressIndicator ?? this.progressIndicator,
-        foregroundColor: foregroundColor ?? this.foregroundColor,
-        backgroundColor: backgroundColor ?? this.backgroundColor,
-        ignoring: ignoring ?? this.ignoring,
-        absorbing: absorbing ?? this.absorbing,
-        gaussian: gaussian ?? this.gaussian,
-        alignment: alignment ?? this.alignment,
-        onModalTap: onModalTap ?? this.onModalTap,
-        textStyle: textStyle ?? this.textStyle,
-        elevation: elevation ?? this.elevation,
-        shadowColor: shadowColor ?? this.shadowColor,
-        borderRadius: borderRadius ?? this.borderRadius,
-        borderOnForeground: borderOnForeground ?? this.borderOnForeground,
-        shape: shape ?? this.shape,
-        safeLTRB: safeLTRB ?? this.safeLTRB,
-        resizeToAvoidBottomInset:
-            resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
-        insetAnimationDuration:
-            insetAnimationDuration ?? this.insetAnimationDuration,
-        insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
-      );
+  }) => LoadingOptions(
+    padding: padding ?? this.padding,
+    constraints: constraints ?? this.constraints,
+    onLoadingTap: onLoadingTap ?? this.onLoadingTap,
+    builder: builder ?? this.builder,
+    progressIndicator: progressIndicator ?? this.progressIndicator,
+    foregroundColor: foregroundColor ?? this.foregroundColor,
+    backgroundColor: backgroundColor ?? this.backgroundColor,
+    ignoring: ignoring ?? this.ignoring,
+    absorbing: absorbing ?? this.absorbing,
+    gaussian: gaussian ?? this.gaussian,
+    alignment: alignment ?? this.alignment,
+    onModalTap: onModalTap ?? this.onModalTap,
+    textStyle: textStyle ?? this.textStyle,
+    elevation: elevation ?? this.elevation,
+    shadowColor: shadowColor ?? this.shadowColor,
+    borderRadius: borderRadius ?? this.borderRadius,
+    borderOnForeground: borderOnForeground ?? this.borderOnForeground,
+    shape: shape ?? this.shape,
+    safeLTRB: safeLTRB ?? this.safeLTRB,
+    resizeToAvoidBottomInset:
+        resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+    insetAnimationDuration:
+        insetAnimationDuration ?? this.insetAnimationDuration,
+    insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
+  );
 
   LoadingOptions merge([LoadingOptions? options]) => copyWith(
-        padding: options?.padding,
-        onLoadingTap: options?.onLoadingTap,
-        constraints: options?.constraints,
-        builder: options?.builder,
-        progressIndicator: options?.progressIndicator,
-        backgroundColor: options?.backgroundColor,
-        foregroundColor: options?.foregroundColor,
-        ignoring: options?.ignoring,
-        absorbing: options?.absorbing,
-        gaussian: options?.gaussian,
-        alignment: options?.alignment,
-        onModalTap: options?.onModalTap,
-        textStyle: options?.textStyle,
-        elevation: options?.elevation,
-        shadowColor: options?.shadowColor,
-        borderRadius: options?.borderRadius,
-        shape: options?.shape,
-        borderOnForeground: options?.borderOnForeground,
-        safeLTRB: options?.safeLTRB,
-        resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
-        insetAnimationDuration: options?.insetAnimationDuration,
-        insetAnimationCurve: options?.insetAnimationCurve,
-      );
+    padding: options?.padding,
+    onLoadingTap: options?.onLoadingTap,
+    constraints: options?.constraints,
+    builder: options?.builder,
+    progressIndicator: options?.progressIndicator,
+    backgroundColor: options?.backgroundColor,
+    foregroundColor: options?.foregroundColor,
+    ignoring: options?.ignoring,
+    absorbing: options?.absorbing,
+    gaussian: options?.gaussian,
+    alignment: options?.alignment,
+    onModalTap: options?.onModalTap,
+    textStyle: options?.textStyle,
+    elevation: options?.elevation,
+    shadowColor: options?.shadowColor,
+    borderRadius: options?.borderRadius,
+    shape: options?.shape,
+    borderOnForeground: options?.borderOnForeground,
+    safeLTRB: options?.safeLTRB,
+    resizeToAvoidBottomInset: options?.resizeToAvoidBottomInset,
+    insetAnimationDuration: options?.insetAnimationDuration,
+    insetAnimationCurve: options?.insetAnimationCurve,
+  );
 }
 
 /// loading 加载框 关闭 closeLoading();
@@ -125,8 +127,7 @@ ExtendedOverlayEntry? showLoading({
 
   /// 底层模态框配置
   LoadingOptions? options,
-}) =>
-    Loading(builder: builder, options: options).show();
+}) => Loading(builder: builder, options: options).show();
 
 bool closeLoading() => ExtendedOverlay().closeLoading();
 
@@ -135,11 +136,7 @@ extension ExtensionLoading on Loading {
 }
 
 class Loading extends StatelessWidget {
-  const Loading({
-    super.key,
-    this.options,
-    this.builder,
-  });
+  const Loading({super.key, this.options, this.builder});
 
   /// LoadingOptions
   final LoadingOptions? options;
@@ -152,16 +149,19 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = FlExtended()
-        .loadingOptions
+    final options = FlExtended().loadingOptions
         .merge(this.options)
         .copyWith(builder: builder);
     Widget current = FlProgressIndicator(
-        options.progressIndicator ?? ProgressIndicatorStyle.circular.options);
+      options.progressIndicator ?? ProgressIndicatorStyle.circular.options,
+    );
     current =
         options.builder?.call(context, options.progressIndicator) ?? current;
     current = Universal(
-        onTap: options.onLoadingTap, padding: options.padding, child: current);
+      onTap: options.onLoadingTap,
+      padding: options.padding,
+      child: current,
+    );
     return ModalBox(options: options, child: current);
   }
 }

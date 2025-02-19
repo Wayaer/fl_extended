@@ -7,8 +7,9 @@ extension ExtensionUint8List on Uint8List {
   List<int> bit32ListFromUInt8List() {
     final Uint8List bytes = this;
     final int additionalLength = bytes.length % 4 > 0 ? 4 : 0;
-    final List<int> result =
-        (bytes.length ~/ 4 + additionalLength).generate((_) => 0);
+    final List<int> result = (bytes.length ~/ 4 + additionalLength).generate(
+      (_) => 0,
+    );
     for (int i = 0; i < bytes.length; i++) {
       final int resultIdx = i ~/ 4;
       final int bitShiftAmount = (3 - i % 4).toInt();
@@ -31,9 +32,10 @@ extension ExtensionListUnsafe on List? {
 
 extension ExtensionList<T> on List<T> {
   /// List.generate((index)=>E);
-  List<E> generate<E>(E Function(int index) generator,
-          {bool growable = true}) =>
-      length.generate<E>((int index) => generator(index), growable: growable);
+  List<E> generate<E>(
+    E Function(int index) generator, {
+    bool growable = true,
+  }) => length.generate<E>((int index) => generator(index), growable: growable);
 
   /// list.map.toList()
   List<E> mapToList<E>(E Function(T) builder) =>
@@ -84,8 +86,12 @@ extension ExtensionList<T> on List<T> {
   }
 
   /// 替换指定区域 返回 新数组
-  List<T> replaceRangeT(int start, int end, Iterable<T> replacement,
-      {bool isReplace = true}) {
+  List<T> replaceRangeT(
+    int start,
+    int end,
+    Iterable<T> replacement, {
+    bool isReplace = true,
+  }) {
     if (isReplace) replaceRange(start, end, replacement);
     return this;
   }
@@ -133,7 +139,9 @@ extension ExtensionListInt on List<int> {
   }
 
   /// `List<int>` to Utf8
-  String get toUtf8 => String.fromCharCodes(length.generate((int i) {
-        return ((this[i >> 2]).toSigned(32) >> (24 - (i % 4) * 8)) & 0xff;
-      }));
+  String get toUtf8 => String.fromCharCodes(
+    length.generate((int i) {
+      return ((this[i >> 2]).toSigned(32) >> (24 - (i % 4) * 8)) & 0xff;
+    }),
+  );
 }

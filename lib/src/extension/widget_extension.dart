@@ -8,14 +8,17 @@ import 'package:fl_extended/fl_extended.dart';
 
 extension ExtensionWidgetMethod on Widget {
   /// [push]
-  Future<T?> push<T extends Object?>(Widget widget,
-      {PageRouteOptions options = const PageRouteOptions.material()}) {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended()
-        .navigatorKey
-        .currentState!
-        .push<T>(options.buildPageRoute(widget));
+  Future<T?> push<T extends Object?>(
+    Widget widget, {
+    PageRouteOptions options = const PageRouteOptions.material(),
+  }) {
+    assert(
+      FlExtended().navigatorKey.currentState != null,
+      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+    );
+    return FlExtended().navigatorKey.currentState!.push<T>(
+      options.buildPageRoute(widget),
+    );
   }
 
   /// [pushReplacement]
@@ -24,12 +27,14 @@ extension ExtensionWidgetMethod on Widget {
     PageRouteOptions options = const PageRouteOptions.material(),
     TO? result,
   }) {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended()
-        .navigatorKey
-        .currentState!
-        .pushReplacement<T, TO>(options.buildPageRoute(widget), result: result);
+    assert(
+      FlExtended().navigatorKey.currentState != null,
+      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+    );
+    return FlExtended().navigatorKey.currentState!.pushReplacement<T, TO>(
+      options.buildPageRoute(widget),
+      result: result,
+    );
   }
 
   /// [pushAndRemoveUntil]
@@ -38,12 +43,14 @@ extension ExtensionWidgetMethod on Widget {
     PageRouteOptions options = const PageRouteOptions.material(),
     required RoutePredicate predicate,
   }) {
-    assert(FlExtended().navigatorKey.currentState != null,
-        'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]');
-    return FlExtended()
-        .navigatorKey
-        .currentState!
-        .pushAndRemoveUntil<T>(options.buildPageRoute(widget), predicate);
+    assert(
+      FlExtended().navigatorKey.currentState != null,
+      'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
+    );
+    return FlExtended().navigatorKey.currentState!.pushAndRemoveUntil<T>(
+      options.buildPageRoute(widget),
+      predicate,
+    );
   }
 
   /// [ExtendedOverlay().showOverlay()]
@@ -61,7 +68,8 @@ extension ExtensionWidgetMethod on Widget {
     options = FlExtended().dialogOptions.merge(options);
     RouteTransitionsBuilder? transitionBuilder;
     if (options.fromStyle != PopupFromStyle.fromCenter) {
-      transitionBuilder = options.transitionBuilder ??
+      transitionBuilder =
+          options.transitionBuilder ??
           (__, Animation<double> animation, _, Widget child) {
             Offset translation;
             switch (options!.fromStyle) {
@@ -82,21 +90,24 @@ extension ExtensionWidgetMethod on Widget {
                 break;
             }
             return FractionalTranslation(
-                translation: translation, child: child);
+              translation: translation,
+              child: child,
+            );
           };
     }
     assert(FlExtended().navigatorKey.currentContext != null);
     return showGeneralDialog<T>(
-        context: FlExtended().navigatorKey.currentContext!,
-        pageBuilder: builder ?? (_, Animation<double> animation, __) => this,
-        barrierDismissible: options.barrierDismissible,
-        barrierLabel: options.barrierLabel,
-        barrierColor: options.barrierColor,
-        transitionDuration: options.transitionDuration,
-        transitionBuilder: transitionBuilder,
-        useRootNavigator: options.useRootNavigator,
-        routeSettings: options.routeSettings,
-        anchorPoint: options.anchorPoint);
+      context: FlExtended().navigatorKey.currentContext!,
+      pageBuilder: builder ?? (_, Animation<double> animation, __) => this,
+      barrierDismissible: options.barrierDismissible,
+      barrierLabel: options.barrierLabel,
+      barrierColor: options.barrierColor,
+      transitionDuration: options.transitionDuration,
+      transitionBuilder: transitionBuilder,
+      useRootNavigator: options.useRootNavigator,
+      routeSettings: options.routeSettings,
+      anchorPoint: options.anchorPoint,
+    );
   }
 
   ///  Cupertino 风格的 Dialog  [showCupertinoDialog]
@@ -107,70 +118,80 @@ extension ExtensionWidgetMethod on Widget {
     options = FlExtended().dialogOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showCupertinoDialog<T>(
-        context: FlExtended().navigatorKey.currentContext!,
-        builder: builder ?? toWidgetBuilder,
-        barrierLabel: options.barrierLabel,
-        barrierDismissible: options.barrierDismissible,
-        useRootNavigator: options.useRootNavigator,
-        routeSettings: options.routeSettings,
-        anchorPoint: options.anchorPoint);
+      context: FlExtended().navigatorKey.currentContext!,
+      builder: builder ?? toWidgetBuilder,
+      barrierLabel: options.barrierLabel,
+      barrierDismissible: options.barrierDismissible,
+      useRootNavigator: options.useRootNavigator,
+      routeSettings: options.routeSettings,
+      anchorPoint: options.anchorPoint,
+    );
   }
 
   /// Material 风格的 Dialog [showDialog]
-  Future<T?> popupMaterialDialog<T>(
-      {WidgetBuilder? builder, DialogOptions? options}) {
+  Future<T?> popupMaterialDialog<T>({
+    WidgetBuilder? builder,
+    DialogOptions? options,
+  }) {
     options = FlExtended().dialogOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showDialog<T>(
-        context: FlExtended().navigatorKey.currentContext!,
-        builder: builder ?? toWidgetBuilder,
-        barrierColor: options.barrierColor,
-        barrierLabel: options.barrierLabel,
-        barrierDismissible: options.barrierDismissible,
-        useRootNavigator: options.useRootNavigator,
-        routeSettings: options.routeSettings,
-        anchorPoint: options.anchorPoint,
-        useSafeArea: options.useSafeArea);
+      context: FlExtended().navigatorKey.currentContext!,
+      builder: builder ?? toWidgetBuilder,
+      barrierColor: options.barrierColor,
+      barrierLabel: options.barrierLabel,
+      barrierDismissible: options.barrierDismissible,
+      useRootNavigator: options.useRootNavigator,
+      routeSettings: options.routeSettings,
+      anchorPoint: options.anchorPoint,
+      useSafeArea: options.useSafeArea,
+    );
   }
 
   /// [showModalBottomSheet]
   /// 关闭 closePopup()
-  Future<T?> popupBottomSheet<T>(
-      {WidgetBuilder? builder, BottomSheetOptions? options}) {
+  Future<T?> popupBottomSheet<T>({
+    WidgetBuilder? builder,
+    BottomSheetOptions? options,
+  }) {
     options = FlExtended().bottomSheetOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showModalBottomSheet<T>(
-        context: FlExtended().navigatorKey.currentContext!,
-        builder: builder ?? toWidgetBuilder,
-        backgroundColor: options.backgroundColor,
-        elevation: options.elevation,
-        shape: options.shape,
-        clipBehavior: options.clipBehavior,
-        barrierColor: options.barrierColor,
-        routeSettings: options.routeSettings,
-        transitionAnimationController: options.transitionAnimationController,
-        isScrollControlled: options.isScrollControlled,
-        useRootNavigator: options.useRootNavigator,
-        isDismissible: options.barrierDismissible,
-        anchorPoint: options.anchorPoint,
-        enableDrag: options.enableDrag);
+      context: FlExtended().navigatorKey.currentContext!,
+      builder: builder ?? toWidgetBuilder,
+      backgroundColor: options.backgroundColor,
+      elevation: options.elevation,
+      shape: options.shape,
+      clipBehavior: options.clipBehavior,
+      barrierColor: options.barrierColor,
+      routeSettings: options.routeSettings,
+      transitionAnimationController: options.transitionAnimationController,
+      isScrollControlled: options.isScrollControlled,
+      useRootNavigator: options.useRootNavigator,
+      isDismissible: options.barrierDismissible,
+      anchorPoint: options.anchorPoint,
+      enableDrag: options.enableDrag,
+    );
   }
 
   /// 全屏显示 [showCupertinoModalPopup]
-  Future<T?> popupCupertinoModal<T>(
-      {WidgetBuilder? builder, CupertinoModalPopupOptions? options}) {
+  Future<T?> popupCupertinoModal<T>({
+    WidgetBuilder? builder,
+    CupertinoModalPopupOptions? options,
+  }) {
     options = FlExtended().cupertinoModalPopupOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showCupertinoModalPopup<T>(
-        context: FlExtended().navigatorKey.currentContext!,
-        builder: builder ?? toWidgetBuilder,
-        filter: options.filter,
-        barrierColor: options.barrierColor,
-        barrierDismissible: options.barrierDismissible,
-        semanticsDismissible: options.semanticsDismissible,
-        routeSettings: options.routeSettings,
-        useRootNavigator: options.useRootNavigator,
-        anchorPoint: options.anchorPoint);
+      context: FlExtended().navigatorKey.currentContext!,
+      builder: builder ?? toWidgetBuilder,
+      filter: options.filter,
+      barrierColor: options.barrierColor,
+      barrierDismissible: options.barrierDismissible,
+      semanticsDismissible: options.semanticsDismissible,
+      routeSettings: options.routeSettings,
+      useRootNavigator: options.useRootNavigator,
+      anchorPoint: options.anchorPoint,
+    );
   }
 }
 
@@ -187,36 +208,45 @@ extension ExtensionWidget on Widget {
       (_, Animation<double> animation, Animation<double> secondaryAnimation) =>
           this;
 
-  RouteTransitionsBuilder get toRouteTransitionsBuilder => (_,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-          Widget child) =>
-      this;
+  RouteTransitionsBuilder get toRouteTransitionsBuilder =>
+      (
+        _,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) => this;
 
-  BackdropFilter backdropFilter(
-          {Key? key, ImageFilter? filter, double fuzzyDegree = 4}) =>
-      BackdropFilter(
-          key: key,
-          filter: filter ??
-              ImageFilter.blur(sigmaX: fuzzyDegree, sigmaY: fuzzyDegree),
-          child: this);
+  BackdropFilter backdropFilter({
+    Key? key,
+    ImageFilter? filter,
+    double fuzzyDegree = 4,
+  }) => BackdropFilter(
+    key: key,
+    filter:
+        filter ?? ImageFilter.blur(sigmaX: fuzzyDegree, sigmaY: fuzzyDegree),
+    child: this,
+  );
 
-  FittedBox fittedBox(
-          {Key? key,
-          BoxFit fit = BoxFit.contain,
-          AlignmentGeometry alignment = Alignment.center,
-          Clip clipBehavior = Clip.none}) =>
-      FittedBox(
-          key: key,
-          fit: fit,
-          alignment: alignment,
-          clipBehavior: clipBehavior,
-          child: this);
+  FittedBox fittedBox({
+    Key? key,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    Clip clipBehavior = Clip.none,
+  }) => FittedBox(
+    key: key,
+    fit: fit,
+    alignment: alignment,
+    clipBehavior: clipBehavior,
+    child: this,
+  );
 
   AnnotatedRegion<SystemUiOverlayStyle> statusBarStyle(
-          SystemUiOverlayStyle style) =>
-      AnnotatedRegion<SystemUiOverlayStyle>(
-          key: key, value: style, child: this);
+    SystemUiOverlayStyle style,
+  ) => AnnotatedRegion<SystemUiOverlayStyle>(
+    key: key,
+    value: style,
+    child: this,
+  );
 
   Padding padding(EdgeInsetsGeometry padding) =>
       Padding(key: key, padding: padding, child: this);
@@ -229,38 +259,54 @@ extension ExtensionWidget on Widget {
 
   Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
       Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-          child: this);
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+          vertical: vertical,
+        ),
+        child: this,
+      );
 
-  Widget paddingOnly(
-          {double left = 0.0,
-          double top = 0.0,
-          double right = 0.0,
-          double bottom = 0.0}) =>
-      Padding(
-          padding: EdgeInsets.only(
-              top: top, left: left, right: right, bottom: bottom),
-          child: this);
+  Widget paddingOnly({
+    double left = 0.0,
+    double top = 0.0,
+    double right = 0.0,
+    double bottom = 0.0,
+  }) => Padding(
+    padding: EdgeInsets.only(
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom,
+    ),
+    child: this,
+  );
 
   Widget marginAll(double margin) =>
       Padding(padding: EdgeInsets.all(margin), child: this);
 
   Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
       Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-          child: this);
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+          vertical: vertical,
+        ),
+        child: this,
+      );
 
-  Widget marginOnly(
-          {double left = 0.0,
-          double top = 0.0,
-          double right = 0.0,
-          double bottom = 0.0}) =>
-      Padding(
-          padding: EdgeInsets.only(
-              top: top, left: left, right: right, bottom: bottom),
-          child: this);
+  Widget marginOnly({
+    double left = 0.0,
+    double top = 0.0,
+    double right = 0.0,
+    double bottom = 0.0,
+  }) => Padding(
+    padding: EdgeInsets.only(
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom,
+    ),
+    child: this,
+  );
 
   ColoredBox color(Color color, {Key? key}) =>
       ColoredBox(key: key, color: color, child: this);
@@ -274,17 +320,17 @@ extension ExtensionWidget on Widget {
     EdgeInsetsGeometry? margin,
     Clip? clipBehavior,
     bool? semanticContainer,
-  }) =>
-      Card(
-          color: color,
-          shadowColor: shadowColor,
-          elevation: elevation,
-          shape: shape,
-          borderOnForeground: borderOnForeground ?? true,
-          margin: margin,
-          clipBehavior: clipBehavior,
-          semanticContainer: semanticContainer ?? true,
-          child: this);
+  }) => Card(
+    color: color,
+    shadowColor: shadowColor,
+    elevation: elevation,
+    shape: shape,
+    borderOnForeground: borderOnForeground ?? true,
+    margin: margin,
+    clipBehavior: clipBehavior,
+    semanticContainer: semanticContainer ?? true,
+    child: this,
+  );
 
   Positioned positioned({
     Key? key,
@@ -294,27 +340,24 @@ extension ExtensionWidget on Widget {
     double? bottom,
     double? width,
     double? height,
-  }) =>
-      Positioned(
-          key: key,
-          left: left,
-          top: top,
-          right: right,
-          bottom: bottom,
-          width: width,
-          height: height,
-          child: this);
+  }) => Positioned(
+    key: key,
+    left: left,
+    top: top,
+    right: right,
+    bottom: bottom,
+    width: width,
+    height: height,
+    child: this,
+  );
 
-  Center center({
-    Key? key,
-    double? widthFactor,
-    double? heightFactor,
-  }) =>
+  Center center({Key? key, double? widthFactor, double? heightFactor}) =>
       Center(
-          key: key,
-          widthFactor: widthFactor,
-          heightFactor: heightFactor,
-          child: this);
+        key: key,
+        widthFactor: widthFactor,
+        heightFactor: heightFactor,
+        child: this,
+      );
 
   Flexible flexible({Key? key, int flex = 1, FlexFit fit = FlexFit.loose}) =>
       Flexible(key: key, flex: flex, fit: fit, child: this);
@@ -355,15 +398,15 @@ extension ExtensionWidget on Widget {
     HeroFlightShuttleBuilder? flightShuttleBuilder,
     HeroPlaceholderBuilder? placeholderBuilder,
     bool transitionOnUserGestures = false,
-  }) =>
-      Hero(
-          key: key,
-          tag: tag,
-          createRectTween: createRectTween,
-          flightShuttleBuilder: flightShuttleBuilder,
-          placeholderBuilder: placeholderBuilder,
-          transitionOnUserGestures: transitionOnUserGestures,
-          child: this);
+  }) => Hero(
+    key: key,
+    tag: tag,
+    createRectTween: createRectTween,
+    flightShuttleBuilder: flightShuttleBuilder,
+    placeholderBuilder: placeholderBuilder,
+    transitionOnUserGestures: transitionOnUserGestures,
+    child: this,
+  );
 
   Container container({
     Key? key,
@@ -378,65 +421,71 @@ extension ExtensionWidget on Widget {
     Decoration? decoration,
     Clip? clipBehavior,
     AlignmentGeometry? alignment,
-  }) =>
-      Container(
-          key: key,
-          foregroundDecoration: foregroundDecoration,
-          clipBehavior: clipBehavior ?? Clip.none,
-          transform: transform,
-          constraints: constraints,
-          alignment: alignment,
-          color: decoration == null ? color : null,
-          width: width,
-          height: height,
-          padding: padding,
-          margin: margin,
-          decoration: decoration,
-          child: this);
+  }) => Container(
+    key: key,
+    foregroundDecoration: foregroundDecoration,
+    clipBehavior: clipBehavior ?? Clip.none,
+    transform: transform,
+    constraints: constraints,
+    alignment: alignment,
+    color: decoration == null ? color : null,
+    width: width,
+    height: height,
+    padding: padding,
+    margin: margin,
+    decoration: decoration,
+    child: this,
+  );
 
   Align align({
     Key? key,
     Alignment alignment = Alignment.center,
     double? widthFactor,
     double? heightFactor,
-  }) =>
-      Align(
-          key: key,
-          alignment: alignment,
-          widthFactor: widthFactor,
-          heightFactor: heightFactor,
-          child: this);
+  }) => Align(
+    key: key,
+    alignment: alignment,
+    widthFactor: widthFactor,
+    heightFactor: heightFactor,
+    child: this,
+  );
 
   ClipRRect clipRRect({
     Key? key,
     BorderRadius borderRadius = BorderRadius.zero,
     CustomClipper<RRect>? clipper,
     Clip clipBehavior = Clip.antiAlias,
-  }) =>
-      ClipRRect(
-          key: key,
-          borderRadius: borderRadius,
-          clipper: clipper,
-          clipBehavior: clipBehavior,
-          child: this);
+  }) => ClipRRect(
+    key: key,
+    borderRadius: borderRadius,
+    clipper: clipper,
+    clipBehavior: clipBehavior,
+    child: this,
+  );
 
   ClipOval clipOval({
     Key? key,
     BorderRadius borderRadius = BorderRadius.zero,
     CustomClipper<Rect>? clipper,
     Clip clipBehavior = Clip.antiAlias,
-  }) =>
-      ClipOval(
-          key: key, clipper: clipper, clipBehavior: clipBehavior, child: this);
+  }) => ClipOval(
+    key: key,
+    clipper: clipper,
+    clipBehavior: clipBehavior,
+    child: this,
+  );
 
   ClipPath clipPath({
     Key? key,
     BorderRadius borderRadius = BorderRadius.zero,
     CustomClipper<Path>? clipper,
     Clip clipBehavior = Clip.antiAlias,
-  }) =>
-      ClipPath(
-          key: key, clipper: clipper, clipBehavior: clipBehavior, child: this);
+  }) => ClipPath(
+    key: key,
+    clipper: clipper,
+    clipBehavior: clipBehavior,
+    child: this,
+  );
 
   Offstage offstage(bool offstage, {Key? key}) =>
       Offstage(key: key, offstage: offstage, child: this);
@@ -444,12 +493,16 @@ extension ExtensionWidget on Widget {
   Visibility visibility(bool visible, {Key? key}) =>
       Visibility(key: key, visible: visible, child: this);
 
-  LimitedBox limitedBox(
-          {Key? key,
-          double maxWidth = double.infinity,
-          double maxHeight = double.infinity}) =>
-      LimitedBox(
-          key: key, maxWidth: maxWidth, maxHeight: maxHeight, child: this);
+  LimitedBox limitedBox({
+    Key? key,
+    double maxWidth = double.infinity,
+    double maxHeight = double.infinity,
+  }) => LimitedBox(
+    key: key,
+    maxWidth: maxWidth,
+    maxHeight: maxHeight,
+    child: this,
+  );
 
   OverflowBox overflowBox({
     Key? key,
@@ -458,25 +511,33 @@ extension ExtensionWidget on Widget {
     double? maxWidth,
     double? minHeight,
     double? maxHeight,
-  }) =>
-      OverflowBox(
-          key: key,
-          alignment: alignment,
-          minWidth: minWidth,
-          minHeight: minHeight,
-          maxWidth: maxWidth,
-          maxHeight: maxHeight,
-          child: this);
+  }) => OverflowBox(
+    key: key,
+    alignment: alignment,
+    minWidth: minWidth,
+    minHeight: minHeight,
+    maxWidth: maxWidth,
+    maxHeight: maxHeight,
+    child: this,
+  );
 
-  SizedOverflowBox sizedOverflowBox(Size size,
-          {Key? key, Alignment alignment = Alignment.center}) =>
+  SizedOverflowBox sizedOverflowBox(
+    Size size, {
+    Key? key,
+    Alignment alignment = Alignment.center,
+  }) =>
       SizedOverflowBox(key: key, size: size, alignment: alignment, child: this);
 
-  DecoratedBox decoratedBox(Decoration decoration,
-          {Key? key,
-          DecorationPosition position = DecorationPosition.background}) =>
-      DecoratedBox(
-          key: key, decoration: decoration, position: position, child: this);
+  DecoratedBox decoratedBox(
+    Decoration decoration, {
+    Key? key,
+    DecorationPosition position = DecorationPosition.background,
+  }) => DecoratedBox(
+    key: key,
+    decoration: decoration,
+    position: position,
+    child: this,
+  );
 
   RotatedBox rotatedBox(int quarterTurns, {Key? key}) =>
       RotatedBox(key: key, quarterTurns: quarterTurns, child: this);
@@ -489,13 +550,13 @@ extension ExtensionWidget on Widget {
     TextDirection? textDirection,
     Alignment alignment = Alignment.center,
     Axis? constrainedAxis,
-  }) =>
-      UnconstrainedBox(
-          key: key,
-          textDirection: textDirection,
-          alignment: alignment,
-          constrainedAxis: constrainedAxis,
-          child: this);
+  }) => UnconstrainedBox(
+    key: key,
+    textDirection: textDirection,
+    alignment: alignment,
+    constrainedAxis: constrainedAxis,
+    child: this,
+  );
 
   GestureDetector onTap(GestureTapCallback? onTap, {Key? key}) =>
       gestureDetector(onTap: onTap, key: key);
@@ -503,9 +564,10 @@ extension ExtensionWidget on Widget {
   GestureDetector onDoubleTap(GestureTapCallback onDoubleTap, {Key? key}) =>
       gestureDetector(onDoubleTap: onDoubleTap, key: key);
 
-  GestureDetector onLongPress(GestureLongPressCallback onLongPress,
-          {Key? key}) =>
-      gestureDetector(onLongPress: onLongPress, key: key);
+  GestureDetector onLongPress(
+    GestureLongPressCallback onLongPress, {
+    Key? key,
+  }) => gestureDetector(onLongPress: onLongPress, key: key);
 
   GestureDetector gestureDetector({
     Key? key,
@@ -547,48 +609,48 @@ extension ExtensionWidget on Widget {
     HitTestBehavior? behavior,
     bool excludeFromSemantics = false,
     DragStartBehavior dragStartBehavior = DragStartBehavior.start,
-  }) =>
-      GestureDetector(
-          key: key,
-          onTapDown: onTapDown,
-          onTapUp: onTapUp,
-          onTap: onTap,
-          onTapCancel: onTapCancel,
-          onSecondaryTapDown: onSecondaryTapDown,
-          onSecondaryTapUp: onSecondaryTapUp,
-          onSecondaryTapCancel: onSecondaryTapCancel,
-          onDoubleTap: onDoubleTap,
-          onLongPress: onLongPress,
-          onLongPressStart: onLongPressStart,
-          onLongPressMoveUpdate: onLongPressMoveUpdate,
-          onLongPressUp: onLongPressUp,
-          onLongPressEnd: onLongPressEnd,
-          onVerticalDragDown: onVerticalDragDown,
-          onVerticalDragStart: onVerticalDragStart,
-          onVerticalDragUpdate: onVerticalDragUpdate,
-          onVerticalDragEnd: onVerticalDragEnd,
-          onVerticalDragCancel: onVerticalDragCancel,
-          onHorizontalDragDown: onHorizontalDragDown,
-          onHorizontalDragStart: onHorizontalDragStart,
-          onHorizontalDragUpdate: onHorizontalDragUpdate,
-          onHorizontalDragEnd: onHorizontalDragEnd,
-          onHorizontalDragCancel: onHorizontalDragCancel,
-          onForcePressStart: onForcePressStart,
-          onForcePressPeak: onForcePressPeak,
-          onForcePressUpdate: onForcePressUpdate,
-          onForcePressEnd: onForcePressEnd,
-          onPanDown: onPanDown,
-          onPanStart: onPanStart,
-          onPanUpdate: onPanUpdate,
-          onPanEnd: onPanEnd,
-          onPanCancel: onPanCancel,
-          onScaleStart: onScaleStart,
-          onScaleUpdate: onScaleUpdate,
-          onScaleEnd: onScaleEnd,
-          behavior: behavior,
-          excludeFromSemantics: excludeFromSemantics,
-          dragStartBehavior: dragStartBehavior,
-          child: this);
+  }) => GestureDetector(
+    key: key,
+    onTapDown: onTapDown,
+    onTapUp: onTapUp,
+    onTap: onTap,
+    onTapCancel: onTapCancel,
+    onSecondaryTapDown: onSecondaryTapDown,
+    onSecondaryTapUp: onSecondaryTapUp,
+    onSecondaryTapCancel: onSecondaryTapCancel,
+    onDoubleTap: onDoubleTap,
+    onLongPress: onLongPress,
+    onLongPressStart: onLongPressStart,
+    onLongPressMoveUpdate: onLongPressMoveUpdate,
+    onLongPressUp: onLongPressUp,
+    onLongPressEnd: onLongPressEnd,
+    onVerticalDragDown: onVerticalDragDown,
+    onVerticalDragStart: onVerticalDragStart,
+    onVerticalDragUpdate: onVerticalDragUpdate,
+    onVerticalDragEnd: onVerticalDragEnd,
+    onVerticalDragCancel: onVerticalDragCancel,
+    onHorizontalDragDown: onHorizontalDragDown,
+    onHorizontalDragStart: onHorizontalDragStart,
+    onHorizontalDragUpdate: onHorizontalDragUpdate,
+    onHorizontalDragEnd: onHorizontalDragEnd,
+    onHorizontalDragCancel: onHorizontalDragCancel,
+    onForcePressStart: onForcePressStart,
+    onForcePressPeak: onForcePressPeak,
+    onForcePressUpdate: onForcePressUpdate,
+    onForcePressEnd: onForcePressEnd,
+    onPanDown: onPanDown,
+    onPanStart: onPanStart,
+    onPanUpdate: onPanUpdate,
+    onPanEnd: onPanEnd,
+    onPanCancel: onPanCancel,
+    onScaleStart: onScaleStart,
+    onScaleUpdate: onScaleUpdate,
+    onScaleEnd: onScaleEnd,
+    behavior: behavior,
+    excludeFromSemantics: excludeFromSemantics,
+    dragStartBehavior: dragStartBehavior,
+    child: this,
+  );
 }
 
 extension ExtensionBorderRadius on BorderRadius {

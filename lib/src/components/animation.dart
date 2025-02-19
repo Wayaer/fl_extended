@@ -6,16 +6,17 @@ const Duration kFlAnimationDuration = Duration(milliseconds: 300);
 typedef FlAnimationCallback = void Function(Function running);
 
 abstract class _FlAnimation extends StatefulWidget {
-  const _FlAnimation(
-      {super.key,
-      required this.child,
-      this.onAnimate,
-      this.delayDuration,
-      this.animationDuration = kFlAnimationDuration,
-      this.stayDuration,
-      this.reverse = true,
-      this.number = 1,
-      this.repeat = false});
+  const _FlAnimation({
+    super.key,
+    required this.child,
+    this.onAnimate,
+    this.delayDuration,
+    this.animationDuration = kFlAnimationDuration,
+    this.stayDuration,
+    this.reverse = true,
+    this.number = 1,
+    this.repeat = false,
+  });
 
   /// child
   final Widget child;
@@ -53,17 +54,18 @@ enum FlAnimationStyle {
 }
 
 class FlAnimation extends _FlAnimation {
-  const FlAnimation(
-      {super.key,
-      required super.child,
-      required this.style,
-      super.animationDuration,
-      super.delayDuration,
-      super.reverse,
-      super.stayDuration,
-      super.number,
-      super.repeat,
-      super.onAnimate});
+  const FlAnimation({
+    super.key,
+    required super.child,
+    required this.style,
+    super.animationDuration,
+    super.delayDuration,
+    super.reverse,
+    super.stayDuration,
+    super.number,
+    super.repeat,
+    super.onAnimate,
+  });
 
   final FlAnimationStyle style;
 
@@ -89,8 +91,10 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
   }
 
   void initialize() {
-    _controller =
-        AnimationController(duration: widget.animationDuration, vsync: this);
+    _controller = AnimationController(
+      duration: widget.animationDuration,
+      vsync: this,
+    );
     switch (widget.style) {
       case FlAnimationStyle.fade:
         _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
@@ -105,19 +109,28 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
   }
 
   Animation<double> huntingAnimation() => TweenSequence([
-        TweenSequenceItem<double>(
-            tween: Tween(begin: 0.0, end: -10.0)
-                .chain(CurveTween(curve: Curves.easeInOut)),
-            weight: 0.5),
-        TweenSequenceItem<double>(
-            tween: Tween(begin: -10.0, end: 10.0)
-                .chain(CurveTween(curve: Curves.easeInOut)),
-            weight: 1.0),
-        TweenSequenceItem<double>(
-            tween: Tween(begin: 10.0, end: 0.0)
-                .chain(CurveTween(curve: Curves.easeInOut)),
-            weight: 0.5),
-      ]).animate(_controller);
+    TweenSequenceItem<double>(
+      tween: Tween(
+        begin: 0.0,
+        end: -10.0,
+      ).chain(CurveTween(curve: Curves.easeInOut)),
+      weight: 0.5,
+    ),
+    TweenSequenceItem<double>(
+      tween: Tween(
+        begin: -10.0,
+        end: 10.0,
+      ).chain(CurveTween(curve: Curves.easeInOut)),
+      weight: 1.0,
+    ),
+    TweenSequenceItem<double>(
+      tween: Tween(
+        begin: 10.0,
+        end: 0.0,
+      ).chain(CurveTween(curve: Curves.easeInOut)),
+      weight: 0.5,
+    ),
+  ]).animate(_controller);
 
   Future<void> run() async {
     if (!mounted) return;
@@ -144,8 +157,9 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _animation,
-        builder: (BuildContext context, Widget? child) => buildChild());
+      animation: _animation,
+      builder: (BuildContext context, Widget? child) => buildChild(),
+    );
   }
 
   Widget buildChild() {
@@ -154,10 +168,14 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
         return Opacity(opacity: _animation.value, child: widget.child);
       case FlAnimationStyle.horizontalHunting:
         return Transform.translate(
-            offset: Offset(_animation.value, 0.0), child: widget.child);
+          offset: Offset(_animation.value, 0.0),
+          child: widget.child,
+        );
       case FlAnimationStyle.verticalHunting:
         return Transform.translate(
-            offset: Offset(0.0, _animation.value), child: widget.child);
+          offset: Offset(0.0, _animation.value),
+          child: widget.child,
+        );
     }
   }
 

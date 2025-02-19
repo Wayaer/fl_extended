@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-typedef ValueBuilderCallback<T> = Widget Function(
-    BuildContext context, T? value, ValueCallback<T> updater);
+typedef ValueBuilderCallback<T> =
+    Widget Function(BuildContext context, T? value, ValueCallback<T> updater);
 
 /// Example:
 /// ```
@@ -126,18 +126,20 @@ class ChangedBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ValueBuilder<T>(
-      initial: value,
-      initState: initState,
-      didUpdateWidget: didUpdateWidget,
-      didChangeDependencies: didChangeDependencies,
-      deactivate: deactivate,
-      dispose: dispose,
-      builder: (_, T? value, Function update) => builder(value as T, (T v) {
-            onChanged?.call(v);
-            if (onWaitChanged != null) {
-              onWaitChanged!(v).then((result) => update(result));
-            } else {
-              update(v);
-            }
-          }));
+    initial: value,
+    initState: initState,
+    didUpdateWidget: didUpdateWidget,
+    didChangeDependencies: didChangeDependencies,
+    deactivate: deactivate,
+    dispose: dispose,
+    builder:
+        (_, T? value, Function update) => builder(value as T, (T v) {
+          onChanged?.call(v);
+          if (onWaitChanged != null) {
+            onWaitChanged!(v).then((result) => update(result));
+          } else {
+            update(v);
+          }
+        }),
+  );
 }

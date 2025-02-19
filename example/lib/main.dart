@@ -23,80 +23,99 @@ void main() {
 
     /// 设置全局Toast配置
     flExtended.toastOptions = ToastOptions.extended(
-        animationStyle: FlAnimationStyle.verticalHunting,
-        textStyle: const TextStyle(color: Colors.white),
-        onModalTap: () {
-          log('onModalTap');
-        },
-        onToastTap: () {
-          log('onToastTap');
-        },
-        foregroundColor: Colors.grey,
-        backgroundColor: Colors.red.withValues(alpha: 0.3),
-        constraints: const BoxConstraints(maxWidth: 250),
-        color: Colors.amber,
-        builder: (BuildContext context, ToastContent content) {
-          return Universal(mainAxisSize: MainAxisSize.min, children: [
+      animationStyle: FlAnimationStyle.verticalHunting,
+      textStyle: const TextStyle(color: Colors.white),
+      onModalTap: () {
+        log('onModalTap');
+      },
+      onToastTap: () {
+        log('onToastTap');
+      },
+      foregroundColor: Colors.grey,
+      backgroundColor: Colors.red.withValues(alpha: 0.3),
+      constraints: const BoxConstraints(maxWidth: 250),
+      color: Colors.amber,
+      builder: (BuildContext context, ToastContent content) {
+        return Universal(
+          mainAxisSize: MainAxisSize.min,
+          children: [
             if (content.iconStyle != null)
               Icon(content.iconStyle!.icon, color: content.color),
-            Text(content.text,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: content.color))
-          ]);
-        });
+            Text(
+              content.text,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: content.color),
+            ),
+          ],
+        );
+      },
+    );
 
     /// 设置全局BottomSheet配置
     flExtended.bottomSheetOptions = const BottomSheetOptions(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12))));
-    flExtended.dialogOptions =
-        const DialogOptions(fromStyle: PopupFromStyle.fromTop);
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+    );
+    flExtended.dialogOptions = const DialogOptions(
+      fromStyle: PopupFromStyle.fromTop,
+    );
 
     flExtended.logCrossLine = true;
 
     /// 设置全局Loading配置
     flExtended.loadingOptions = LoadingOptions(
-        backgroundColor: Colors.red.withValues(alpha: 0.1),
-        foregroundColor: Colors.yellow,
-        elevation: 2,
-        padding: const EdgeInsets.all(10),
-        builder: (_, ProgressIndicatorOptions? progressIndicator) {
-          if (progressIndicator != null) {
-            return FlProgressIndicator(progressIndicator);
-          }
-          return const Padding(
-              padding: EdgeInsets.all(10),
-              child: BText('全局设置loading', fontSize: 20));
-        },
-        onLoadingTap: () {
-          log('onLoadingTap');
-          closeLoading();
-        },
-        constraints: const BoxConstraints(maxWidth: 250),
-        borderRadius: BorderRadius.circular(10),
-        onModalTap: () {
-          log('onModalTap');
-          closeLoading();
-        });
+      backgroundColor: Colors.red.withValues(alpha: 0.1),
+      foregroundColor: Colors.yellow,
+      elevation: 2,
+      padding: const EdgeInsets.all(10),
+      builder: (_, ProgressIndicatorOptions? progressIndicator) {
+        if (progressIndicator != null) {
+          return FlProgressIndicator(progressIndicator);
+        }
+        return const Padding(
+          padding: EdgeInsets.all(10),
+          child: BText('全局设置loading', fontSize: 20),
+        );
+      },
+      onLoadingTap: () {
+        log('onLoadingTap');
+        closeLoading();
+      },
+      constraints: const BoxConstraints(maxWidth: 250),
+      borderRadius: BorderRadius.circular(10),
+      onModalTap: () {
+        log('onModalTap');
+        closeLoading();
+      },
+    );
     10000.generate((int index) {
-      FlLogcat().insertLog(LogContent(
+      FlLogcat().insertLog(
+        LogContent(
           type: LogType.other,
           dateTime: DateTime.now(),
-          line: 'insertLog  $index'));
+          line: 'insertLog  $index',
+        ),
+      );
     });
 
-    runApp(DevicePreview(
+    runApp(
+      DevicePreview(
         enabled: isDesktop || isWeb,
         defaultDevice: Devices.ios.iPhone13Mini,
-        builder: (context) => const _MaterialApp()));
+        builder: (context) => const _MaterialApp(),
+      ),
+    );
   }, enable: true);
 }
 
 class MaterialAppRouter extends StatelessWidget {
   MaterialAppRouter({super.key});
 
-  final GoRouter _router =
-      GoRouter(navigatorKey: FlExtended().navigatorKey, routes: <RouteBase>[]);
+  final GoRouter _router = GoRouter(
+    navigatorKey: FlExtended().navigatorKey,
+    routes: <RouteBase>[],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -110,18 +129,20 @@ class _MaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: FlExtended().navigatorKey,
-        scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
-        locale: DevicePreview.locale(context),
-        theme: AppThemeData.light,
-        darkTheme: AppThemeData.dark,
-        title: 'Fl Extended',
-        home: ExtendedScaffold(
-            enableDoubleClickExit: true,
-            appBar: AppBarText('Fl Extended example'),
-            child: _Home()),
-        builder: DevicePreview.appBuilder);
+      debugShowCheckedModeBanner: false,
+      navigatorKey: FlExtended().navigatorKey,
+      scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
+      locale: DevicePreview.locale(context),
+      theme: AppThemeData.light,
+      darkTheme: AppThemeData.dark,
+      title: 'Fl Extended',
+      home: ExtendedScaffold(
+        enableDoubleClickExit: true,
+        appBar: AppBarText('Fl Extended example'),
+        child: _Home(),
+      ),
+      builder: DevicePreview.appBuilder,
+    );
   }
 }
 
@@ -142,36 +163,43 @@ class _HomeState extends State<_Home> {
   @override
   Widget build(BuildContext context) {
     return Universal(
-        padding: const EdgeInsets.all(10),
-        isWrap: true,
-        isScroll: true,
-        wrapAlignment: WrapAlignment.center,
-        direction: Axis.horizontal,
-        scrollDirection: Axis.vertical,
-        children: [
-          ElevatedText('Text', onTap: () => push(const TextPage())),
-          ElevatedText('Button', onTap: () => push(const ButtonPage())),
-          ElevatedText('State Components',
-              onTap: () => push(const StateComponentsPage())),
-          ElevatedText('FlAnimation',
-              onTap: () => push(const FlAnimationPage())),
-          ElevatedText('Popup', onTap: () => push(const PopupPage())),
-          ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
-          ElevatedText('Universal', onTap: () => push(const UniversalPage())),
-          ElevatedText('FlProgressIndicator',
-              onTap: () => push(const ProgressIndicatorPage())),
-          ElevatedText('ExtendedBuilder',
-              onTap: () => push(const ExtendedBuilderPage())),
-        ]);
+      padding: const EdgeInsets.all(10),
+      isWrap: true,
+      isScroll: true,
+      wrapAlignment: WrapAlignment.center,
+      direction: Axis.horizontal,
+      scrollDirection: Axis.vertical,
+      children: [
+        ElevatedText('Text', onTap: () => push(const TextPage())),
+        ElevatedText('Button', onTap: () => push(const ButtonPage())),
+        ElevatedText(
+          'State Components',
+          onTap: () => push(const StateComponentsPage()),
+        ),
+        ElevatedText('FlAnimation', onTap: () => push(const FlAnimationPage())),
+        ElevatedText('Popup', onTap: () => push(const PopupPage())),
+        ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
+        ElevatedText('Universal', onTap: () => push(const UniversalPage())),
+        ElevatedText(
+          'FlProgressIndicator',
+          onTap: () => push(const ProgressIndicatorPage()),
+        ),
+        ElevatedText(
+          'ExtendedBuilder',
+          onTap: () => push(const ExtendedBuilderPage()),
+        ),
+      ],
+    );
   }
 }
 
 class AppBarText extends AppBar {
   AppBarText(String text, {super.key})
-      : super(
-            elevation: 0,
-            title: BText(text, fontSize: 18, fontWeight: FontWeight.bold),
-            centerTitle: true);
+    : super(
+        elevation: 0,
+        title: BText(text, fontSize: 18, fontWeight: FontWeight.bold),
+        centerTitle: true,
+      );
 }
 
 class ElevatedText extends StatelessWidget {
@@ -183,11 +211,12 @@ class ElevatedText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Universal(
-        padding: const EdgeInsets.all(5),
-        margin: const EdgeInsets.all(5),
-        unifiedButtonCategory: UnifiedButtonCategory.elevated,
-        onTap: onTap,
-        child: BText(text, textAlign: TextAlign.center));
+      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
+      unifiedButtonCategory: UnifiedButtonCategory.elevated,
+      onTap: onTap,
+      child: BText(text, textAlign: TextAlign.center),
+    );
   }
 }
 
@@ -200,32 +229,36 @@ class Partition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Universal(
-      onTap: onTap,
-      width: double.infinity,
-      color: Colors.grey.withValues(alpha: 0.2),
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
-      margin: EdgeInsets.only(top: marginTop, bottom: 20),
-      child: BText(title,
-          textAlign: TextAlign.center, fontWeight: FontWeight.bold));
+    onTap: onTap,
+    width: double.infinity,
+    color: Colors.grey.withValues(alpha: 0.2),
+    alignment: Alignment.center,
+    padding: const EdgeInsets.all(10),
+    margin: EdgeInsets.only(top: marginTop, bottom: 20),
+    child: BText(
+      title,
+      textAlign: TextAlign.center,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 }
 
-const List<Color> colorList = <Color>[
-  ...Colors.accents,
-  ...Colors.primaries,
-];
+const List<Color> colorList = <Color>[...Colors.accents, ...Colors.primaries];
 
-List<BoxShadow> getBoxShadow(
-        {int num = 1,
-        Color color = Colors.black12,
-        double? radius,
-        BlurStyle blurStyle = BlurStyle.normal,
-        double blurRadius = 0.05,
-        double spreadRadius = 0.05,
-        Offset? offset}) =>
-    num.generate((index) => BoxShadow(
-        color: color,
-        blurStyle: blurStyle,
-        blurRadius: radius ?? blurRadius,
-        spreadRadius: radius ?? spreadRadius,
-        offset: offset ?? const Offset(0, 0)));
+List<BoxShadow> getBoxShadow({
+  int num = 1,
+  Color color = Colors.black12,
+  double? radius,
+  BlurStyle blurStyle = BlurStyle.normal,
+  double blurRadius = 0.05,
+  double spreadRadius = 0.05,
+  Offset? offset,
+}) => num.generate(
+  (index) => BoxShadow(
+    color: color,
+    blurStyle: blurStyle,
+    blurRadius: radius ?? blurRadius,
+    spreadRadius: radius ?? spreadRadius,
+    offset: offset ?? const Offset(0, 0),
+  ),
+);

@@ -28,8 +28,9 @@ import 'package:fl_extended/fl_extended.dart';
 /// ```
 T? whenValue<V, T>(V value, Map<V, ValueGetter<T>> conditionMap) {
   return conditionMap.entries
-      .firstOrNullWhere((element) =>
-          const DeepCollectionEquality().equals(element.key, value))
+      .firstOrNullWhere(
+        (element) => const DeepCollectionEquality().equals(element.key, value),
+      )
       ?.value();
 }
 

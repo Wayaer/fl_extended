@@ -2,13 +2,14 @@ import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 
 abstract class ExtendedStatefulWidget extends StatefulWidget {
-  const ExtendedStatefulWidget(
-      {super.key,
-      this.initState,
-      this.didChangeDependencies,
-      this.didUpdateWidget,
-      this.deactivate,
-      this.dispose});
+  const ExtendedStatefulWidget({
+    super.key,
+    this.initState,
+    this.didChangeDependencies,
+    this.didUpdateWidget,
+    this.deactivate,
+    this.dispose,
+  });
 
   /// initState
   final ValueCallback<BuildContext>? initState;

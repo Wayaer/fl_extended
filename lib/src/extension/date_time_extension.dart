@@ -171,13 +171,16 @@ extension ExtensionDuration on Duration {
 
   /// add duration
   Duration add(Duration duration, [Duration? secondDuration]) => Duration(
-      microseconds: inMicroseconds +
-          duration.inMicroseconds +
-          (secondDuration?.inMicroseconds ?? 0));
+    microseconds:
+        inMicroseconds +
+        duration.inMicroseconds +
+        (secondDuration?.inMicroseconds ?? 0),
+  );
 
   /// subtract duration
   Duration subtract(Duration duration, [Duration? secondDuration]) {
-    int s = inMicroseconds -
+    int s =
+        inMicroseconds -
         duration.inMicroseconds -
         (secondDuration?.inMicroseconds ?? 0);
     if (s < 0) s = 0;

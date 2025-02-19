@@ -140,57 +140,62 @@ class IconLabel extends StatelessWidget {
       }
     }
     return Universal(
-        direction: direction,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: crossAxisAlignment,
-        mainAxisAlignment: mainAxisAlignment,
-        width: width,
-        height: height,
-        margin: margin,
-        padding: padding,
-        color: background,
-        decoration: decoration,
-        alignment: alignment,
-        heroTag: heroTag,
-        unifiedButtonCategory: unifiedButtonCategory,
-        onTap: onTap ?? onPressed,
-        onPressed: onTap ?? onPressed,
-        onLongPress: onLongPress,
-        onHover: onHover,
-        onFocusChange: onFocusChange,
-        style: style,
-        clipBehavior: clipBehavior ?? Clip.none,
-        focusNode: focusNode,
-        autofocus: autofocus,
-        statesController: statesController,
-        spacing: children.length > 1 ? spacing : 0,
-        child: children.length > 1 ? null : children.firstOrNull,
-        children: children.length > 1 ? children : null);
+      direction: direction,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: crossAxisAlignment,
+      mainAxisAlignment: mainAxisAlignment,
+      width: width,
+      height: height,
+      margin: margin,
+      padding: padding,
+      color: background,
+      decoration: decoration,
+      alignment: alignment,
+      heroTag: heroTag,
+      unifiedButtonCategory: unifiedButtonCategory,
+      onTap: onTap ?? onPressed,
+      onPressed: onTap ?? onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      style: style,
+      clipBehavior: clipBehavior ?? Clip.none,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      statesController: statesController,
+      spacing: children.length > 1 ? spacing : 0,
+      child: children.length > 1 ? null : children.firstOrNull,
+      children: children.length > 1 ? children : null,
+    );
   }
 
   Widget? get buildLabel =>
       label ??
       (labelText != null
-          ? Text(labelText!,
-              style: TextStyle(color: color).merge(labelStyle),
-              textAlign: textAlign,
-              maxLines: maxLines,
-              textDirection: textDirection,
-              overflow: overflow)
+          ? Text(
+            labelText!,
+            style: TextStyle(color: color).merge(labelStyle),
+            textAlign: textAlign,
+            maxLines: maxLines,
+            textDirection: textDirection,
+            overflow: overflow,
+          )
           : null);
 
-  Widget? get buildIcon => [
+  Widget? get buildIcon =>
+      [
         if (icon != null)
           Icon(icon, color: color, size: size, textDirection: textDirection),
         if (image != null) image!,
         if (imageProvider != null)
           Image(
-              image: imageProvider!,
-              width: size,
-              height: size,
-              color: color,
-              fit: BoxFit.scaleDown,
-              excludeFromSemantics: true),
-        if (widget != null) widget!
+            image: imageProvider!,
+            width: size,
+            height: size,
+            color: color,
+            fit: BoxFit.scaleDown,
+            excludeFromSemantics: true,
+          ),
+        if (widget != null) widget!,
       ].firstOrNull;
 }

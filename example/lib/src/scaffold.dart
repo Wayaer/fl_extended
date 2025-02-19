@@ -4,29 +4,30 @@ import 'package:flutter/services.dart';
 
 /// ExtendedScaffold
 class ExtendedScaffold extends StatelessWidget {
-  const ExtendedScaffold(
-      {super.key,
-      this.safeLeft = false,
-      this.safeTop = false,
-      this.safeRight = false,
-      this.safeBottom = false,
-      this.isStack = false,
-      this.isScroll = false,
-      this.isCloseOverlay = true,
-      this.appBar,
-      this.child,
-      this.padding,
-      this.floatingActionButton,
-      this.bottomNavigationBar,
+  const ExtendedScaffold({
+    super.key,
+    this.safeLeft = false,
+    this.safeTop = false,
+    this.safeRight = false,
+    this.safeBottom = false,
+    this.isStack = false,
+    this.isScroll = false,
+    this.isCloseOverlay = true,
+    this.appBar,
+    this.child,
+    this.padding,
+    this.floatingActionButton,
+    this.bottomNavigationBar,
 
-      /// 类似于 Android 中的 android:windowSoftInputMode=”adjustResize”，
-      /// 控制界面内容 body 是否重新布局来避免底部被覆盖了，比如当键盘显示的时候，
-      /// 重新布局避免被键盘盖住内容。默认值为 true。
-      this.resizeToAvoidBottomInset,
-      this.children,
-      this.mainAxisAlignment = MainAxisAlignment.start,
-      this.crossAxisAlignment = CrossAxisAlignment.center,
-      this.enableDoubleClickExit = false});
+    /// 类似于 Android 中的 android:windowSoftInputMode=”adjustResize”，
+    /// 控制界面内容 body 是否重新布局来避免底部被覆盖了，比如当键盘显示的时候，
+    /// 重新布局避免被键盘盖住内容。默认值为 true。
+    this.resizeToAvoidBottomInset,
+    this.children,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.enableDoubleClickExit = false,
+  });
 
   /// 相当于给[body] 套用 [Column]、[Row]、[Stack]
   final List<Widget>? children;
@@ -72,32 +73,36 @@ class ExtendedScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget scaffold = Scaffold(
-        key: key,
-        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        floatingActionButton: floatingActionButton,
-        appBar: buildAppBar(context),
-        bottomNavigationBar: bottomNavigationBar,
-        body: universal);
+      key: key,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      floatingActionButton: floatingActionButton,
+      appBar: buildAppBar(context),
+      bottomNavigationBar: bottomNavigationBar,
+      body: universal,
+    );
     return isCloseOverlay
         ? ExtendedPopScope(
-            isCloseOverlay: isCloseOverlay,
-            onPopInvoked: (bool didPop, bool didCloseOverlay) {
-              if (didCloseOverlay || didPop) return;
-              if (enableDoubleClickExit) {
-                final now = DateTime.now();
-                if (_dateTime != null &&
-                    now.difference(_dateTime!).inMilliseconds < 2500) {
-                  SystemNavigator.pop();
-                } else {
-                  _dateTime = now;
-                  showToast('再次点击返回键退出',
-                      duration: const Duration(milliseconds: 1500));
-                }
+          isCloseOverlay: isCloseOverlay,
+          onPopInvoked: (bool didPop, bool didCloseOverlay) {
+            if (didCloseOverlay || didPop) return;
+            if (enableDoubleClickExit) {
+              final now = DateTime.now();
+              if (_dateTime != null &&
+                  now.difference(_dateTime!).inMilliseconds < 2500) {
+                SystemNavigator.pop();
               } else {
-                pop();
+                _dateTime = now;
+                showToast(
+                  '再次点击返回键退出',
+                  duration: const Duration(milliseconds: 1500),
+                );
               }
-            },
-            child: scaffold)
+            } else {
+              pop();
+            }
+          },
+          child: scaffold,
+        )
         : scaffold;
   }
 
@@ -106,21 +111,23 @@ class ExtendedScaffold extends StatelessWidget {
     return appBar == null
         ? null
         : PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight - 12),
-            child: appBar!);
+          preferredSize: const Size.fromHeight(kToolbarHeight - 12),
+          child: appBar!,
+        );
   }
 
   Universal get universal => Universal(
-      expand: true,
-      padding: padding,
-      isScroll: isScroll,
-      safeLeft: safeLeft,
-      safeTop: safeTop,
-      safeRight: safeRight,
-      safeBottom: safeBottom,
-      isStack: isStack,
-      mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      child: child,
-      children: children);
+    expand: true,
+    padding: padding,
+    isScroll: isScroll,
+    safeLeft: safeLeft,
+    safeTop: safeTop,
+    safeRight: safeRight,
+    safeBottom: safeBottom,
+    isStack: isStack,
+    mainAxisAlignment: mainAxisAlignment,
+    crossAxisAlignment: crossAxisAlignment,
+    child: child,
+    children: children,
+  );
 }

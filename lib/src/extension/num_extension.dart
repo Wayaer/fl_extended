@@ -32,10 +32,14 @@ extension ExtensionNum on num {
       await Clipboard.setData(ClipboardData(text: toString()));
 
   /// 创建指定长度的List
-  List<T> generate<T>(T Function(int index) generator,
-          {bool growable = true}) =>
-      List<T>.generate(toInt(), (int index) => generator(index),
-          growable: growable);
+  List<T> generate<T>(
+    T Function(int index) generator, {
+    bool growable = true,
+  }) => List<T>.generate(
+    toInt(),
+    (int index) => generator(index),
+    growable: growable,
+  );
 
   String padLeft(int width, [String padding = ' ']) =>
       toString().padLeft(width, padding);
@@ -66,8 +70,10 @@ extension ExtensionNum on num {
     if (element is String) {
       return toString().insert(index, element);
     } else {
-      final String data =
-          toString().insert(index, (element as num).toInt().toString());
+      final String data = toString().insert(
+        index,
+        (element as num).toInt().toString(),
+      );
       if (this is int) return num.parse(data).toInt();
       if (this is double) return num.parse(data).toDouble();
     }

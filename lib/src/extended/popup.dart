@@ -69,11 +69,11 @@ class DialogOptions extends GeneralModalOptions {
     super.barrierColor,
     super.anchorPoint,
     this.barrierLabel = '',
-  })  : useSafeArea = true,
-        startOffset = null,
-        fromStyle = PopupFromStyle.fromCenter,
-        transitionDuration = const Duration(milliseconds: 200),
-        transitionBuilder = null;
+  }) : useSafeArea = true,
+       startOffset = null,
+       fromStyle = PopupFromStyle.fromCenter,
+       transitionDuration = const Duration(milliseconds: 200),
+       transitionBuilder = null;
 
   const DialogOptions.material({
     super.barrierDismissible,
@@ -82,11 +82,11 @@ class DialogOptions extends GeneralModalOptions {
     super.anchorPoint,
     this.barrierLabel = '',
     this.useSafeArea = true,
-  })  : startOffset = null,
-        fromStyle = PopupFromStyle.fromCenter,
-        transitionDuration = const Duration(milliseconds: 200),
-        transitionBuilder = null,
-        super(barrierColor: kCupertinoModalBarrierColor);
+  }) : startOffset = null,
+       fromStyle = PopupFromStyle.fromCenter,
+       transitionDuration = const Duration(milliseconds: 200),
+       transitionBuilder = null,
+       super(barrierColor: kCupertinoModalBarrierColor);
 
   /// 语义化
   final String barrierLabel;
@@ -117,32 +117,33 @@ class DialogOptions extends GeneralModalOptions {
     RouteSettings? routeSettings,
     Offset? anchorPoint,
     bool? useSafeArea,
-  }) =>
-      DialogOptions(
-          useSafeArea: useSafeArea ?? this.useSafeArea,
-          anchorPoint: anchorPoint ?? this.anchorPoint,
-          startOffset: startOffset ?? this.startOffset,
-          fromStyle: fromStyle ?? this.fromStyle,
-          barrierDismissible: barrierDismissible ?? this.barrierDismissible,
-          barrierLabel: barrierLabel ?? this.barrierLabel,
-          barrierColor: barrierColor ?? this.barrierColor,
-          transitionDuration: transitionDuration ?? this.transitionDuration,
-          transitionBuilder: transitionBuilder ?? this.transitionBuilder,
-          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
-          routeSettings: routeSettings ?? this.routeSettings);
+  }) => DialogOptions(
+    useSafeArea: useSafeArea ?? this.useSafeArea,
+    anchorPoint: anchorPoint ?? this.anchorPoint,
+    startOffset: startOffset ?? this.startOffset,
+    fromStyle: fromStyle ?? this.fromStyle,
+    barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+    barrierLabel: barrierLabel ?? this.barrierLabel,
+    barrierColor: barrierColor ?? this.barrierColor,
+    transitionDuration: transitionDuration ?? this.transitionDuration,
+    transitionBuilder: transitionBuilder ?? this.transitionBuilder,
+    useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+    routeSettings: routeSettings ?? this.routeSettings,
+  );
 
   DialogOptions merge([DialogOptions? options]) => copyWith(
-      useSafeArea: options?.useSafeArea,
-      anchorPoint: options?.anchorPoint,
-      startOffset: options?.startOffset,
-      fromStyle: options?.fromStyle,
-      barrierDismissible: options?.barrierDismissible,
-      barrierLabel: options?.barrierLabel,
-      barrierColor: options?.barrierColor,
-      transitionDuration: options?.transitionDuration,
-      transitionBuilder: options?.transitionBuilder,
-      useRootNavigator: options?.useRootNavigator,
-      routeSettings: options?.routeSettings);
+    useSafeArea: options?.useSafeArea,
+    anchorPoint: options?.anchorPoint,
+    startOffset: options?.startOffset,
+    fromStyle: options?.fromStyle,
+    barrierDismissible: options?.barrierDismissible,
+    barrierLabel: options?.barrierLabel,
+    barrierColor: options?.barrierColor,
+    transitionDuration: options?.transitionDuration,
+    transitionBuilder: options?.transitionBuilder,
+    useRootNavigator: options?.useRootNavigator,
+    routeSettings: options?.routeSettings,
+  );
 }
 
 class BottomSheetOptions extends GeneralModalOptions {
@@ -196,37 +197,38 @@ class BottomSheetOptions extends GeneralModalOptions {
     AnimationController? transitionAnimationController,
     BoxConstraints? constraints,
     Offset? anchorPoint,
-  }) =>
-      BottomSheetOptions(
-          anchorPoint: anchorPoint ?? this.anchorPoint,
-          constraints: constraints ?? this.constraints,
-          backgroundColor: backgroundColor ?? this.backgroundColor,
-          elevation: elevation ?? this.elevation,
-          shape: shape ?? this.shape,
-          clipBehavior: clipBehavior ?? this.clipBehavior,
-          barrierColor: barrierColor ?? this.barrierColor,
-          barrierDismissible: barrierDismissible ?? this.barrierDismissible,
-          enableDrag: enableDrag ?? this.enableDrag,
-          isScrollControlled: isScrollControlled ?? this.isScrollControlled,
-          routeSettings: routeSettings ?? this.routeSettings,
-          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
-          transitionAnimationController: transitionAnimationController ??
-              this.transitionAnimationController);
+  }) => BottomSheetOptions(
+    anchorPoint: anchorPoint ?? this.anchorPoint,
+    constraints: constraints ?? this.constraints,
+    backgroundColor: backgroundColor ?? this.backgroundColor,
+    elevation: elevation ?? this.elevation,
+    shape: shape ?? this.shape,
+    clipBehavior: clipBehavior ?? this.clipBehavior,
+    barrierColor: barrierColor ?? this.barrierColor,
+    barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+    enableDrag: enableDrag ?? this.enableDrag,
+    isScrollControlled: isScrollControlled ?? this.isScrollControlled,
+    routeSettings: routeSettings ?? this.routeSettings,
+    useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+    transitionAnimationController:
+        transitionAnimationController ?? this.transitionAnimationController,
+  );
 
   BottomSheetOptions merge([BottomSheetOptions? options]) => copyWith(
-      anchorPoint: options?.anchorPoint,
-      constraints: options?.constraints,
-      backgroundColor: options?.backgroundColor,
-      elevation: options?.elevation,
-      shape: options?.shape,
-      clipBehavior: options?.clipBehavior,
-      barrierColor: options?.barrierColor,
-      barrierDismissible: options?.barrierDismissible,
-      enableDrag: options?.enableDrag,
-      isScrollControlled: options?.isScrollControlled,
-      routeSettings: options?.routeSettings,
-      useRootNavigator: options?.useRootNavigator,
-      transitionAnimationController: options?.transitionAnimationController);
+    anchorPoint: options?.anchorPoint,
+    constraints: options?.constraints,
+    backgroundColor: options?.backgroundColor,
+    elevation: options?.elevation,
+    shape: options?.shape,
+    clipBehavior: options?.clipBehavior,
+    barrierColor: options?.barrierColor,
+    barrierDismissible: options?.barrierDismissible,
+    enableDrag: options?.enableDrag,
+    isScrollControlled: options?.isScrollControlled,
+    routeSettings: options?.routeSettings,
+    useRootNavigator: options?.useRootNavigator,
+    transitionAnimationController: options?.transitionAnimationController,
+  );
 }
 
 class CupertinoModalPopupOptions extends GeneralModalOptions {
@@ -252,24 +254,24 @@ class CupertinoModalPopupOptions extends GeneralModalOptions {
     Offset? anchorPoint,
     ImageFilter? filter,
     bool? semanticsDismissible,
-  }) =>
-      CupertinoModalPopupOptions(
-          barrierDismissible: barrierDismissible ?? this.barrierDismissible,
-          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
-          routeSettings: routeSettings ?? this.routeSettings,
-          barrierColor: barrierColor ?? this.barrierColor,
-          anchorPoint: anchorPoint ?? this.anchorPoint,
-          filter: filter ?? this.filter,
-          semanticsDismissible:
-              semanticsDismissible ?? this.semanticsDismissible);
+  }) => CupertinoModalPopupOptions(
+    barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+    useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+    routeSettings: routeSettings ?? this.routeSettings,
+    barrierColor: barrierColor ?? this.barrierColor,
+    anchorPoint: anchorPoint ?? this.anchorPoint,
+    filter: filter ?? this.filter,
+    semanticsDismissible: semanticsDismissible ?? this.semanticsDismissible,
+  );
 
   CupertinoModalPopupOptions merge([CupertinoModalPopupOptions? options]) =>
       copyWith(
-          barrierDismissible: options?.barrierDismissible,
-          useRootNavigator: options?.useRootNavigator,
-          routeSettings: options?.routeSettings,
-          barrierColor: options?.barrierColor,
-          anchorPoint: options?.anchorPoint,
-          filter: options?.filter,
-          semanticsDismissible: options?.semanticsDismissible);
+        barrierDismissible: options?.barrierDismissible,
+        useRootNavigator: options?.useRootNavigator,
+        routeSettings: options?.routeSettings,
+        barrierColor: options?.barrierColor,
+        anchorPoint: options?.anchorPoint,
+        filter: options?.filter,
+        semanticsDismissible: options?.semanticsDismissible,
+      );
 }

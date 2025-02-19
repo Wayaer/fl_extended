@@ -196,8 +196,9 @@ extension ExtensionIterableT<T> on Iterable<T> {
   int count([bool Function(T element)? test]) {
     test ??= (_) => true;
     if (isEmpty) return 0;
-    return map((element) => test!(element) ? 1 : 0)
-        .reduce((value, element) => value + element);
+    return map(
+      (element) => test!(element) ? 1 : 0,
+    ).reduce((value, element) => value + element);
   }
 
   /// Returns a new [Iterable] with all elements that satisfy the
@@ -329,8 +330,10 @@ extension ExtensionIterableT<T> on Iterable<T> {
   ///        valueTransform: (p) => p.name);
   /// // map = {'young': ['John', 'Carl'], 'old': ['Peter', 'Sarah']}
   /// ```
-  Map<K, List<V>> groupBy<K, V>(K Function(T element) keySelector,
-      {V Function(T element)? valueTransform}) {
+  Map<K, List<V>> groupBy<K, V>(
+    K Function(T element) keySelector, {
+    V Function(T element)? valueTransform,
+  }) {
     ArgumentError.checkNotNull(keySelector);
     valueTransform ??= (element) => element as V;
     final map = <K, List<V>>{};
@@ -401,7 +404,8 @@ extension ExtensionIterableT<T> on Iterable<T> {
     ArgumentError.checkNotNull(comparator, 'comparator');
     if (isEmpty) return null;
     return reduce(
-        (value, element) => comparator(value, element) < 0 ? value : element);
+      (value, element) => comparator(value, element) < 0 ? value : element,
+    );
   }
 
   /// Returns the maximum value based on the [comparator] function.
@@ -415,7 +419,8 @@ extension ExtensionIterableT<T> on Iterable<T> {
     ArgumentError.checkNotNull(comparator, 'comparator');
     if (isEmpty) return null;
     return reduce(
-        (value, element) => comparator(value, element) > 0 ? value : element);
+      (value, element) => comparator(value, element) > 0 ? value : element,
+    );
   }
 
   /// Returns this as sorted list using the [comparator] function.
@@ -516,7 +521,9 @@ extension ExtensionIterableT<T> on Iterable<T> {
   /// [1, 2, 3].replaceWhere((n) => n < 3, 0); // [0, 0, 3]
   /// ```
   Iterable<T> replaceWhere(
-      bool Function(T currentValue) comparator, T newValue) sync* {
+    bool Function(T currentValue) comparator,
+    T newValue,
+  ) sync* {
     final it = iterator;
     while (it.moveNext()) {
       if (comparator(it.current)) {
@@ -534,7 +541,9 @@ extension ExtensionIterableT<T> on Iterable<T> {
   /// [1, 2, 3].replaceFirstWhere((n) => n < 3, 0); // [0, 2, 3]
   /// ```
   Iterable<T> replaceFirstWhere(
-      bool Function(T currentValue) comparator, T newValue) sync* {
+    bool Function(T currentValue) comparator,
+    T newValue,
+  ) sync* {
     final it = iterator;
     while (it.moveNext()) {
       if (comparator(it.current)) {
@@ -555,7 +564,8 @@ extension ExtensionIterableT<T> on Iterable<T> {
   /// [1, 2, 3].mapIndexed((number, index) => number * 2); // [2, 4, 6]
   /// ```
   Iterable<U> mapIndexed<U>(
-      U Function(T currentValue, int index) transformer) sync* {
+    U Function(T currentValue, int index) transformer,
+  ) sync* {
     final it = iterator;
     var index = 0;
     while (it.moveNext()) {
@@ -630,14 +640,14 @@ extension ExtensionIterableT<T> on Iterable<T> {
   /// [1, 2, 3].insertElementBetween(0); // [1, 0, 2, 0, 3]
   /// ```
   List<T> insertElementBetween(T element) => fold([], (result, item) {
-        if (result.isEmpty) {
-          result.add(item);
-        } else {
-          result.add(element);
-          result.add(item);
-        }
-        return result;
-      });
+    if (result.isEmpty) {
+      result.add(item);
+    } else {
+      result.add(element);
+      result.add(item);
+    }
+    return result;
+  });
 }
 
 extension ExtensionIterableInt on Iterable<int> {
