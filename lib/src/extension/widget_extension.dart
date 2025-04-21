@@ -359,9 +359,6 @@ extension ExtensionWidget on Widget {
         child: this,
       );
 
-  Flexible flexible({Key? key, int flex = 1, FlexFit fit = FlexFit.loose}) =>
-      Flexible(key: key, flex: flex, fit: fit, child: this);
-
   SizedBox sizedBox({Key? key, double? width, double? height}) =>
       SizedBox(key: key, width: width, height: height, child: this);
 
@@ -383,6 +380,8 @@ extension ExtensionWidget on Widget {
       PreferredSize(preferredSize: size, child: this);
 
   Expanded get expanded => Expanded(flex: 1, child: this);
+
+  Flexible get flexible => Flexible(child: this);
 
   SizedBox get expand => SizedBox.expand(child: this);
 
