@@ -17,6 +17,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
   @override
   Widget build(BuildContext context) {
     Color color = context.theme.primaryColor;
+
     List<Widget> children = [
       Partition('Universal', marginTop: 0),
       Universal(

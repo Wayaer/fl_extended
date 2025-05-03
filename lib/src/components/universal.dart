@@ -14,6 +14,7 @@ class Universal extends StatelessWidget {
     this.isStack = false,
     this.isWrap = false,
     this.expanded = false,
+    this.flexible = false,
     this.expand = false,
     this.intrinsicHeight = false,
     this.intrinsicWidth = false,
@@ -40,7 +41,6 @@ class Universal extends StatelessWidget {
     this.safeRight = false,
     this.safeBottom = false,
     this.safeLTRB = false,
-    this.enabled = false,
     this.spacing = 0.0,
     this.runSpacing = 0.0,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -71,6 +71,8 @@ class Universal extends StatelessWidget {
     this.constraints,
     this.width,
     this.height,
+    this.size,
+    this.aspectRatio,
     this.margin,
     this.decoration,
     this.textBaseline,
@@ -115,6 +117,9 @@ class Universal extends StatelessWidget {
     this.onForcePressPeak,
     this.onForcePressUpdate,
     this.onForcePressEnd,
+    this.trackpadScrollCausesScale = false,
+    this.trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor,
+    this.supportedDevices,
     this.radius,
     this.heroTag,
     this.createRectTween,
@@ -128,7 +133,6 @@ class Universal extends StatelessWidget {
     this.minRadius,
     this.maxRadius,
     this.clipper,
-    this.size,
     this.onSecondaryTap,
     this.onSecondaryLongPressMoveUpdate,
     this.onSecondaryLongPressUp,
@@ -151,7 +155,7 @@ class Universal extends StatelessWidget {
     this.top,
     this.right,
     this.bottom,
-    this.flex,
+    this.flex = 1,
     this.opacity,
     this.clipBehavior,
     this.widthFactor,
@@ -217,10 +221,13 @@ class Universal extends StatelessWidget {
   final WrapCrossAlignment wrapCrossAlignment;
 
   /// ****** [Flexible] ****** ///
-  final int? flex;
+  final int flex;
 
-  /// [expanded]=true [flex]=1 相当于添加[Expanded]组件
+  /// [expanded]=true 相当于添加[Expanded]组件
   final bool expanded;
+
+  /// [flexible]=true 相当于添加[Flexible]组件
+  final bool flexible;
 
   /// ****** [Transform] ****** ///
   final Matrix4? transform;
@@ -306,6 +313,9 @@ class Universal extends StatelessWidget {
   final double? width;
   final double? height;
 
+  /// ****** [AspectRatio] ****** ///
+  final double? aspectRatio;
+
   /// ****** [Visibility] ****** ///
   final Widget replacement;
   final bool visible;
@@ -320,10 +330,6 @@ class Universal extends StatelessWidget {
   final double? opacity;
 
   /// ****** 点击事件相关 ****** ///
-  ///
-  /// [enabled]默认为false
-  /// 想要使用[GestureDetector]or[UnifiedButton]的全部属性,必须[enabled]=true
-  final bool enabled;
 
   /// [unifiedButtonCategory]!=null 使用[UnifiedButton]处理点击事件
   /// ****** [UnifiedButton] ****** ///
@@ -456,6 +462,9 @@ class Universal extends StatelessWidget {
   final GestureLongPressStartCallback? onSecondaryLongPressStart;
   final GestureLongPressCancelCallback? onSecondaryLongPressCancel;
   final GestureLongPressDownCallback? onSecondaryLongPressDown;
+  final Set<PointerDeviceKind>? supportedDevices;
+  final bool trackpadScrollCausesScale;
+  final Offset trackpadScrollToScaleFactor;
 
   /// HitTestBehavior.opaque 自己处理事件
   /// HitTestBehavior.deferToChild child处理事件
@@ -594,23 +603,26 @@ class Universal extends StatelessWidget {
         child: current,
       );
     }
-    if (enabled ||
-        onTap != null ||
-        onPressed != null ||
-        onDoubleTap != null ||
-        onLongPress != null) {
-      if (unifiedButtonCategory != null) {
-        current = buildUnifiedButtonCategory(current);
-      } else {
-        current = buildGestureDetector(current);
-      }
+
+    if (unifiedButtonCategory != null &&
+        (onTap != null ||
+            onPressed != null ||
+            onLongPress != null ||
+            onHover != null)) {
+      current = buildUnifiedButtonCategory(current);
     }
+    if (enabledGestureDetector) {
+      current = buildGestureDetector(current);
+    }
+    if (filter != null) current = buildBackdropFilter(current);
     if (expand) current = SizedBox.expand(child: current);
     if (width != null || height != null) {
       current = SizedBox(width: width, height: height, child: current);
     }
-    if (filter != null) current = buildBackdropFilter(current);
     if (size != null) current = SizedBox.fromSize(size: size, child: current);
+    if (aspectRatio != null) {
+      current = AspectRatio(aspectRatio: aspectRatio!, child: current);
+    }
     if (heroTag != null) current = buildHero(current);
     if (isCircleAvatar) current = buildCircleAvatar(current);
     if (clipper != null || isOval || isClipRRect) {
@@ -620,7 +632,8 @@ class Universal extends StatelessWidget {
       current = ConstrainedBox(constraints: constraints!, child: current);
     }
     if (margin != null) current = Padding(padding: margin!, child: current);
-    if (expanded || flex != null) current = buildFlexible(current);
+    if (flexible) current = buildFlexible(current, FlexFit.loose);
+    if (expanded) current = buildFlexible(current, FlexFit.tight);
     if (left != null || top != null || right != null || bottom != null) {
       current = Positioned(
         left: left,
@@ -735,11 +748,8 @@ class Universal extends StatelessWidget {
     child: current,
   );
 
-  Widget buildFlexible(Widget current) => Flexible(
-    flex: flex ?? 1,
-    fit: expanded ? FlexFit.tight : FlexFit.loose,
-    child: current,
-  );
+  Widget buildFlexible(Widget current, FlexFit fit) =>
+      Flexible(flex: flex, fit: fit, child: current);
 
   Widget buildListView(List<Widget> children) => ListView(
     physics: physics,
@@ -888,8 +898,72 @@ class Universal extends StatelessWidget {
     behavior: behavior,
     excludeFromSemantics: excludeFromSemantics,
     dragStartBehavior: dragStartBehavior,
+    supportedDevices: supportedDevices,
+    trackpadScrollCausesScale: trackpadScrollCausesScale,
+    trackpadScrollToScaleFactor: trackpadScrollToScaleFactor,
     child: current,
   );
+
+  bool get enabledGestureDetector =>
+      onTap != null ||
+      onPressed != null ||
+      onDoubleTap != null ||
+      onLongPress != null ||
+      onHover != null ||
+      onTapDown != null ||
+      onTapUp != null ||
+      onTapCancel != null ||
+      onDoubleTapDown != null ||
+      onDoubleTapCancel != null ||
+      onLongPressStart != null ||
+      onLongPressMoveUpdate != null ||
+      onLongPressUp != null ||
+      onLongPressEnd != null ||
+      onLongPressCancel != null ||
+      onLongPressDown != null ||
+      onSecondaryTapDown != null ||
+      onSecondaryTapUp != null ||
+      onSecondaryTapCancel != null ||
+      onSecondaryTap != null ||
+      onSecondaryLongPressMoveUpdate != null ||
+      onSecondaryLongPressUp != null ||
+      onSecondaryLongPress != null ||
+      onSecondaryLongPressEnd != null ||
+      onSecondaryLongPressStart != null ||
+      onSecondaryLongPressCancel != null ||
+      onSecondaryLongPressDown != null ||
+      onVerticalDragDown != null ||
+      onVerticalDragStart != null ||
+      onVerticalDragUpdate != null ||
+      onVerticalDragEnd != null ||
+      onVerticalDragCancel != null ||
+      onHorizontalDragDown != null ||
+      onHorizontalDragStart != null ||
+      onHorizontalDragUpdate != null ||
+      onHorizontalDragEnd != null ||
+      onHorizontalDragCancel != null ||
+      onForcePressStart != null ||
+      onForcePressPeak != null ||
+      onForcePressUpdate != null ||
+      onForcePressEnd != null ||
+      onTertiaryLongPress != null ||
+      onTertiaryLongPressCancel != null ||
+      onTertiaryLongPressDown != null ||
+      onTertiaryLongPressEnd != null ||
+      onTertiaryLongPressMoveUpdate != null ||
+      onTertiaryLongPressStart != null ||
+      onTertiaryLongPressUp != null ||
+      onTertiaryTapCancel != null ||
+      onTertiaryTapDown != null ||
+      onTertiaryTapUp != null ||
+      onPanDown != null ||
+      onPanStart != null ||
+      onPanUpdate != null ||
+      onPanEnd != null ||
+      onPanCancel != null ||
+      onScaleStart != null ||
+      onScaleUpdate != null ||
+      onScaleEnd != null;
 }
 
 /// A clipper that uses [Decoration.getClipPath] to clip.

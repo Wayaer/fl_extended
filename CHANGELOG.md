@@ -1,3 +1,9 @@
+## 1.7.3
+
+* Add `flexible` and `aspectRatio` to `Universal`. And Removed `enable`
+* Add `.flexible` and `.aspectRatio()` to `ExtensionWidget`
+* Add `iconAlignment` to `UnifiedButton`
+
 ## 1.7.2
 
 * Modify or add extension methods for String and List<int>, including `base64`, `base64URL`, `UTF8`,

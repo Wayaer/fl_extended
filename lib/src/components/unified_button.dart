@@ -34,6 +34,7 @@ class UnifiedButton extends StatelessWidget {
     this.statesController,
     required this.child,
     this.padding,
+    this.iconAlignment,
   }) : direction = Axis.horizontal,
        mainAxisAlignment = MainAxisAlignment.center,
        mainAxisSize = MainAxisSize.min,
@@ -64,6 +65,7 @@ class UnifiedButton extends StatelessWidget {
     this.textBaseline,
     required this.child,
     this.padding,
+    this.iconAlignment,
   });
 
   final UnifiedButtonCategory category;
@@ -101,6 +103,9 @@ class UnifiedButton extends StatelessWidget {
   /// icon
   final Widget? icon;
 
+  /// iconAlignment
+  final IconAlignment? iconAlignment;
+
   /// [Flex]
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -117,8 +122,19 @@ class UnifiedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget current = child;
     if (icon != null) {
+      final themeStyle = switch (category) {
+        UnifiedButtonCategory.none => TextButtonTheme.of(context).style,
+        UnifiedButtonCategory.filled => FilledButtonTheme.of(context).style,
+        UnifiedButtonCategory.filledTonal =>
+          FilledButtonTheme.of(context).style,
+        UnifiedButtonCategory.elevated => ElevatedButtonTheme.of(context).style,
+        UnifiedButtonCategory.outlined => OutlinedButtonTheme.of(context).style,
+      };
       final double defaultFontSize =
-          style?.textStyle?.resolve(const <WidgetState>{})?.fontSize ?? 14.0;
+          (style ?? themeStyle)?.textStyle
+              ?.resolve(const <WidgetState>{})
+              ?.fontSize ??
+          14.0;
       final double scale =
           clampDouble(
             MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0,
@@ -127,6 +143,8 @@ class UnifiedButton extends StatelessWidget {
           ) -
           1.0;
       final double gap = lerpDouble(8, 4, scale)!;
+      final IconAlignment effectiveIconAlignment =
+          iconAlignment ?? themeStyle?.iconAlignment ?? IconAlignment.start;
       current = Flex(
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
@@ -136,7 +154,10 @@ class UnifiedButton extends StatelessWidget {
         textDirection: textDirection,
         mainAxisSize: mainAxisSize,
         clipBehavior: clipBehavior,
-        children: [icon!, SizedBox(width: gap), Flexible(child: current)],
+        children:
+            effectiveIconAlignment == IconAlignment.start
+                ? [icon!, SizedBox(width: gap), Flexible(child: current)]
+                : [Flexible(child: current), SizedBox(width: gap), icon!],
       );
     }
     if (padding != null) {

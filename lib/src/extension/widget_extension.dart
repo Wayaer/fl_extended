@@ -379,13 +379,16 @@ extension ExtensionWidget on Widget {
   PreferredSize setPreferredSize(Size size, {Key? key}) =>
       PreferredSize(preferredSize: size, child: this);
 
-  Expanded get expanded => Expanded(flex: 1, child: this);
+  Expanded get expanded => Expanded(child: this);
 
   Flexible get flexible => Flexible(child: this);
 
   SizedBox get expand => SizedBox.expand(child: this);
 
   SizedBox get shrink => SizedBox.shrink(child: this);
+
+  AspectRatio aspectRatio(double aspectRatio, {Key? key}) =>
+      AspectRatio(key: key, aspectRatio: aspectRatio, child: this);
 
   SizedBox fromSize(Size size, {Key? key}) =>
       SizedBox.fromSize(key: key, size: size, child: this);
@@ -608,6 +611,9 @@ extension ExtensionWidget on Widget {
     HitTestBehavior? behavior,
     bool excludeFromSemantics = false,
     DragStartBehavior dragStartBehavior = DragStartBehavior.start,
+    Set<PointerDeviceKind>? supportedDevices,
+    bool trackpadScrollCausesScale = false,
+    Offset trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor,
   }) => GestureDetector(
     key: key,
     onTapDown: onTapDown,
@@ -648,6 +654,9 @@ extension ExtensionWidget on Widget {
     behavior: behavior,
     excludeFromSemantics: excludeFromSemantics,
     dragStartBehavior: dragStartBehavior,
+    supportedDevices: supportedDevices,
+    trackpadScrollCausesScale: trackpadScrollCausesScale,
+    trackpadScrollToScaleFactor: trackpadScrollToScaleFactor,
     child: this,
   );
 }

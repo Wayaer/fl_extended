@@ -21,7 +21,7 @@ class ButtonPage extends StatelessWidget {
           ...UnifiedButtonCategory.values.builder(
             (item) => UnifiedButton(
               category: item,
-              child: const Text('UnifiedButton'),
+              child: Text('UnifiedButton (${item.name})'),
               onPressed: () {
                 showToast('UnifiedButton');
               },
@@ -35,7 +35,7 @@ class ButtonPage extends StatelessWidget {
               onPressed: () {
                 showToast('UnifiedButton.icon');
               },
-              child: const Text('UnifiedButton.icon'),
+              child: Text('UnifiedButton.icon (${item.name})'),
             ),
           ),
           const Partition('Universal'),
@@ -44,7 +44,7 @@ class ButtonPage extends StatelessWidget {
               direction: Axis.vertical,
               padding: const EdgeInsets.symmetric(vertical: 4),
               unifiedButtonCategory: item,
-              children: const [Icon(Icons.ac_unit), Text('Universal')],
+              children: [Icon(Icons.ac_unit), Text('Universal (${item.name})')],
               onPressed: () {
                 showToast('Universal');
               },
