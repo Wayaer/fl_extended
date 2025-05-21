@@ -30,7 +30,7 @@ extension ExtensionThemeData on ThemeData {
     highlightColor: themeData?.highlightColor ?? highlightColor,
     hintColor: themeData?.hintColor ?? hintColor,
     hoverColor: themeData?.hoverColor ?? hoverColor,
-    indicatorColor: themeData?.indicatorColor ?? indicatorColor,
+    indicatorColor: themeData?.tabBarTheme.indicatorColor ?? indicatorColor,
     primaryColor: themeData?.primaryColor ?? primaryColor,
     primaryColorDark: themeData?.primaryColorDark ?? primaryColorDark,
     primaryColorLight: themeData?.primaryColorLight ?? primaryColorLight,
