@@ -80,13 +80,13 @@ void main() {
       },
       onLoadingTap: () {
         log('onLoadingTap');
-        closeLoading();
+        hideLoading();
       },
       constraints: const BoxConstraints(maxWidth: 250),
       borderRadius: BorderRadius.circular(10),
       onModalTap: () {
         log('onModalTap');
-        closeLoading();
+        hideLoading();
       },
     );
     10000.generate((int index) {

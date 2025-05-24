@@ -1,7 +1,7 @@
 part of 'overlay.dart';
 
 extension ExtensionToast on Toast {
-  Future<ExtendedOverlayEntry?> show() => ExtendedOverlay().showToast(this);
+  Future<FlOverlayEntry?> show() => FlOverlay().showToast(this);
 }
 
 class Toast extends StatelessWidget {
@@ -193,9 +193,9 @@ enum ToastIconStyle {
 }
 
 /// Toast
-/// 关闭 closeToast();
+/// 关闭 hideToast();
 /// 添加 await Toast 关闭后继续执行之后的方法
-Future<ExtendedOverlayEntry?> showToast(
+Future<FlOverlayEntry?> showToast(
   String message, {
 
   /// icon 样式 不传 仅显示文字
@@ -234,7 +234,7 @@ Future<ExtendedOverlayEntry?> showToast(
       options: options,
     ).show();
 
-bool closeToast() => ExtendedOverlay().closeToast();
+void hideToast() => FlOverlay().hideToast();
 
 typedef ToastBuilder =
     Widget? Function(BuildContext context, ToastContent content);

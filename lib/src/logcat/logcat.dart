@@ -146,15 +146,19 @@ class FlLogcat {
 
   bool isRunning = false;
 
-  ExtendedOverlayEntry? _overlayEntry;
+  FlOverlayEntry? _overlayEntry;
+
+  bool _hasOverlayEntry = false;
 
   void show() {
-    if (isRunning) {
-      _overlayEntry ??= _LogIcon(show: showLog, hide: hide).showOverlay();
+    if (isRunning && !_hasOverlayEntry) {
+      _hasOverlayEntry = true;
+      _overlayEntry ??= _LogcatIcon(show: showLog, hide: hide).showOverlay();
     }
   }
 
   void hide() {
+    _hasOverlayEntry = false;
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
@@ -171,17 +175,17 @@ class FlLogcat {
   }
 }
 
-class _LogIcon extends StatefulWidget {
-  const _LogIcon({required this.show, this.hide});
+class _LogcatIcon extends StatefulWidget {
+  const _LogcatIcon({required this.show, this.hide});
 
   final void Function()? hide;
   final Future<void> Function() show;
 
   @override
-  State<_LogIcon> createState() => _LogIconState();
+  State<_LogcatIcon> createState() => _LogcatIconState();
 }
 
-class _LogIconState extends State<_LogIcon> {
+class _LogcatIconState extends State<_LogcatIcon> {
   bool hasWindows = false;
   Offset offSet = const Offset(100, 10);
 

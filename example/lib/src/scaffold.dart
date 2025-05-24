@@ -80,30 +80,37 @@ class ExtendedScaffold extends StatelessWidget {
       bottomNavigationBar: bottomNavigationBar,
       body: universal,
     );
-    return isCloseOverlay
-        ? ExtendedPopScope(
-          isCloseOverlay: isCloseOverlay,
-          onPopInvoked: (bool didPop, bool didCloseOverlay) {
-            if (didCloseOverlay || didPop) return;
-            if (enableDoubleClickExit) {
-              final now = DateTime.now();
-              if (_dateTime != null &&
-                  now.difference(_dateTime!).inMilliseconds < 2500) {
-                SystemNavigator.pop();
-              } else {
-                _dateTime = now;
-                showToast(
-                  '再次点击返回键退出',
-                  duration: const Duration(milliseconds: 1500),
-                );
-              }
-            } else {
-              pop();
-            }
-          },
-          child: scaffold,
-        )
-        : scaffold;
+    return buildPopScope(scaffold);
+  }
+
+  Widget buildPopScope(Widget current) {
+    if (!isCloseOverlay) return current;
+    return ExtendedPopScope(
+      isCloseOverlay: isCloseOverlay,
+      onPopInvokedWithResult: (
+        bool didPop,
+        dynamic result,
+        bool didCloseOverlay,
+      ) {
+        if (didCloseOverlay || didPop) return;
+        if (enableDoubleClickExit) {
+          final now = DateTime.now();
+          if (_dateTime != null &&
+              now.difference(_dateTime!).inMilliseconds < 2500) {
+            SystemNavigator.pop();
+          } else {
+            _dateTime = now;
+            showToast(
+              '再次点击返回键退出',
+              duration: const Duration(milliseconds: 1500),
+            );
+          }
+        } else {
+          pop();
+        }
+      },
+      child: current,
+    );
   }
 
   PreferredSizeWidget? buildAppBar(BuildContext context) {

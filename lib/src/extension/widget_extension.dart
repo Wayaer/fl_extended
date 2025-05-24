@@ -53,9 +53,9 @@ extension ExtensionWidgetMethod on Widget {
     );
   }
 
-  /// [ExtendedOverlay().showOverlay()]
-  ExtendedOverlayEntry? showOverlay({bool autoOff = false}) =>
-      ExtendedOverlay().showOverlay(this, autoOff: autoOff);
+  /// [FlOverlay().show()]
+  FlOverlayEntry? showOverlay({bool isCached = true}) =>
+      FlOverlay().show(this, isCached: isCached);
 
   /// [showGeneralDialog]
   Future<T?> popupDialog<T>({

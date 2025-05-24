@@ -5,73 +5,74 @@ part 'loading.dart';
 
 part 'toast.dart';
 
-class ExtendedOverlay {
-  factory ExtendedOverlay() => _singleton ??= ExtendedOverlay._();
+class FlOverlay {
+  factory FlOverlay() => _singleton ??= FlOverlay._();
 
-  ExtendedOverlay._();
+  FlOverlay._();
 
-  static ExtendedOverlay? _singleton;
+  static FlOverlay? _singleton;
 
-  final List<ExtendedOverlayEntry> _overlayEntryList = <ExtendedOverlayEntry>[];
+  final List<FlOverlayEntry> _overlayEntries = <FlOverlayEntry>[];
 
-  List<ExtendedOverlayEntry> get overlayEntryList => _overlayEntryList;
+  List<FlOverlayEntry> get overlayEntries => _overlayEntries;
 
   /// ********* [Overlay] ********* ///
 
   /// 自定义Overlay
-  ExtendedOverlayEntry? showOverlay(Widget widget, {bool autoOff = false}) {
+  /// [isCached] 是否缓存
+  /// [id] 唯一标识
+  /// [widget] 要显示的Widget
+  FlOverlayEntry? show(Widget widget, {bool isCached = true, Object? id}) {
     assert(
       FlExtended().navigatorKey.currentState != null,
       'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
     );
-    final OverlayState? overlay =
-        FlExtended().navigatorKey.currentState!.overlay;
+    final overlay = FlExtended().navigatorKey.currentState!.overlay;
     if (overlay == null) return null;
-    final ExtendedOverlayEntry entry = ExtendedOverlayEntry(
-      autoOff: autoOff,
+    id ??= widget.runtimeType;
+    final FlOverlayEntry entry = FlOverlayEntry(
+      isCached: isCached,
       widget: widget,
+      id: id,
     );
     overlay.insert(entry);
-    if (!autoOff) _overlayEntryList.add(entry);
+    if (isCached) _overlayEntries.add(entry);
     return entry;
   }
 
   /// 关闭最顶层的Overlay
-  bool closeOverlay({ExtendedOverlayEntry? entry}) {
+  void hide({FlOverlayEntry? entry}) {
     if (entry != null) {
-      return entry.removeEntry();
-    } else {
-      if (_overlayEntryList.isNotEmpty) {
-        return _overlayEntryList.last.removeEntry();
-      }
+      entry.remove();
+    } else if (_overlayEntries.isNotEmpty) {
+      _overlayEntries.last.remove();
     }
-    return false;
   }
 
   /// 关闭所有Overlay
-  void closeAllOverlay() {
-    for (final element in _overlayEntryList) {
-      element.removeEntry();
+  void hideAll() {
+    for (final element in _overlayEntries) {
+      element.remove();
     }
   }
 
   /// ********* [Toast] ********* ///
   /// Toast
-  ExtendedOverlayEntry? _toast;
+  FlOverlayEntry? _toast;
 
-  ExtendedOverlayEntry? get toast => _toast;
+  FlOverlayEntry? get toast => _toast;
 
-  /// Toast 关闭 closeToast();
-  Future<ExtendedOverlayEntry?> showToast(Toast toast) async {
+  /// Toast 关闭 hideToast();
+  Future<FlOverlayEntry?> showToast(Toast toast) async {
     if (_toast != null) return _toast;
-    _toast = showOverlay(toast, autoOff: true);
+    _toast = show(toast, isCached: false);
     _toast?.addListener(_toastListener);
     final duration =
         toast.duration ??
         toast.options?.duration ??
         FlExtended().toastOptions.duration;
     await duration.delayed();
-    closeToast();
+    hideToast();
     return _toast;
   }
 
@@ -83,21 +84,21 @@ class ExtendedOverlay {
     }
   }
 
-  bool closeToast() {
-    final value = _toast?.removeEntry() ?? false;
+  void hideToast() {
+    _toast?.removeListener(_toastListener);
+    _toast?.remove();
     _toast = null;
-    return value;
   }
 
   /// ********* [Loading] ********* ///
-  ExtendedOverlayEntry? _loading;
+  FlOverlayEntry? _loading;
 
-  ExtendedOverlayEntry? get loading => _loading;
+  FlOverlayEntry? get loading => _loading;
 
-  /// loading 加载框 关闭 closeLoading();
-  ExtendedOverlayEntry? showLoading(Loading loading) {
+  /// loading 加载框 关闭 hideLoading();
+  FlOverlayEntry? showLoading(Loading loading) {
     if (_loading != null) return _loading;
-    _loading = ExtendedOverlay().showOverlay(loading);
+    _loading = FlOverlay().show(loading);
     _loading?.addListener(_loadingListener);
     return _loading;
   }
@@ -109,43 +110,44 @@ class ExtendedOverlay {
     }
   }
 
-  bool closeLoading() {
-    final value = _loading?.removeEntry() ?? false;
+  void hideLoading() {
+    _loading?.removeListener(_loadingListener);
+    _loading?.remove();
     _loading = null;
-    return value;
   }
 }
 
-class ExtendedOverlayEntry extends OverlayEntry {
-  ExtendedOverlayEntry({
-    this.autoOff = false,
+class FlOverlayEntry extends OverlayEntry {
+  FlOverlayEntry({
+    this.id = 'FlOverlayEntry',
     WidgetBuilder? builder,
     Widget? widget,
+    this.isCached = true,
     super.opaque = false,
     super.maintainState = false,
+    super.canSizeOverlay = false,
   }) : assert(builder != null || widget != null),
        super(builder: builder ?? (_) => widget!);
 
-  /// 是否自动关闭
-  final bool autoOff;
+  /// 是否缓存至 [FlOverlay().overlayEntries]
+  final bool isCached;
 
-  bool removeEntry() {
-    try {
-      super.remove();
-      if (!autoOff) ExtendedOverlay()._overlayEntryList.remove(this);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+  /// id 标识
+  final Object id;
 
   @override
-  void remove() => removeEntry();
+  void remove() {
+    try {
+      super.remove();
+      FlOverlay()._overlayEntries.remove(this);
+    } catch (e) {
+      debugPrint('FlOverlayEntry remove error: $e');
+    }
+  }
 }
 
 /// 关闭所有Overlay
-void closeAllOverlay() => ExtendedOverlay().closeAllOverlay();
+void hideAllOverlay() => FlOverlay().hideAll();
 
 /// 关闭最顶层的Overlay
-bool closeOverlay({ExtendedOverlayEntry? entry}) =>
-    ExtendedOverlay().closeOverlay(entry: entry);
+void hideOverlay({FlOverlayEntry? entry}) => FlOverlay().hide(entry: entry);

@@ -74,7 +74,7 @@ class OverlayPage extends StatelessWidget {
               gaussian: 4,
               elevation: 2,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              onModalTap: closeLoading,
+              onModalTap: hideLoading,
               builder:
                   (_, ProgressIndicatorOptions? progressIndicator) => Column(
                     mainAxisSize: MainAxisSize.min,
@@ -107,7 +107,7 @@ class OverlayPage extends StatelessWidget {
                   '点击了Loading'.log();
                 },
                 progressIndicator: style.options,
-                onModalTap: closeOverlay,
+                onModalTap: hideOverlay,
               ),
             );
           },

@@ -15,25 +15,18 @@ class ExtendedPopScope<T> extends PopScope<T> {
     super.key,
     required super.child,
     super.canPop = false,
-
-    /// 支持 3.24
     PopInvokedWithResultAndOverlayCallback? onPopInvokedWithResult,
 
-    /// 3.24之前的版本保留
-    PopInvokedWithOverlayCallback? onPopInvoked,
-
-    /// true 点击android实体返回按键先关闭Overlay【loading ...】但不pop 当前页面
+    /// true 点击 android 实体返回按键先关闭 [Overlay]
     bool isCloseOverlay = true,
   }) : super(
          onPopInvokedWithResult: (bool didPop, T? result) {
-           bool isClose = false;
-           if (isCloseOverlay &&
-               ExtendedOverlay().overlayEntryList.isNotEmpty) {
-             isClose = true;
-             closeOverlay();
+           bool didCloseOverlay = false;
+           if (FlOverlay().overlayEntries.isNotEmpty) {
+             didCloseOverlay = true;
+             if (isCloseOverlay) hideOverlay();
            }
-           onPopInvoked?.call(didPop, isClose);
-           onPopInvokedWithResult?.call(didPop, result, isClose);
+           onPopInvokedWithResult?.call(didPop, result, didCloseOverlay);
          },
        );
 }

@@ -1,3 +1,14 @@
+## 1.8.0
+
+* `ExtendedOverlay` renamed as `FlOverlay`
+* `ExtendedOverlayEntry` renamed as `FlOverlayEntry`,`autoOff` was removed, and `isCached` was added
+  with a default value of true
+* `ExtendedPopScope` renamed as `FlPopScope`, and removed `onPopInvoked`
+* Remove the `removeEntry` from `FlOverlayEntry` using `remove()`
+* `closeLoading()` renamed as `hideLoading()`
+* `closeToast()` renamed as `hideToast()`
+* `closeOverlay()` renamed as `hideOverlay()`
+
 ## 1.7.3
 
 * Add `flexible` and `aspectRatio` to `Universal`. And Removed `enable`

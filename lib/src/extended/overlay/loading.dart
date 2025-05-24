@@ -120,8 +120,8 @@ class LoadingOptions extends ModalOptions {
   );
 }
 
-/// loading 加载框 关闭 closeLoading();
-ExtendedOverlayEntry? showLoading({
+/// loading 加载框 关闭 hideLoading();
+FlOverlayEntry? showLoading({
   /// builder
   LoadingBuilder? builder,
 
@@ -129,10 +129,10 @@ ExtendedOverlayEntry? showLoading({
   LoadingOptions? options,
 }) => Loading(builder: builder, options: options).show();
 
-bool closeLoading() => ExtendedOverlay().closeLoading();
+void hideLoading() => FlOverlay().hideLoading();
 
 extension ExtensionLoading on Loading {
-  ExtendedOverlayEntry? show() => ExtendedOverlay().showLoading(this);
+  FlOverlayEntry? show() => FlOverlay().showLoading(this);
 }
 
 class Loading extends StatelessWidget {
