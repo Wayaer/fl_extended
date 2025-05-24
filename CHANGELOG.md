@@ -3,7 +3,8 @@
 * `ExtendedOverlay` renamed as `FlOverlay`
 * `ExtendedOverlayEntry` renamed as `FlOverlayEntry`,`autoOff` was removed, and `isCached` was added
   with a default value of true
-* `ExtendedPopScope` renamed as `FlPopScope`, and removed `onPopInvoked`
+* `ExtendedPopScope` renamed as `FlPopScope`, and removed `onPopInvoked`, and `canHideOverlay` was
+  added with a default value of true
 * Remove the `removeEntry` from `FlOverlayEntry` using `remove()`
 * `closeLoading()` renamed as `hideLoading()`
 * `closeToast()` renamed as `hideToast()`
