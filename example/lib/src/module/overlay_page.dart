@@ -26,7 +26,14 @@ class OverlayPage extends StatelessWidget {
       if (didCloseOverlay || didPop) return;
       pop();
     },
+
     children: [
+      const Partition('FlPopScope'),
+      Text(
+        'If there is an FlOverlayEntry on the current page, it will be closed first, and clicking back again will close the page',
+      ),
+      12.heightBox,
+      const Partition('SnackBar'),
       ElevatedText(
         'showSnackBar',
         onTap: () {
