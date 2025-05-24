@@ -51,9 +51,10 @@ class FlOverlay {
 
   /// 关闭所有Overlay
   void hideAll() {
-    for (final element in _overlayEntries) {
+    _overlayEntries.removeElement((element) {
       element.remove();
-    }
+      return false;
+    });
   }
 
   /// ********* [Toast] ********* ///

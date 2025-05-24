@@ -101,6 +101,16 @@ extension ExtensionList<T> on List<T> {
     if (end != null && end > length) end = length;
     return sublist(start, end);
   }
+
+  /// 创建一个新的 List，并在遍历过程中移除元素
+  void removeElement(bool Function(T element) test) {
+    final list = List.from(this);
+    for (final element in list) {
+      final result = test(element);
+      if (result) remove(element);
+    }
+    list.clear();
+  }
 }
 
 extension ExtensionListString on List<String> {

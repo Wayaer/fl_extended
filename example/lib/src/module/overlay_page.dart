@@ -13,6 +13,19 @@ class OverlayPage extends StatelessWidget {
     appBar: AppBarText('Overlay'),
     isScroll: true,
     padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+    canPop: false,
+    canHideOverlay: true,
+    onPopInvokedWithResult: (
+      bool didPop,
+      dynamic result,
+      bool didCloseOverlay,
+    ) {
+      log(
+        'OverlayPage onPopInvokedWithResult didPop=$didPop result=$result didCloseOverlay=$didCloseOverlay',
+      );
+      if (didCloseOverlay || didPop) return;
+      pop();
+    },
     children: [
       ElevatedText(
         'showSnackBar',

@@ -153,7 +153,10 @@ class FlLogcat {
   void show() {
     if (isRunning && !_hasOverlayEntry) {
       _hasOverlayEntry = true;
-      _overlayEntry ??= _LogcatIcon(show: showLog, hide: hide).showOverlay();
+      _overlayEntry ??= _LogcatIcon(
+        show: showLog,
+        hide: hide,
+      ).showOverlay(isCached: false);
     }
   }
 

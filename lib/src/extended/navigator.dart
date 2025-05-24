@@ -5,28 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
 typedef PopInvokedWithResultAndOverlayCallback<T> =
-    void Function(bool didPop, T? result, bool didCloseOverlay);
+    void Function(bool didPop, T? result, bool didHideOverlay);
 
-typedef PopInvokedWithOverlayCallback =
-    void Function(bool didPop, bool didCloseOverlay);
-
-class ExtendedPopScope<T> extends PopScope<T> {
-  ExtendedPopScope({
+class FlPopScope<T> extends PopScope<T> {
+  FlPopScope({
     super.key,
     required super.child,
-    super.canPop = false,
-    PopInvokedWithResultAndOverlayCallback? onPopInvokedWithResult,
-
-    /// true 点击 android 实体返回按键先关闭 [Overlay]
-    bool isCloseOverlay = true,
+    super.canPop = true,
+    bool canHideOverlay = true,
+    PopInvokedWithResultAndOverlayCallback<T>? onPopInvokedWithResult,
   }) : super(
          onPopInvokedWithResult: (bool didPop, T? result) {
-           bool didCloseOverlay = false;
+           bool didHideOverlay = false;
            if (FlOverlay().overlayEntries.isNotEmpty) {
-             didCloseOverlay = true;
-             if (isCloseOverlay) hideOverlay();
+             didHideOverlay = true;
+             if (canHideOverlay) FlOverlay().hideAll();
            }
-           onPopInvokedWithResult?.call(didPop, result, didCloseOverlay);
+           onPopInvokedWithResult?.call(didPop, result, didHideOverlay);
          },
        );
 }

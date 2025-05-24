@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// ExtendedScaffold
-class ExtendedScaffold extends StatelessWidget {
+class ExtendedScaffold<T> extends StatelessWidget {
   const ExtendedScaffold({
     super.key,
     this.safeLeft = false,
@@ -12,7 +12,6 @@ class ExtendedScaffold extends StatelessWidget {
     this.safeBottom = false,
     this.isStack = false,
     this.isScroll = false,
-    this.isCloseOverlay = true,
     this.appBar,
     this.child,
     this.padding,
@@ -27,6 +26,9 @@ class ExtendedScaffold extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.enableDoubleClickExit = false,
+    this.onPopInvokedWithResult,
+    this.canPop = true,
+    this.canHideOverlay = true,
   });
 
   /// 相当于给[body] 套用 [Column]、[Row]、[Stack]
@@ -47,10 +49,6 @@ class ExtendedScaffold extends StatelessWidget {
 
   final EdgeInsetsGeometry? padding;
 
-  /// true 点击android实体返回按键先关闭Overlay【toast loading ...】但不pop 当前页面
-  /// false 点击android实体返回按键先关闭Overlay【toast loading ...】并pop 当前页面
-  final bool isCloseOverlay;
-
   /// Scaffold相关属性
   final Widget? child;
 
@@ -68,6 +66,11 @@ class ExtendedScaffold extends StatelessWidget {
   final bool safeBottom;
   final bool enableDoubleClickExit;
 
+  /// [FlPopScope] 相关属性
+  final bool canPop;
+  final bool canHideOverlay;
+  final PopInvokedWithResultAndOverlayCallback<T>? onPopInvokedWithResult;
+
   static DateTime? _dateTime;
 
   @override
@@ -84,15 +87,11 @@ class ExtendedScaffold extends StatelessWidget {
   }
 
   Widget buildPopScope(Widget current) {
-    if (!isCloseOverlay) return current;
-    return ExtendedPopScope(
-      isCloseOverlay: isCloseOverlay,
-      onPopInvokedWithResult: (
-        bool didPop,
-        dynamic result,
-        bool didCloseOverlay,
-      ) {
-        if (didCloseOverlay || didPop) return;
+    return FlPopScope<T>(
+      canPop: canPop,
+      canHideOverlay: canHideOverlay,
+      onPopInvokedWithResult: (bool didPop, T? result, bool didCloseOverlay) {
+        onPopInvokedWithResult?.call(didPop, result, didCloseOverlay);
         if (enableDoubleClickExit) {
           final now = DateTime.now();
           if (_dateTime != null &&
@@ -105,8 +104,6 @@ class ExtendedScaffold extends StatelessWidget {
               duration: const Duration(milliseconds: 1500),
             );
           }
-        } else {
-          pop();
         }
       },
       child: current,
