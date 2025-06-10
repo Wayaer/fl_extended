@@ -13,10 +13,10 @@ typedef CallbackFuture = Future<void> Function();
 /// Future Callback Zero
 typedef CallbackFutureT<T> = Future<T> Function();
 
-/// FutureO Callback Zero
+/// FutureOr Callback Zero
 typedef CallbackFutureOr = FutureOr<void> Function();
 
-/// FutureO Callback Zero
+/// FutureOr Callback Zero
 typedef CallbackFutureOrT<T> = FutureOr<T> Function();
 
 /// ******** Callback One ******** ///

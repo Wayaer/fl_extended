@@ -1,3 +1,7 @@
+## 1.8.1
+
+* Add a typedef for FutureOr callback
+
 ## 1.8.0
 
 * `ExtendedOverlay` renamed as `FlOverlay`
