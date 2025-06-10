@@ -632,8 +632,11 @@ class Universal extends StatelessWidget {
       current = ConstrainedBox(constraints: constraints!, child: current);
     }
     if (margin != null) current = Padding(padding: margin!, child: current);
-    if (flexible) current = buildFlexible(current, FlexFit.loose);
-    if (expanded) current = buildFlexible(current, FlexFit.tight);
+    if (flexible) {
+      current = buildFlexible(current, FlexFit.loose);
+    } else if (expanded) {
+      current = buildFlexible(current, FlexFit.tight);
+    }
     if (left != null || top != null || right != null || bottom != null) {
       current = Positioned(
         left: left,
