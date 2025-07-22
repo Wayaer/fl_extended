@@ -1,9 +1,5 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 extension ExtensionNavigatorStateContext on BuildContext {
   /// [NavigatorState]
@@ -434,24 +430,4 @@ extension ExtensionContextWithMediaQuery on BuildContext {
 
   /// True if the current device is Tablet
   bool get isTablet => isSmallTablet || isLargeTablet;
-}
-
-extension ExtensionGlobalKey on GlobalKey {
-  /// 截屏
-  /// format 图片格式
-  /// pixelRatio 截图分辨率比例
-  Future<ByteData?> screenshots({
-    ui.ImageByteFormat? format,
-    double pixelRatio = 1.0,
-  }) async {
-    final RenderRepaintBoundary boundary =
-        currentContext!.findRenderObject() as RenderRepaintBoundary;
-    final ui.Image image = await boundary.toImage(pixelRatio: pixelRatio);
-    final ByteData? byteData = await image.toByteData(
-      format: format ?? ui.ImageByteFormat.rawRgba,
-    );
-
-    /// Uint8List uint8list = byteData.buffer.asUint8List();
-    return byteData;
-  }
 }

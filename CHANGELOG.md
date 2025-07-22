@@ -1,3 +1,7 @@
+## 1.8.2
+
+* Add a file `global_key_extension`
+
 ## 1.8.1
 
 * Add a typedef for FutureOr callback
