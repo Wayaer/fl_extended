@@ -637,6 +637,9 @@ class FlTextSpan extends TextSpan {
     super.locale,
     super.spellOut,
 
+    /// 文本的样式
+    TextStyle? style,
+
     /// [TextStyle]
     bool inherit = true,
     Color? color,
@@ -691,6 +694,6 @@ class FlTextSpan extends TextSpan {
            leadingDistribution: leadingDistribution,
            package: package,
            overflow: overflow,
-         ),
+         ).merge(style),
        );
 }
