@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 extension ExtensionThemeData on ThemeData {
   ThemeData marge([ThemeData? themeData]) => ThemeData.raw(
     adaptationMap: themeData?.adaptationMap ?? adaptationMap,
-    applyElevationOverlayColor:
-        themeData?.applyElevationOverlayColor ?? applyElevationOverlayColor,
-    cupertinoOverrideTheme:
-        themeData?.cupertinoOverrideTheme ?? cupertinoOverrideTheme,
+    applyElevationOverlayColor: themeData?.applyElevationOverlayColor ?? applyElevationOverlayColor,
+    cupertinoOverrideTheme: themeData?.cupertinoOverrideTheme ?? cupertinoOverrideTheme,
     extensions: themeData?.extensions ?? extensions,
-    inputDecorationTheme:
-        themeData?.inputDecorationTheme ?? inputDecorationTheme,
-    materialTapTargetSize:
-        themeData?.materialTapTargetSize ?? materialTapTargetSize,
-    pageTransitionsTheme:
-        themeData?.pageTransitionsTheme ?? pageTransitionsTheme,
+    inputDecorationTheme: themeData?.inputDecorationTheme ?? inputDecorationTheme,
+    materialTapTargetSize: themeData?.materialTapTargetSize ?? materialTapTargetSize,
+    pageTransitionsTheme: themeData?.pageTransitionsTheme ?? pageTransitionsTheme,
     platform: themeData?.platform ?? platform,
     scrollbarTheme: themeData?.scrollbarTheme ?? scrollbarTheme,
     splashFactory: themeData?.splashFactory ?? splashFactory,
@@ -22,8 +17,7 @@ extension ExtensionThemeData on ThemeData {
     canvasColor: themeData?.canvasColor ?? canvasColor,
     cardColor: themeData?.cardColor ?? cardColor,
     colorScheme: themeData?.colorScheme ?? colorScheme,
-    dialogBackgroundColor:
-        themeData?.dialogTheme.backgroundColor ?? dialogBackgroundColor,
+    dialogBackgroundColor: themeData?.dialogTheme.backgroundColor ?? dialogBackgroundColor,
     disabledColor: themeData?.disabledColor ?? disabledColor,
     dividerColor: themeData?.dividerColor ?? dividerColor,
     focusColor: themeData?.focusColor ?? focusColor,
@@ -34,14 +28,11 @@ extension ExtensionThemeData on ThemeData {
     primaryColor: themeData?.primaryColor ?? primaryColor,
     primaryColorDark: themeData?.primaryColorDark ?? primaryColorDark,
     primaryColorLight: themeData?.primaryColorLight ?? primaryColorLight,
-    scaffoldBackgroundColor:
-        themeData?.scaffoldBackgroundColor ?? scaffoldBackgroundColor,
-    secondaryHeaderColor:
-        themeData?.secondaryHeaderColor ?? secondaryHeaderColor,
+    scaffoldBackgroundColor: themeData?.scaffoldBackgroundColor ?? scaffoldBackgroundColor,
+    secondaryHeaderColor: themeData?.secondaryHeaderColor ?? secondaryHeaderColor,
     shadowColor: themeData?.shadowColor ?? shadowColor,
     splashColor: themeData?.splashColor ?? splashColor,
-    unselectedWidgetColor:
-        themeData?.unselectedWidgetColor ?? unselectedWidgetColor,
+    unselectedWidgetColor: themeData?.unselectedWidgetColor ?? unselectedWidgetColor,
     // TYPOGRAPHY & ICONOGRAPHY
     iconTheme: themeData?.iconTheme ?? iconTheme,
     primaryTextTheme: themeData?.primaryTextTheme ?? primaryTextTheme,
@@ -54,8 +45,7 @@ extension ExtensionThemeData on ThemeData {
     badgeTheme: themeData?.badgeTheme ?? badgeTheme,
     bannerTheme: themeData?.bannerTheme ?? bannerTheme,
     bottomAppBarTheme: themeData?.bottomAppBarTheme ?? bottomAppBarTheme,
-    bottomNavigationBarTheme:
-        themeData?.bottomNavigationBarTheme ?? bottomNavigationBarTheme,
+    bottomNavigationBarTheme: themeData?.bottomNavigationBarTheme ?? bottomNavigationBarTheme,
     bottomSheetTheme: themeData?.bottomSheetTheme ?? bottomSheetTheme,
     buttonTheme: themeData?.buttonTheme ?? buttonTheme,
     cardTheme: themeData?.cardTheme ?? cardTheme,
@@ -70,26 +60,22 @@ extension ExtensionThemeData on ThemeData {
     elevatedButtonTheme: themeData?.elevatedButtonTheme ?? elevatedButtonTheme,
     expansionTileTheme: themeData?.expansionTileTheme ?? expansionTileTheme,
     filledButtonTheme: themeData?.filledButtonTheme ?? filledButtonTheme,
-    floatingActionButtonTheme:
-        themeData?.floatingActionButtonTheme ?? floatingActionButtonTheme,
+    floatingActionButtonTheme: themeData?.floatingActionButtonTheme ?? floatingActionButtonTheme,
     iconButtonTheme: themeData?.iconButtonTheme ?? iconButtonTheme,
     listTileTheme: themeData?.listTileTheme ?? listTileTheme,
     menuBarTheme: themeData?.menuBarTheme ?? menuBarTheme,
     menuButtonTheme: themeData?.menuButtonTheme ?? menuButtonTheme,
     menuTheme: themeData?.menuTheme ?? menuTheme,
     navigationBarTheme: themeData?.navigationBarTheme ?? navigationBarTheme,
-    navigationDrawerTheme:
-        themeData?.navigationDrawerTheme ?? navigationDrawerTheme,
+    navigationDrawerTheme: themeData?.navigationDrawerTheme ?? navigationDrawerTheme,
     navigationRailTheme: themeData?.navigationRailTheme ?? navigationRailTheme,
     outlinedButtonTheme: themeData?.outlinedButtonTheme ?? outlinedButtonTheme,
     popupMenuTheme: themeData?.popupMenuTheme ?? popupMenuTheme,
-    progressIndicatorTheme:
-        themeData?.progressIndicatorTheme ?? progressIndicatorTheme,
+    progressIndicatorTheme: themeData?.progressIndicatorTheme ?? progressIndicatorTheme,
     radioTheme: themeData?.radioTheme ?? radioTheme,
     searchBarTheme: themeData?.searchBarTheme ?? searchBarTheme,
     searchViewTheme: themeData?.searchViewTheme ?? searchViewTheme,
-    segmentedButtonTheme:
-        themeData?.segmentedButtonTheme ?? segmentedButtonTheme,
+    segmentedButtonTheme: themeData?.segmentedButtonTheme ?? segmentedButtonTheme,
     sliderTheme: themeData?.sliderTheme ?? sliderTheme,
     snackBarTheme: themeData?.snackBarTheme ?? snackBarTheme,
     switchTheme: themeData?.switchTheme ?? switchTheme,

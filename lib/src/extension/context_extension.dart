@@ -6,126 +6,83 @@ extension ExtensionNavigatorStateContext on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   /// [push]
-  Future<T?> push<T extends Object?>(Route<T> route) =>
-      navigator.push<T>(route);
+  Future<T?> push<T extends Object?>(Route<T> route) => navigator.push<T>(route);
 
   /// [pushNamed]
-  Future<T?> pushNamed<T extends Object?>(
-    String routeName, {
-    Object? arguments,
-  }) => navigator.pushNamed<T>(routeName, arguments: arguments);
+  Future<T?> pushNamed<T extends Object?>(String routeName, {Object? arguments}) =>
+      navigator.pushNamed<T>(routeName, arguments: arguments);
 
   /// [restorablePush]
-  String restorablePush<T extends Object?>(
-    RestorableRouteBuilder<T> routeBuilder, {
-    Object? arguments,
-  }) => navigator.restorablePush<T>(routeBuilder, arguments: arguments);
+  String restorablePush<T extends Object?>(RestorableRouteBuilder<T> routeBuilder, {Object? arguments}) =>
+      navigator.restorablePush<T>(routeBuilder, arguments: arguments);
 
   /// [restorablePushNamed]
-  String restorablePushNamed<T extends Object?>(
-    String routeName, {
-    Object? arguments,
-  }) => navigator.restorablePushNamed<T>(routeName, arguments: arguments);
+  String restorablePushNamed<T extends Object?>(String routeName, {Object? arguments}) =>
+      navigator.restorablePushNamed<T>(routeName, arguments: arguments);
 
   /// [pushReplacement]
-  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
-    Route<T> newRoute, {
-    TO? result,
-  }) => navigator.pushReplacement<T, TO>(newRoute, result: result);
+  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(Route<T> newRoute, {TO? result}) =>
+      navigator.pushReplacement<T, TO>(newRoute, result: result);
 
   /// [pushReplacementNamed]
   Future<T?> pushReplacementNamed<T extends Object?, TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
-  }) => navigator.pushReplacementNamed<T, TO>(
-    routeName,
-    result: result,
-    arguments: arguments,
-  );
+  }) => navigator.pushReplacementNamed<T, TO>(routeName, result: result, arguments: arguments);
 
   /// [restorablePushReplacement]
   String restorablePushReplacement<T extends Object?, TO extends Object?>(
     RestorableRouteBuilder<T> routeBuilder, {
     TO? result,
     Object? arguments,
-  }) => navigator.restorablePushReplacement<T, TO>(
-    routeBuilder,
-    result: result,
-    arguments: arguments,
-  );
+  }) => navigator.restorablePushReplacement<T, TO>(routeBuilder, result: result, arguments: arguments);
 
   /// [restorablePushReplacementNamed]
   String restorablePushReplacementNamed<T extends Object?, TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
-  }) => navigator.restorablePushReplacementNamed<T, TO>(
-    routeName,
-    result: result,
-    arguments: arguments,
-  );
+  }) => navigator.restorablePushReplacementNamed<T, TO>(routeName, result: result, arguments: arguments);
 
   /// [pushAndRemoveUntil]
-  Future<T?> pushAndRemoveUntil<T extends Object?>(
-    Route<T> newRoute,
-    RoutePredicate predicate,
-  ) => navigator.pushAndRemoveUntil<T>(newRoute, predicate);
+  Future<T?> pushAndRemoveUntil<T extends Object?>(Route<T> newRoute, RoutePredicate predicate) =>
+      navigator.pushAndRemoveUntil<T>(newRoute, predicate);
 
   /// [pushNamedAndRemoveUntil]
   Future<T?> pushNamedAndRemoveUntil<T extends Object?>(
     String newRouteName,
     RoutePredicate predicate, {
     Object? arguments,
-  }) => navigator.pushNamedAndRemoveUntil<T>(
-    newRouteName,
-    predicate,
-    arguments: arguments,
-  );
+  }) => navigator.pushNamedAndRemoveUntil<T>(newRouteName, predicate, arguments: arguments);
 
   /// [restorablePushNamedAndRemoveUntil]
   String restorablePushNamedAndRemoveUntil<T extends Object?>(
     String newRouteName,
     RoutePredicate predicate, {
     Object? arguments,
-  }) => navigator.restorablePushNamedAndRemoveUntil<T>(
-    newRouteName,
-    predicate,
-    arguments: arguments,
-  );
+  }) => navigator.restorablePushNamedAndRemoveUntil<T>(newRouteName, predicate, arguments: arguments);
 
   /// [popAndPushNamed]
   Future<T?> popAndPushNamed<T extends Object?, TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
-  }) => navigator.popAndPushNamed<T, TO>(
-    routeName,
-    result: result,
-    arguments: arguments,
-  );
+  }) => navigator.popAndPushNamed<T, TO>(routeName, result: result, arguments: arguments);
 
   /// [restorablePopAndPushNamed]
   String restorablePopAndPushNamed<T extends Object?, TO extends Object?>(
     String routeName, {
     TO? result,
     Object? arguments,
-  }) => navigator.restorablePopAndPushNamed<T, TO>(
-    routeName,
-    result: result,
-    arguments: arguments,
-  );
+  }) => navigator.restorablePopAndPushNamed<T, TO>(routeName, result: result, arguments: arguments);
 
   /// [restorableReplace]
   String restorableReplace<T extends Object?>({
     required Route<dynamic> oldRoute,
     required RestorableRouteBuilder<T> newRouteBuilder,
     Object? arguments,
-  }) => navigator.restorableReplace<T>(
-    oldRoute: oldRoute,
-    newRouteBuilder: newRouteBuilder,
-    arguments: arguments,
-  );
+  }) => navigator.restorableReplace<T>(oldRoute: oldRoute, newRouteBuilder: newRouteBuilder, arguments: arguments);
 
   /// [restorableReplaceRouteBelow]
   String restorableReplaceRouteBelow<T extends Object?>({
@@ -142,8 +99,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
   void pop<T extends Object?>([T? result]) => navigator.pop<T>(result);
 
   /// [maybePop]
-  Future<bool> maybePop<T extends Object?>([T? result]) =>
-      navigator.maybePop<T>();
+  Future<bool> maybePop<T extends Object?>([T? result]) => navigator.maybePop<T>();
 
   /// [popUntil]
   void popUntil(RoutePredicate predicate) => navigator.popUntil(predicate);
@@ -152,8 +108,7 @@ extension ExtensionNavigatorStateContext on BuildContext {
   void removeRoute(Route<dynamic> route) => navigator.removeRoute(route);
 
   /// [removeRouteBelow]
-  void removeRouteBelow(Route<dynamic> route) =>
-      navigator.removeRouteBelow(route);
+  void removeRouteBelow(Route<dynamic> route) => navigator.removeRouteBelow(route);
 
   /// [canPop]
   bool canPop() => navigator.canPop();
@@ -182,32 +137,26 @@ extension ExtensionFocusScopeContext on BuildContext {
   FocusNode? get parent => focusScope.parent;
 
   /// focusNode==null  移出焦点 （可用于关闭键盘） focusNode！!= null 获取焦点
-  void requestFocus([FocusNode? focusNode]) =>
-      focusScope.requestFocus(focusNode ?? FocusNode());
+  void requestFocus([FocusNode? focusNode]) => focusScope.requestFocus(focusNode ?? FocusNode());
 
   /// 自动获取焦点
-  void autofocus([FocusNode? focusNode]) =>
-      focusScope.autofocus(focusNode ?? FocusNode());
+  void autofocus([FocusNode? focusNode]) => focusScope.autofocus(focusNode ?? FocusNode());
 
   bool nextFocus() => focusScope.nextFocus();
 
   bool previousFocus() => focusScope.previousFocus();
 
-  bool focusInDirection(TraversalDirection direction) =>
-      focusScope.focusInDirection(direction);
+  bool focusInDirection(TraversalDirection direction) => focusScope.focusInDirection(direction);
 
   void unfocus({UnfocusDisposition disposition = UnfocusDisposition.scope}) =>
       focusScope.unfocus(disposition: disposition);
 
-  FocusAttachment attach(
-    BuildContext? context, {
-    FocusOnKeyEventCallback? onKeyEvent,
-  }) => focusScope.attach(context, onKeyEvent: onKeyEvent);
+  FocusAttachment attach(BuildContext? context, {FocusOnKeyEventCallback? onKeyEvent}) =>
+      focusScope.attach(context, onKeyEvent: onKeyEvent);
 
   void addListener(VoidCallback listener) => focusScope.addListener(listener);
 
-  void removeListener(VoidCallback listener) =>
-      focusScope.removeListener(listener);
+  void removeListener(VoidCallback listener) => focusScope.removeListener(listener);
 
   void setFirstFocus(FocusScopeNode scope) => focusScope.setFirstFocus(scope);
 }
@@ -223,8 +172,7 @@ extension ExtensionContext on BuildContext {
   /// [reducedBy] is a percentage value of how much of the height you want
   /// if you for example want 46% of the height, then you reduce it by 56%.
   double heightTransformer({double dividedBy = 1, double reducedBy = 0.0}) =>
-      (mediaQuerySize.height - ((mediaQuerySize.height / 100) * reducedBy)) /
-      dividedBy;
+      (mediaQuerySize.height - ((mediaQuerySize.height / 100) * reducedBy)) / dividedBy;
 
   /// Gives you the power to get a portion of the width.
   /// Useful for responsive applications.
@@ -236,15 +184,10 @@ extension ExtensionContext on BuildContext {
   /// [reducedBy] is a percentage value of how much of the width you want
   /// if you for example want 46% of the width, then you reduce it by 56%.
   double widthTransformer({double dividedBy = 1, double reducedBy = 0.0}) =>
-      (mediaQuerySize.width - ((mediaQuerySize.width / 100) * reducedBy)) /
-      dividedBy;
+      (mediaQuerySize.width - ((mediaQuerySize.width / 100) * reducedBy)) / dividedBy;
 
   /// Divide the height proportionally by the given value
-  double ratio({
-    double dividedBy = 1,
-    double reducedByW = 0.0,
-    double reducedByH = 0.0,
-  }) =>
+  double ratio({double dividedBy = 1, double reducedByW = 0.0, double reducedByH = 0.0}) =>
       heightTransformer(dividedBy: dividedBy, reducedBy: reducedByH) /
       widthTransformer(dividedBy: dividedBy, reducedBy: reducedByW);
 
@@ -292,50 +235,30 @@ extension ExtensionContext on BuildContext {
 
   /// Get the coordinates of the widget on the screen.Widgets must be rendered completely.
   /// 获取widget在屏幕上的坐标,widget必须渲染完成
-  Offset getWidgetLocalToGlobal({
-    Offset point = Offset.zero,
-    RenderObject? ancestor,
-  }) {
+  Offset getWidgetLocalToGlobal({Offset point = Offset.zero, RenderObject? ancestor}) {
     final RenderBox? box = getRenderBox;
-    return box == null
-        ? Offset.zero
-        : box.localToGlobal(point, ancestor: ancestor);
+    return box == null ? Offset.zero : box.localToGlobal(point, ancestor: ancestor);
   }
 
   /// Get the Rect of the widget on the screen.Widgets must be rendered completely.
   /// 获取widget在屏幕上的Rect,widget必须渲染完成
-  Rect? getWidgetRectLocalToGlobal({
-    Offset point = Offset.zero,
-    RenderObject? ancestor,
-  }) {
+  Rect? getWidgetRectLocalToGlobal({Offset point = Offset.zero, RenderObject? ancestor}) {
     final RenderBox? box = getRenderBox;
-    return box == null
-        ? null
-        : box.localToGlobal(point, ancestor: ancestor) & box.size;
+    return box == null ? null : box.localToGlobal(point, ancestor: ancestor) & box.size;
   }
 
   /// Get the coordinates of the widget on the screen.Widgets must be rendered completely.
   /// 获取widget在屏幕上的坐标,widget必须渲染完成
-  Offset getWidgetGlobalToLocal({
-    Offset point = Offset.zero,
-    RenderObject? ancestor,
-  }) {
+  Offset getWidgetGlobalToLocal({Offset point = Offset.zero, RenderObject? ancestor}) {
     final RenderBox? box = getRenderBox;
-    return box == null
-        ? Offset.zero
-        : box.globalToLocal(point, ancestor: ancestor);
+    return box == null ? Offset.zero : box.globalToLocal(point, ancestor: ancestor);
   }
 
   /// Get the Rect of the widget on the screen.Widgets must be rendered completely.
   /// 获取widget在屏幕上的Rect,widget必须渲染完成
-  Rect? getWidgetRectGlobalToLocal({
-    Offset point = Offset.zero,
-    RenderObject? ancestor,
-  }) {
+  Rect? getWidgetRectGlobalToLocal({Offset point = Offset.zero, RenderObject? ancestor}) {
     final RenderBox? box = getRenderBox;
-    return box == null
-        ? null
-        : box.globalToLocal(point, ancestor: ancestor) & box.size;
+    return box == null ? null : box.globalToLocal(point, ancestor: ancestor) & box.size;
   }
 }
 

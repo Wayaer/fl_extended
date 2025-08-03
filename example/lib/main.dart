@@ -39,13 +39,8 @@ void main() {
         return Universal(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (content.iconStyle != null)
-              Icon(content.iconStyle!.icon, color: content.color),
-            Text(
-              content.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: content.color),
-            ),
+            if (content.iconStyle != null) Icon(content.iconStyle!.icon, color: content.color),
+            Text(content.text, textAlign: TextAlign.center, style: TextStyle(color: content.color)),
           ],
         );
       },
@@ -53,13 +48,9 @@ void main() {
 
     /// 设置全局BottomSheet配置
     flExtended.bottomSheetOptions = const BottomSheetOptions(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
     );
-    flExtended.dialogOptions = const DialogOptions(
-      fromStyle: PopupFromStyle.fromTop,
-    );
+    flExtended.dialogOptions = const DialogOptions(fromStyle: PopupFromStyle.fromTop);
 
     flExtended.logCrossLine = true;
 
@@ -73,10 +64,7 @@ void main() {
         if (progressIndicator != null) {
           return FlProgressIndicator(progressIndicator);
         }
-        return const Padding(
-          padding: EdgeInsets.all(10),
-          child: BText('全局设置loading', fontSize: 20),
-        );
+        return const Padding(padding: EdgeInsets.all(10), child: BText('全局设置loading', fontSize: 20));
       },
       onLoadingTap: () {
         log('onLoadingTap');
@@ -90,13 +78,7 @@ void main() {
       },
     );
     10000.generate((int index) {
-      FlLogcat().insertLog(
-        LogContent(
-          type: LogType.other,
-          dateTime: DateTime.now(),
-          line: 'insertLog  $index',
-        ),
-      );
+      FlLogcat().insertLog(LogContent(type: LogType.other, dateTime: DateTime.now(), line: 'insertLog  $index'));
     });
 
     runApp(
@@ -112,10 +94,7 @@ void main() {
 class MaterialAppRouter extends StatelessWidget {
   MaterialAppRouter({super.key});
 
-  final GoRouter _router = GoRouter(
-    navigatorKey: FlExtended().navigatorKey,
-    routes: <RouteBase>[],
-  );
+  final GoRouter _router = GoRouter(navigatorKey: FlExtended().navigatorKey, routes: <RouteBase>[]);
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +115,7 @@ class _MaterialApp extends StatelessWidget {
       theme: AppThemeData.light,
       darkTheme: AppThemeData.dark,
       title: 'Fl Extended',
-      home: ExtendedScaffold(
-        enableDoubleClickExit: true,
-        appBar: AppBarText('Fl Extended example'),
-        child: _Home(),
-      ),
+      home: ExtendedScaffold(enableDoubleClickExit: true, appBar: AppBarText('Fl Extended example'), child: _Home()),
       builder: DevicePreview.appBuilder,
     );
   }
@@ -172,22 +147,13 @@ class _HomeState extends State<_Home> {
       children: [
         ElevatedText('Text', onTap: () => push(const TextPage())),
         ElevatedText('Button', onTap: () => push(const ButtonPage())),
-        ElevatedText(
-          'State Components',
-          onTap: () => push(const StateComponentsPage()),
-        ),
+        ElevatedText('State Components', onTap: () => push(const StateComponentsPage())),
         ElevatedText('FlAnimation', onTap: () => push(const FlAnimationPage())),
         ElevatedText('Popup', onTap: () => push(const PopupPage())),
         ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
         ElevatedText('Universal', onTap: () => push(const UniversalPage())),
-        ElevatedText(
-          'FlProgressIndicator',
-          onTap: () => push(const ProgressIndicatorPage()),
-        ),
-        ElevatedText(
-          'ExtendedBuilder',
-          onTap: () => push(const ExtendedBuilderPage()),
-        ),
+        ElevatedText('FlProgressIndicator', onTap: () => push(const ProgressIndicatorPage())),
+        ElevatedText('ExtendedBuilder', onTap: () => push(const ExtendedBuilderPage())),
       ],
     );
   }
@@ -195,11 +161,7 @@ class _HomeState extends State<_Home> {
 
 class AppBarText extends AppBar {
   AppBarText(String text, {super.key})
-    : super(
-        elevation: 0,
-        title: BText(text, fontSize: 18, fontWeight: FontWeight.bold),
-        centerTitle: true,
-      );
+    : super(elevation: 0, title: BText(text, fontSize: 18, fontWeight: FontWeight.bold), centerTitle: true);
 }
 
 class ElevatedText extends StatelessWidget {
@@ -235,11 +197,7 @@ class Partition extends StatelessWidget {
     alignment: Alignment.center,
     padding: const EdgeInsets.all(10),
     margin: EdgeInsets.only(top: marginTop, bottom: 20),
-    child: BText(
-      title,
-      textAlign: TextAlign.center,
-      fontWeight: FontWeight.bold,
-    ),
+    child: BText(title, textAlign: TextAlign.center, fontWeight: FontWeight.bold),
   );
 }
 

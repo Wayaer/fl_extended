@@ -1,6 +1,10 @@
-## 1.8.2
+## 1.9.0
 
 * Add a file `global_key_extension`
+* Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`
+* Add `widgetsBinding` 、 `schedulerBinding` 、 `gestureBinding` 、 `paintingBinding` 、
+  `semanticsBinding` 、 `rendererBinding` 、 `servicesBinding`
+* Add `focusManager` and `primaryFocus`
 
 ## 1.8.1
 

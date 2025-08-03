@@ -12,8 +12,7 @@ enum ProgressIndicatorStyle {
 
   ProgressIndicatorOptions get options => switch (this) {
     ProgressIndicatorStyle.linear => const ProgressIndicatorOptions.linear(),
-    ProgressIndicatorStyle.circular =>
-      const ProgressIndicatorOptions.circular(),
+    ProgressIndicatorStyle.circular => const ProgressIndicatorOptions.circular(),
     ProgressIndicatorStyle.refresh => const ProgressIndicatorOptions.refresh(),
   };
 }
@@ -181,10 +180,6 @@ class FlProgressIndicator extends StatelessWidget {
     };
 
     if (options.width == null && options.height == null) return current;
-    return SizedBox(
-      width: options.width,
-      height: options.height,
-      child: current,
-    );
+    return SizedBox(width: options.width, height: options.height, child: current);
   }
 }

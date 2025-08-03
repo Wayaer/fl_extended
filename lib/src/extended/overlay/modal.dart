@@ -134,10 +134,8 @@ class ModalBoxOptions extends ModalOptions {
     foregroundColor: foregroundColor ?? this.foregroundColor,
     constraints: constraints ?? this.constraints,
     safeLTRB: safeLTRB ?? this.safeLTRB,
-    resizeToAvoidBottomInset:
-        resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
-    insetAnimationDuration:
-        insetAnimationDuration ?? this.insetAnimationDuration,
+    resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+    insetAnimationDuration: insetAnimationDuration ?? this.insetAnimationDuration,
     insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
   );
 
@@ -204,11 +202,7 @@ class ModalBox extends StatelessWidget {
         onTap: options.onModalTap,
         color: options.backgroundColor,
         alignment: options.alignment,
-        child: Universal(
-          safeLTRB: options.safeLTRB,
-          constraints: options.constraints,
-          child: current,
-        ),
+        child: Universal(safeLTRB: options.safeLTRB, constraints: options.constraints, child: current),
       ),
     );
     if (options.resizeToAvoidBottomInset) {
@@ -228,21 +222,13 @@ class ModalBox extends StatelessWidget {
     return current;
   }
 
-  Widget backdropFilter(ModalOptions options, Widget child) => BackdropFilter(
-    filter: ImageFilter.blur(
-      sigmaX: options.gaussian,
-      sigmaY: options.gaussian,
-    ),
-    child: child,
-  );
+  Widget backdropFilter(ModalOptions options, Widget child) =>
+      BackdropFilter(filter: ImageFilter.blur(sigmaX: options.gaussian, sigmaY: options.gaussian), child: child);
 }
 
 extension ExtensionActionDialog on ActionDialog {
-  Future<T?> show<T>({DialogOptions? options}) => popupDialog<T>(
-    options: const DialogOptions(
-      fromStyle: PopupFromStyle.fromCenter,
-    ).merge(options),
-  );
+  Future<T?> show<T>({DialogOptions? options}) =>
+      popupDialog<T>(options: const DialogOptions(fromStyle: PopupFromStyle.fromCenter).merge(options));
 }
 
 const Color _kDialogColor = CupertinoDynamicColor.withBrightness(
@@ -306,8 +292,7 @@ class ActionDialog extends StatelessWidget {
       widgets.add(buildDivider());
     }
     if (actions.isNotEmpty) widgets.add(buildActions);
-    BoxConstraints? constraints =
-        this.constraints ?? BoxConstraints(maxWidth: context.width - 40);
+    BoxConstraints? constraints = this.constraints ?? BoxConstraints(maxWidth: context.width - 40);
     return ModalBox(
       options: ModalBoxOptions(
         constraints: constraints,
@@ -326,15 +311,9 @@ class ActionDialog extends StatelessWidget {
     EdgeInsets? margin;
     if (dividerMargin != null) {
       if (isVertical) {
-        margin = EdgeInsets.only(
-          top: dividerMargin!.top,
-          bottom: dividerMargin!.bottom,
-        );
+        margin = EdgeInsets.only(top: dividerMargin!.top, bottom: dividerMargin!.bottom);
       } else {
-        margin = EdgeInsets.only(
-          left: dividerMargin!.left,
-          right: dividerMargin!.right,
-        );
+        margin = EdgeInsets.only(left: dividerMargin!.left, right: dividerMargin!.right);
       }
     }
     return Container(

@@ -33,11 +33,9 @@ class ExtendedStreamBuilder<T> extends StreamBuilder {
              case ConnectionState.none:
                return onNone?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.waiting:
-               return onWaiting?.call(context, snapshot.data) ??
-                   const SizedBox();
+               return onWaiting?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.active:
-               return onActive?.call(context, snapshot.data) ??
-                   const SizedBox();
+               return onActive?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.done:
                return onDone?.call(context, snapshot.data) ?? const SizedBox();
            }
@@ -92,8 +90,7 @@ class CustomStreamBuilder<T> extends ExtendedStatefulWidget {
   State<CustomStreamBuilder<T>> createState() => _CustomStreamBuilderState<T>();
 }
 
-class _CustomStreamBuilderState<T>
-    extends ExtendedStatefulWidgetState<CustomStreamBuilder<T>> {
+class _CustomStreamBuilderState<T> extends ExtendedStatefulWidgetState<CustomStreamBuilder<T>> {
   BuilderState state = BuilderState.none;
   StreamSubscription<T>? _subscription;
   T? data;

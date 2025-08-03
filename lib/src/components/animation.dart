@@ -73,8 +73,7 @@ class FlAnimation extends _FlAnimation {
   State<FlAnimation> createState() => _FlAnimationState();
 }
 
-class _FlAnimationState extends ExtendedState<FlAnimation>
-    with SingleTickerProviderStateMixin {
+class _FlAnimationState extends ExtendedState<FlAnimation> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -91,10 +90,7 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
   }
 
   void initialize() {
-    _controller = AnimationController(
-      duration: widget.animationDuration,
-      vsync: this,
-    );
+    _controller = AnimationController(duration: widget.animationDuration, vsync: this);
     switch (widget.style) {
       case FlAnimationStyle.fade:
         _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
@@ -110,24 +106,15 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
 
   Animation<double> huntingAnimation() => TweenSequence([
     TweenSequenceItem<double>(
-      tween: Tween(
-        begin: 0.0,
-        end: -10.0,
-      ).chain(CurveTween(curve: Curves.easeInOut)),
+      tween: Tween(begin: 0.0, end: -10.0).chain(CurveTween(curve: Curves.easeInOut)),
       weight: 0.5,
     ),
     TweenSequenceItem<double>(
-      tween: Tween(
-        begin: -10.0,
-        end: 10.0,
-      ).chain(CurveTween(curve: Curves.easeInOut)),
+      tween: Tween(begin: -10.0, end: 10.0).chain(CurveTween(curve: Curves.easeInOut)),
       weight: 1.0,
     ),
     TweenSequenceItem<double>(
-      tween: Tween(
-        begin: 10.0,
-        end: 0.0,
-      ).chain(CurveTween(curve: Curves.easeInOut)),
+      tween: Tween(begin: 10.0, end: 0.0).chain(CurveTween(curve: Curves.easeInOut)),
       weight: 0.5,
     ),
   ]).animate(_controller);
@@ -156,10 +143,7 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (BuildContext context, Widget? child) => buildChild(),
-    );
+    return AnimatedBuilder(animation: _animation, builder: (BuildContext context, Widget? child) => buildChild());
   }
 
   Widget buildChild() {
@@ -167,15 +151,9 @@ class _FlAnimationState extends ExtendedState<FlAnimation>
       case FlAnimationStyle.fade:
         return Opacity(opacity: _animation.value, child: widget.child);
       case FlAnimationStyle.horizontalHunting:
-        return Transform.translate(
-          offset: Offset(_animation.value, 0.0),
-          child: widget.child,
-        );
+        return Transform.translate(offset: Offset(_animation.value, 0.0), child: widget.child);
       case FlAnimationStyle.verticalHunting:
-        return Transform.translate(
-          offset: Offset(0.0, _animation.value),
-          child: widget.child,
-        );
+        return Transform.translate(offset: Offset(0.0, _animation.value), child: widget.child);
     }
   }
 

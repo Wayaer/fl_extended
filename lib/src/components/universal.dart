@@ -513,11 +513,7 @@ class Universal extends StatelessWidget {
         current = buildFlex(children!);
       }
       if (intrinsicWidth) {
-        current = IntrinsicWidth(
-          stepWidth: stepWidth,
-          stepHeight: stepHeight,
-          child: current,
-        );
+        current = IntrinsicWidth(stepWidth: stepWidth, stepHeight: stepHeight, child: current);
       }
     } else if (child != null) {
       current = child!;
@@ -538,9 +534,7 @@ class Universal extends StatelessWidget {
         current = buildSingleChildScrollView(current);
       } else {
         if (children != null && children!.isNotEmpty && !isStack && !isWrap) {
-          current = buildCustomScrollView(
-            children!.builder((Widget item) => SliverToBoxAdapter(child: item)),
-          );
+          current = buildCustomScrollView(children!.builder((Widget item) => SliverToBoxAdapter(child: item)));
         } else {
           current = buildCustomScrollView([SliverToBoxAdapter(child: current)]);
         }
@@ -552,27 +546,17 @@ class Universal extends StatelessWidget {
       current = buildPadding(current);
     }
     if (alignment != null) {
-      current = Align(
-        alignment: alignment!,
-        widthFactor: widthFactor,
-        heightFactor: heightFactor,
-        child: current,
-      );
+      current = Align(alignment: alignment!, widthFactor: widthFactor, heightFactor: heightFactor, child: current);
     }
 
     if (color != null && decoration == null) {
       current = ColoredBox(color: color!, child: current);
     }
 
-    if (decoration != null &&
-        clipBehavior != null &&
-        clipBehavior != Clip.none) {
+    if (decoration != null && clipBehavior != null && clipBehavior != Clip.none) {
       current = buildClip(
         current,
-        clipper: _DecorationClipper(
-          textDirection: Directionality.of(context),
-          decoration: decoration!,
-        ),
+        clipper: _DecorationClipper(textDirection: Directionality.of(context), decoration: decoration!),
       );
     }
     if (decoration != null) {
@@ -597,18 +581,11 @@ class Universal extends StatelessWidget {
       );
     }
     if (transform != null) {
-      current = Transform(
-        transform: transform!,
-        origin: origin,
-        child: current,
-      );
+      current = Transform(transform: transform!, origin: origin, child: current);
     }
 
     if (unifiedButtonCategory != null &&
-        (onTap != null ||
-            onPressed != null ||
-            onLongPress != null ||
-            onHover != null)) {
+        (onTap != null || onPressed != null || onLongPress != null || onHover != null)) {
       current = buildUnifiedButtonCategory(current);
     }
     if (enabledGestureDetector) {
@@ -638,13 +615,7 @@ class Universal extends StatelessWidget {
       current = buildFlexible(current, FlexFit.tight);
     }
     if (left != null || top != null || right != null || bottom != null) {
-      current = Positioned(
-        left: left,
-        top: top,
-        right: right,
-        bottom: bottom,
-        child: current,
-      );
+      current = Positioned(left: left, top: top, right: right, bottom: bottom, child: current);
     }
     if (fit != null) current = buildFittedBox(current);
     if (opacity != null) current = Opacity(opacity: opacity!, child: current);
@@ -664,11 +635,7 @@ class Universal extends StatelessWidget {
   }
 
   Widget buildAnnotatedRegion(Widget current) =>
-      AnnotatedRegion<SystemUiOverlayStyle>(
-        sized: sized,
-        value: systemOverlayStyle!,
-        child: current,
-      );
+      AnnotatedRegion<SystemUiOverlayStyle>(sized: sized, value: systemOverlayStyle!, child: current);
 
   Widget buildFittedBox(Widget current) => FittedBox(
     fit: fit!,
@@ -678,23 +645,16 @@ class Universal extends StatelessWidget {
   );
 
   Widget buildPadding(Widget current) =>
-      _paddingIncludingDecoration == null
-          ? current
-          : Padding(padding: _paddingIncludingDecoration!, child: current);
+      _paddingIncludingDecoration == null ? current : Padding(padding: _paddingIncludingDecoration!, child: current);
 
-  Widget buildBackdropFilter(Widget current) =>
-      BackdropFilter(blendMode: blendMode, filter: filter!, child: current);
+  Widget buildBackdropFilter(Widget current) => BackdropFilter(blendMode: blendMode, filter: filter!, child: current);
 
-  Widget buildOffstage(Widget current) =>
-      Offstage(offstage: offstage, child: current);
+  Widget buildOffstage(Widget current) => Offstage(offstage: offstage, child: current);
 
   /// 裁剪组件
   Widget buildClip(Widget current, {CustomClipper<dynamic>? clipper}) {
     if (isOval) {
-      return ClipOval(
-        clipBehavior: clipBehavior ?? Clip.antiAlias,
-        child: current,
-      );
+      return ClipOval(clipBehavior: clipBehavior ?? Clip.antiAlias, child: current);
     } else if (clipper is CustomClipper<Rect> || isClipRect) {
       return ClipRect(
         clipper: clipper is CustomClipper<Rect> ? clipper : null,
@@ -702,11 +662,7 @@ class Universal extends StatelessWidget {
         child: current,
       );
     } else if (clipper is CustomClipper<Path>) {
-      return ClipPath(
-        clipper: clipper,
-        clipBehavior: clipBehavior ?? Clip.antiAlias,
-        child: current,
-      );
+      return ClipPath(clipper: clipper, clipBehavior: clipBehavior ?? Clip.antiAlias, child: current);
     } else if (clipper is CustomClipper<RRect> || isClipRRect) {
       return ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.zero,
@@ -751,8 +707,7 @@ class Universal extends StatelessWidget {
     child: current,
   );
 
-  Widget buildFlexible(Widget current, FlexFit fit) =>
-      Flexible(flex: flex, fit: fit, child: current);
+  Widget buildFlexible(Widget current, FlexFit fit) => Flexible(flex: flex, fit: fit, child: current);
 
   Widget buildListView(List<Widget> children) => ListView(
     physics: physics,
@@ -978,11 +933,9 @@ class _DecorationClipper extends CustomClipper<Path> {
   final Decoration decoration;
 
   @override
-  Path getClip(Size size) =>
-      decoration.getClipPath(Offset.zero & size, textDirection);
+  Path getClip(Size size) => decoration.getClipPath(Offset.zero & size, textDirection);
 
   @override
   bool shouldReclip(_DecorationClipper oldClipper) =>
-      oldClipper.decoration != decoration ||
-      oldClipper.textDirection != textDirection;
+      oldClipper.decoration != decoration || oldClipper.textDirection != textDirection;
 }

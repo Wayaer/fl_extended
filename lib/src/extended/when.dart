@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/foundation.dart';
 
 /// English: The super evolution version💖💖💖 of [switch] method, all basic types of values can be compared, including [List], [Map], [Set], and [Iterable].<br>
 /// All need do is [value] in [Map.keys] of [conditionMap], its corresponding [ValueGetter] method will be executed
@@ -28,9 +28,7 @@ import 'package:fl_extended/fl_extended.dart';
 /// ```
 T? whenValue<V, T>(V value, Map<V, ValueGetter<T>> conditionMap) {
   return conditionMap.entries
-      .firstOrNullWhere(
-        (element) => const DeepCollectionEquality().equals(element.key, value),
-      )
+      .firstOrNullWhere((element) => const DeepCollectionEquality().equals(element.key, value))
       ?.value();
 }
 

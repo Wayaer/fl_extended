@@ -210,8 +210,7 @@ class BottomSheetOptions extends GeneralModalOptions {
     isScrollControlled: isScrollControlled ?? this.isScrollControlled,
     routeSettings: routeSettings ?? this.routeSettings,
     useRootNavigator: useRootNavigator ?? this.useRootNavigator,
-    transitionAnimationController:
-        transitionAnimationController ?? this.transitionAnimationController,
+    transitionAnimationController: transitionAnimationController ?? this.transitionAnimationController,
   );
 
   BottomSheetOptions merge([BottomSheetOptions? options]) => copyWith(
@@ -264,14 +263,13 @@ class CupertinoModalPopupOptions extends GeneralModalOptions {
     semanticsDismissible: semanticsDismissible ?? this.semanticsDismissible,
   );
 
-  CupertinoModalPopupOptions merge([CupertinoModalPopupOptions? options]) =>
-      copyWith(
-        barrierDismissible: options?.barrierDismissible,
-        useRootNavigator: options?.useRootNavigator,
-        routeSettings: options?.routeSettings,
-        barrierColor: options?.barrierColor,
-        anchorPoint: options?.anchorPoint,
-        filter: options?.filter,
-        semanticsDismissible: options?.semanticsDismissible,
-      );
+  CupertinoModalPopupOptions merge([CupertinoModalPopupOptions? options]) => copyWith(
+    barrierDismissible: options?.barrierDismissible,
+    useRootNavigator: options?.useRootNavigator,
+    routeSettings: options?.routeSettings,
+    barrierColor: options?.barrierColor,
+    anchorPoint: options?.anchorPoint,
+    filter: options?.filter,
+    semanticsDismissible: options?.semanticsDismissible,
+  );
 }

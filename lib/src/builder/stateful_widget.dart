@@ -27,8 +27,7 @@ abstract class ExtendedStatefulWidget extends StatefulWidget {
   final ValueCallback<BuildContext>? dispose;
 }
 
-abstract class ExtendedStatefulWidgetState<T extends ExtendedStatefulWidget>
-    extends ExtendedState<T> {
+abstract class ExtendedStatefulWidgetState<T extends ExtendedStatefulWidget> extends ExtendedState<T> {
   @override
   void initState() {
     widget.initState?.call(context);

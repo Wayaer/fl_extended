@@ -80,11 +80,7 @@ class Toast extends StatelessWidget {
       direction: options.direction,
     );
     Widget current = options.builder?.call(context, content) ?? content;
-    current = Universal(
-      onTap: options.onToastTap,
-      padding: options.padding,
-      child: current,
-    );
+    current = Universal(onTap: options.onToastTap, padding: options.padding, child: current);
     return ModalBox(
       options: options,
       materialBuilder:
@@ -92,12 +88,8 @@ class Toast extends StatelessWidget {
               ? null
               : (Widget child) => FlAnimation(
                 style: options.animationStyle!,
-                animationDuration:
-                    options.animationDuration ?? kThemeChangeDuration,
-                stayDuration: options.duration.subtract(
-                  kFlAnimationDuration,
-                  kFlAnimationDuration,
-                ),
+                animationDuration: options.animationDuration ?? kThemeChangeDuration,
+                stayDuration: options.duration.subtract(kFlAnimationDuration, kFlAnimationDuration),
                 child: child,
               ),
       child: current,
@@ -145,22 +137,14 @@ class ToastContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget current = Text(
-      text,
-      textAlign: TextAlign.center,
-      style: textStyle,
-      maxLines: maxLines,
-    );
+    Widget current = Text(text, textAlign: TextAlign.center, style: textStyle, maxLines: maxLines);
     if (iconStyle != null) {
       current = Flex(
         direction: direction ?? Axis.vertical,
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(iconStyle!.icon, size: size, color: color),
-          SizedBox(
-            width: direction == Axis.horizontal ? spacing : 0,
-            height: direction == Axis.vertical ? spacing : 0,
-          ),
+          SizedBox(width: direction == Axis.horizontal ? spacing : 0, height: direction == Axis.vertical ? spacing : 0),
           current,
         ],
       );
@@ -236,8 +220,7 @@ Future<FlOverlayEntry?> showToast(
 
 void hideToast() => FlOverlay().hideToast();
 
-typedef ToastBuilder =
-    Widget? Function(BuildContext context, ToastContent content);
+typedef ToastBuilder = Widget? Function(BuildContext context, ToastContent content);
 
 class ToastOptions extends ModalOptions {
   const ToastOptions({
@@ -369,10 +352,8 @@ class ToastOptions extends ModalOptions {
     shape: shape ?? this.shape,
     borderOnForeground: borderOnForeground ?? this.borderOnForeground,
     safeLTRB: safeLTRB ?? this.safeLTRB,
-    resizeToAvoidBottomInset:
-        resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
-    insetAnimationDuration:
-        insetAnimationDuration ?? this.insetAnimationDuration,
+    resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+    insetAnimationDuration: insetAnimationDuration ?? this.insetAnimationDuration,
     insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
   );
 

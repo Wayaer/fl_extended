@@ -125,26 +125,14 @@ class UnifiedButton extends StatelessWidget {
       final themeStyle = switch (category) {
         UnifiedButtonCategory.none => TextButtonTheme.of(context).style,
         UnifiedButtonCategory.filled => FilledButtonTheme.of(context).style,
-        UnifiedButtonCategory.filledTonal =>
-          FilledButtonTheme.of(context).style,
+        UnifiedButtonCategory.filledTonal => FilledButtonTheme.of(context).style,
         UnifiedButtonCategory.elevated => ElevatedButtonTheme.of(context).style,
         UnifiedButtonCategory.outlined => OutlinedButtonTheme.of(context).style,
       };
-      final double defaultFontSize =
-          (style ?? themeStyle)?.textStyle
-              ?.resolve(const <WidgetState>{})
-              ?.fontSize ??
-          14.0;
-      final double scale =
-          clampDouble(
-            MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0,
-            1.0,
-            2.0,
-          ) -
-          1.0;
+      final double defaultFontSize = (style ?? themeStyle)?.textStyle?.resolve(const <WidgetState>{})?.fontSize ?? 14.0;
+      final double scale = clampDouble(MediaQuery.textScalerOf(context).scale(defaultFontSize) / 14.0, 1.0, 2.0) - 1.0;
       final double gap = lerpDouble(8, 4, scale)!;
-      final IconAlignment effectiveIconAlignment =
-          iconAlignment ?? themeStyle?.iconAlignment ?? IconAlignment.start;
+      final IconAlignment effectiveIconAlignment = iconAlignment ?? themeStyle?.iconAlignment ?? IconAlignment.start;
       current = Flex(
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,

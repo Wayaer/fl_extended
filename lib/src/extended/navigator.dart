@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-typedef PopInvokedWithResultAndOverlayCallback<T> =
-    void Function(bool didPop, T? result, bool didHideOverlay);
+typedef PopInvokedWithResultAndOverlayCallback<T> = void Function(bool didPop, T? result, bool didHideOverlay);
 
 class FlPopScope<T> extends PopScope<T> {
   FlPopScope({
@@ -149,13 +148,8 @@ enum RoutePushStyle {
 }
 
 /// 打开新页面
-Future<T?> push<T extends Object?, TO extends Object?>(
-  Widget widget, {
-  PageRouteOptions? options,
-}) => widget.push<T>(
-  widget,
-  options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)),
-);
+Future<T?> push<T extends Object?, TO extends Object?>(Widget widget, {PageRouteOptions? options}) =>
+    widget.push<T>(widget, options: (options ??= PageRouteOptions(style: FlExtended().pushStyle)));
 
 /// 打开新页面替换当前页面
 Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
@@ -203,11 +197,7 @@ Future<bool> pop<T extends Object>([T? result, bool isMaybe = false]) {
 }
 
 /// pop 返回简写 带参数  [nullBack] =true  navigator 返回为空 就继续返回上一页面
-void popBack(
-  Future<dynamic> navigator, {
-  bool nullBack = false,
-  bool useMaybePop = false,
-}) {
+void popBack(Future<dynamic> navigator, {bool nullBack = false, bool useMaybePop = false}) {
   final Future<dynamic> future = navigator;
   future.then((dynamic value) {
     if (nullBack) {
@@ -224,14 +214,10 @@ void popUntil([RoutePredicate? predicate]) {
     FlExtended().navigatorKey.currentState != null,
     'Set FlExtended().navigatorKey to one of [MaterialApp CupertinoApp WidgetsApp]',
   );
-  return FlExtended().navigatorKey.currentState!.popUntil(
-    predicate ?? (Route<dynamic> route) => route.isFirst,
-  );
+  return FlExtended().navigatorKey.currentState!.popUntil(predicate ?? (Route<dynamic> route) => route.isFirst);
 }
 
-ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? showSnackBar(
-  SnackBar snackBar,
-) {
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? showSnackBar(SnackBar snackBar) {
   assert(
     FlExtended().scaffoldMessengerKey.currentState != null,
     'Set FlExtended().scaffoldMessengerKey to the MaterialApp',

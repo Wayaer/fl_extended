@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-typedef ValueBuilderCallback<T> =
-    Widget Function(BuildContext context, T? value, ValueCallback<T> updater);
+typedef ValueBuilderCallback<T> = Widget Function(BuildContext context, T? value, ValueCallback<T> updater);
 
 /// Example:
 /// ```
@@ -41,8 +40,7 @@ class ValueBuilder<T> extends ExtendedStatefulWidget {
   State<ValueBuilder<T>> createState() => _ValueBuilderState<T>();
 }
 
-class _ValueBuilderState<T>
-    extends ExtendedStatefulWidgetState<ValueBuilder<T>> {
+class _ValueBuilderState<T> extends ExtendedStatefulWidgetState<ValueBuilder<T>> {
   T? value;
 
   @override

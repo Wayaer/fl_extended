@@ -29,10 +29,7 @@ class StateComponentsPage extends StatelessWidget {
                     updater(v);
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(value.toString()),
-                ),
+                Padding(padding: const EdgeInsets.all(8.0), child: Text(value.toString())),
                 Universal(
                   child: const Icon(Icons.add_circle_outline),
                   onTap: () {
@@ -60,10 +57,7 @@ class StateComponentsPage extends StatelessWidget {
                     valueListenable.value = num;
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(valueListenable.value.toString()),
-                ),
+                Padding(padding: const EdgeInsets.all(8.0), child: Text(valueListenable.value.toString())),
                 Universal(
                   child: const Icon(Icons.add_circle_outline),
                   onTap: () {
@@ -83,12 +77,7 @@ class StateComponentsPage extends StatelessWidget {
             ChangedBuilder<bool?>(
               value: true,
               onChanged: (bool? value) {},
-              builder:
-                  (bool? value, onChanged) => Checkbox(
-                    tristate: true,
-                    value: value,
-                    onChanged: onChanged,
-                  ),
+              builder: (bool? value, onChanged) => Checkbox(tristate: true, value: value, onChanged: onChanged),
             ),
             ChangedBuilder<bool?>(
               value: true,
@@ -97,12 +86,8 @@ class StateComponentsPage extends StatelessWidget {
                 return value;
               },
               builder:
-                  (bool? value, onChanged) => Checkbox(
-                    shape: const CircleBorder(),
-                    tristate: true,
-                    value: value,
-                    onChanged: onChanged,
-                  ),
+                  (bool? value, onChanged) =>
+                      Checkbox(shape: const CircleBorder(), tristate: true, value: value, onChanged: onChanged),
             ),
           ],
         ),
@@ -113,16 +98,12 @@ class StateComponentsPage extends StatelessWidget {
             ChangedBuilder<bool>(
               value: true,
               onChanged: (bool value) {},
-              builder:
-                  (bool value, onChanged) =>
-                      Switch(value: value, onChanged: onChanged),
+              builder: (bool value, onChanged) => Switch(value: value, onChanged: onChanged),
             ),
             ChangedBuilder<bool>(
               value: true,
               onChanged: (bool value) {},
-              builder:
-                  (bool value, onChanged) =>
-                      CupertinoSwitch(value: value, onChanged: onChanged),
+              builder: (bool value, onChanged) => CupertinoSwitch(value: value, onChanged: onChanged),
             ),
             ChangedBuilder<bool>(
               value: true,
@@ -130,9 +111,7 @@ class StateComponentsPage extends StatelessWidget {
                 await 1.seconds.delayed();
                 return value;
               },
-              builder:
-                  (bool value, onChanged) =>
-                      CupertinoSwitch(value: value, onChanged: onChanged),
+              builder: (bool value, onChanged) => CupertinoSwitch(value: value, onChanged: onChanged),
             ),
           ],
         ),
@@ -151,13 +130,7 @@ class StateComponentsPage extends StatelessWidget {
                       return Row(
                         children: 2.generate(
                           (index) =>
-                              Icon(
-                                icons[index],
-                                color:
-                                    controller.index == index
-                                        ? Colors.blueAccent
-                                        : null,
-                              ).expanded,
+                              Icon(icons[index], color: controller.index == index ? Colors.blueAccent : null).expanded,
                         ),
                       );
                     },
@@ -167,14 +140,8 @@ class StateComponentsPage extends StatelessWidget {
                     height: 50,
                     child: TabBarView(
                       children: [
-                        Container(
-                          color: Colors.yellow,
-                          child: const Center(child: Text('往左滑动')),
-                        ),
-                        Container(
-                          color: Colors.blueAccent,
-                          child: const Center(child: Text('往左滑动')),
-                        ),
+                        Container(color: Colors.yellow, child: const Center(child: Text('往左滑动'))),
+                        Container(color: Colors.blueAccent, child: const Center(child: Text('往左滑动'))),
                       ],
                     ),
                   ),

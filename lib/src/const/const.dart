@@ -21,6 +21,5 @@ class FlExtendedIcons {
 }
 
 class _IconData extends IconData {
-  const _IconData(super.codePoint)
-    : super(fontFamily: 'FlExtendedIcons', fontPackage: 'fl_extended');
+  const _IconData(super.codePoint) : super(fontFamily: 'FlExtendedIcons', fontPackage: 'fl_extended');
 }

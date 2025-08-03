@@ -3,8 +3,7 @@ import 'package:fl_extended/fl_extended.dart';
 extension ExtensionMap<K, V> on Map<K, V> {
   List<K> keysList({bool growable = true}) => keys.toList(growable: growable);
 
-  List<V> valuesList({bool growable = true}) =>
-      values.toList(growable: growable);
+  List<V> valuesList({bool growable = true}) => values.toList(growable: growable);
 
   ///  entries.map()
   Iterable<E> entriesMapKV<E>(E Function(K, V) builder) =>
@@ -12,9 +11,7 @@ extension ExtensionMap<K, V> on Map<K, V> {
 
   ///  entries.map().toList()
   List<E> entriesMapKVToList<E>(E Function(K, V) builder) =>
-      entries
-          .map((MapEntry<K, V> entry) => builder(entry.key, entry.value))
-          .toList();
+      entries.map((MapEntry<K, V> entry) => builder(entry.key, entry.value)).toList();
 
   /// entries.map()
   Iterable<E> entriesMap<E>(E Function(MapEntry<K, V>) builder) =>
@@ -31,21 +28,13 @@ extension ExtensionMap<K, V> on Map<K, V> {
   }
 
   /// update map 并返回 新map
-  Map<K, V> updateAllT(
-    V Function(K key, V value) update, {
-    bool isUpdate = true,
-  }) {
+  Map<K, V> updateAllT(V Function(K key, V value) update, {bool isUpdate = true}) {
     if (isUpdate) updateAll(update);
     return this;
   }
 
   /// update map 并返回 新map
-  Map<K, V> updateT(
-    K key,
-    V Function(V value) update, {
-    V Function()? ifAbsent,
-    bool isUpdate = true,
-  }) {
+  Map<K, V> updateT(K key, V Function(V value) update, {V Function()? ifAbsent, bool isUpdate = true}) {
     if (isUpdate) this.update(key, update, ifAbsent: ifAbsent);
     return this;
   }
@@ -68,8 +57,7 @@ extension ExtensionMap<K, V> on Map<K, V> {
 
 extension ExtensionListMap on List<Map> {
   /// `List<Map>` to `List<Map<String,dynamic>>`
-  List<Map<String, dynamic>> get keyToString =>
-      builder((element) => element.keyToString);
+  List<Map<String, dynamic>> get keyToString => builder((element) => element.keyToString);
 }
 
 extension ExtensionMapUnsafe on Map? {

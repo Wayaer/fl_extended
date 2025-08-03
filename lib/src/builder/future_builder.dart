@@ -33,11 +33,9 @@ class ExtendedFutureBuilder<T> extends FutureBuilder {
              case ConnectionState.none:
                return onNone?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.waiting:
-               return onWaiting?.call(context, snapshot.data) ??
-                   const SizedBox();
+               return onWaiting?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.active:
-               return onActive?.call(context, snapshot.data) ??
-                   const SizedBox();
+               return onActive?.call(context, snapshot.data) ?? const SizedBox();
              case ConnectionState.done:
                return onDone?.call(context, snapshot.data) ?? const SizedBox();
            }
@@ -106,8 +104,7 @@ class CustomFutureBuilder<T> extends ExtendedStatefulWidget {
   State<CustomFutureBuilder<T>> createState() => _CustomFutureBuilderState<T>();
 }
 
-class _CustomFutureBuilderState<T>
-    extends ExtendedStatefulWidgetState<CustomFutureBuilder<T>> {
+class _CustomFutureBuilderState<T> extends ExtendedStatefulWidgetState<CustomFutureBuilder<T>> {
   BuilderState state = BuilderState.none;
   T? data;
   Object? _error;

@@ -16,14 +16,10 @@ extension ExtensionColor on Color {
     900: _swatchShade(900),
   };
 
-  Color _swatchShade(int swatchValue) =>
-      HSLColor.fromColor(
-        this,
-      ).withLightness(1 - (swatchValue / 1000)).toColor();
+  Color _swatchShade(int swatchValue) => HSLColor.fromColor(this).withLightness(1 - (swatchValue / 1000)).toColor();
 
   Color get withBrightness {
-    final Brightness brightness =
-        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final Brightness brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     if (brightness == Brightness.light) {
       return this;
     } else {

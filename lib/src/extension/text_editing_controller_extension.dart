@@ -8,10 +8,7 @@ extension ExtensionTextEditingController on TextEditingController {
     int end = selection.end;
     String newValue = value.substring(0, start) + text + value.substring(end);
     int newSelection = start + text.length;
-    this.value = this.value.copyWith(
-      text: newValue,
-      selection: TextSelection.collapsed(offset: newSelection),
-    );
+    this.value = this.value.copyWith(text: newValue, selection: TextSelection.collapsed(offset: newSelection));
   }
 
   /// 在光标前插入文本
@@ -20,9 +17,6 @@ extension ExtensionTextEditingController on TextEditingController {
     int start = selection.start;
     String newValue = value.substring(0, start) + text + value.substring(start);
     int newSelection = start + text.length;
-    this.value = this.value.copyWith(
-      text: newValue,
-      selection: TextSelection.collapsed(offset: newSelection),
-    );
+    this.value = this.value.copyWith(text: newValue, selection: TextSelection.collapsed(offset: newSelection));
   }
 }

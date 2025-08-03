@@ -1,10 +1,6 @@
 part of 'overlay.dart';
 
-typedef LoadingBuilder =
-    Widget? Function(
-      BuildContext context,
-      ProgressIndicatorOptions? progressIndicator,
-    );
+typedef LoadingBuilder = Widget? Function(BuildContext context, ProgressIndicatorOptions? progressIndicator);
 
 class LoadingOptions extends ModalOptions {
   const LoadingOptions({
@@ -87,10 +83,8 @@ class LoadingOptions extends ModalOptions {
     borderOnForeground: borderOnForeground ?? this.borderOnForeground,
     shape: shape ?? this.shape,
     safeLTRB: safeLTRB ?? this.safeLTRB,
-    resizeToAvoidBottomInset:
-        resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
-    insetAnimationDuration:
-        insetAnimationDuration ?? this.insetAnimationDuration,
+    resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? this.resizeToAvoidBottomInset,
+    insetAnimationDuration: insetAnimationDuration ?? this.insetAnimationDuration,
     insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
   );
 
@@ -149,19 +143,10 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = FlExtended().loadingOptions
-        .merge(this.options)
-        .copyWith(builder: builder);
-    Widget current = FlProgressIndicator(
-      options.progressIndicator ?? ProgressIndicatorStyle.circular.options,
-    );
-    current =
-        options.builder?.call(context, options.progressIndicator) ?? current;
-    current = Universal(
-      onTap: options.onLoadingTap,
-      padding: options.padding,
-      child: current,
-    );
+    final options = FlExtended().loadingOptions.merge(this.options).copyWith(builder: builder);
+    Widget current = FlProgressIndicator(options.progressIndicator ?? ProgressIndicatorStyle.circular.options);
+    current = options.builder?.call(context, options.progressIndicator) ?? current;
+    current = Universal(onTap: options.onLoadingTap, padding: options.padding, child: current);
     return ModalBox(options: options, child: current);
   }
 }

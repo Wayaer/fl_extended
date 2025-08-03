@@ -1,9 +1,9 @@
 import 'dart:async';
+
 import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 
-typedef RunZonedGuardedOnError =
-    void Function(Object error, StackTrace stackTrace);
+typedef RunZonedGuardedOnError = void Function(Object error, StackTrace stackTrace);
 
 enum LogType {
   /// print
@@ -20,13 +20,7 @@ enum LogType {
 }
 
 class LogContent {
-  const LogContent({
-    required this.type,
-    required this.dateTime,
-    this.line,
-    this.error,
-    this.stackTrace,
-  });
+  const LogContent({required this.type, required this.dateTime, this.line, this.error, this.stackTrace});
 
   final LogType type;
   final DateTime dateTime;
@@ -55,85 +49,38 @@ class FlLogcat {
     if (zoneSpecification != null) {
       zoneSpecification = ZoneSpecification.from(
         zoneSpecification,
-        errorCallback: (
-          Zone self,
-          ZoneDelegate parent,
-          Zone zone,
-          Object error,
-          StackTrace? stackTrace,
-        ) {
+        errorCallback: (Zone self, ZoneDelegate parent, Zone zone, Object error, StackTrace? stackTrace) {
           parent.errorCallback(zone, error, stackTrace);
           insertLog(
-            LogContent(
-              type: LogType.errorCallback,
-              dateTime: DateTime.now(),
-              error: error,
-              stackTrace: stackTrace,
-            ),
+            LogContent(type: LogType.errorCallback, dateTime: DateTime.now(), error: error, stackTrace: stackTrace),
           );
-          return zoneSpecification!.errorCallback?.call(
-                self,
-                parent,
-                zone,
-                error,
-                stackTrace,
-              ) ??
+          return zoneSpecification!.errorCallback?.call(self, parent, zone, error, stackTrace) ??
               parent.errorCallback(zone, error, stackTrace);
         },
         print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
           zoneSpecification!.print?.call(self, parent, zone, line);
           parent.print(zone, line);
-          insertLog(
-            LogContent(
-              type: LogType.print,
-              dateTime: DateTime.now(),
-              line: line,
-            ),
-          );
+          insertLog(LogContent(type: LogType.print, dateTime: DateTime.now(), line: line));
         },
       );
     } else {
       zoneSpecification = ZoneSpecification(
-        errorCallback: (
-          Zone self,
-          ZoneDelegate parent,
-          Zone zone,
-          Object error,
-          StackTrace? stackTrace,
-        ) {
+        errorCallback: (Zone self, ZoneDelegate parent, Zone zone, Object error, StackTrace? stackTrace) {
           parent.errorCallback(zone, error, stackTrace);
           insertLog(
-            LogContent(
-              type: LogType.errorCallback,
-              dateTime: DateTime.now(),
-              error: error,
-              stackTrace: stackTrace,
-            ),
+            LogContent(type: LogType.errorCallback, dateTime: DateTime.now(), error: error, stackTrace: stackTrace),
           );
           return null;
         },
         print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
           parent.print(zone, line);
-          insertLog(
-            LogContent(
-              type: LogType.print,
-              dateTime: DateTime.now(),
-              line: line,
-            ),
-          );
+          insertLog(LogContent(type: LogType.print, dateTime: DateTime.now(), line: line));
         },
       );
     }
     return runZonedGuarded(body, (Object error, StackTrace stackTrace) {
       onError?.call(error, stackTrace);
-      insertLog(
-        LogContent(
-          type: LogType.error,
-          dateTime: DateTime.now(),
-          error: error,
-          stackTrace: stackTrace,
-        ),
-      );
+      insertLog(LogContent(type: LogType.error, dateTime: DateTime.now(), error: error, stackTrace: stackTrace));
     }, zoneSpecification: zoneSpecification);
   }
 
@@ -153,10 +100,7 @@ class FlLogcat {
   void show() {
     if (isRunning && !_hasOverlayEntry) {
       _hasOverlayEntry = true;
-      _overlayEntry ??= _LogcatIcon(
-        show: showLog,
-        hide: hide,
-      ).showOverlay(isCached: false);
+      _overlayEntry ??= _LogcatIcon(show: showLog, hide: hide).showOverlay(isCached: false);
     }
   }
 
@@ -212,18 +156,12 @@ class _LogcatIconState extends State<_LogcatIcon> {
           child: GestureDetector(
             onTap: show,
             onDoubleTap: widget.hide,
-            onPanStart:
-                (DragStartDetails details) => update(details.globalPosition),
-            onPanUpdate:
-                (DragUpdateDetails details) => update(details.globalPosition),
+            onPanStart: (DragStartDetails details) => update(details.globalPosition),
+            onPanUpdate: (DragUpdateDetails details) => update(details.globalPosition),
             child: Container(
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               padding: const EdgeInsets.all(6),
-              child: const Icon(
-                Icons.terminal_outlined,
-                size: 23,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.terminal_outlined, size: 23, color: Colors.white),
             ),
           ),
         ),
@@ -276,9 +214,7 @@ class _LogList extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(2, 0, 2, 2),
             expanded: true,
             child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
               child: ValueListenableBuilder<List<LogContent>>(
                 valueListenable: FlLogcat()._logs,
                 builder:
@@ -286,8 +222,7 @@ class _LogList extends StatelessWidget {
                       reverse: true,
                       padding: EdgeInsets.all(6),
                       itemCount: map.length,
-                      itemBuilder:
-                          (_, int index) => itemBuilder(context, map, index),
+                      itemBuilder: (_, int index) => itemBuilder(context, map, index),
                     ),
               ),
             ),
@@ -313,14 +248,8 @@ class _LogList extends StatelessWidget {
               if (item.stackTrace != null) item.stackTrace.toString(),
             ],
             styles: [
-              TextStyle(
-                color: context.theme.primaryColor,
-                fontWeight: FontWeight.w500,
-              ),
-              TextStyle(
-                color:
-                    item.error != null ? context.theme.colorScheme.error : null,
-              ),
+              TextStyle(color: context.theme.primaryColor, fontWeight: FontWeight.w500),
+              TextStyle(color: item.error != null ? context.theme.colorScheme.error : null),
             ],
           ),
         ),
@@ -339,13 +268,7 @@ class _Toolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        IconButton(
-          onPressed: onDelete,
-          icon: const Icon(Icons.delete, size: 19),
-        ),
-        const CloseButton(),
-      ],
+      children: [IconButton(onPressed: onDelete, icon: const Icon(Icons.delete, size: 19)), const CloseButton()],
     );
   }
 }

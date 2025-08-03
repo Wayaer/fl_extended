@@ -13,8 +13,7 @@ extension ExtensionGlobalKey on GlobalKey {
     double pixelRatio = 1.0,
   }) async {
     if (currentContext == null) return null;
-    final boundary =
-        currentContext!.findRenderObject() as RenderRepaintBoundary;
+    final boundary = currentContext!.findRenderObject() as RenderRepaintBoundary;
     final image = await boundary.toImage(pixelRatio: pixelRatio);
 
     /// Uint8List uint8list = byteData.buffer.asUint8List();

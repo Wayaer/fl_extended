@@ -15,14 +15,8 @@ class OverlayPage extends StatelessWidget {
     padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
     canPop: false,
     canHideOverlay: true,
-    onPopInvokedWithResult: (
-      bool didPop,
-      dynamic result,
-      bool didCloseOverlay,
-    ) {
-      log(
-        'OverlayPage onPopInvokedWithResult didPop=$didPop result=$result didCloseOverlay=$didCloseOverlay',
-      );
+    onPopInvokedWithResult: (bool didPop, dynamic result, bool didCloseOverlay) {
+      log('OverlayPage onPopInvokedWithResult didPop=$didPop result=$result didCloseOverlay=$didCloseOverlay');
       if (didCloseOverlay || didPop) return;
       pop();
     },
@@ -50,17 +44,11 @@ class OverlayPage extends StatelessWidget {
               await showToast(
                 style.toString(),
                 iconStyle: style,
-                options: const ToastOptions(
-                  elevation: 6,
-                  shadowColor: Colors.red,
-                ),
+                options: const ToastOptions(elevation: 6, shadowColor: Colors.red),
               );
               showToast(
                 '添加await第一个Toast完了之后弹出第二个Toast',
-                options: const ToastOptions(
-                  elevation: 6,
-                  shadowColor: Colors.red,
-                ),
+                options: const ToastOptions(elevation: 6, shadowColor: Colors.red),
               );
             },
           ),
@@ -68,18 +56,11 @@ class OverlayPage extends StatelessWidget {
       ),
       Wrap(
         alignment: WrapAlignment.center,
-        children: [
-          Alignment.topCenter,
-          Alignment.bottomCenter,
-          Alignment.center,
-        ].builder(
+        children: [Alignment.topCenter, Alignment.bottomCenter, Alignment.center].builder(
           (alignment) => ElevatedText(
             alignment.toString().split('.')[1],
             onTap: () async {
-              showToast(
-                alignment.toString(),
-                options: ToastOptions(alignment: alignment),
-              );
+              showToast(alignment.toString(), options: ToastOptions(alignment: alignment));
             },
           ),
         ),
@@ -99,19 +80,14 @@ class OverlayPage extends StatelessWidget {
                   (_, ProgressIndicatorOptions? progressIndicator) => Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      FlProgressIndicator(
-                        ProgressIndicatorStyle.circular.options,
-                      ),
+                      FlProgressIndicator(ProgressIndicatorStyle.circular.options),
                       10.heightBox,
                       const Text('Loading...'),
                     ],
                   ),
               borderRadius: BorderRadius.circular(6),
               alignment: Alignment.center,
-              textStyle: TextStyle(
-                color: context.theme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+              textStyle: TextStyle(color: context.theme.primaryColor, fontWeight: FontWeight.bold),
             ),
           );
         },

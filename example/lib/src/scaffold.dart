@@ -94,15 +94,11 @@ class ExtendedScaffold<T> extends StatelessWidget {
         onPopInvokedWithResult?.call(didPop, result, didCloseOverlay);
         if (enableDoubleClickExit) {
           final now = DateTime.now();
-          if (_dateTime != null &&
-              now.difference(_dateTime!).inMilliseconds < 2500) {
+          if (_dateTime != null && now.difference(_dateTime!).inMilliseconds < 2500) {
             SystemNavigator.pop();
           } else {
             _dateTime = now;
-            showToast(
-              '再次点击返回键退出',
-              duration: const Duration(milliseconds: 1500),
-            );
+            showToast('再次点击返回键退出', duration: const Duration(milliseconds: 1500));
           }
         }
       },
@@ -114,10 +110,7 @@ class ExtendedScaffold<T> extends StatelessWidget {
     if (appBar is AppBar) return appBar as AppBar;
     return appBar == null
         ? null
-        : PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight - 12),
-          child: appBar!,
-        );
+        : PreferredSize(preferredSize: const Size.fromHeight(kToolbarHeight - 12), child: appBar!);
   }
 
   Universal get universal => Universal(

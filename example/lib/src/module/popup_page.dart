@@ -44,9 +44,7 @@ class PopupPage extends StatelessWidget {
           'popup BottomSheet',
           onTap: () {
             const _ActionSheet().popupBottomSheet<dynamic>(
-              options: const BottomSheetOptions(
-                backgroundColor: Colors.transparent,
-              ),
+              options: const BottomSheetOptions(backgroundColor: Colors.transparent),
             );
           },
         ),
@@ -54,9 +52,7 @@ class PopupPage extends StatelessWidget {
           'popup BottomSheet - Full screen',
           onTap: () {
             const _ActionSheet().popupBottomSheet<dynamic>(
-              options: const BottomSheetOptions(
-                backgroundColor: Colors.transparent,
-              ),
+              options: const BottomSheetOptions(backgroundColor: Colors.transparent),
             );
           },
         ),
@@ -70,10 +66,7 @@ class PopupPage extends StatelessWidget {
     );
   }
 
-  Widget get title => const Universal(
-    margin: EdgeInsets.only(top: 16, bottom: 6),
-    child: Text('Title'),
-  );
+  Widget get title => const Universal(margin: EdgeInsets.only(top: 16, bottom: 6), child: Text('Title'));
 
   List<Widget> get actions => [
     Universal(
@@ -108,10 +101,7 @@ class PopupPage extends StatelessWidget {
   Widget get content => Universal(
     margin: const EdgeInsets.all(10),
     alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: Colors.grey.withValues(alpha: 0.4),
-      borderRadius: BorderRadius.circular(4),
-    ),
+    decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(4)),
     height: 200,
     child: const Text('ActionDialog'),
   );
@@ -126,16 +116,8 @@ class _ActionSheet extends StatelessWidget {
       title: Text('提示'),
       message: Text('是否要删除当前项？'),
       actions: [
-        CupertinoActionSheetAction(
-          onPressed: closePopup,
-          isDefaultAction: true,
-          child: Text('删除'),
-        ),
-        CupertinoActionSheetAction(
-          onPressed: closePopup,
-          isDestructiveAction: true,
-          child: Text('暂时不删'),
-        ),
+        CupertinoActionSheetAction(onPressed: closePopup, isDefaultAction: true, child: Text('删除')),
+        CupertinoActionSheetAction(onPressed: closePopup, isDestructiveAction: true, child: Text('暂时不删')),
       ],
     );
   }

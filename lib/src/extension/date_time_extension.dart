@@ -65,16 +65,12 @@ extension ExtensionDateTime on DateTime {
     final DateTime date = this;
     dist ??= DateTimeDist.yearSecond;
     final String year = date.year.toString();
-    final String month =
-        dual ? date.month.padLeft(2, '0') : date.month.toString();
+    final String month = dual ? date.month.padLeft(2, '0') : date.month.toString();
     final String day = dual ? date.day.padLeft(2, '0') : date.day.toString();
     final String hour = dual ? date.hour.padLeft(2, '0') : date.hour.toString();
-    final String minute =
-        dual ? date.minute.padLeft(2, '0') : date.minute.toString();
-    final String second =
-        dual ? date.second.padLeft(2, '0') : date.second.toString();
-    final String millisecond =
-        dual ? date.millisecond.padLeft(2, '0') : date.millisecond.toString();
+    final String minute = dual ? date.minute.padLeft(2, '0') : date.minute.toString();
+    final String second = dual ? date.second.padLeft(2, '0') : date.second.toString();
+    final String millisecond = dual ? date.millisecond.padLeft(2, '0') : date.millisecond.toString();
     // final String microsecond =
     //     dual ? date.microsecond.padLeft(2, '0') : date.microsecond.toString();
     switch (dist) {
@@ -119,8 +115,7 @@ extension ExtensionDateTime on DateTime {
 
   /// Return whether it is leap year.
   /// 是否是闰年
-  bool get isLeapYearByYear =>
-      year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+  bool get isLeapYearByYear => year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 
   /// 获取时间区间内所有的日期
   List<DateTime> getDaysForRange(DateTime endDate) {
@@ -140,8 +135,7 @@ extension ExtensionDuration on Duration {
   /// await _delay.delayed();
   /// print('- finish wait $_delay');
   /// print('+ callback in 700ms');
-  Future<T> delayed<T>([FutureOr<T> Function()? callback]) =>
-      Future<T>.delayed(this, callback);
+  Future<T> delayed<T>([FutureOr<T> Function()? callback]) => Future<T>.delayed(this, callback);
 
   /// Timer
   Timer timer([Function? function]) {
@@ -154,8 +148,7 @@ extension ExtensionDuration on Duration {
   }
 
   /// 需要手动释放timer
-  Timer timerPeriodic(void Function(Timer timer) callback) =>
-      Timer.periodic(this, (Timer time) => callback(time));
+  Timer timerPeriodic(void Function(Timer timer) callback) => Timer.periodic(this, (Timer time) => callback(time));
 
   /// 以毫秒结尾
   String get toEndMilliseconds => toString().removeSuffixLength(3);
@@ -170,19 +163,12 @@ extension ExtensionDuration on Duration {
   String get toEndHours => toString().removeSuffixLength(13);
 
   /// add duration
-  Duration add(Duration duration, [Duration? secondDuration]) => Duration(
-    microseconds:
-        inMicroseconds +
-        duration.inMicroseconds +
-        (secondDuration?.inMicroseconds ?? 0),
-  );
+  Duration add(Duration duration, [Duration? secondDuration]) =>
+      Duration(microseconds: inMicroseconds + duration.inMicroseconds + (secondDuration?.inMicroseconds ?? 0));
 
   /// subtract duration
   Duration subtract(Duration duration, [Duration? secondDuration]) {
-    int s =
-        inMicroseconds -
-        duration.inMicroseconds -
-        (secondDuration?.inMicroseconds ?? 0);
+    int s = inMicroseconds - duration.inMicroseconds - (secondDuration?.inMicroseconds ?? 0);
     if (s < 0) s = 0;
     return Duration(microseconds: s);
   }

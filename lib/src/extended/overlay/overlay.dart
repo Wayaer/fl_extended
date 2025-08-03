@@ -30,11 +30,7 @@ class FlOverlay {
     final overlay = FlExtended().navigatorKey.currentState!.overlay;
     if (overlay == null) return null;
     id ??= widget.runtimeType;
-    final FlOverlayEntry entry = FlOverlayEntry(
-      isCached: isCached,
-      widget: widget,
-      id: id,
-    );
+    final FlOverlayEntry entry = FlOverlayEntry(isCached: isCached, widget: widget, id: id);
     overlay.insert(entry);
     if (isCached) _overlayEntries.add(entry);
     return entry;
@@ -68,10 +64,7 @@ class FlOverlay {
     if (_toast != null) return _toast;
     _toast = show(toast, isCached: false);
     _toast?.addListener(_toastListener);
-    final duration =
-        toast.duration ??
-        toast.options?.duration ??
-        FlExtended().toastOptions.duration;
+    final duration = toast.duration ?? toast.options?.duration ?? FlExtended().toastOptions.duration;
     await duration.delayed();
     hideToast();
     return _toast;

@@ -95,8 +95,7 @@ class RText extends RichText {
     onExit: textSpans.firstOrNull?.onExit,
     locale: textSpans.firstOrNull?.locale,
     spellOut: textSpans.firstOrNull?.spellOut,
-    children:
-        textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null,
+    children: textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null,
   );
 
   static List<TextSpan> buildTextSpans({
@@ -114,33 +113,13 @@ class RText extends RichText {
     (MapEntry<int, String> entry) => TextSpan(
       text: entry.value,
       semanticsLabel:
-          semanticsLabels.isEmpty || (semanticsLabels.length - 1) < entry.key
-              ? null
-              : semanticsLabels[entry.key],
-      mouseCursor:
-          mouseCursors.isEmpty || (mouseCursors.length - 1) < entry.key
-              ? null
-              : mouseCursors[entry.key],
-      onEnter:
-          onEnters.isEmpty || (onEnters.length - 1) < entry.key
-              ? null
-              : onEnters[entry.key],
-      onExit:
-          onExits.isEmpty || (onExits.length - 1) < entry.key
-              ? null
-              : onExits[entry.key],
-      spellOut:
-          spellOuts.isEmpty || (spellOuts.length - 1) < entry.key
-              ? null
-              : spellOuts[entry.key],
-      locale:
-          locales.isEmpty || (locales.length - 1) < entry.key
-              ? null
-              : locales[entry.key],
-      recognizer:
-          recognizers.isEmpty || (recognizers.length - 1) < entry.key
-              ? null
-              : recognizers[entry.key],
+          semanticsLabels.isEmpty || (semanticsLabels.length - 1) < entry.key ? null : semanticsLabels[entry.key],
+      mouseCursor: mouseCursors.isEmpty || (mouseCursors.length - 1) < entry.key ? null : mouseCursors[entry.key],
+      onEnter: onEnters.isEmpty || (onEnters.length - 1) < entry.key ? null : onEnters[entry.key],
+      onExit: onExits.isEmpty || (onExits.length - 1) < entry.key ? null : onExits[entry.key],
+      spellOut: spellOuts.isEmpty || (spellOuts.length - 1) < entry.key ? null : spellOuts[entry.key],
+      locale: locales.isEmpty || (locales.length - 1) < entry.key ? null : locales[entry.key],
+      recognizer: recognizers.isEmpty || (recognizers.length - 1) < entry.key ? null : recognizers[entry.key],
       style:
           styles.isEmpty || (styles.length - 1) < entry.key
               ? style
@@ -484,14 +463,8 @@ class BText extends StatelessWidget {
           texts: [if (text != null) text!, ...texts],
           styles: [effectiveTextStyle, ...styles],
           recognizers: [if (recognizer != null) recognizer!, ...recognizers],
-          semanticsLabels: [
-            if (semanticsLabel != null) semanticsLabel!,
-            ...semanticsLabels,
-          ],
-          mouseCursors: [
-            if (mouseCursor != null) mouseCursor!,
-            ...mouseCursors,
-          ],
+          semanticsLabels: [if (semanticsLabel != null) semanticsLabel!, ...semanticsLabels],
+          mouseCursors: [if (mouseCursor != null) mouseCursor!, ...mouseCursors],
           onEnters: [if (onEnter != null) onEnter!, ...onEnters],
           onExits: [if (onExit != null) onExit!, ...onExits],
           locales: [if (locale != null) locale!, ...locales],

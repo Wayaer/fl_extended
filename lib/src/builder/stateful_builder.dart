@@ -32,12 +32,10 @@ class ExtendedStatefulBuilder extends StatefulWidget {
   final ValueCallback<BuildContext>? dispose;
 
   @override
-  State<ExtendedStatefulBuilder> createState() =>
-      _ExtendedStatefulBuilderState();
+  State<ExtendedStatefulBuilder> createState() => _ExtendedStatefulBuilderState();
 }
 
-class _ExtendedStatefulBuilderState
-    extends ExtendedState<ExtendedStatefulBuilder> {
+class _ExtendedStatefulBuilderState extends ExtendedState<ExtendedStatefulBuilder> {
   @override
   void initState() {
     widget.initState?.call(context, setState);

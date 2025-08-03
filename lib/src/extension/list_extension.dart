@@ -7,9 +7,7 @@ extension ExtensionUint8List on Uint8List {
   List<int> bit32ListFromUInt8List() {
     final Uint8List bytes = this;
     final int additionalLength = bytes.length % 4 > 0 ? 4 : 0;
-    final List<int> result = (bytes.length ~/ 4 + additionalLength).generate(
-      (_) => 0,
-    );
+    final List<int> result = (bytes.length ~/ 4 + additionalLength).generate((_) => 0);
     for (int i = 0; i < bytes.length; i++) {
       final int resultIdx = i ~/ 4;
       final int bitShiftAmount = (3 - i % 4).toInt();
@@ -32,18 +30,14 @@ extension ExtensionListUnsafe on List? {
 
 extension ExtensionList<T> on List<T> {
   /// List.generate((index)=>E);
-  List<E> generate<E>(
-    E Function(int index) generator, {
-    bool growable = true,
-  }) => length.generate<E>((int index) => generator(index), growable: growable);
+  List<E> generate<E>(E Function(int index) generator, {bool growable = true}) =>
+      length.generate<E>((int index) => generator(index), growable: growable);
 
   /// list.map.toList()
-  List<E> mapToList<E>(E Function(T) builder) =>
-      map<E>((T e) => builder(e)).toList();
+  List<E> mapToList<E>(E Function(T) builder) => map<E>((T e) => builder(e)).toList();
 
   /// List.generate((index)=>E);
-  List<E> builder<E>(E Function(T) builder) =>
-      generate((int index) => builder(this[index]));
+  List<E> builder<E>(E Function(T) builder) => generate((int index) => builder(this[index]));
 
   /// list.asMap().entries.map.toList()
   List<E> asMapEntriesMapToList<E>(E Function(MapEntry<int, T>) builder) =>
@@ -54,8 +48,7 @@ extension ExtensionList<T> on List<T> {
       asMap().entries.map((MapEntry<int, T> entry) => builder(entry));
 
   /// `List.generate((index)=>MapEntry<int,T>)`;
-  List<E> builderIV<E>(E Function(int, T) builder) =>
-      generate((int index) => builder(index, this[index]));
+  List<E> builderIV<E>(E Function(int, T) builder) => generate((int index) => builder(index, this[index]));
 
   /// `List.generate((index)=>MapEntry<int,T>)`;
   List<E> builderEntry<E>(E Function(MapEntry<int, T>) builder) =>
@@ -86,12 +79,7 @@ extension ExtensionList<T> on List<T> {
   }
 
   /// 替换指定区域 返回 新数组
-  List<T> replaceRangeT(
-    int start,
-    int end,
-    Iterable<T> replacement, {
-    bool isReplace = true,
-  }) {
+  List<T> replaceRangeT(int start, int end, Iterable<T> replacement, {bool isReplace = true}) {
     if (isReplace) replaceRange(start, end, replacement);
     return this;
   }
@@ -115,8 +103,7 @@ extension ExtensionList<T> on List<T> {
 
 extension ExtensionListString on List<String> {
   /// 移出首尾的括号 转换为字符串
-  String get toStringRemoveBracket =>
-      toString().removeSuffix(']').removePrefix('[').replaceAll(' ', '');
+  String get toStringRemoveBracket => toString().removeSuffix(']').removePrefix('[').replaceAll(' ', '');
 }
 
 extension ExtensionListInt on List<int> {
@@ -127,16 +114,13 @@ extension ExtensionListInt on List<int> {
   String base64UrlEncode() => base64Url.encode(this);
 
   /// utf8.decode()
-  String utf8Decode({bool? allowMalformed}) =>
-      utf8.decode(this, allowMalformed: allowMalformed);
+  String utf8Decode({bool? allowMalformed}) => utf8.decode(this, allowMalformed: allowMalformed);
 
   /// ascii.decode()
-  String asciiDecode({bool? allowInvalid}) =>
-      ascii.decode(this, allowInvalid: allowInvalid);
+  String asciiDecode({bool? allowInvalid}) => ascii.decode(this, allowInvalid: allowInvalid);
 
   /// latin1.decode()
-  String latin1Decode({bool? allowInvalid}) =>
-      latin1.decode(this, allowInvalid: allowInvalid);
+  String latin1Decode({bool? allowInvalid}) => latin1.decode(this, allowInvalid: allowInvalid);
 
   Uint8List? get uInt8ListFrom32BitList {
     final Uint8List result = Uint8List(length * 4);

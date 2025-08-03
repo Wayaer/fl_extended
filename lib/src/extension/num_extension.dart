@@ -28,21 +28,13 @@ extension ExtensionNum on num {
   double atan2(num value) => math.atan2(this, value);
 
   /// 复制到粘贴板
-  Future<void> get toClipboard async =>
-      await Clipboard.setData(ClipboardData(text: toString()));
+  Future<void> get toClipboard async => await Clipboard.setData(ClipboardData(text: toString()));
 
   /// 创建指定长度的List
-  List<T> generate<T>(
-    T Function(int index) generator, {
-    bool growable = true,
-  }) => List<T>.generate(
-    toInt(),
-    (int index) => generator(index),
-    growable: growable,
-  );
+  List<T> generate<T>(T Function(int index) generator, {bool growable = true}) =>
+      List<T>.generate(toInt(), (int index) => generator(index), growable: growable);
 
-  String padLeft(int width, [String padding = ' ']) =>
-      toString().padLeft(width, padding);
+  String padLeft(int width, [String padding = ' ']) => toString().padLeft(width, padding);
 
   /// num 长
   int get length => toString().length;
@@ -70,10 +62,7 @@ extension ExtensionNum on num {
     if (element is String) {
       return toString().insert(index, element);
     } else {
-      final String data = toString().insert(
-        index,
-        (element as num).toInt().toString(),
-      );
+      final String data = toString().insert(index, (element as num).toInt().toString());
       if (this is int) return num.parse(data).toInt();
       if (this is double) return num.parse(data).toDouble();
     }
@@ -81,8 +70,7 @@ extension ExtensionNum on num {
   }
 
   /// 是否包含 [other]
-  bool contains(Pattern other, [int startIndex = 0]) =>
-      toString().contains(other);
+  bool contains(Pattern other, [int startIndex = 0]) => toString().contains(other);
 
   /// 微秒
   Duration get microseconds => Duration(microseconds: round());
@@ -94,12 +82,10 @@ extension ExtensionNum on num {
   Duration get seconds => Duration(milliseconds: (this * 1000).round());
 
   /// 分
-  Duration get minutes =>
-      Duration(seconds: (this * Duration.secondsPerMinute).round());
+  Duration get minutes => Duration(seconds: (this * Duration.secondsPerMinute).round());
 
   /// 时
-  Duration get hours =>
-      Duration(minutes: (this * Duration.minutesPerHour).round());
+  Duration get hours => Duration(minutes: (this * Duration.minutesPerHour).round());
 
   /// 天
   Duration get days => Duration(hours: (this * Duration.hoursPerDay).round());
@@ -201,12 +187,10 @@ extension ExtensionNum on num {
   EdgeInsets get edgeInsetsBottom => EdgeInsets.only(bottom: toDouble());
 
   /// Converts the number into a [EdgeInsets.symmetric]
-  EdgeInsets get edgeInsetsSymmetric =>
-      EdgeInsets.symmetric(horizontal: toDouble(), vertical: toDouble());
+  EdgeInsets get edgeInsetsSymmetric => EdgeInsets.symmetric(horizontal: toDouble(), vertical: toDouble());
 
   /// Converts the number into a [EdgeInsets.horizontal]
-  EdgeInsets get edgeInsetsHorizontal =>
-      EdgeInsets.symmetric(horizontal: toDouble());
+  EdgeInsets get edgeInsetsHorizontal => EdgeInsets.symmetric(horizontal: toDouble());
 
   /// Converts the number into a [EdgeInsets.fromLTRB]
   EdgeInsets get fromL => EdgeInsets.fromLTRB(toDouble(), 0, 0, 0);
@@ -239,72 +223,55 @@ extension ExtensionNum on num {
   EdgeInsets get fromRB => EdgeInsets.fromLTRB(0, 0, toDouble(), toDouble());
 
   /// Converts the number into a [EdgeInsets.vertical]
-  EdgeInsets get edgeInsetsVertical =>
-      EdgeInsets.symmetric(vertical: toDouble());
+  EdgeInsets get edgeInsetsVertical => EdgeInsets.symmetric(vertical: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional]
-  EdgeInsetsDirectional get edgeInsetsDirectional =>
-      EdgeInsetsDirectional.all(toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectional => EdgeInsetsDirectional.all(toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.only]
-  EdgeInsetsDirectional get edgeInsetsDirectionalStart =>
-      EdgeInsetsDirectional.only(start: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalStart => EdgeInsetsDirectional.only(start: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.only]
-  EdgeInsetsDirectional get edgeInsetsDirectionalEnd =>
-      EdgeInsetsDirectional.only(end: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalEnd => EdgeInsetsDirectional.only(end: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.only]
-  EdgeInsetsDirectional get edgeInsetsDirectionalTop =>
-      EdgeInsetsDirectional.only(top: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalTop => EdgeInsetsDirectional.only(top: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.only]
-  EdgeInsetsDirectional get edgeInsetsDirectionalBottom =>
-      EdgeInsetsDirectional.only(bottom: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalBottom => EdgeInsetsDirectional.only(bottom: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.symmetric]
-  EdgeInsetsDirectional get edgeInsetsDirectionalHorizontal =>
-      EdgeInsetsDirectional.symmetric(horizontal: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalHorizontal => EdgeInsetsDirectional.symmetric(horizontal: toDouble());
 
   /// Converts the number into a [EdgeInsetsDirectional.symmetric]
-  EdgeInsetsDirectional get edgeInsetsDirectionalVertical =>
-      EdgeInsetsDirectional.symmetric(vertical: toDouble());
+  EdgeInsetsDirectional get edgeInsetsDirectionalVertical => EdgeInsetsDirectional.symmetric(vertical: toDouble());
 
   /// Converts the number into a [BorderRadius.all]
-  BorderRadius get borderRadiusAll =>
-      BorderRadius.all(Radius.circular(toDouble()));
+  BorderRadius get borderRadiusAll => BorderRadius.all(Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.topLeft]
-  BorderRadius get borderRadiusTopLeft =>
-      BorderRadius.only(topLeft: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusTopLeft => BorderRadius.only(topLeft: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.topRight]
-  BorderRadius get borderRadiusTopRight =>
-      BorderRadius.only(topRight: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusTopRight => BorderRadius.only(topRight: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.bottomLeft]
-  BorderRadius get borderRadiusBottomLeft =>
-      BorderRadius.only(bottomLeft: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusBottomLeft => BorderRadius.only(bottomLeft: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.bottomRight]
-  BorderRadius get borderRadiusBottomRight =>
-      BorderRadius.only(bottomRight: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusBottomRight => BorderRadius.only(bottomRight: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.horizontal]
-  BorderRadius get borderRadiusLeft =>
-      BorderRadius.horizontal(left: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusLeft => BorderRadius.horizontal(left: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.horizontal]
-  BorderRadius get borderRadiusRight =>
-      BorderRadius.horizontal(right: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusRight => BorderRadius.horizontal(right: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.vertical]
-  BorderRadius get borderRadiusTop =>
-      BorderRadius.vertical(top: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusTop => BorderRadius.vertical(top: Radius.circular(toDouble()));
 
   /// Converts the number into a [BorderRadius.vertical]
-  BorderRadius get borderRadiusBottom =>
-      BorderRadius.vertical(bottom: Radius.circular(toDouble()));
+  BorderRadius get borderRadiusBottom => BorderRadius.vertical(bottom: Radius.circular(toDouble()));
 }
 
 /// int 扩展
@@ -331,8 +298,7 @@ extension ExtensionInt on int {
       return '${(this / divider / divider).toStringAsFixed(round)} MB';
     }
 
-    if (this < divider * divider * divider * divider &&
-        this % (divider * divider * divider) == 0) {
+    if (this < divider * divider * divider * divider && this % (divider * divider * divider) == 0) {
       return '${(this / (divider * divider * divider)).toStringAsFixed(0)} GB';
     }
 
@@ -340,8 +306,7 @@ extension ExtensionInt on int {
       return '${(this / divider / divider / divider).toStringAsFixed(round)} GB';
     }
 
-    if (this < divider * divider * divider * divider * divider &&
-        this % (divider / divider / divider / divider) == 0) {
+    if (this < divider * divider * divider * divider * divider && this % (divider / divider / divider / divider) == 0) {
       num r = this / divider / divider / divider / divider;
       return '${r.toStringAsFixed(0)} TB';
     }

@@ -38,8 +38,7 @@ class ValueListenBuilder<T> extends ExtendedStatefulWidget {
   State<ValueListenBuilder<T>> createState() => _ValueListenBuilderState<T>();
 }
 
-class _ValueListenBuilderState<T>
-    extends ExtendedStatefulWidgetState<ValueListenBuilder<T>> {
+class _ValueListenBuilderState<T> extends ExtendedStatefulWidgetState<ValueListenBuilder<T>> {
   late ValueNotifier<T?> valueNotifier;
 
   @override
@@ -84,8 +83,7 @@ class _ValueListenBuilderState<T>
 ///             return (你需要局部刷新的组件)
 ///          }),
 /// ```
-class ExtendedListenableBuilder<T extends Listenable>
-    extends ExtendedStatefulWidget {
+class ExtendedListenableBuilder<T extends Listenable> extends ExtendedStatefulWidget {
   const ExtendedListenableBuilder({
     super.key,
     required this.listenable,
@@ -107,8 +105,7 @@ class ExtendedListenableBuilder<T extends Listenable>
   final ValueCallback<T?>? onUpdate;
 
   @override
-  State<ExtendedListenableBuilder<T>> createState() =>
-      _ExtendedListenableBuilderState<T>();
+  State<ExtendedListenableBuilder<T>> createState() => _ExtendedListenableBuilderState<T>();
 }
 
 class _ExtendedListenableBuilderState<T extends Listenable>
@@ -134,8 +131,7 @@ class _ExtendedListenableBuilderState<T extends Listenable>
   }
 
   @override
-  Widget build(BuildContext context) =>
-      widget.builder(context, widget.listenable);
+  Widget build(BuildContext context) => widget.builder(context, widget.listenable);
 
   @override
   void dispose() {

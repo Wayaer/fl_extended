@@ -55,10 +55,7 @@ class _FlAnimationPageState extends State<FlAnimationPage> {
       height: 50,
       margin: const EdgeInsets.only(top: 20),
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.deepPurple,
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.circular(10)),
       onTap: () {
         animation[text]?.call();
       },

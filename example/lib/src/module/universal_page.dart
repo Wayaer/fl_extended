@@ -12,8 +12,7 @@ class UniversalPage extends StatefulWidget {
   State<UniversalPage> createState() => _UniversalPageState();
 }
 
-class _UniversalPageState extends ExtendedState<UniversalPage>
-    with SingleTickerProviderStateMixin {
+class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Color color = context.theme.primaryColor;
@@ -35,27 +34,20 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
         color: color.withValues(alpha: 0.2),
         isStack: true,
         size: const Size(100, 100),
-        children: [
-          Universal(left: 10, top: 10, color: color, size: const Size(50, 50)),
-        ],
+        children: [Universal(left: 10, top: 10, color: color, size: const Size(50, 50))],
       ),
       const SizedBox(height: 10),
       Universal(
         size: const Size(300, 20),
         direction: Axis.horizontal,
         color: Colors.green.withValues(alpha: 0.2),
-        children: const [
-          Universal(flex: 1, color: Colors.red),
-          Universal(flex: 2, color: Colors.greenAccent),
-        ],
+        children: const [Universal(flex: 1, color: Colors.red), Universal(flex: 2, color: Colors.greenAccent)],
       ),
       const SizedBox(height: 10),
       Universal(
         size: const Size(200, 100),
         alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: Colors.primaries),
-        ),
+        decoration: const BoxDecoration(gradient: LinearGradient(colors: Colors.primaries)),
         child: Universal(filter: ImageFilter.blur()),
       ),
       const SizedBox(height: 10),
@@ -98,11 +90,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage>
       ),
       const SizedBox(height: 20),
     ];
-    return ExtendedScaffold(
-      appBar: AppBarText('Universal'),
-      isScroll: true,
-      children: children,
-    );
+    return ExtendedScaffold(appBar: AppBarText('Universal'), isScroll: true, children: children);
   }
 }
 
@@ -134,32 +122,12 @@ class _ScrollUniversalPage extends StatelessWidget {
           BoxShadow(color: Colors.yellowAccent, blurRadius: 5),
         ],
       ),
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        width: 130,
-        height: 130,
-        color: Colors.greenAccent,
-      ),
+      child: Container(margin: const EdgeInsets.all(10), width: 130, height: 130, color: Colors.greenAccent),
       // isStack: true,
       children: [
-        Container(
-          margin: const EdgeInsets.all(10),
-          width: 90,
-          height: 90,
-          color: color,
-        ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          width: 70,
-          height: 70,
-          color: Colors.black,
-        ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          width: 50,
-          height: 50,
-          color: Colors.amberAccent,
-        ),
+        Container(margin: const EdgeInsets.all(10), width: 90, height: 90, color: color),
+        Container(margin: const EdgeInsets.all(10), width: 70, height: 70, color: Colors.black),
+        Container(margin: const EdgeInsets.all(10), width: 50, height: 50, color: Colors.amberAccent),
       ],
     );
   }

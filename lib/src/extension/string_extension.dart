@@ -15,8 +15,7 @@ extension ExtensionString on String {
   String base64Normalize([int start = 0, int? end]) => base64.normalize(this);
 
   /// base64url.normalize()
-  String base64UrlNormalize([int start = 0, int? end]) =>
-      base64Url.normalize(this);
+  String base64UrlNormalize([int start = 0, int? end]) => base64Url.normalize(this);
 
   /// utf8.encode()
   Uint8List utf8Encode() => utf8.encode(this);
@@ -28,8 +27,7 @@ extension ExtensionString on String {
   Uint8List latin1Encode() => latin1.encode(this);
 
   /// jsonDecode
-  dynamic jsonDecode({Object? Function(Object? key, Object? value)? reviver}) =>
-      json.decode(this, reviver: reviver);
+  dynamic jsonDecode({Object? Function(Object? key, Object? value)? reviver}) => json.decode(this, reviver: reviver);
 
   /// htmlEscape.convert()
   String htmlEscapeConvert() => htmlEscape.convert(this);
@@ -41,8 +39,7 @@ extension ExtensionString on String {
   String uriDecodeFull() => Uri.decodeFull(this);
 
   /// Uri.decodeQueryComponent()
-  String uriDecodeQueryComponent({Encoding encoding = utf8}) =>
-      Uri.decodeQueryComponent(this, encoding: encoding);
+  String uriDecodeQueryComponent({Encoding encoding = utf8}) => Uri.decodeQueryComponent(this, encoding: encoding);
 
   /// Uri.encodeComponent()
   String uriEncodeComponent() => Uri.encodeComponent(this);
@@ -51,8 +48,7 @@ extension ExtensionString on String {
   String uriEncodeFull() => Uri.encodeFull(this);
 
   /// Uri.encodeQueryComponent()
-  String uriEncodeQueryComponent({Encoding encoding = utf8}) =>
-      Uri.encodeQueryComponent(this, encoding: encoding);
+  String uriEncodeQueryComponent({Encoding encoding = utf8}) => Uri.encodeQueryComponent(this, encoding: encoding);
 
   /// Uri.parse()
   Uri uriParse() => Uri.parse(this);
@@ -64,8 +60,7 @@ extension ExtensionString on String {
   List<int> uriParseIPv4Address() => Uri.parseIPv4Address(this);
 
   /// Uri.parseIPv6Address()
-  List<int> uriParseIPv6Address([int start = 0, int? end]) =>
-      Uri.parseIPv6Address(this, start, end);
+  List<int> uriParseIPv6Address([int start = 0, int? end]) => Uri.parseIPv6Address(this, start, end);
 
   num get parseNum => num.parse(this);
 
@@ -89,28 +84,22 @@ extension ExtensionString on String {
   ///Removes last element
   String get removeLast => length > 1 ? substring(0, length - 1) : '';
 
-  String insert(int index, String element) =>
-      '${substring(0, index)}$element${substring(index, length)}';
+  String insert(int index, String element) => '${substring(0, index)}$element${substring(index, length)}';
 
   /// 复制到粘贴板
   Future<void> toClipboard() => Clipboard.setData(ClipboardData(text: this));
 
   /// 验证邮箱
-  bool get isEmail =>
-      RegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$').hasMatch(this);
+  bool get isEmail => RegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$').hasMatch(this);
 
   /// 手机号验证
-  bool get isChinaPhone => RegExp(
-    r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$',
-  ).hasMatch(this);
+  bool get isChinaPhone => RegExp(r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$').hasMatch(this);
 
   /// utf8ToList
   List<int> get utf8ToList {
     final List<int> words = length.generate((_) => 0);
     for (int i = 0; i < length; i++) {
-      words[i >> 2] |=
-          (codeUnitAt(i) & 0xff).toSigned(32) <<
-          (24 - (i % 4) * 8).toSigned(32);
+      words[i >> 2] |= (codeUnitAt(i) & 0xff).toSigned(32) << (24 - (i % 4) * 8).toSigned(32);
     }
     return words;
   }
@@ -118,20 +107,13 @@ extension ExtensionString on String {
   /// 每隔 x位 加 pattern
   String formatDigitPattern({int digit = 4, String pattern = ' '}) {
     String text = this;
-    text = text.replaceAllMapped(
-      RegExp('(.{$digit})'),
-      (Match match) => '${match.group(0)}$pattern',
-    );
+    text = text.replaceAllMapped(RegExp('(.{$digit})'), (Match match) => '${match.group(0)}$pattern');
     if (text.endsWith(pattern)) text = text.substring(0, text.length - 1);
     return text;
   }
 
   /// 每隔 x位 加 pattern, 从末尾开始
-  String formatDigitPatternEnd(
-    String text, {
-    int digit = 4,
-    String pattern = ' ',
-  }) {
+  String formatDigitPatternEnd(String text, {int digit = 4, String pattern = ' '}) {
     String temp = reverse;
     temp = formatDigitPattern(digit: digit, pattern: pattern);
     temp = reverse;
