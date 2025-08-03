@@ -15,9 +15,9 @@ class _FlAnimationPageState extends State<FlAnimationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ExtendedScaffold(
+    return FlScaffold(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-      appBar: AppBarText('FlAnimation'),
+      appBar: AppBaFlRichText('FlAnimation'),
       children: [
         FlAnimation(
           delayDuration: 2.seconds,
@@ -59,7 +59,7 @@ class _FlAnimationPageState extends State<FlAnimationPage> {
       onTap: () {
         animation[text]?.call();
       },
-      child: BText(text, color: Colors.white),
+      child: FlText(text, color: Colors.white),
     );
   }
 }

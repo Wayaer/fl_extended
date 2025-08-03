@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:example/main.dart';
-import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/material.dart';
 
 class UniversalPage extends StatefulWidget {
   const UniversalPage({super.key});
@@ -27,7 +27,7 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         isClipRRect: true,
         borderRadius: BorderRadius.circular(10),
         alignment: Alignment.center,
-        child: const BText('ScrollUniversal', color: Colors.white),
+        child: const FlText('ScrollUniversal', color: Colors.white),
         onTap: () => push(_ScrollUniversalPage()),
       ),
       Universal(
@@ -67,38 +67,33 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         labelText: 'Add',
         color: color,
         onTap: () {},
-        unifiedButtonCategory: UnifiedButtonCategory.elevated,
+        buttonCategory: FlButtonCategory.elevated,
       ),
       IconLabel(
         icon: Icons.add_circle_outline,
         labelText: 'Text Add',
         label: Text('Text Add'),
         onTap: () {},
-        unifiedButtonCategory: UnifiedButtonCategory.filled,
+        buttonCategory: FlButtonCategory.filled,
       ),
       IconLabel(
         widget: Icon(Icons.wallet),
         label: Text('Wallet'),
         onTap: () {},
-        unifiedButtonCategory: UnifiedButtonCategory.filledTonal,
+        buttonCategory: FlButtonCategory.filledTonal,
       ),
-      IconLabel(
-        icon: Icons.wallet,
-        labelText: 'Wallet',
-        onTap: () {},
-        unifiedButtonCategory: UnifiedButtonCategory.outlined,
-      ),
+      IconLabel(icon: Icons.wallet, labelText: 'Wallet', onTap: () {}, buttonCategory: FlButtonCategory.outlined),
       const SizedBox(height: 20),
     ];
-    return ExtendedScaffold(appBar: AppBarText('Universal'), isScroll: true, children: children);
+    return FlScaffold(appBar: AppBaFlRichText('Universal'), isScroll: true, children: children);
   }
 }
 
 class _ScrollUniversalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ExtendedScaffold(
-      appBar: AppBarText('ScrollUniversal'),
+    return FlScaffold(
+      appBar: AppBaFlRichText('ScrollUniversal'),
       mainAxisAlignment: MainAxisAlignment.center,
       child: scrollUniversal(context),
     );

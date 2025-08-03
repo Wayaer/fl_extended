@@ -1,15 +1,14 @@
+import 'package:device_preview_minus/device_preview_minus.dart';
 import 'package:example/src/module/animation_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
+import 'package:example/src/module/overlay_page.dart';
+import 'package:example/src/module/popup_page.dart';
 import 'package:example/src/module/progress_indicator_page.dart';
 import 'package:example/src/module/state_components_page.dart';
 import 'package:example/src/module/text_page.dart';
-import 'package:example/src/module/overlay_page.dart';
-import 'package:example/src/module/popup_page.dart';
 import 'package:example/src/module/universal_page.dart';
-import 'package:device_preview_minus/device_preview_minus.dart';
 import 'package:example/src/scaffold.dart';
-import 'package:example/src/theme.dart';
 import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -64,7 +63,7 @@ void main() {
         if (progressIndicator != null) {
           return FlProgressIndicator(progressIndicator);
         }
-        return const Padding(padding: EdgeInsets.all(10), child: BText('全局设置loading', fontSize: 20));
+        return const Padding(padding: EdgeInsets.all(10), child: FlText('全局设置loading', fontSize: 20));
       },
       onLoadingTap: () {
         log('onLoadingTap');
@@ -112,10 +111,10 @@ class _MaterialApp extends StatelessWidget {
       navigatorKey: FlExtended().navigatorKey,
       scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
       locale: DevicePreview.locale(context),
-      theme: AppThemeData.light,
-      darkTheme: AppThemeData.dark,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       title: 'Fl Extended',
-      home: ExtendedScaffold(enableDoubleClickExit: true, appBar: AppBarText('Fl Extended example'), child: _Home()),
+      home: FlScaffold(enableDoubleClickExit: true, appBar: AppBaFlRichText('Fl Extended example'), child: _Home()),
       builder: DevicePreview.appBuilder,
     );
   }
@@ -145,23 +144,23 @@ class _HomeState extends State<_Home> {
       direction: Axis.horizontal,
       scrollDirection: Axis.vertical,
       children: [
-        ElevatedText('Text', onTap: () => push(const TextPage())),
-        ElevatedText('Button', onTap: () => push(const ButtonPage())),
+        ElevatedText('FlText', onTap: () => push(const FlTextPage())),
+        ElevatedText('FlButton', onTap: () => push(const FlButtonPage())),
         ElevatedText('State Components', onTap: () => push(const StateComponentsPage())),
         ElevatedText('FlAnimation', onTap: () => push(const FlAnimationPage())),
         ElevatedText('Popup', onTap: () => push(const PopupPage())),
-        ElevatedText('Overlay', onTap: () => push(const OverlayPage())),
+        ElevatedText('FlOverlay', onTap: () => push(const FlOverlayPage())),
         ElevatedText('Universal', onTap: () => push(const UniversalPage())),
         ElevatedText('FlProgressIndicator', onTap: () => push(const ProgressIndicatorPage())),
-        ElevatedText('ExtendedBuilder', onTap: () => push(const ExtendedBuilderPage())),
+        ElevatedText('Builder', onTap: () => push(const BuilderPage())),
       ],
     );
   }
 }
 
-class AppBarText extends AppBar {
-  AppBarText(String text, {super.key})
-    : super(elevation: 0, title: BText(text, fontSize: 18, fontWeight: FontWeight.bold), centerTitle: true);
+class AppBaFlRichText extends AppBar {
+  AppBaFlRichText(String text, {super.key})
+    : super(elevation: 0, title: FlText(text, fontSize: 18, fontWeight: FontWeight.bold), centerTitle: true);
 }
 
 class ElevatedText extends StatelessWidget {
@@ -175,9 +174,9 @@ class ElevatedText extends StatelessWidget {
     return Universal(
       padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.all(5),
-      unifiedButtonCategory: UnifiedButtonCategory.elevated,
+      buttonCategory: FlButtonCategory.elevated,
       onTap: onTap,
-      child: BText(text, textAlign: TextAlign.center),
+      child: FlText(text, textAlign: TextAlign.center),
     );
   }
 }
@@ -197,7 +196,7 @@ class Partition extends StatelessWidget {
     alignment: Alignment.center,
     padding: const EdgeInsets.all(10),
     margin: EdgeInsets.only(top: marginTop, bottom: 20),
-    child: BText(title, textAlign: TextAlign.center, fontWeight: FontWeight.bold),
+    child: FlText(title, textAlign: TextAlign.center, fontWeight: FontWeight.bold),
   );
 }
 

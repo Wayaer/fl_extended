@@ -28,7 +28,7 @@ class IconLabel extends StatelessWidget {
     this.statesController,
     this.onLongPress,
     this.clipBehavior,
-    this.unifiedButtonCategory,
+    this.buttonCategory,
 
     /// label
     this.maxLines = 1,
@@ -63,7 +63,7 @@ class IconLabel extends StatelessWidget {
   final Decoration? decoration;
 
   /// 整个按钮样式
-  final UnifiedButtonCategory? unifiedButtonCategory;
+  final FlButtonCategory? buttonCategory;
 
   /// [icon]、[imageProvider]、[labelText] 颜色
   final Color? color;
@@ -115,7 +115,7 @@ class IconLabel extends StatelessWidget {
   /// 自定义 [Label]
   final Widget? label;
 
-  /// ****** [UnifiedButton] ****** ///
+  /// ****** [FlButton] ****** ///
   final VoidCallback? onPressed;
   final GestureLongPressCallback? onLongPress;
   final ValueChanged<bool>? onHover;
@@ -152,7 +152,7 @@ class IconLabel extends StatelessWidget {
       decoration: decoration,
       alignment: alignment,
       heroTag: heroTag,
-      unifiedButtonCategory: unifiedButtonCategory,
+      buttonCategory: buttonCategory,
       onTap: onTap ?? onPressed,
       onPressed: onTap ?? onPressed,
       onLongPress: onLongPress,

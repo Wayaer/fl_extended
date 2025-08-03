@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/material.dart';
 
 /// StatefulBuilder 扩展
-class ExtendedStatefulBuilder extends StatefulWidget {
-  const ExtendedStatefulBuilder({
+class FlStatefulBuilder extends StatefulWidget {
+  const FlStatefulBuilder({
     super.key,
     required this.builder,
     this.initState,
@@ -32,10 +32,10 @@ class ExtendedStatefulBuilder extends StatefulWidget {
   final ValueCallback<BuildContext>? dispose;
 
   @override
-  State<ExtendedStatefulBuilder> createState() => _ExtendedStatefulBuilderState();
+  State<FlStatefulBuilder> createState() => _FlStatefulBuilderState();
 }
 
-class _ExtendedStatefulBuilderState extends ExtendedState<ExtendedStatefulBuilder> {
+class _FlStatefulBuilderState extends ExtendedState<FlStatefulBuilder> {
   @override
   void initState() {
     widget.initState?.call(context, setState);
@@ -52,7 +52,7 @@ class _ExtendedStatefulBuilderState extends ExtendedState<ExtendedStatefulBuilde
   Widget build(BuildContext context) => widget.builder(context, setState);
 
   @override
-  void didUpdateWidget(covariant ExtendedStatefulBuilder oldWidget) {
+  void didUpdateWidget(covariant FlStatefulBuilder oldWidget) {
     widget.didUpdateWidget?.call(context, setState);
     super.didUpdateWidget(oldWidget);
   }

@@ -1,19 +1,26 @@
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 /// [RichText] 魔改版
-/// 建议使用 [BText.rich],动态配置字体颜色
-class RText extends RichText {
-  RText({
+/// 建议使用 [FlText.rich],动态配置字体颜色
+class FlRichText extends RichText {
+  FlRichText({
     super.key,
 
-    /// 文本
-    required List<String> texts,
-
-    /// 所有[texts]默认样式
+    /// [TextSpan]
     TextStyle? style,
+    GestureRecognizer? recognizer,
+    MouseCursor? mouseCursor,
+    PointerEnterEventListener? onEnter,
+    PointerExitEventListener? onExit,
+    String? semanticsLabel,
+    String? semanticsIdentifier,
+    bool? spellOut,
+
+    /// `List<String>`
+    required List<String> texts,
 
     /// [texts]内样式
     List<TextStyle?> styles = const [],
@@ -69,10 +76,18 @@ class RText extends RichText {
     super.selectionRegistrar,
     super.selectionColor,
   }) : super(
-         text: buildTextSpan(
-           buildTextSpans(
+         text: TextSpan(
+           style: style,
+           recognizer: recognizer,
+           mouseCursor: mouseCursor,
+           onEnter: onEnter,
+           onExit: onExit,
+           semanticsLabel: semanticsLabel,
+           semanticsIdentifier: semanticsIdentifier,
+           spellOut: spellOut,
+           locale: locale,
+           children: buildTextSpans(
              texts: texts,
-             style: style,
              styles: styles,
              semanticsLabels: semanticsLabels,
              recognizers: recognizers,
@@ -85,79 +100,60 @@ class RText extends RichText {
          ),
        );
 
-  static TextSpan buildTextSpan(List<TextSpan> textSpans) => TextSpan(
-    text: textSpans.firstOrNull?.text,
-    style: textSpans.firstOrNull?.style,
-    semanticsLabel: textSpans.firstOrNull?.semanticsLabel,
-    recognizer: textSpans.firstOrNull?.recognizer,
-    mouseCursor: textSpans.firstOrNull?.mouseCursor,
-    onEnter: textSpans.firstOrNull?.onEnter,
-    onExit: textSpans.firstOrNull?.onExit,
-    locale: textSpans.firstOrNull?.locale,
-    spellOut: textSpans.firstOrNull?.spellOut,
-    children: textSpans.length > 1 ? textSpans.sublist(1, textSpans.length) : null,
-  );
-
   static List<TextSpan> buildTextSpans({
-    TextStyle? style,
     required List<String> texts,
-    required List<TextStyle?> styles,
-    required List<GestureRecognizer?> recognizers,
-    required List<String?> semanticsLabels,
-    required List<MouseCursor?> mouseCursors,
-    required List<PointerEnterEventListener?> onEnters,
-    required List<PointerExitEventListener?> onExits,
-    required List<Locale?> locales,
-    required List<bool?> spellOuts,
-  }) => texts.builderEntry(
-    (MapEntry<int, String> entry) => TextSpan(
-      text: entry.value,
-      semanticsLabel:
-          semanticsLabels.isEmpty || (semanticsLabels.length - 1) < entry.key ? null : semanticsLabels[entry.key],
-      mouseCursor: mouseCursors.isEmpty || (mouseCursors.length - 1) < entry.key ? null : mouseCursors[entry.key],
-      onEnter: onEnters.isEmpty || (onEnters.length - 1) < entry.key ? null : onEnters[entry.key],
-      onExit: onExits.isEmpty || (onExits.length - 1) < entry.key ? null : onExits[entry.key],
-      spellOut: spellOuts.isEmpty || (spellOuts.length - 1) < entry.key ? null : spellOuts[entry.key],
-      locale: locales.isEmpty || (locales.length - 1) < entry.key ? null : locales[entry.key],
-      recognizer: recognizers.isEmpty || (recognizers.length - 1) < entry.key ? null : recognizers[entry.key],
-      style:
-          styles.isEmpty || (styles.length - 1) < entry.key
-              ? style
-              : style == null
-              ? styles[entry.key]
-              : style.merge(styles[entry.key]),
+    List<TextStyle?> styles = const [],
+    List<GestureRecognizer?> recognizers = const [],
+    List<String?> semanticsLabels = const [],
+    List<MouseCursor?> mouseCursors = const [],
+    List<PointerEnterEventListener?> onEnters = const [],
+    List<PointerExitEventListener?> onExits = const [],
+    List<Locale?> locales = const [],
+    List<bool?> spellOuts = const [],
+  }) => texts.builderIV(
+    (int index, String value) => TextSpan(
+      text: value,
+      semanticsLabel: semanticsLabels.getElementOrNull(index),
+      mouseCursor: mouseCursors.getElementOrNull(index),
+      onEnter: onEnters.getElementOrNull(index),
+      onExit: onExits.getElementOrNull(index),
+      spellOut: spellOuts.getElementOrNull(index),
+      locale: locales.getElementOrNull(index),
+      recognizer: recognizers.getElementOrNull(index),
+      style: styles.getElementOrNull(index),
     ),
   );
 }
 
 /// 扩展 [Text]、[Text.rich]
-class BText extends StatelessWidget {
-  const BText(
-    this.text, {
+class FlText extends StatelessWidget {
+  const FlText(
+    String this.data, {
     super.key,
     this.useStyleFirst = true,
 
     /// [TextSpan]
-    this.style,
     this.recognizer,
-    this.semanticsLabel,
     this.mouseCursor,
     this.onEnter,
     this.onExit,
     this.spellOut,
 
     /// [Text]
-    this.locale,
+    this.style,
     this.strutStyle,
     this.textAlign,
     this.textDirection,
+    this.locale,
     this.softWrap,
     this.overflow,
+    this.textScaler,
     this.maxLines,
+    this.semanticsLabel,
+    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-    this.textScaler = TextScaler.noScaling,
 
     /// [TextStyle]
     this.inherit = true,
@@ -184,54 +180,29 @@ class BText extends StatelessWidget {
     this.fontFeatures,
     this.leadingDistribution,
     this.fontVariations,
-  }) : texts = const [],
-       styles = const [],
-       recognizers = const [],
-       semanticsLabels = const [],
-       mouseCursors = const [],
-       onEnters = const [],
-       onExits = const [],
-       locales = const [],
-       spellOuts = const [];
+  }) : inlineSpan = null,
+       inlineSpans = null;
 
-  /// 与 [RText] 一致，仅增加 主题适配
-  /// [text]、[style]、[recognizer]、[semanticsLabel]、[mouseCursor]、[onEnter]、[onExit]、[locale]、[spellOut]
-  /// 这几个如果有值默认应用于 [texts][0]
-  const BText.rich({
+  const FlText.rich(
+    InlineSpan this.inlineSpan, {
     super.key,
     this.useStyleFirst = true,
 
-    /// [TextSpan]
-    this.text = '',
-    this.texts = const [],
-    this.style,
-    this.styles = const [],
-    this.recognizer,
-    this.recognizers = const [],
-    this.semanticsLabel,
-    this.semanticsLabels = const [],
-    this.mouseCursor,
-    this.mouseCursors = const [],
-    this.onEnter,
-    this.onEnters = const [],
-    this.onExit,
-    this.onExits = const [],
-    this.locale,
-    this.locales = const [],
-    this.spellOut,
-    this.spellOuts = const [],
-
     /// [Text]
+    this.style,
     this.strutStyle,
     this.textAlign,
     this.textDirection,
+    this.locale,
     this.softWrap,
     this.overflow,
+    this.textScaler,
     this.maxLines,
+    this.semanticsLabel,
+    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-    this.textScaler = TextScaler.noScaling,
 
     /// [TextStyle]
     this.inherit = true,
@@ -258,12 +229,158 @@ class BText extends StatelessWidget {
     this.fontFeatures,
     this.leadingDistribution,
     this.fontVariations,
-  });
+  }) : data = null,
+       inlineSpans = null,
+       recognizer = null,
+       mouseCursor = null,
+       onEnter = null,
+       onExit = null,
+       spellOut = null;
+
+  const FlText.richSpans(
+    List<InlineSpan> this.inlineSpans, {
+    super.key,
+    this.useStyleFirst = true,
+
+    /// [TextSpan]
+    this.recognizer,
+    this.mouseCursor,
+    this.onEnter,
+    this.onExit,
+    this.spellOut,
+
+    /// [Text]
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.maxLines,
+    this.semanticsLabel,
+    this.semanticsIdentifier,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+
+    /// [TextStyle]
+    this.inherit = true,
+    this.color,
+    this.backgroundColor,
+    this.fontFamily,
+    this.fontFamilyFallback,
+    this.package,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+    this.foreground,
+    this.background,
+    this.decoration = TextDecoration.none,
+    this.decorationColor,
+    this.decorationStyle,
+    this.decorationThickness,
+    this.debugLabel,
+    this.shadows,
+    this.fontFeatures,
+    this.leadingDistribution,
+    this.fontVariations,
+  }) : data = null,
+       inlineSpan = null;
+
+  FlText.richText({
+    super.key,
+    this.useStyleFirst = true,
+
+    /// [TextSpan]
+    this.recognizer,
+    this.mouseCursor,
+    this.onEnter,
+    this.onExit,
+    this.spellOut,
+
+    /// [TextSpan.children]
+    required List<String> texts,
+    List<TextStyle?> styles = const [],
+    List<GestureRecognizer?> recognizers = const [],
+    List<String?> semanticsLabels = const [],
+    List<MouseCursor?> mouseCursors = const [],
+    List<PointerEnterEventListener?> onEnters = const [],
+    List<PointerExitEventListener?> onExits = const [],
+    List<Locale?> locales = const [],
+    List<bool?> spellOuts = const [],
+
+    /// [Text]
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.maxLines,
+    this.semanticsLabel,
+    this.semanticsIdentifier,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+
+    /// [TextStyle]
+    this.inherit = true,
+    this.color,
+    this.backgroundColor,
+    this.fontFamily,
+    this.fontFamilyFallback,
+    this.package,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+    this.foreground,
+    this.background,
+    this.decoration = TextDecoration.none,
+    this.decorationColor,
+    this.decorationStyle,
+    this.decorationThickness,
+    this.debugLabel,
+    this.shadows,
+    this.fontFeatures,
+    this.leadingDistribution,
+    this.fontVariations,
+  }) : data = null,
+       inlineSpans = FlRichText.buildTextSpans(
+         texts: texts,
+         styles: styles,
+         recognizers: recognizers,
+         semanticsLabels: semanticsLabels,
+         mouseCursors: mouseCursors,
+         onEnters: onEnters,
+         onExits: onExits,
+         locales: locales,
+         spellOuts: spellOuts,
+       ),
+       inlineSpan = null;
 
   /// 当 [color]和[style]中都有值
   /// [useStyleFirst]=true 优先使用 [style],
   /// [useStyleFirst]=false 优先使用外层,
   final bool useStyleFirst;
+
+  /// ---------- [TextSpan] ----------
+  final GestureRecognizer? recognizer;
+  final MouseCursor? mouseCursor;
+  final PointerEnterEventListener? onEnter;
+  final PointerExitEventListener? onExit;
+  final bool? spellOut;
 
   /// ---------- [TextStyle] ----------
   /// 默认样式会继承层级最为接近的 DefaultTextStyle，为true 表示继承，false 表示完全重写
@@ -335,30 +452,8 @@ class BText extends StatelessWidget {
 
   final TextLeadingDistribution? leadingDistribution;
 
-  /// ---------- [TextSpan] ----------
-
-  final String? text;
-
   /// 所有[texts]默认样式
   final TextStyle? style;
-
-  /// [text]手势
-  final GestureRecognizer? recognizer;
-
-  /// [text]语义 - 语义描述标签，相当于此text的别名
-  final String? semanticsLabel;
-
-  /// [mouseCursor]
-  final MouseCursor? mouseCursor;
-
-  /// [onEnter]
-  final PointerEnterEventListener? onEnter;
-
-  /// [onExit]
-  final PointerExitEventListener? onExit;
-
-  /// [spellOut]
-  final bool? spellOut;
 
   /// ---------- [Text] ----------
   /// How the text should be aligned horizontally.
@@ -393,34 +488,21 @@ class BText extends StatelessWidget {
 
   /// The color to use when painting the selection.
   final Color? selectionColor;
+  final String? semanticsLabel;
+  final String? semanticsIdentifier;
 
-  /// ---------- [BText.rich] ----------
-  /// 排在第一个[text]后面
-  final List<String> texts;
+  /// The text to display.
+  ///
+  /// This will be null if a [textSpan] is provided instead.
+  final String? data;
 
-  /// [texts]内样式
-  final List<TextStyle> styles;
+  /// The text to display as a [InlineSpan].
+  ///
+  /// This will be null if [data] is provided instead.
+  final InlineSpan? inlineSpan;
 
-  /// [texts]内手势
-  final List<GestureRecognizer?> recognizers;
-
-  /// [texts]内语义 - 语义描述标签，相当于此text的别名
-  final List<String> semanticsLabels;
-
-  /// [mouseCursors]
-  final List<MouseCursor?> mouseCursors;
-
-  /// [onEnters]
-  final List<PointerEnterEventListener?> onEnters;
-
-  /// [onExits]
-  final List<PointerExitEventListener?> onExits;
-
-  /// [locales]
-  final List<Locale?> locales;
-
-  /// [spellOuts]
-  final List<bool?> spellOuts;
+  /// 多个[InlineSpan]
+  final List<InlineSpan>? inlineSpans;
 
   @override
   Widget build(BuildContext context) {
@@ -457,20 +539,16 @@ class BText extends StatelessWidget {
       effectiveTextStyle = style!.merge(effectiveTextStyle);
     }
     return Text.rich(
-      RText.buildTextSpan(
-        RText.buildTextSpans(
-          style: effectiveTextStyle,
-          texts: [if (text != null) text!, ...texts],
-          styles: [effectiveTextStyle, ...styles],
-          recognizers: [if (recognizer != null) recognizer!, ...recognizers],
-          semanticsLabels: [if (semanticsLabel != null) semanticsLabel!, ...semanticsLabels],
-          mouseCursors: [if (mouseCursor != null) mouseCursor!, ...mouseCursors],
-          onEnters: [if (onEnter != null) onEnter!, ...onEnters],
-          onExits: [if (onExit != null) onExit!, ...onExits],
-          locales: [if (locale != null) locale!, ...locales],
-          spellOuts: [if (spellOut != null) spellOut!, ...spellOuts],
-        ),
-      ),
+      inlineSpan ??
+          TextSpan(
+            text: data,
+            recognizer: recognizer,
+            mouseCursor: mouseCursor,
+            onEnter: onEnter,
+            onExit: onExit,
+            spellOut: spellOut,
+            children: inlineSpans,
+          ),
       style: effectiveTextStyle,
       textAlign: textAlign,
       textDirection: textDirection,
@@ -480,9 +558,82 @@ class BText extends StatelessWidget {
       textScaler: textScaler,
       maxLines: maxLines,
       strutStyle: strutStyle,
+      semanticsLabel: semanticsLabel,
+      semanticsIdentifier: semanticsIdentifier,
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
       selectionColor: selectionColor,
     );
   }
+}
+
+class FlTextSpan extends TextSpan {
+  FlTextSpan({
+    super.text,
+    super.children,
+    super.recognizer,
+    super.mouseCursor,
+    super.onEnter,
+    super.onExit,
+    super.semanticsLabel,
+    super.semanticsIdentifier,
+    super.locale,
+    super.spellOut,
+
+    /// [TextStyle]
+    bool inherit = true,
+    Color? color,
+    Paint? foreground,
+    Paint? background,
+    Color? backgroundColor,
+    String? fontFamily,
+    double? fontSize,
+    FontWeight? fontWeight,
+    List<String>? fontFamilyFallback,
+    List<FontVariation>? fontVariations,
+    String? package,
+    FontStyle? fontStyle,
+    double? letterSpacing,
+    double? wordSpacing,
+    TextBaseline? textBaseline,
+    double? height,
+    TextDecoration? decoration,
+    Color? decorationColor,
+    TextDecorationStyle? decorationStyle,
+    double? decorationThickness,
+    String? debugLabel,
+    List<Shadow>? shadows,
+    List<FontFeature>? fontFeatures,
+    TextLeadingDistribution? leadingDistribution,
+    TextOverflow? overflow,
+  }) : super(
+         style: TextStyle(
+           inherit: inherit,
+           color: color,
+           foreground: foreground,
+           background: background,
+           backgroundColor: backgroundColor,
+           fontSize: fontSize,
+           fontWeight: fontWeight,
+           fontStyle: fontStyle,
+           fontFamily: fontFamily,
+           fontFamilyFallback: fontFamilyFallback,
+           fontVariations: fontVariations,
+           letterSpacing: letterSpacing,
+           wordSpacing: wordSpacing,
+           textBaseline: textBaseline,
+           height: height,
+           locale: locale,
+           shadows: shadows,
+           fontFeatures: fontFeatures,
+           decoration: decoration,
+           decorationColor: decorationColor,
+           decorationStyle: decorationStyle,
+           decorationThickness: decorationThickness,
+           debugLabel: debugLabel,
+           leadingDistribution: leadingDistribution,
+           package: package,
+           overflow: overflow,
+         ),
+       );
 }

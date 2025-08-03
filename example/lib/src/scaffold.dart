@@ -2,9 +2,9 @@ import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// ExtendedScaffold
-class ExtendedScaffold<T> extends StatelessWidget {
-  const ExtendedScaffold({
+/// FlScaffold
+class FlScaffold<T> extends StatelessWidget {
+  const FlScaffold({
     super.key,
     this.safeLeft = false,
     this.safeTop = false,

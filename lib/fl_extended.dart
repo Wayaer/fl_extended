@@ -7,10 +7,10 @@ export 'src/builder/value_builder.dart';
 
 /// components
 export 'src/components/animation.dart';
-export 'src/components/fl_inherited.dart';
+export 'src/components/button.dart';
 export 'src/components/icon_label.dart';
+export 'src/components/inherited.dart';
 export 'src/components/progress_indicator.dart';
-export 'src/components/unified_button.dart';
 export 'src/components/universal.dart';
 export 'src/const/const.dart';
 export 'src/const/platform.dart';
@@ -27,6 +27,7 @@ export 'src/extended/navigator.dart';
 export 'src/extended/overlay/modal.dart';
 export 'src/extended/overlay/overlay.dart';
 export 'src/extended/popup.dart';
+export 'src/extended/selectable_text.dart';
 export 'src/extended/text.dart';
 export 'src/extended/when.dart';
 

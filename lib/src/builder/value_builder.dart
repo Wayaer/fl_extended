@@ -15,7 +15,7 @@ typedef ValueBuilderCallback<T> = Widget Function(BuildContext context, T? value
 ///   onUpdate: (value) => print("Value updated: $value"),
 /// ),
 /// ```
-class ValueBuilder<T> extends ExtendedStatefulWidget {
+class ValueBuilder<T> extends FlStatefulWidget {
   const ValueBuilder({
     super.key,
     required this.builder,
@@ -40,7 +40,7 @@ class ValueBuilder<T> extends ExtendedStatefulWidget {
   State<ValueBuilder<T>> createState() => _ValueBuilderState<T>();
 }
 
-class _ValueBuilderState<T> extends ExtendedStatefulWidgetState<ValueBuilder<T>> {
+class _ValueBuilderState<T> extends FlStatefulWidgetState<ValueBuilder<T>> {
   T? value;
 
   @override

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
 
-class ExtendedBuilderPage extends StatelessWidget {
-  const ExtendedBuilderPage({super.key});
+class BuilderPage extends StatelessWidget {
+  const BuilderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     bool? showError = true;
-    return ExtendedScaffold(
+    return FlScaffold(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-      appBar: AppBarText('ExtendedBuilder'),
+      appBar: AppBaFlRichText('Builder'),
       children: [
         const Partition('CustomFutureBuilder', marginTop: 0),
         CustomFutureBuilder<String>(
@@ -30,8 +30,8 @@ class ExtendedBuilderPage extends StatelessWidget {
             return const CircularProgressIndicator();
           },
         ),
-        const Partition('ExtendedFutureBuilder'),
-        ExtendedFutureBuilder<String>(
+        const Partition('FlFutureBuilder'),
+        FlFutureBuilder<String>(
           initialData: '初始的数据 点击刷新',
           future: future.call(false),
           onDone: (_, data) {
@@ -63,8 +63,8 @@ class ExtendedBuilderPage extends StatelessWidget {
             return const CircularProgressIndicator();
           },
         ),
-        const Partition('ExtendedStreamBuilder'),
-        ExtendedStreamBuilder<String>(
+        const Partition('FlStreamBuilder'),
+        FlStreamBuilder<String>(
           initialData: '初始的数据 点击刷新',
           stream: Stream.fromFuture(future(false)),
           onDone: (_, data) {

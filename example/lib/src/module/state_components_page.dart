@@ -9,9 +9,9 @@ class StateComponentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExtendedScaffold(
+    return FlScaffold(
       isScroll: true,
-      appBar: AppBarText('State Components'),
+      appBar: AppBaFlRichText('State Components'),
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       children: [
         const Partition('ValueBuilder', marginTop: 0),
@@ -115,7 +115,7 @@ class StateComponentsPage extends StatelessWidget {
             ),
           ],
         ),
-        const Partition('ExtendedListenableBuilder'),
+        const Partition('FlListenableBuilder'),
         DefaultTabController(
           length: 2,
           child: Builder(
@@ -123,7 +123,7 @@ class StateComponentsPage extends StatelessWidget {
               final controller = DefaultTabController.of(context);
               return Column(
                 children: [
-                  ExtendedListenableBuilder<TabController>(
+                  FlListenableBuilder<TabController>(
                     listenable: controller,
                     builder: (_, TabController controller) {
                       final icons = [Icons.home, Icons.account_circle_outlined];

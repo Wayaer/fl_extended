@@ -239,7 +239,7 @@ class _LogList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectionArea(
-          child: BText.rich(
+          child: FlText.richText(
             style: TextStyle(fontSize: 12),
             texts: [
               '[${item.dateTime} - ${item.type.name}] : \n',

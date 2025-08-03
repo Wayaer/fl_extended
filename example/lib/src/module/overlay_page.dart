@@ -5,18 +5,18 @@ import 'package:fl_extended/fl_extended.dart';
 
 EdgeInsets insets = const EdgeInsets.all(20);
 
-class OverlayPage extends StatelessWidget {
-  const OverlayPage({super.key});
+class FlOverlayPage extends StatelessWidget {
+  const FlOverlayPage({super.key});
 
   @override
-  Widget build(BuildContext context) => ExtendedScaffold(
-    appBar: AppBarText('Overlay'),
+  Widget build(BuildContext context) => FlScaffold(
+    appBar: AppBaFlRichText('FlOverlay'),
     isScroll: true,
     padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
     canPop: false,
     canHideOverlay: true,
     onPopInvokedWithResult: (bool didPop, dynamic result, bool didCloseOverlay) {
-      log('OverlayPage onPopInvokedWithResult didPop=$didPop result=$result didCloseOverlay=$didCloseOverlay');
+      log('FlOverlayPage onPopInvokedWithResult didPop=$didPop result=$result didCloseOverlay=$didCloseOverlay');
       if (didCloseOverlay || didPop) return;
       pop();
     },
@@ -31,7 +31,7 @@ class OverlayPage extends StatelessWidget {
       ElevatedText(
         'showSnackBar',
         onTap: () {
-          showSnackBar(const SnackBar(content: BText('show SnackBar')));
+          showSnackBar(const SnackBar(content: FlText('show SnackBar')));
         },
       ),
       const Partition('Toast'),

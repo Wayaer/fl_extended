@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
 
 /// 扩展 StreamBuilder
-class ExtendedStreamBuilder<T> extends StreamBuilder {
-  ExtendedStreamBuilder({
+class FlStreamBuilder<T> extends StreamBuilder {
+  FlStreamBuilder({
     super.key,
     super.initialData,
     super.stream,
@@ -44,7 +44,7 @@ class ExtendedStreamBuilder<T> extends StreamBuilder {
 }
 
 /// 自定义版 StreamBuilder
-class CustomStreamBuilder<T> extends ExtendedStatefulWidget {
+class CustomStreamBuilder<T> extends FlStatefulWidget {
   const CustomStreamBuilder({
     super.key,
     this.initial,
@@ -90,7 +90,7 @@ class CustomStreamBuilder<T> extends ExtendedStatefulWidget {
   State<CustomStreamBuilder<T>> createState() => _CustomStreamBuilderState<T>();
 }
 
-class _CustomStreamBuilderState<T> extends ExtendedStatefulWidgetState<CustomStreamBuilder<T>> {
+class _CustomStreamBuilderState<T> extends FlStatefulWidgetState<CustomStreamBuilder<T>> {
   BuilderState state = BuilderState.none;
   StreamSubscription<T>? _subscription;
   T? data;

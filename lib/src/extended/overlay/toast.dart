@@ -157,19 +157,19 @@ class ToastContent extends StatelessWidget {
 /// 如果使用custom  请设置 [customIcon]
 enum ToastIconStyle {
   /// success
-  success(FlExtendedIcons.success),
+  success(FlIcons.success),
 
   /// fail
-  fail(FlExtendedIcons.fail),
+  fail(FlIcons.fail),
 
   /// info
-  info(FlExtendedIcons.info),
+  info(FlIcons.info),
 
   /// warning
-  warning(FlExtendedIcons.warning),
+  warning(FlIcons.warning),
 
   /// smile
-  smile(FlExtendedIcons.smile);
+  smile(FlIcons.smile);
 
   const ToastIconStyle(this.icon);
 

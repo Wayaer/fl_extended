@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 class Universal extends StatelessWidget {
   const Universal({
@@ -166,7 +166,7 @@ class Universal extends StatelessWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
     this.blendMode = BlendMode.srcOver,
-    this.unifiedButtonCategory,
+    this.buttonCategory,
     this.onHover,
     this.onFocusChange,
     this.style,
@@ -331,10 +331,10 @@ class Universal extends StatelessWidget {
 
   /// ****** 点击事件相关 ****** ///
 
-  /// [unifiedButtonCategory]!=null 使用[UnifiedButton]处理点击事件
-  /// ****** [UnifiedButton] ****** ///
+  /// [FlButtonCategory]!=null 使用[FlButton]处理点击事件
+  /// ****** [FlButton] ****** ///
   final VoidCallback? onPressed;
-  final UnifiedButtonCategory? unifiedButtonCategory;
+  final FlButtonCategory? buttonCategory;
   final ValueChanged<bool>? onHover;
   final ValueChanged<bool>? onFocusChange;
   final ButtonStyle? style;
@@ -343,7 +343,7 @@ class Universal extends StatelessWidget {
   final WidgetStatesController? statesController;
 
   /// ****** [GestureDetector] ****** ///
-  /// [unifiedButtonCategory]==null 使用[GestureDetector]处理点击事件
+  /// [FlButtonCategory]==null 使用[GestureDetector]处理点击事件
   ///
   /// 手指点击时的回调函数
   final GestureTapCallback? onTap;
@@ -584,9 +584,8 @@ class Universal extends StatelessWidget {
       current = Transform(transform: transform!, origin: origin, child: current);
     }
 
-    if (unifiedButtonCategory != null &&
-        (onTap != null || onPressed != null || onLongPress != null || onHover != null)) {
-      current = buildUnifiedButtonCategory(current);
+    if (buttonCategory != null && (onTap != null || onPressed != null || onLongPress != null || onHover != null)) {
+      current = buildButtonCategory(current);
     }
     if (enabledGestureDetector) {
       current = buildGestureDetector(current);
@@ -781,8 +780,8 @@ class Universal extends StatelessWidget {
     children: children,
   );
 
-  Widget buildUnifiedButtonCategory(Widget current) => UnifiedButton(
-    category: unifiedButtonCategory!,
+  Widget buildButtonCategory(Widget current) => FlButton(
+    category: buttonCategory!,
     onPressed: onTap ?? onPressed,
     onLongPress: onLongPress,
     onHover: onHover,

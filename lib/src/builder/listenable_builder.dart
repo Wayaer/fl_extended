@@ -13,7 +13,7 @@ import 'package:fl_extended/fl_extended.dart';
 ///          }),
 /// ```
 
-class ValueListenBuilder<T> extends ExtendedStatefulWidget {
+class ValueListenBuilder<T> extends FlStatefulWidget {
   const ValueListenBuilder({
     super.key,
     this.initial,
@@ -38,7 +38,7 @@ class ValueListenBuilder<T> extends ExtendedStatefulWidget {
   State<ValueListenBuilder<T>> createState() => _ValueListenBuilderState<T>();
 }
 
-class _ValueListenBuilderState<T> extends ExtendedStatefulWidgetState<ValueListenBuilder<T>> {
+class _ValueListenBuilderState<T> extends FlStatefulWidgetState<ValueListenBuilder<T>> {
   late ValueNotifier<T?> valueNotifier;
 
   @override
@@ -75,7 +75,7 @@ class _ValueListenBuilderState<T> extends ExtendedStatefulWidgetState<ValueListe
 
 /// Example:
 /// ```
-///      ExtendedListenableBuilder<TabController>(
+///      FlListenableBuilder<TabController>(
 ///         listenable: TabController(),
 ///         builder: (BuildContext context,
 ///             TabController controller) {
@@ -83,8 +83,8 @@ class _ValueListenBuilderState<T> extends ExtendedStatefulWidgetState<ValueListe
 ///             return (你需要局部刷新的组件)
 ///          }),
 /// ```
-class ExtendedListenableBuilder<T extends Listenable> extends ExtendedStatefulWidget {
-  const ExtendedListenableBuilder({
+class FlListenableBuilder<T extends Listenable> extends FlStatefulWidget {
+  const FlListenableBuilder({
     super.key,
     required this.listenable,
     required this.builder,
@@ -105,11 +105,10 @@ class ExtendedListenableBuilder<T extends Listenable> extends ExtendedStatefulWi
   final ValueCallback<T?>? onUpdate;
 
   @override
-  State<ExtendedListenableBuilder<T>> createState() => _ExtendedListenableBuilderState<T>();
+  State<FlListenableBuilder<T>> createState() => _FlListenableBuilderState<T>();
 }
 
-class _ExtendedListenableBuilderState<T extends Listenable>
-    extends ExtendedStatefulWidgetState<ExtendedListenableBuilder<T>> {
+class _FlListenableBuilderState<T extends Listenable> extends FlStatefulWidgetState<FlListenableBuilder<T>> {
   @override
   void initState() {
     widget.listenable.addListener(listener);
@@ -117,7 +116,7 @@ class _ExtendedListenableBuilderState<T extends Listenable>
   }
 
   @override
-  void didUpdateWidget(ExtendedListenableBuilder<T> oldWidget) {
+  void didUpdateWidget(FlListenableBuilder<T> oldWidget) {
     if (widget.listenable != oldWidget.listenable) {
       oldWidget.listenable.removeListener(listener);
       widget.listenable.addListener(listener);

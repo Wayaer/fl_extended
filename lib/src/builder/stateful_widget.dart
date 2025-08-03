@@ -1,8 +1,8 @@
 import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 
-abstract class ExtendedStatefulWidget extends StatefulWidget {
-  const ExtendedStatefulWidget({
+abstract class FlStatefulWidget extends StatefulWidget {
+  const FlStatefulWidget({
     super.key,
     this.initState,
     this.didChangeDependencies,
@@ -27,7 +27,7 @@ abstract class ExtendedStatefulWidget extends StatefulWidget {
   final ValueCallback<BuildContext>? dispose;
 }
 
-abstract class ExtendedStatefulWidgetState<T extends ExtendedStatefulWidget> extends ExtendedState<T> {
+abstract class FlStatefulWidgetState<T extends FlStatefulWidget> extends ExtendedState<T> {
   @override
   void initState() {
     widget.initState?.call(context);

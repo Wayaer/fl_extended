@@ -1,10 +1,18 @@
-## 1.9.0
-
+## 2.0.0
 * Add a file `global_key_extension`
 * Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`
 * Add `widgetsBinding` 、 `schedulerBinding` 、 `gestureBinding` 、 `paintingBinding` 、
   `semanticsBinding` 、 `rendererBinding` 、 `servicesBinding`
 * Add `focusManager` and `primaryFocus`
+* `UnifiedButton()` renamed as `FlButton()`
+* `ExtendedFutureBuilder()` renamed as `FlFutureBuilder()`
+* `ExtendedListenableBuilder()` renamed as `FlListenableBuilder()`
+* `ExtendedStatefulBuilder()` renamed as `FlStatefulBuilder()`
+* `ExtendedStreamBuilder()` renamed as `FlStreamBuilder()`
+* `RText()` renamed as `FlRichText()`
+* `BText()` renamed as `FlText()`, `BText.rich()` renamed as `FlText.richText()`, add `FlText.rich()` and
+  `FlText.richSpans()`,
+* Add `FlSelectableText()`、`FlSelectableText.rich()`,`FlSelectableText.richText()` and `FlSelectableText.richSpans()`,
 
 ## 1.8.1
 

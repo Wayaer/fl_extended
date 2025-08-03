@@ -15,9 +15,9 @@ class PopupPage extends StatelessWidget {
       content: content,
       actions: actions,
     );
-    return ExtendedScaffold(
+    return FlScaffold(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      appBar: AppBarText('Popup'),
+      appBar: AppBaFlRichText('Popup'),
       isScroll: true,
       children: [
         const Partition('ActionDialog', marginTop: 0),

@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/material.dart';
 
 /// 扩展 FutureBuilder
-class ExtendedFutureBuilder<T> extends FutureBuilder {
-  ExtendedFutureBuilder({
+class FlFutureBuilder<T> extends FutureBuilder {
+  FlFutureBuilder({
     super.key,
     super.initialData,
     super.future,
@@ -58,7 +58,7 @@ enum BuilderState {
 }
 
 /// 自定义版 FutureBuilder
-class CustomFutureBuilder<T> extends ExtendedStatefulWidget {
+class CustomFutureBuilder<T> extends FlStatefulWidget {
   const CustomFutureBuilder({
     super.key,
     this.initial,
@@ -104,7 +104,7 @@ class CustomFutureBuilder<T> extends ExtendedStatefulWidget {
   State<CustomFutureBuilder<T>> createState() => _CustomFutureBuilderState<T>();
 }
 
-class _CustomFutureBuilderState<T> extends ExtendedStatefulWidgetState<CustomFutureBuilder<T>> {
+class _CustomFutureBuilderState<T> extends FlStatefulWidgetState<CustomFutureBuilder<T>> {
   BuilderState state = BuilderState.none;
   T? data;
   Object? _error;

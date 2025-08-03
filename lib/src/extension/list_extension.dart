@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/foundation.dart';
 
 extension ExtensionUint8List on Uint8List {
   List<int> bit32ListFromUInt8List() {
@@ -98,6 +98,31 @@ extension ExtensionList<T> on List<T> {
       if (result) remove(element);
     }
     list.clear();
+  }
+
+  /// 根据索引安全获取元素，索引无效时返回null
+  T? getElementOrNull(int index) {
+    /// 检查索引是否在有效范围内
+    if (index >= 0 && index < length) {
+      return this[index];
+    }
+    return null;
+  }
+
+  /// 安全获取元素
+  /// 数组为空时返回null
+  /// 索引 >= 数组长度时返回最后一个元素
+  /// 索引 < 0 时返回第一个元素
+  T? getElementSafe(int index) {
+    /// 数组为空时返回null
+    if (isEmpty) return null;
+    if (index >= length) {
+      return last;
+    } else if (index < 0) {
+      return first;
+    } else {
+      return this[index];
+    }
   }
 }
 

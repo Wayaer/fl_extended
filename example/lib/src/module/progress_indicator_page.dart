@@ -24,13 +24,13 @@ class _ProgressIndicatorPageState extends State<ProgressIndicatorPage> with Sing
 
   @override
   Widget build(BuildContext context) {
-    return ExtendedScaffold(
-      appBar: AppBarText('FlProgressIndicator'),
+    return FlScaffold(
+      appBar: AppBaFlRichText('FlProgressIndicator'),
       padding: const EdgeInsets.all(20),
       child: AnimatedBuilder(
         animation: controller,
         builder:
-            (_, __) => Column(
+            (_, _) => Column(
               children: [
                 const Partition('FlProgressIndicator.linear', marginTop: 0),
                 ProgressIndicatorOptions.linear(
