@@ -127,6 +127,63 @@ class FlRichText extends RichText {
 
 /// 扩展 [Text]、[Text.rich]
 class FlText extends StatelessWidget {
+  const FlText.custom({
+    this.data,
+    this.inlineSpan,
+    this.inlineSpans,
+    super.key,
+    this.useStyleFirst = true,
+
+    /// [TextSpan]
+    this.recognizer,
+    this.mouseCursor,
+    this.onEnter,
+    this.onExit,
+    this.spellOut,
+
+    /// [Text]
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.maxLines,
+    this.semanticsLabel,
+    this.semanticsIdentifier,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+
+    /// [TextStyle]
+    this.inherit = true,
+    this.color,
+    this.backgroundColor,
+    this.fontFamily,
+    this.fontFamilyFallback,
+    this.package,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+    this.foreground,
+    this.background,
+    this.decoration = TextDecoration.none,
+    this.decorationColor,
+    this.decorationStyle,
+    this.decorationThickness,
+    this.debugLabel,
+    this.shadows,
+    this.fontFeatures,
+    this.leadingDistribution,
+    this.fontVariations,
+  }) : assert(data != null || inlineSpan != null || inlineSpans != null);
+
   const FlText(
     String this.data, {
     super.key,
