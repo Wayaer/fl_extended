@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/services.dart';
 
 /// String 扩展
 extension ExtensionString on String {
@@ -77,6 +77,10 @@ extension ExtensionString on String {
   DateTime get parseDateTime => DateTime.parse(this);
 
   DateTime? get tryParseDateTime => DateTime.tryParse(this);
+
+  BigInt get parseBigInt => BigInt.parse(this);
+
+  BigInt? get tryParseBigInt => BigInt.tryParse(this);
 
   ///Removes first element
   String get removeFirst => length > 1 ? substring(1, length) : '';

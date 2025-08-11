@@ -1,3 +1,7 @@
+## 2.0.3
+
+* Add `BigInt` extension
+
 ## 2.0.2
 * Add a file `global_key_extension`
 * Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`

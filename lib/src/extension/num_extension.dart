@@ -1,15 +1,17 @@
 import 'dart:math' as math;
 import 'dart:math';
 
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 /// num 扩展
 extension ExtensionNum on num {
   T max<T extends num>(T value) => math.max(this as T, value);
 
   T min<T extends num>(T value) => math.min(this as T, value);
+
+  BigInt? get toBigInt => BigInt.from(this);
 
   double get cos => math.cos(this);
 
