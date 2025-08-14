@@ -16,7 +16,6 @@ class FlRichText extends RichText {
     PointerEnterEventListener? onEnter,
     PointerExitEventListener? onExit,
     String? semanticsLabel,
-    String? semanticsIdentifier,
     bool? spellOut,
 
     /// `List<String>`
@@ -83,7 +82,6 @@ class FlRichText extends RichText {
            onEnter: onEnter,
            onExit: onExit,
            semanticsLabel: semanticsLabel,
-           semanticsIdentifier: semanticsIdentifier,
            spellOut: spellOut,
            locale: locale,
            children: buildTextSpans(
@@ -152,7 +150,6 @@ class FlText extends StatelessWidget {
     this.textScaler,
     this.maxLines,
     this.semanticsLabel,
-    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
@@ -207,7 +204,6 @@ class FlText extends StatelessWidget {
     this.textScaler,
     this.maxLines,
     this.semanticsLabel,
-    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
@@ -256,7 +252,6 @@ class FlText extends StatelessWidget {
     this.textScaler,
     this.maxLines,
     this.semanticsLabel,
-    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
@@ -317,7 +312,6 @@ class FlText extends StatelessWidget {
     this.textScaler,
     this.maxLines,
     this.semanticsLabel,
-    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
@@ -383,7 +377,6 @@ class FlText extends StatelessWidget {
     this.textScaler,
     this.maxLines,
     this.semanticsLabel,
-    this.semanticsIdentifier,
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
@@ -546,7 +539,6 @@ class FlText extends StatelessWidget {
   /// The color to use when painting the selection.
   final Color? selectionColor;
   final String? semanticsLabel;
-  final String? semanticsIdentifier;
 
   /// The text to display.
   ///
@@ -616,7 +608,6 @@ class FlText extends StatelessWidget {
       maxLines: maxLines,
       strutStyle: strutStyle,
       semanticsLabel: semanticsLabel,
-      semanticsIdentifier: semanticsIdentifier,
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
       selectionColor: selectionColor,
@@ -633,7 +624,6 @@ class FlTextSpan extends TextSpan {
     super.onEnter,
     super.onExit,
     super.semanticsLabel,
-    super.semanticsIdentifier,
     super.locale,
     super.spellOut,
 

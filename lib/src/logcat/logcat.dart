@@ -218,7 +218,7 @@ class _LogList extends StatelessWidget {
               child: ValueListenableBuilder<List<LogContent>>(
                 valueListenable: FlLogcat()._logs,
                 builder:
-                    (_, map, _) => ListView.builder(
+                    (_, map, __) => ListView.builder(
                       reverse: true,
                       padding: EdgeInsets.all(6),
                       itemCount: map.length,

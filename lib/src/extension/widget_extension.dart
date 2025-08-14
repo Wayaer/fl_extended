@@ -61,7 +61,7 @@ extension ExtensionWidgetMethod on Widget {
     if (options.fromStyle != PopupFromStyle.fromCenter) {
       transitionBuilder =
           options.transitionBuilder ??
-          (_, Animation<double> animation, _, Widget child) {
+          (_, Animation<double> animation, __, Widget child) {
             Offset translation;
             switch (options!.fromStyle) {
               case PopupFromStyle.fromLeft:
@@ -86,7 +86,7 @@ extension ExtensionWidgetMethod on Widget {
     assert(FlExtended().navigatorKey.currentContext != null);
     return showGeneralDialog<T>(
       context: FlExtended().navigatorKey.currentContext!,
-      pageBuilder: builder ?? (_, Animation<double> animation, _) => this,
+      pageBuilder: builder ?? (_, Animation<double> animation, __) => this,
       barrierDismissible: options.barrierDismissible,
       barrierLabel: options.barrierLabel,
       barrierColor: options.barrierColor,
@@ -176,9 +176,9 @@ extension ExtensionWidget on Widget {
 
   WidgetBuilder get toWidgetBuilder => (_) => this;
 
-  LoadingBuilder get toLoadingBuilder => (_, _) => this;
+  LoadingBuilder get toLoadingBuilder => (_, __) => this;
 
-  ToastBuilder get toToastBuilder => (_, _) => this;
+  ToastBuilder get toToastBuilder => (_, __) => this;
 
   RoutePageBuilder get toRoutePageBuilder =>
       (_, Animation<double> animation, Animation<double> secondaryAnimation) => this;

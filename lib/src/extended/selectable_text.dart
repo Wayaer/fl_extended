@@ -35,7 +35,6 @@ class FlSelectableText extends StatelessWidget {
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,
-    this.selectionColor,
     this.selectionHeightStyle = BoxHeightStyle.tight,
     this.selectionWidthStyle = BoxWidthStyle.tight,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -43,7 +42,6 @@ class FlSelectableText extends StatelessWidget {
     this.selectionControls,
     this.onTap,
     this.scrollPhysics,
-    this.scrollBehavior,
     this.semanticsLabel,
     this.textHeightBehavior,
     this.textWidthBasis,
@@ -106,7 +104,6 @@ class FlSelectableText extends StatelessWidget {
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,
-    this.selectionColor,
     this.selectionHeightStyle = BoxHeightStyle.tight,
     this.selectionWidthStyle = BoxWidthStyle.tight,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -114,7 +111,6 @@ class FlSelectableText extends StatelessWidget {
     this.selectionControls,
     this.onTap,
     this.scrollPhysics,
-    this.scrollBehavior,
     this.semanticsLabel,
     this.textHeightBehavior,
     this.textWidthBasis,
@@ -171,7 +167,6 @@ class FlSelectableText extends StatelessWidget {
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,
-    this.selectionColor,
     this.selectionHeightStyle = BoxHeightStyle.tight,
     this.selectionWidthStyle = BoxWidthStyle.tight,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -179,7 +174,6 @@ class FlSelectableText extends StatelessWidget {
     this.selectionControls,
     this.onTap,
     this.scrollPhysics,
-    this.scrollBehavior,
     this.semanticsLabel,
     this.textHeightBehavior,
     this.textWidthBasis,
@@ -248,7 +242,6 @@ class FlSelectableText extends StatelessWidget {
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,
-    this.selectionColor,
     this.selectionHeightStyle = BoxHeightStyle.tight,
     this.selectionWidthStyle = BoxWidthStyle.tight,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -256,7 +249,6 @@ class FlSelectableText extends StatelessWidget {
     this.selectionControls,
     this.onTap,
     this.scrollPhysics,
-    this.scrollBehavior,
     this.semanticsLabel,
     this.textHeightBehavior,
     this.textWidthBasis,
@@ -330,7 +322,6 @@ class FlSelectableText extends StatelessWidget {
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,
-    this.selectionColor,
     this.selectionHeightStyle = BoxHeightStyle.tight,
     this.selectionWidthStyle = BoxWidthStyle.tight,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -338,7 +329,6 @@ class FlSelectableText extends StatelessWidget {
     this.selectionControls,
     this.onTap,
     this.scrollPhysics,
-    this.scrollBehavior,
     this.semanticsLabel,
     this.textHeightBehavior,
     this.textWidthBasis,
@@ -496,9 +486,6 @@ class FlSelectableText extends StatelessWidget {
   /// {@macro dart.ui.textHeightBehavior}
   final TextHeightBehavior? textHeightBehavior;
 
-  /// The color to use when painting the selection.
-  final Color? selectionColor;
-
   ///
   final FocusNode? focusNode;
 
@@ -568,9 +555,6 @@ class FlSelectableText extends StatelessWidget {
 
   /// {@macro flutter.widgets.editableText.scrollPhysics}
   final ScrollPhysics? scrollPhysics;
-
-  /// {@macro flutter.widgets.editableText.scrollBehavior}
-  final ScrollBehavior? scrollBehavior;
 
   /// {@macro flutter.widgets.Text.semanticsLabel}
   final String? semanticsLabel;
@@ -650,7 +634,6 @@ class FlSelectableText extends StatelessWidget {
       strutStyle: strutStyle,
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
-      selectionColor: selectionColor,
       selectionHeightStyle: selectionHeightStyle,
       selectionWidthStyle: selectionWidthStyle,
       dragStartBehavior: dragStartBehavior,
@@ -658,7 +641,6 @@ class FlSelectableText extends StatelessWidget {
       selectionControls: selectionControls,
       onTap: onTap,
       scrollPhysics: scrollPhysics,
-      scrollBehavior: scrollBehavior,
       semanticsLabel: semanticsLabel,
       onSelectionChanged: onSelectionChanged,
       contextMenuBuilder: contextMenuBuilder,

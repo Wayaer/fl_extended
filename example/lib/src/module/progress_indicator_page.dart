@@ -30,7 +30,7 @@ class _ProgressIndicatorPageState extends State<ProgressIndicatorPage> with Sing
       child: AnimatedBuilder(
         animation: controller,
         builder:
-            (_, _) => Column(
+            (_, __) => Column(
               children: [
                 const Partition('FlProgressIndicator.linear', marginTop: 0),
                 ProgressIndicatorOptions.linear(
