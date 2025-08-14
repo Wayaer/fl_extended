@@ -1,16 +1,10 @@
-## 3.0.2
+## 1.9.3
 
 * Add `isHarmonyOS`
 
-## 3.0.0
-
-* Migrate to 3.35
-
-## 2.0.3
+## 1.9.1
 
 * Add `BigInt` extension
-
-## 2.0.2
 * Add a file `global_key_extension`
 * Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`
 * Add `widgetsBinding` 、 `schedulerBinding` 、 `gestureBinding` 、 `paintingBinding` 、
@@ -26,13 +20,7 @@
   `FlText.richSpans()`、`FlText.custom()`,
 * Add `FlSelectableText()`、`FlSelectableText.rich()`,`FlSelectableText.richText()`、`FlSelectableText.richSpans()`、
   `FlSelectableText.custom()`,
-
-## 1.8.1
-
 * Add a typedef for FutureOr callback
-
-## 1.8.0
-
 * `ExtendedOverlay` renamed as `FlOverlay`
 * `ExtendedOverlayEntry` renamed as `FlOverlayEntry`,`autoOff` was removed, and `isCached` was added
   with a default value of true
@@ -42,22 +30,12 @@
 * `closeLoading()` renamed as `hideLoading()`
 * `closeToast()` renamed as `hideToast()`
 * `closeOverlay()` renamed as `hideOverlay()`
-
-## 1.7.3
-
 * Add `flexible` and `aspectRatio` to `Universal`. And Removed `enable`
 * Add `.flexible` and `.aspectRatio()` to `ExtensionWidget`
 * Add `iconAlignment` to `UnifiedButton`
-
-## 1.7.2
-
 * Modify or add extension methods for String and List<int>, including `base64`, `base64URL`, `UTF8`,
   `ASCII`, `Latin1`, `JSON`, and `URI`
 * Fix the `foregroundColor` issue of `ActionDialog`
-
-## 1.7.0
-
-* Migrate to 3.29
 
 ## 1.6.3
 
