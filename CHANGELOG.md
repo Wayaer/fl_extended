@@ -1,4 +1,4 @@
-## 1.7.5
+## 1.7.6
 
 * Add `BigInt` extension
 * Add a file `global_key_extension`
