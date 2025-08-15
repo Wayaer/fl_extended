@@ -173,28 +173,27 @@ class IconLabel extends StatelessWidget {
       label ??
       (labelText != null
           ? Text(
-            labelText!,
-            style: TextStyle(color: color).merge(labelStyle),
-            textAlign: textAlign,
-            maxLines: maxLines,
-            textDirection: textDirection,
-            overflow: overflow,
-          )
+              labelText!,
+              style: TextStyle(color: color).merge(labelStyle),
+              textAlign: textAlign,
+              maxLines: maxLines,
+              textDirection: textDirection,
+              overflow: overflow,
+            )
           : null);
 
-  Widget? get buildIcon =>
-      [
-        if (icon != null) Icon(icon, color: color, size: size, textDirection: textDirection),
-        if (image != null) image!,
-        if (imageProvider != null)
-          Image(
-            image: imageProvider!,
-            width: size,
-            height: size,
-            color: color,
-            fit: BoxFit.scaleDown,
-            excludeFromSemantics: true,
-          ),
-        if (widget != null) widget!,
-      ].firstOrNull;
+  Widget? get buildIcon => [
+    if (icon != null) Icon(icon, color: color, size: size, textDirection: textDirection),
+    if (image != null) image!,
+    if (imageProvider != null)
+      Image(
+        image: imageProvider!,
+        width: size,
+        height: size,
+        color: color,
+        fit: BoxFit.scaleDown,
+        excludeFromSemantics: true,
+      ),
+    if (widget != null) widget!,
+  ].firstOrNull;
 }

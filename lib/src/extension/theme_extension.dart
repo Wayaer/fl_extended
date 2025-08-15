@@ -85,5 +85,6 @@ extension ExtensionThemeData on ThemeData {
     timePickerTheme: themeData?.timePickerTheme ?? timePickerTheme,
     toggleButtonsTheme: themeData?.toggleButtonsTheme ?? toggleButtonsTheme,
     tooltipTheme: themeData?.tooltipTheme ?? tooltipTheme,
+    carouselViewTheme: themeData?.carouselViewTheme ?? carouselViewTheme,
   );
 }

@@ -85,9 +85,8 @@ class StateComponentsPage extends StatelessWidget {
                 await 1.seconds.delayed();
                 return value;
               },
-              builder:
-                  (bool? value, onChanged) =>
-                      Checkbox(shape: const CircleBorder(), tristate: true, value: value, onChanged: onChanged),
+              builder: (bool? value, onChanged) =>
+                  Checkbox(shape: const CircleBorder(), tristate: true, value: value, onChanged: onChanged),
             ),
           ],
         ),
@@ -140,8 +139,14 @@ class StateComponentsPage extends StatelessWidget {
                     height: 50,
                     child: TabBarView(
                       children: [
-                        Container(color: Colors.yellow, child: const Center(child: Text('往左滑动'))),
-                        Container(color: Colors.blueAccent, child: const Center(child: Text('往左滑动'))),
+                        Container(
+                          color: Colors.yellow,
+                          child: const Center(child: Text('往左滑动')),
+                        ),
+                        Container(
+                          color: Colors.blueAccent,
+                          child: const Center(child: Text('往左滑动')),
+                        ),
                       ],
                     ),
                   ),

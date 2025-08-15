@@ -1,3 +1,11 @@
+## 3.0.2
+
+* Add `isHarmonyOS`
+
+## 3.0.0
+
+* Migrate to 3.35
+
 ## 2.0.3
 
 * Add `BigInt` extension

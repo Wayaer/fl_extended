@@ -29,40 +29,39 @@ class _ProgressIndicatorPageState extends State<ProgressIndicatorPage> with Sing
       padding: const EdgeInsets.all(20),
       child: AnimatedBuilder(
         animation: controller,
-        builder:
-            (_, _) => Column(
-              children: [
-                const Partition('FlProgressIndicator.linear', marginTop: 0),
-                ProgressIndicatorOptions.linear(
-                  height: 10,
-                  borderRadius: BorderRadius.circular(10),
-                  value: controller.value,
-                  valueColor: animationColor,
-                  backgroundColor: Colors.amber,
-                ).widget,
-                const Partition('FlProgressIndicator.circular'),
-                ProgressIndicatorOptions.circular(
-                  strokeWidth: 4,
-                  width: 100,
-                  height: 100,
-                  strokeCap: StrokeCap.round,
-                  value: controller.value,
-                  valueColor: animationColor,
-                  backgroundColor: Colors.amber,
-                ).widget,
-                const Partition('FlProgressIndicator.refresh'),
-                ProgressIndicatorOptions.refresh(
-                  elevation: 2,
-                  width: 100,
-                  height: 100,
-                  indicatorMargin: EdgeInsets.zero,
-                  indicatorPadding: EdgeInsets.zero,
-                  value: controller.value,
-                  valueColor: animationColor,
-                  backgroundColor: Colors.amber,
-                ).widget,
-              ],
-            ),
+        builder: (BuildContext context, Widget? child) => Column(
+          children: [
+            const Partition('FlProgressIndicator.linear', marginTop: 0),
+            ProgressIndicatorOptions.linear(
+              height: 10,
+              borderRadius: BorderRadius.circular(10),
+              value: controller.value,
+              valueColor: animationColor,
+              backgroundColor: Colors.amber,
+            ).widget,
+            const Partition('FlProgressIndicator.circular'),
+            ProgressIndicatorOptions.circular(
+              strokeWidth: 4,
+              width: 100,
+              height: 100,
+              strokeCap: StrokeCap.round,
+              value: controller.value,
+              valueColor: animationColor,
+              backgroundColor: Colors.amber,
+            ).widget,
+            const Partition('FlProgressIndicator.refresh'),
+            ProgressIndicatorOptions.refresh(
+              elevation: 2,
+              width: 100,
+              height: 100,
+              indicatorMargin: EdgeInsets.zero,
+              indicatorPadding: EdgeInsets.zero,
+              value: controller.value,
+              valueColor: animationColor,
+              backgroundColor: Colors.amber,
+            ).widget,
+          ],
+        ),
       ),
     );
   }

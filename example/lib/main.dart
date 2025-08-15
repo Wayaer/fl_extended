@@ -39,7 +39,11 @@ void main() {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (content.iconStyle != null) Icon(content.iconStyle!.icon, color: content.color),
-            Text(content.text, textAlign: TextAlign.center, style: TextStyle(color: content.color)),
+            Text(
+              content.text,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: content.color),
+            ),
           ],
         );
       },
@@ -76,10 +80,6 @@ void main() {
         hideLoading();
       },
     );
-    10000.generate((int index) {
-      FlLogcat().insertLog(LogContent(type: LogType.other, dateTime: DateTime.now(), line: 'insertLog  $index'));
-    });
-
     runApp(
       DevicePreview(
         enabled: isDesktop || isWeb,
@@ -131,6 +131,9 @@ class _HomeState extends State<_Home> {
     super.initState();
     addPostFrameCallback((_) {
       FlLogcat().isRunning = true;
+      LogType.values.builder((e) {
+        FlLogcat().insertLog(LogContent(type: e, dateTime: DateTime.now(), line: 'insertLog  $e'));
+      });
     });
   }
 

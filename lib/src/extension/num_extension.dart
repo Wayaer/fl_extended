@@ -130,8 +130,8 @@ extension ExtensionNum on num {
       case 7:
         return isSimplify
             ? isWeek
-                ? '日'
-                : '七'
+                  ? '日'
+                  : '七'
             : '柒';
       case 8:
         return isSimplify ? '八' : '捌';

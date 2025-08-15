@@ -222,8 +222,10 @@ class ModalBox extends StatelessWidget {
     return current;
   }
 
-  Widget backdropFilter(ModalOptions options, Widget child) =>
-      BackdropFilter(filter: ImageFilter.blur(sigmaX: options.gaussian, sigmaY: options.gaussian), child: child);
+  Widget backdropFilter(ModalOptions options, Widget child) => BackdropFilter(
+    filter: ImageFilter.blur(sigmaX: options.gaussian, sigmaY: options.gaussian),
+    child: child,
+  );
 }
 
 extension ExtensionActionDialog on ActionDialog {

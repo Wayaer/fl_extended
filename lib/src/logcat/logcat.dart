@@ -16,7 +16,20 @@ enum LogType {
   errorCallback,
 
   /// other
-  other,
+  other;
+
+  Color? get color {
+    switch (this) {
+      case LogType.print:
+        return null;
+      case LogType.error:
+        return Colors.red;
+      case LogType.errorCallback:
+        return Colors.orange;
+      case LogType.other:
+        return Colors.green;
+    }
+  }
 }
 
 class LogContent {
@@ -95,29 +108,22 @@ class FlLogcat {
 
   FlOverlayEntry? _overlayEntry;
 
-  bool _hasOverlayEntry = false;
+  bool get _hasOverlayEntry => _overlayEntry != null;
 
   void show() {
     if (isRunning && !_hasOverlayEntry) {
-      _hasOverlayEntry = true;
       _overlayEntry ??= _LogcatIcon(show: showLog, hide: hide).showOverlay(isCached: false);
     }
   }
 
   void hide() {
-    _hasOverlayEntry = false;
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
 
   Future<void> showLog() async {
     if (isRunning && FlExtended().navigatorKey.currentContext != null) {
-      await showModalBottomSheet(
-        context: FlExtended().navigatorKey.currentContext!,
-        isScrollControlled: true,
-        useSafeArea: true,
-        builder: (_) => const _LogList(),
-      );
+      await const _LogList().popupBottomSheet();
     }
   }
 }
@@ -217,13 +223,12 @@ class _LogList extends StatelessWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
               child: ValueListenableBuilder<List<LogContent>>(
                 valueListenable: FlLogcat()._logs,
-                builder:
-                    (_, map, _) => ListView.builder(
-                      reverse: true,
-                      padding: EdgeInsets.all(6),
-                      itemCount: map.length,
-                      itemBuilder: (_, int index) => itemBuilder(context, map, index),
-                    ),
+                builder: (BuildContext context, map, Widget? child) => ListView.builder(
+                  reverse: true,
+                  padding: EdgeInsets.all(6),
+                  itemCount: map.length,
+                  itemBuilder: (_, int index) => itemBuilder(context, map, index),
+                ),
               ),
             ),
           ),
@@ -238,19 +243,20 @@ class _LogList extends StatelessWidget {
       width: double.infinity,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SelectionArea(
-          child: FlText.richText(
-            style: TextStyle(fontSize: 12),
-            texts: [
-              '[${item.dateTime} - ${item.type.name}] : \n',
-              if (item.line != null) item.line!,
-              if (item.error != null) item.error.toString(),
-              if (item.stackTrace != null) item.stackTrace.toString(),
-            ],
-            styles: [
-              TextStyle(color: context.theme.primaryColor, fontWeight: FontWeight.w500),
-              TextStyle(color: item.error != null ? context.theme.colorScheme.error : null),
-            ],
+        SizedBox(
+          width: double.infinity,
+          child: SelectionArea(
+            child: FlText.richText(
+              style: TextStyle(fontSize: 12, color: item.type.color),
+              maxLines: 1000,
+              texts: [
+                '[${item.dateTime} - ${item.type.name}] : \n',
+                if (item.line != null) item.line!,
+                if (item.error != null) item.error.toString(),
+                if (item.stackTrace != null) item.stackTrace.toString(),
+              ],
+              styles: [TextStyle(fontWeight: FontWeight.w500)],
+            ),
           ),
         ),
         10.heightBox,
@@ -268,7 +274,10 @@ class _Toolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [IconButton(onPressed: onDelete, icon: const Icon(Icons.delete, size: 19)), const CloseButton()],
+      children: [
+        IconButton(onPressed: onDelete, icon: const Icon(Icons.delete, size: 19)),
+        const CloseButton(),
+      ],
     );
   }
 }

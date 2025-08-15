@@ -20,7 +20,6 @@ class FlOverlayPage extends StatelessWidget {
       if (didCloseOverlay || didPop) return;
       pop();
     },
-
     children: [
       const Partition('FlPopScope'),
       Text(
@@ -76,15 +75,14 @@ class FlOverlayPage extends StatelessWidget {
               elevation: 2,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               onModalTap: hideLoading,
-              builder:
-                  (_, ProgressIndicatorOptions? progressIndicator) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      FlProgressIndicator(ProgressIndicatorStyle.circular.options),
-                      10.heightBox,
-                      const Text('Loading...'),
-                    ],
-                  ),
+              builder: (_, ProgressIndicatorOptions? progressIndicator) => Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FlProgressIndicator(ProgressIndicatorStyle.circular.options),
+                  10.heightBox,
+                  const Text('Loading...'),
+                ],
+              ),
               borderRadius: BorderRadius.circular(6),
               alignment: Alignment.center,
               textStyle: TextStyle(color: context.theme.primaryColor, fontWeight: FontWeight.bold),

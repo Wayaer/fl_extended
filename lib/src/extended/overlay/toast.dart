@@ -83,15 +83,14 @@ class Toast extends StatelessWidget {
     current = Universal(onTap: options.onToastTap, padding: options.padding, child: current);
     return ModalBox(
       options: options,
-      materialBuilder:
-          options.animationStyle == null
-              ? null
-              : (Widget child) => FlAnimation(
-                style: options.animationStyle!,
-                animationDuration: options.animationDuration ?? kThemeChangeDuration,
-                stayDuration: options.duration.subtract(kFlAnimationDuration, kFlAnimationDuration),
-                child: child,
-              ),
+      materialBuilder: options.animationStyle == null
+          ? null
+          : (Widget child) => FlAnimation(
+              style: options.animationStyle!,
+              animationDuration: options.animationDuration ?? kThemeChangeDuration,
+              stayDuration: options.duration.subtract(kFlAnimationDuration, kFlAnimationDuration),
+              child: child,
+            ),
       child: current,
     );
   }
@@ -205,18 +204,17 @@ Future<FlOverlayEntry?> showToast(
 
   /// ToastOptions
   ToastOptions? options,
-}) =>
-    Toast(
-      message,
-      animationStyle: animationStyle,
-      animationDuration: animationDuration,
-      textStyle: textStyle,
-      iconStyle: iconStyle,
-      builder: builder,
-      onToastTap: onToastTap,
-      duration: duration,
-      options: options,
-    ).show();
+}) => Toast(
+  message,
+  animationStyle: animationStyle,
+  animationDuration: animationDuration,
+  textStyle: textStyle,
+  iconStyle: iconStyle,
+  builder: builder,
+  onToastTap: onToastTap,
+  duration: duration,
+  options: options,
+).show();
 
 void hideToast() => FlOverlay().hideToast();
 

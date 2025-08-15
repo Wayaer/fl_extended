@@ -41,7 +41,10 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         size: const Size(300, 20),
         direction: Axis.horizontal,
         color: Colors.green.withValues(alpha: 0.2),
-        children: const [Universal(flex: 1, color: Colors.red), Universal(flex: 2, color: Colors.greenAccent)],
+        children: const [
+          Universal(flex: 1, color: Colors.red),
+          Universal(flex: 2, color: Colors.greenAccent),
+        ],
       ),
       const SizedBox(height: 10),
       Universal(

@@ -144,10 +144,9 @@ class FlButton extends StatelessWidget {
         mainAxisSize: mainAxisSize,
         clipBehavior: clipBehavior,
         spacing: gap,
-        children:
-            effectiveIconAlignment == IconAlignment.start
-                ? [icon!, Flexible(child: current)]
-                : [Flexible(child: current), icon!],
+        children: effectiveIconAlignment == IconAlignment.start
+            ? [icon!, Flexible(child: current)]
+            : [Flexible(child: current), icon!],
       );
     }
     if (padding != null) {

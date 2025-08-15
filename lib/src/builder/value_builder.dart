@@ -130,14 +130,13 @@ class ChangedBuilder<T> extends StatelessWidget {
     didChangeDependencies: didChangeDependencies,
     deactivate: deactivate,
     dispose: dispose,
-    builder:
-        (_, T? value, Function update) => builder(value as T, (T v) {
-          onChanged?.call(v);
-          if (onWaitChanged != null) {
-            onWaitChanged!(v).then((result) => update(result));
-          } else {
-            update(v);
-          }
-        }),
+    builder: (_, T? value, Function update) => builder(value as T, (T v) {
+      onChanged?.call(v);
+      if (onWaitChanged != null) {
+        onWaitChanged!(v).then((result) => update(result));
+      } else {
+        update(v);
+      }
+    }),
   );
 }

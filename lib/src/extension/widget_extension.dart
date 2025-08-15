@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 extension ExtensionWidgetMethod on Widget {
   /// [push]
@@ -61,7 +61,7 @@ extension ExtensionWidgetMethod on Widget {
     if (options.fromStyle != PopupFromStyle.fromCenter) {
       transitionBuilder =
           options.transitionBuilder ??
-          (_, Animation<double> animation, _, Widget child) {
+          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
             Offset translation;
             switch (options!.fromStyle) {
               case PopupFromStyle.fromLeft:
@@ -86,7 +86,8 @@ extension ExtensionWidgetMethod on Widget {
     assert(FlExtended().navigatorKey.currentContext != null);
     return showGeneralDialog<T>(
       context: FlExtended().navigatorKey.currentContext!,
-      pageBuilder: builder ?? (_, Animation<double> animation, _) => this,
+      pageBuilder:
+          builder ?? (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => this,
       barrierDismissible: options.barrierDismissible,
       barrierLabel: options.barrierLabel,
       barrierColor: options.barrierColor,
@@ -150,6 +151,7 @@ extension ExtensionWidgetMethod on Widget {
       isDismissible: options.barrierDismissible,
       anchorPoint: options.anchorPoint,
       enableDrag: options.enableDrag,
+      useSafeArea: options.useSafeArea,
     );
   }
 
@@ -174,11 +176,14 @@ extension ExtensionWidgetMethod on Widget {
 extension ExtensionWidget on Widget {
   Widget get toSliverBox => SliverToBoxAdapter(child: this);
 
-  WidgetBuilder get toWidgetBuilder => (_) => this;
+  WidgetBuilder get toWidgetBuilder =>
+      (BuildContext context) => this;
 
-  LoadingBuilder get toLoadingBuilder => (_, _) => this;
+  LoadingBuilder get toLoadingBuilder =>
+      (BuildContext context, ProgressIndicatorOptions? progressIndicator) => this;
 
-  ToastBuilder get toToastBuilder => (_, _) => this;
+  ToastBuilder get toToastBuilder =>
+      (BuildContext context, ToastContent content) => this;
 
   RoutePageBuilder get toRoutePageBuilder =>
       (_, Animation<double> animation, Animation<double> secondaryAnimation) => this;
@@ -208,19 +213,27 @@ extension ExtensionWidget on Widget {
 
   Widget paddingAll(double padding) => Padding(padding: EdgeInsets.all(padding), child: this);
 
-  Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
-      Padding(padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical), child: this);
+  Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+    child: this,
+  );
 
-  Widget paddingOnly({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0}) =>
-      Padding(padding: EdgeInsets.only(top: top, left: left, right: right, bottom: bottom), child: this);
+  Widget paddingOnly({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0}) => Padding(
+    padding: EdgeInsets.only(top: top, left: left, right: right, bottom: bottom),
+    child: this,
+  );
 
   Widget marginAll(double margin) => Padding(padding: EdgeInsets.all(margin), child: this);
 
-  Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
-      Padding(padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical), child: this);
+  Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+    child: this,
+  );
 
-  Widget marginOnly({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0}) =>
-      Padding(padding: EdgeInsets.only(top: top, left: left, right: right, bottom: bottom), child: this);
+  Widget marginOnly({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0}) => Padding(
+    padding: EdgeInsets.only(top: top, left: left, right: right, bottom: bottom),
+    child: this,
+  );
 
   ColoredBox color(Color color, {Key? key}) => ColoredBox(key: key, color: color, child: this);
 

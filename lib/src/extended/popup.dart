@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/cupertino.dart';
 
 /// 关闭弹窗
 /// 也可以通过 Navigator.of(context).maybePop()
@@ -159,6 +159,7 @@ class BottomSheetOptions extends GeneralModalOptions {
     this.clipBehavior,
     this.transitionAnimationController,
     this.enableDrag = true,
+    this.useSafeArea = true,
     this.isScrollControlled = true,
     this.constraints,
   });
@@ -175,6 +176,9 @@ class BottomSheetOptions extends GeneralModalOptions {
 
   /// 开启滑动关闭 默认[true]
   final bool enableDrag;
+
+  /// 开启安全区域 默认[true]
+  final bool useSafeArea;
 
   /// [isScrollControlled] = true 可全屏显示 默认 [true]
   final bool isScrollControlled;

@@ -26,31 +26,59 @@ class FlTextPage extends StatelessWidget {
       const Partition('FlText'),
       const FlText('FlText'),
       const Partition('FlText.rich'),
-      FlText.rich(TextSpan(text: ' FlText.rich', style: TextStyle(color: Colors.purpleAccent)), color: Colors.blue),
+      FlText.rich(
+        TextSpan(
+          text: ' FlText.rich',
+          style: TextStyle(color: Colors.purpleAccent),
+        ),
+        color: Colors.blue,
+      ),
       const Partition('FlText.richSpans'),
       FlText.richSpans([
-        TextSpan(text: 'FlText', style: TextStyle(color: Colors.purpleAccent)),
+        TextSpan(
+          text: 'FlText',
+          style: TextStyle(color: Colors.purpleAccent),
+        ),
         TextSpan(text: ' * '),
-        TextSpan(text: 'richSpans', style: TextStyle(color: Colors.yellow)),
+        TextSpan(
+          text: 'richSpans',
+          style: TextStyle(color: Colors.yellow),
+        ),
       ], color: Colors.blue),
       const Partition('FlText.richText'),
       FlText.richText(
         color: Colors.blue,
         texts: ['FlText', ' * ', 'rich'],
-        styles: [TextStyle(color: Colors.purpleAccent), TextStyle(color: Colors.green)],
+        styles: [
+          TextStyle(color: Colors.purpleAccent),
+          TextStyle(color: Colors.green),
+        ],
       ),
       const Partition('FlRichText'),
       FlRichText(
         style: const TextStyle(color: Colors.blue),
         texts: const ['FlRichText', ' * ', 'RichText'],
-        styles: const [TextStyle(color: Colors.purpleAccent), TextStyle(color: Colors.green)],
+        styles: const [
+          TextStyle(color: Colors.purpleAccent),
+          TextStyle(color: Colors.green),
+        ],
       ),
       const Partition('FlText set color'),
       const FlText('FlText', color: Colors.blue),
       const Partition('FlText set style color'),
-      const FlText('FlText', color: Colors.blue, style: TextStyle(color: Colors.red), useStyleFirst: true),
+      const FlText(
+        'FlText',
+        color: Colors.blue,
+        style: TextStyle(color: Colors.red),
+        useStyleFirst: true,
+      ),
       const Partition('FlText set style color useStyleFirst=false'),
-      const FlText('FlText', useStyleFirst: false, color: Colors.blue, style: TextStyle(color: Colors.red)),
+      const FlText(
+        'FlText',
+        useStyleFirst: false,
+        color: Colors.blue,
+        style: TextStyle(color: Colors.red),
+      ),
     ],
   );
 }
