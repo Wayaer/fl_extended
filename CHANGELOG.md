@@ -1,3 +1,7 @@
+## 2.0.4
+
+* Add `isHarmonyOS`
+
 ## 2.0.3
 
 * Add `BigInt` extension

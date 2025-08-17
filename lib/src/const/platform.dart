@@ -1,22 +1,34 @@
 import 'package:flutter/foundation.dart';
 
+/// is web
 const bool isWeb = kIsWeb;
 
-bool isMacOS = defaultTargetPlatform == TargetPlatform.macOS;
+/// is macos
+bool get isMacOS => defaultTargetPlatform == TargetPlatform.macOS;
 
-bool isWindows = defaultTargetPlatform == TargetPlatform.windows;
+/// is windows
+bool get isWindows => defaultTargetPlatform == TargetPlatform.windows;
 
-bool isLinux = defaultTargetPlatform == TargetPlatform.linux;
+/// is linux
+bool get isLinux => defaultTargetPlatform == TargetPlatform.linux;
 
-bool isAndroid = defaultTargetPlatform == TargetPlatform.android;
+/// is android
+bool get isAndroid => defaultTargetPlatform == TargetPlatform.android;
 
-bool isIOS = defaultTargetPlatform == TargetPlatform.iOS;
+/// is ios
+bool get isIOS => defaultTargetPlatform == TargetPlatform.iOS;
 
-bool isFuchsia = defaultTargetPlatform == TargetPlatform.fuchsia;
+/// is fuchsia
+bool get isFuchsia => defaultTargetPlatform == TargetPlatform.fuchsia;
 
-bool isMobile = isAndroid || isIOS;
+/// is harmony OS
+bool get isHarmonyOS => defaultTargetPlatform.name == 'ohos';
 
-bool isDesktop = isMacOS || isWindows || isLinux;
+/// is mobile
+bool get isMobile => isAndroid || isIOS || isHarmonyOS;
+
+/// is desktop
+bool get isDesktop => isMacOS || isWindows || isLinux;
 
 const bool isRelease = kReleaseMode;
 
