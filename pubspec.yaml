@@ -1,0 +1,23 @@
+name: fl_extended
+description: "Some extension components and methods have been added to flutter and the routing functionality has been simplified"
+version: 1.9.4
+repository: https://github.com/Wayaer/fl_extended
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  collection: ^1.19.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: FlIcons
+      fonts:
+        - asset: assets/FlExtendedIcons.ttf
