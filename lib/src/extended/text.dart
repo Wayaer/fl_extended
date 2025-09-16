@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// [RichText] 魔改版
-/// 建议使用 [FlText.rich],动态配置字体颜色
+/// 建议使用 [FlText.rich],动态配置字体样式
 class FlRichText extends RichText {
   FlRichText({
     super.key,
@@ -50,7 +50,7 @@ class FlRichText extends RichText {
     super.strutStyle,
 
     /// TextAlign,内容对齐方式
-    super.textAlign = TextAlign.center,
+    super.textAlign,
 
     /// TextDirection,内容的走向方式
     super.textDirection,
@@ -59,19 +59,19 @@ class FlRichText extends RichText {
     super.locale,
 
     /// bool 文本是否应在软换行时断行
-    super.softWrap = true,
+    super.softWrap,
 
     /// TextOverflow，内容溢出时的处理方式
-    super.overflow = TextOverflow.clip,
+    super.overflow,
 
     /// double 设置文字的放大缩小，例如，fontSize=10，最终得到的文字大小为10*2.0
-    super.textScaler = TextScaler.noScaling,
+    super.textScaler,
 
     /// int 设置文字的最大展示行数
     super.maxLines,
 
     /// TextWidthBasis 测量一行或多行文本宽度
-    super.textWidthBasis = TextWidthBasis.parent,
+    super.textWidthBasis,
     super.textHeightBehavior,
     super.selectionRegistrar,
     super.selectionColor,
@@ -173,7 +173,7 @@ class FlText extends StatelessWidget {
     this.height,
     this.foreground,
     this.background,
-    this.decoration = TextDecoration.none,
+    this.decoration,
     this.decorationColor,
     this.decorationStyle,
     this.decorationThickness,
@@ -228,7 +228,7 @@ class FlText extends StatelessWidget {
     this.height,
     this.foreground,
     this.background,
-    this.decoration = TextDecoration.none,
+    this.decoration,
     this.decorationColor,
     this.decorationStyle,
     this.decorationThickness,
@@ -277,7 +277,7 @@ class FlText extends StatelessWidget {
     this.height,
     this.foreground,
     this.background,
-    this.decoration = TextDecoration.none,
+    this.decoration,
     this.decorationColor,
     this.decorationStyle,
     this.decorationThickness,
@@ -338,7 +338,7 @@ class FlText extends StatelessWidget {
     this.height,
     this.foreground,
     this.background,
-    this.decoration = TextDecoration.none,
+    this.decoration,
     this.decorationColor,
     this.decorationStyle,
     this.decorationThickness,
@@ -404,7 +404,7 @@ class FlText extends StatelessWidget {
     this.height,
     this.foreground,
     this.background,
-    this.decoration = TextDecoration.none,
+    this.decoration,
     this.decorationColor,
     this.decorationStyle,
     this.decorationThickness,
@@ -486,7 +486,7 @@ class FlText extends StatelessWidget {
   /// [TextDecoration.underline] 下划线
   /// [TextDecoration.overline] 上划线
   /// [TextDecoration.lineThrough] 中间的线（删除线）
-  final TextDecoration decoration;
+  final TextDecoration? decoration;
 
   /// [decoration]划线的颜色
   final Color? decorationColor;
