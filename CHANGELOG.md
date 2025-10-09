@@ -1,3 +1,8 @@
+## 3.1.0
+
+* Add `isClipPath` to `Universal`
+* Remove some infrequently used parameters from `Universal` and add some assertions
+
 ## 3.0.3
 
 * Add `isHarmonyOS`
