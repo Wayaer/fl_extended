@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:example/main.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
@@ -41,9 +39,11 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         size: const Size(300, 20),
         direction: Axis.horizontal,
         color: Colors.green.withValues(alpha: 0.2),
+        isClipRRect: true,
+        borderRadius: BorderRadius.circular(10),
         children: const [
-          Universal(flex: 1, color: Colors.red),
-          Universal(flex: 2, color: Colors.greenAccent),
+          Universal(flex: 1, expanded: true, height: double.infinity, color: Colors.red),
+          Universal(flex: 2, expanded: true, height: double.infinity, color: Colors.greenAccent),
         ],
       ),
       const SizedBox(height: 10),
@@ -51,7 +51,6 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         size: const Size(200, 100),
         alignment: Alignment.center,
         decoration: const BoxDecoration(gradient: LinearGradient(colors: Colors.primaries)),
-        child: Universal(filter: ImageFilter.blur()),
       ),
       const SizedBox(height: 10),
       Universal(
@@ -91,6 +90,40 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
     return FlScaffold(appBar: AppBaFlRichText('Universal'), isScroll: true, children: children);
   }
 }
+//
+// class _CustomPathClipper extends CustomClipper<Path> {
+//   _CustomPathClipper();
+//
+//   @override
+//   Path getClip(Size size) {
+//     return Path();
+//   }
+//
+//   @override
+//   bool shouldReclip(CustomClipper<Path> oldClipper) => oldClipper != this;
+// }
+//
+// class _CustomRRectClipper extends CustomClipper<RRect> {
+//   _CustomRRectClipper();
+//
+//   @override
+//   RRect getClip(Size size) {
+//     return RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, size.width, size.height), const Radius.circular(0));
+//   }
+//
+//   @override
+//   bool shouldReclip(covariant CustomClipper<RRect> oldClipper) => oldClipper != this;
+// }
+//
+// class _CustomRectClipper extends CustomClipper<Rect> {
+//   @override
+//   Rect getClip(Size size) {
+//     return Rect.fromLTWH(0, 0, size.width, size.height);
+//   }
+//
+//   @override
+//   bool shouldReclip(covariant CustomClipper<Rect> oldClipper) => oldClipper != this;
+// }
 
 class _ScrollUniversalPage extends StatelessWidget {
   @override

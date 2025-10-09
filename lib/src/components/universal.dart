@@ -23,16 +23,9 @@ class Universal extends StatelessWidget {
     this.isOval = false,
     this.isClipRRect = false,
     this.isClipRect = false,
-    this.visible = true,
-    this.offstage = false,
+    this.isClipPath = false,
     this.reverse = false,
-    this.maintainState = false,
     this.transitionOnUserGestures = false,
-    this.isCircleAvatar = false,
-    this.maintainAnimation = false,
-    this.maintainSize = false,
-    this.maintainSemantics = false,
-    this.maintainInteractivity = false,
     this.excludeFromSemantics = false,
     this.noScrollBehavior = true,
     this.sized = true,
@@ -44,7 +37,6 @@ class Universal extends StatelessWidget {
     this.spacing = 0.0,
     this.runSpacing = 0.0,
     this.dragStartBehavior = DragStartBehavior.start,
-    this.replacement = const SizedBox.shrink(),
     this.stackFit = StackFit.loose,
     this.mainAxisSize = MainAxisSize.max,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -65,9 +57,6 @@ class Universal extends StatelessWidget {
     this.physics,
     this.scrollController,
     this.primary,
-    this.foregroundDecoration,
-    this.transform,
-    this.origin,
     this.constraints,
     this.width,
     this.height,
@@ -75,6 +64,7 @@ class Universal extends StatelessWidget {
     this.aspectRatio,
     this.margin,
     this.decoration,
+    this.decorationPosition = DecorationPosition.background,
     this.textBaseline,
     this.textDirection,
     this.onPressed,
@@ -117,22 +107,7 @@ class Universal extends StatelessWidget {
     this.onForcePressPeak,
     this.onForcePressUpdate,
     this.onForcePressEnd,
-    this.trackpadScrollCausesScale = false,
-    this.trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor,
-    this.supportedDevices,
-    this.radius,
-    this.heroTag,
-    this.createRectTween,
-    this.flightShuttleBuilder,
-    this.placeholderBuilder,
-    this.backgroundImage,
-    this.onBackgroundImageError,
-    this.onForegroundImageError,
-    this.foregroundImage,
-    this.foregroundColor,
-    this.minRadius,
-    this.maxRadius,
-    this.clipper,
+
     this.onSecondaryTap,
     this.onSecondaryLongPressMoveUpdate,
     this.onSecondaryLongPressUp,
@@ -151,6 +126,14 @@ class Universal extends StatelessWidget {
     this.onTertiaryTapCancel,
     this.onTertiaryTapDown,
     this.onTertiaryTapUp,
+    this.trackpadScrollCausesScale = false,
+    this.trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor,
+    this.supportedDevices,
+    this.heroTag,
+    this.createRectTween,
+    this.flightShuttleBuilder,
+    this.placeholderBuilder,
+    this.clipper,
     this.left,
     this.top,
     this.right,
@@ -160,12 +143,9 @@ class Universal extends StatelessWidget {
     this.clipBehavior,
     this.widthFactor,
     this.heightFactor,
-    this.filter,
-    this.fit,
     this.systemOverlayStyle,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
-    this.blendMode = BlendMode.srcOver,
     this.buttonCategory,
     this.onHover,
     this.onFocusChange,
@@ -173,7 +153,19 @@ class Universal extends StatelessWidget {
     this.focusNode,
     this.autofocus = false,
     this.statesController,
-  });
+  }) : assert(!(isStack && isWrap), "isStack and isWrap cannot be true at the same time (conflicting layout types)."),
+       assert(
+         !(expanded && flexible),
+         "expanded and flexible cannot be true at the same time (conflicting Flex widgets).",
+       ),
+       assert(
+         !(isScroll && useSingleChildScrollView && useListView),
+         "useSingleChildScrollView and useListView cannot both be true when isScroll is true (conflicting scroll widgets).",
+       ),
+       assert(
+         !safeLTRB || !(safeLeft || safeTop || safeRight || safeBottom),
+         "safeLeft, safeTop, safeRight, safeBottom must be false when safeLTRB is true (safeLTRB enables all).",
+       );
 
   /// ****** [AnnotatedRegion]  ****** ///
   final SystemUiOverlayStyle? systemOverlayStyle;
@@ -229,10 +221,6 @@ class Universal extends StatelessWidget {
   /// [flexible]=true 相当于添加[Flexible]组件
   final bool flexible;
 
-  /// ****** [Transform] ****** ///
-  final Matrix4? transform;
-  final Offset? origin;
-
   /// ****** [ConstrainedBox] ****** ///
   final BoxConstraints? constraints;
 
@@ -245,16 +233,13 @@ class Universal extends StatelessWidget {
 
   /// ****** [DecoratedBox] ****** ///
   final Decoration? decoration;
-  final Decoration? foregroundDecoration;
+  final DecorationPosition decorationPosition;
 
   /// ****** [Positioned] ****** ///
   final double? left;
   final double? top;
   final double? right;
   final double? bottom;
-
-  /// ****** [FittedBox] ****** ///
-  final BoxFit? fit;
 
   /// ****** [Flex]=[Column]+[Row] ****** ///
   final MainAxisAlignment mainAxisAlignment;
@@ -271,19 +256,7 @@ class Universal extends StatelessWidget {
   final bool isOval;
   final bool isClipRRect;
   final bool isClipRect;
-
-  /// ****** [CircleAvatar] ****** ///
-  final bool isCircleAvatar;
-  final double? radius;
-  final ImageErrorListener? onBackgroundImageError;
-  final ImageErrorListener? onForegroundImageError;
-
-  ///  foregroundImage > foregroundColor > backgroundImage > color
-  final ImageProvider? backgroundImage;
-  final Color? foregroundColor;
-  final ImageProvider? foregroundImage;
-  final double? minRadius;
-  final double? maxRadius;
+  final bool isClipPath;
 
   /// ****** 开启滚动 ****** ///
   final bool isScroll;
@@ -315,16 +288,6 @@ class Universal extends StatelessWidget {
 
   /// ****** [AspectRatio] ****** ///
   final double? aspectRatio;
-
-  /// ****** [Visibility] ****** ///
-  final Widget replacement;
-  final bool visible;
-  final bool maintainState;
-  final bool maintainAnimation;
-  final bool maintainSize;
-  final bool maintainSemantics;
-  final bool maintainInteractivity;
-  final bool offstage;
 
   /// ****** [Opacity] ****** ///
   final double? opacity;
@@ -482,10 +445,6 @@ class Universal extends StatelessWidget {
   final bool isStack;
   final StackFit stackFit;
 
-  /// ****** [ImageFilter] ****** ///
-  final ImageFilter? filter;
-  final BlendMode blendMode;
-
   /// ****** [SafeArea] ****** ///
   final bool safeLeft;
   final bool safeTop;
@@ -518,7 +477,6 @@ class Universal extends StatelessWidget {
     } else if (child != null) {
       current = child!;
     }
-
     if (intrinsicHeight) current = IntrinsicHeight(child: current);
     if (isScroll) {
       if (useListView) {
@@ -549,16 +507,6 @@ class Universal extends StatelessWidget {
       current = Align(alignment: alignment!, widthFactor: widthFactor, heightFactor: heightFactor, child: current);
     }
 
-    if (color != null && decoration == null) {
-      current = ColoredBox(color: color!, child: current);
-    }
-
-    if (decoration != null && clipBehavior != null && clipBehavior != Clip.none) {
-      current = buildClip(
-        current,
-        clipper: _DecorationClipper(textDirection: Directionality.of(context), decoration: decoration!),
-      );
-    }
     if (decoration != null) {
       if (decoration is BoxDecoration) {
         final boxDecoration = (decoration as BoxDecoration);
@@ -567,55 +515,31 @@ class Universal extends StatelessWidget {
             color: boxDecoration.color ?? color,
             borderRadius: boxDecoration.borderRadius ?? borderRadius,
           ),
+          position: decorationPosition,
           child: current,
         );
       } else {
-        current = DecoratedBox(decoration: decoration!, child: current);
+        current = DecoratedBox(decoration: decoration!, position: decorationPosition, child: current);
       }
     }
-    if (foregroundDecoration != null) {
-      current = DecoratedBox(
-        decoration: foregroundDecoration!,
-        position: DecorationPosition.foreground,
-        child: current,
-      );
+    if (color != null && decoration is! BoxDecoration) {
+      current = ColoredBox(color: color!, child: current);
     }
-    if (transform != null) {
-      current = Transform(transform: transform!, origin: origin, child: current);
-    }
-
     if (buttonCategory != null && (onTap != null || onPressed != null || onLongPress != null || onHover != null)) {
       current = buildButtonCategory(current);
-    }
-    if (enabledGestureDetector) {
+    } else if (enabledGestureDetector) {
       current = buildGestureDetector(current);
     }
-    if (filter != null) current = buildBackdropFilter(current);
-    if (expand) current = SizedBox.expand(child: current);
-    if (width != null || height != null) {
-      current = SizedBox(width: width, height: height, child: current);
-    }
-    if (size != null) current = SizedBox.fromSize(size: size, child: current);
-    if (aspectRatio != null) {
-      current = AspectRatio(aspectRatio: aspectRatio!, child: current);
-    }
     if (heroTag != null) current = buildHero(current);
-    if (isCircleAvatar) current = buildCircleAvatar(current);
-    if (clipper != null || isOval || isClipRRect) {
-      current = buildClip(current, clipper: clipper);
-    }
+
+    current = buildSize(current);
+    current = buildClip(current, clipper: clipper);
     if (constraints != null) {
       current = ConstrainedBox(constraints: constraints!, child: current);
     }
     if (margin != null) current = Padding(padding: margin!, child: current);
-    if (left != null || top != null || right != null || bottom != null) {
-      current = Positioned(left: left, top: top, right: right, bottom: bottom, child: current);
-    }
-    if (fit != null) current = buildFittedBox(current);
     if (opacity != null) current = Opacity(opacity: opacity!, child: current);
     if (systemOverlayStyle != null) current = buildAnnotatedRegion(current);
-    if (offstage) current = buildOffstage(current);
-    if (!visible) current = buildVisibility(current);
     if (safeLeft || safeTop || safeRight || safeBottom || safeLTRB) {
       current = SafeArea(
         left: safeLTRB ? true : safeLeft,
@@ -625,10 +549,37 @@ class Universal extends StatelessWidget {
         child: current,
       );
     }
-    if (flexible) {
-      current = buildFlexible(current, FlexFit.loose);
-    } else if (expanded) {
-      current = buildFlexible(current, FlexFit.tight);
+    assert(
+      [
+            left != null || top != null || right != null || bottom != null,
+            flexible,
+            expanded,
+          ].where((e) => e == true).length <=
+          1,
+      "Cannot use 'left/top/right/bottom' (Positioned) with 'flexible' or 'expanded' (Flex widgets) at the same time. They are mutually exclusive layout properties.",
+    );
+    if (left != null || top != null || right != null || bottom != null) {
+      current = Positioned(left: left, top: top, right: right, bottom: bottom, child: current);
+    } else {
+      current = buildFlexible(current);
+    }
+    return current;
+  }
+
+  Widget buildSize(Widget current) {
+    assert(
+      [expand, (width != null || height != null), size != null, aspectRatio != null].where((e) => e == true).length <=
+          1,
+      "Only one of 'expand', 'width/height', 'size', or 'aspectRatio' can be used at the same time (conflicting size controls).",
+    );
+    if (expand) {
+      current = SizedBox.expand(child: current);
+    } else if (width != null || height != null) {
+      current = SizedBox(width: width, height: height, child: current);
+    } else if (size != null) {
+      current = SizedBox.fromSize(size: size, child: current);
+    } else if (aspectRatio != null) {
+      current = AspectRatio(aspectRatio: aspectRatio!, child: current);
     }
     return current;
   }
@@ -636,33 +587,49 @@ class Universal extends StatelessWidget {
   Widget buildAnnotatedRegion(Widget current) =>
       AnnotatedRegion<SystemUiOverlayStyle>(sized: sized, value: systemOverlayStyle!, child: current);
 
-  Widget buildFittedBox(Widget current) => FittedBox(
-    fit: fit!,
-    alignment: alignment ?? Alignment.center,
-    clipBehavior: clipBehavior ?? Clip.none,
-    child: current,
-  );
-
   Widget buildPadding(Widget current) =>
       _paddingIncludingDecoration == null ? current : Padding(padding: _paddingIncludingDecoration!, child: current);
 
-  Widget buildBackdropFilter(Widget current) => BackdropFilter(blendMode: blendMode, filter: filter!, child: current);
-
-  Widget buildOffstage(Widget current) => Offstage(offstage: offstage, child: current);
-
-  /// 裁剪组件
   Widget buildClip(Widget current, {CustomClipper<dynamic>? clipper}) {
+    assert(
+      [isClipRRect, isClipRect, isOval, isClipPath].where((e) => e).length <= 1,
+      "Only one of isClipRRect, isClipRect, isOval, isClipPath can be true (conflicting clipping types).",
+    );
     if (isOval) {
-      return ClipOval(clipBehavior: clipBehavior ?? Clip.antiAlias, child: current);
-    } else if (clipper is CustomClipper<Rect> || isClipRect) {
+      assert(
+        clipper == null || (clipper.getClip(Size.zero) is Rect),
+        "When 'isOval' is true and 'clipper' is provided, 'clipper' must be a subclass of CustomClipper<Rect>.",
+      );
+      return ClipOval(
+        clipper: clipper is CustomClipper<Rect> ? clipper : null,
+        clipBehavior: clipBehavior ?? Clip.antiAlias,
+        child: current,
+      );
+    } else if (isClipRect) {
+      assert(
+        clipper == null || (clipper.getClip(Size.zero) is Rect),
+        "When 'isClipRect' is true and 'clipper' is provided, 'clipper' must be a subclass of CustomClipper<Rect>.",
+      );
       return ClipRect(
         clipper: clipper is CustomClipper<Rect> ? clipper : null,
         clipBehavior: clipBehavior ?? Clip.hardEdge,
         child: current,
       );
-    } else if (clipper is CustomClipper<Path>) {
-      return ClipPath(clipper: clipper, clipBehavior: clipBehavior ?? Clip.antiAlias, child: current);
-    } else if (clipper is CustomClipper<RRect> || isClipRRect) {
+    } else if (isClipPath) {
+      assert(
+        clipper == null || (clipper.getClip(Size.zero) is Path),
+        "When 'isClipPath' is true and 'clipper' is provided, 'clipper' must be a subclass of CustomClipper<Path>.",
+      );
+      return ClipPath(
+        clipper: clipper is CustomClipper<Path> ? clipper : null,
+        clipBehavior: clipBehavior ?? Clip.antiAlias,
+        child: current,
+      );
+    } else if (isClipRRect) {
+      assert(
+        clipper == null || (clipper.getClip(Size.zero) is RRect),
+        "When 'isClipRRect' is true and 'clipper' is provided, 'clipper' must be a subclass of CustomClipper<RRect>.",
+      );
       return ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.zero,
         clipper: clipper is CustomClipper<RRect> ? clipper : null,
@@ -673,19 +640,6 @@ class Universal extends StatelessWidget {
     return current;
   }
 
-  Widget buildCircleAvatar(Widget current) => CircleAvatar(
-    backgroundColor: color,
-    backgroundImage: backgroundImage,
-    onBackgroundImageError: onBackgroundImageError,
-    onForegroundImageError: onForegroundImageError,
-    foregroundColor: foregroundColor,
-    foregroundImage: foregroundImage,
-    radius: radius,
-    minRadius: minRadius,
-    maxRadius: maxRadius,
-    child: current,
-  );
-
   Widget buildHero(Widget current) => Hero(
     tag: heroTag!,
     createRectTween: createRectTween,
@@ -695,18 +649,14 @@ class Universal extends StatelessWidget {
     child: current,
   );
 
-  Widget buildVisibility(Widget current) => Visibility(
-    replacement: replacement,
-    visible: visible,
-    maintainState: maintainState,
-    maintainAnimation: maintainAnimation,
-    maintainSize: maintainSize,
-    maintainSemantics: maintainSemantics,
-    maintainInteractivity: maintainInteractivity,
-    child: current,
-  );
-
-  Widget buildFlexible(Widget current, FlexFit fit) => Flexible(flex: flex, fit: fit, child: current);
+  Widget buildFlexible(Widget current) {
+    if (flexible) {
+      current = Flexible(flex: flex, child: current);
+    } else if (expanded) {
+      current = Expanded(flex: flex, child: current);
+    }
+    return current;
+  }
 
   Widget buildListView(List<Widget> children) => ListView(
     physics: physics,
@@ -921,20 +871,4 @@ class Universal extends StatelessWidget {
       onScaleStart != null ||
       onScaleUpdate != null ||
       onScaleEnd != null;
-}
-
-/// A clipper that uses [Decoration.getClipPath] to clip.
-class _DecorationClipper extends CustomClipper<Path> {
-  _DecorationClipper({TextDirection? textDirection, required this.decoration})
-    : textDirection = textDirection ?? TextDirection.ltr;
-
-  final TextDirection textDirection;
-  final Decoration decoration;
-
-  @override
-  Path getClip(Size size) => decoration.getClipPath(Offset.zero & size, textDirection);
-
-  @override
-  bool shouldReclip(_DecorationClipper oldClipper) =>
-      oldClipper.decoration != decoration || oldClipper.textDirection != textDirection;
 }
