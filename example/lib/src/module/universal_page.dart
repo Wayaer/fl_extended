@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:example/main.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
@@ -51,7 +49,6 @@ class _UniversalPageState extends ExtendedState<UniversalPage> with SingleTicker
         size: const Size(200, 100),
         alignment: Alignment.center,
         decoration: const BoxDecoration(gradient: LinearGradient(colors: Colors.primaries)),
-        child: Universal(filter: ImageFilter.blur()),
       ),
       const SizedBox(height: 10),
       Universal(
