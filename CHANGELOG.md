@@ -1,5 +1,9 @@
-## 2.1.0
+## 2.2.0
 
+* Add `isClipPath` to `Universal`
+* Remove some infrequently used parameters from `Universal` and add some assertions
+
+## 2.1.0
 * Add `isHarmonyOS`
 
 ## 2.0.3
@@ -7,6 +11,7 @@
 * Add `BigInt` extension
 
 ## 2.0.2
+
 * Add a file `global_key_extension`
 * Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`
 * Add `widgetsBinding` 、 `schedulerBinding` 、 `gestureBinding` 、 `paintingBinding` 、
