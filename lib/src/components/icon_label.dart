@@ -60,7 +60,7 @@ class IconLabel extends StatelessWidget {
   final Color? background;
 
   /// 整个组件装饰器
-  final Decoration? decoration;
+  final BoxDecoration? decoration;
 
   /// 整个按钮样式
   final FlButtonCategory? buttonCategory;
