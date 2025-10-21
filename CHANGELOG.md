@@ -1,4 +1,4 @@
-## 3.2.0
+## 3.2.1
 
 * Removed `popupCupertinoDialog` and `popupMaterialDialog`
 * Removed `DialogOptions.cupertino()` and `DialogOptions.material()`
