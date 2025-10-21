@@ -50,10 +50,10 @@ void main() {
     );
 
     /// 设置全局BottomSheet配置
-    flExtended.bottomSheetOptions = const BottomSheetOptions(
+    flExtended.modalBottomSheetOptions = const ModalBottomSheetOptions(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
     );
-    flExtended.dialogOptions = const DialogOptions(fromStyle: PopupFromStyle.fromTop);
+    flExtended.generalDialogOptions = const GeneralDialogOptions(fromStyle: PopupFromStyle.fromTop);
 
     flExtended.logCrossLine = true;
 

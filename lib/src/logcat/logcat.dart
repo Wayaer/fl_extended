@@ -123,7 +123,7 @@ class FlLogcat {
 
   Future<void> showLog() async {
     if (isRunning && FlExtended().navigatorKey.currentContext != null) {
-      await const _LogList().popupBottomSheet();
+      await const _LogList().popupModalBottomSheet();
     }
   }
 }

@@ -1,6 +1,6 @@
 name: fl_extended
 description: "Some extension components and methods have been added to flutter and the routing functionality has been simplified"
-version: 3.1.1
+version: 3.2.0
 repository: https://github.com/Wayaer/fl_extended
 
 environment:

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 abstract class ModalOptions {
   const ModalOptions({
@@ -229,8 +229,8 @@ class ModalBox extends StatelessWidget {
 }
 
 extension ExtensionActionDialog on ActionDialog {
-  Future<T?> show<T>({DialogOptions? options}) =>
-      popupDialog<T>(options: const DialogOptions(fromStyle: PopupFromStyle.fromCenter).merge(options));
+  Future<T?> show<T>({GeneralDialogOptions? options}) =>
+      popupGeneralDialog<T>(options: const GeneralDialogOptions(fromStyle: PopupFromStyle.fromCenter).merge(options));
 }
 
 const Color _kDialogColor = CupertinoDynamicColor.withBrightness(

@@ -1,8 +1,7 @@
 import 'package:example/main.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:example/src/scaffold.dart';
 import 'package:fl_extended/fl_extended.dart';
+import 'package:flutter/material.dart';
 
 class PopupPage extends StatelessWidget {
   const PopupPage({super.key});
@@ -24,42 +23,22 @@ class PopupPage extends StatelessWidget {
         ElevatedText(
           'popup Dialog',
           onTap: () {
-            actionsDialog.popupDialog<dynamic>();
-          },
-        ),
-        ElevatedText(
-          'popup MaterialDialog',
-          onTap: () {
-            actionsDialog.popupMaterialDialog<dynamic>();
-          },
-        ),
-        ElevatedText(
-          'popup CupertinoDialog',
-          onTap: () {
-            actionsDialog.popupCupertinoDialog<dynamic>();
+            actionsDialog.popupGeneralDialog<dynamic>();
           },
         ),
         const Partition('Bottom Sheet'),
         ElevatedText(
           'popup BottomSheet',
           onTap: () {
-            const _ActionSheet().popupBottomSheet<dynamic>(
-              options: const BottomSheetOptions(backgroundColor: Colors.transparent),
-            );
-          },
-        ),
-        ElevatedText(
-          'popup BottomSheet - Full screen',
-          onTap: () {
-            const _ActionSheet().popupBottomSheet<dynamic>(
-              options: const BottomSheetOptions(backgroundColor: Colors.transparent),
+            actionsDialog.popupModalBottomSheet<dynamic>(
+              options: const ModalBottomSheetOptions(backgroundColor: Colors.transparent),
             );
           },
         ),
         ElevatedText(
           'popup CupertinoModal',
           onTap: () {
-            const _ActionSheet().popupCupertinoModal<dynamic>();
+            actionsDialog.popupCupertinoModal<dynamic>();
           },
         ),
       ],
@@ -105,20 +84,4 @@ class PopupPage extends StatelessWidget {
     height: 200,
     child: const Text('ActionDialog'),
   );
-}
-
-class _ActionSheet extends StatelessWidget {
-  const _ActionSheet();
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoActionSheet(
-      title: Text('提示'),
-      message: Text('是否要删除当前项？'),
-      actions: [
-        CupertinoActionSheetAction(onPressed: closePopup, isDefaultAction: true, child: Text('删除')),
-        CupertinoActionSheetAction(onPressed: closePopup, isDestructiveAction: true, child: Text('暂时不删')),
-      ],
-    );
-  }
 }

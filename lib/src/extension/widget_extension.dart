@@ -49,92 +49,33 @@ extension ExtensionWidgetMethod on Widget {
   FlOverlayEntry? showOverlay({bool isCached = true}) => FlOverlay().show(this, isCached: isCached);
 
   /// [showGeneralDialog]
-  Future<T?> popupDialog<T>({
+  Future<T?> popupGeneralDialog<T>({
     /// 这个参数是一个方法,入参是 context,animation,secondaryAnimation,返回一个 Widget
     RoutePageBuilder? builder,
 
     /// GeneralDialog 配置
-    DialogOptions? options,
+    GeneralDialogOptions? options,
   }) {
-    options = FlExtended().dialogOptions.merge(options);
-    RouteTransitionsBuilder? transitionBuilder;
-    if (options.fromStyle != PopupFromStyle.fromCenter) {
-      transitionBuilder =
-          options.transitionBuilder ??
-          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-            Offset translation;
-            switch (options!.fromStyle) {
-              case PopupFromStyle.fromLeft:
-                translation = Offset(animation.value - 1, 0);
-                break;
-              case PopupFromStyle.fromRight:
-                translation = Offset(1 - animation.value, 0);
-                break;
-              case PopupFromStyle.fromTop:
-                translation = Offset(0, animation.value - 1);
-                break;
-              case PopupFromStyle.fromBottom:
-                translation = Offset(0, 1 - animation.value);
-                break;
-              case PopupFromStyle.fromCenter:
-                translation = const Offset(0, 0);
-                break;
-            }
-            return FractionalTranslation(translation: translation, child: child);
-          };
-    }
+    options = FlExtended().generalDialogOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showGeneralDialog<T>(
       context: FlExtended().navigatorKey.currentContext!,
-      pageBuilder:
-          builder ?? (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => this,
+      pageBuilder: builder ?? toRoutePageBuilder,
       barrierDismissible: options.barrierDismissible,
       barrierLabel: options.barrierLabel,
       barrierColor: options.barrierColor,
       transitionDuration: options.transitionDuration,
-      transitionBuilder: transitionBuilder,
+      transitionBuilder: options.transitionBuilder ?? options.fromStyle.transitionBuilder,
       useRootNavigator: options.useRootNavigator,
       routeSettings: options.routeSettings,
       anchorPoint: options.anchorPoint,
-    );
-  }
-
-  ///  Cupertino 风格的 Dialog  [showCupertinoDialog]
-  Future<T?> popupCupertinoDialog<T>({WidgetBuilder? builder, DialogOptions? options}) {
-    options = FlExtended().dialogOptions.merge(options);
-    assert(FlExtended().navigatorKey.currentContext != null);
-    return showCupertinoDialog<T>(
-      context: FlExtended().navigatorKey.currentContext!,
-      builder: builder ?? toWidgetBuilder,
-      barrierLabel: options.barrierLabel,
-      barrierDismissible: options.barrierDismissible,
-      useRootNavigator: options.useRootNavigator,
-      routeSettings: options.routeSettings,
-      anchorPoint: options.anchorPoint,
-    );
-  }
-
-  /// Material 风格的 Dialog [showDialog]
-  Future<T?> popupMaterialDialog<T>({WidgetBuilder? builder, DialogOptions? options}) {
-    options = FlExtended().dialogOptions.merge(options);
-    assert(FlExtended().navigatorKey.currentContext != null);
-    return showDialog<T>(
-      context: FlExtended().navigatorKey.currentContext!,
-      builder: builder ?? toWidgetBuilder,
-      barrierColor: options.barrierColor,
-      barrierLabel: options.barrierLabel,
-      barrierDismissible: options.barrierDismissible,
-      useRootNavigator: options.useRootNavigator,
-      routeSettings: options.routeSettings,
-      anchorPoint: options.anchorPoint,
-      useSafeArea: options.useSafeArea,
     );
   }
 
   /// [showModalBottomSheet]
   /// 关闭 closePopup()
-  Future<T?> popupBottomSheet<T>({WidgetBuilder? builder, BottomSheetOptions? options}) {
-    options = FlExtended().bottomSheetOptions.merge(options);
+  Future<T?> popupModalBottomSheet<T>({WidgetBuilder? builder, ModalBottomSheetOptions? options}) {
+    options = FlExtended().modalBottomSheetOptions.merge(options);
     assert(FlExtended().navigatorKey.currentContext != null);
     return showModalBottomSheet<T>(
       context: FlExtended().navigatorKey.currentContext!,
@@ -186,10 +127,10 @@ extension ExtensionWidget on Widget {
       (BuildContext context, ToastContent content) => this;
 
   RoutePageBuilder get toRoutePageBuilder =>
-      (_, Animation<double> animation, Animation<double> secondaryAnimation) => this;
+      (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => this;
 
   RouteTransitionsBuilder get toRouteTransitionsBuilder =>
-      (_, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) => this;
+      (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) => this;
 
   BackdropFilter backdropFilter({Key? key, ImageFilter? filter, double fuzzyDegree = 4}) => BackdropFilter(
     key: key,

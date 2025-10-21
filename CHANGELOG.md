@@ -1,4 +1,14 @@
-## 3.1.1
+## 3.2.0
+
+* Removed `popupCupertinoDialog` and `popupMaterialDialog`
+* Removed `DialogOptions.cupertino()` and `DialogOptions.material()`
+* Change `popupDialog` to `popupGeneralDialog`
+* Change `popupBottomSheet` to `popupModalBottomSheet`
+* Change `BottomSheetOptions` to `ModalBottomSheetOptions`
+* Change `DialogOptions` to `GeneralDialogOptions`
+* Remove some infrequently used parameters from `Universal` and add some assertions
+
+## 3.1.0
 
 * Add `isClipPath` to `Universal`
 * Remove some infrequently used parameters from `Universal` and add some assertions

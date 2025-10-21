@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_extended/fl_extended.dart';
 
 typedef PopInvokedWithResultAndOverlayCallback<T> = void Function(bool didPop, T? result, bool didHideOverlay);
 

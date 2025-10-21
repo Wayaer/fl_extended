@@ -32,17 +32,17 @@ class FlExtended {
   /// Set the global [ToastOptions] configuration
   ToastOptions toastOptions = const ToastOptions.extended();
 
-  /// 设置全局 [BottomSheet] 配置
-  /// Set the global [BottomSheet] configuration
-  BottomSheetOptions bottomSheetOptions = const BottomSheetOptions();
+  /// 设置全局 [ModalBottomSheetOptions] 配置
+  /// Set the global [ModalBottomSheetOptions] configuration
+  ModalBottomSheetOptions modalBottomSheetOptions = const ModalBottomSheetOptions();
 
-  /// 设置全局 [CupertinoBottomSheet] 配置
-  /// Set the global [BottomSheet] configuration
+  /// 设置全局 [CupertinoModalPopupOptions] 配置
+  /// Set the global [CupertinoModalPopupOptions] configuration
   CupertinoModalPopupOptions cupertinoModalPopupOptions = const CupertinoModalPopupOptions();
 
-  /// 设置全局 [DialogOptions] 配置
-  /// Set the global [DialogOptions] configuration
-  DialogOptions dialogOptions = const DialogOptions();
+  /// 设置全局 [GeneralDialogOptions] 配置
+  /// Set the global [GeneralDialogOptions] configuration
+  GeneralDialogOptions generalDialogOptions = const GeneralDialogOptions();
 
   bool logCrossLine = true;
 }

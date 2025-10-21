@@ -22,7 +22,30 @@ enum PopupFromStyle {
   fromBottom,
 
   /// 默认渐变显示
-  fromCenter,
+  fromCenter;
+
+  RouteTransitionsBuilder get transitionBuilder =>
+      (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+        Offset translation;
+        switch (this) {
+          case PopupFromStyle.fromLeft:
+            translation = Offset(animation.value - 1, 0);
+            break;
+          case PopupFromStyle.fromRight:
+            translation = Offset(1 - animation.value, 0);
+            break;
+          case PopupFromStyle.fromTop:
+            translation = Offset(0, animation.value - 1);
+            break;
+          case PopupFromStyle.fromBottom:
+            translation = Offset(0, 1 - animation.value);
+            break;
+          case PopupFromStyle.fromCenter:
+            translation = const Offset(0, 0);
+            break;
+        }
+        return FractionalTranslation(translation: translation, child: child);
+      };
 }
 
 abstract class GeneralModalOptions {
@@ -47,14 +70,14 @@ abstract class GeneralModalOptions {
 }
 
 /// 关闭 [closePopup]
-class DialogOptions extends GeneralModalOptions {
-  const DialogOptions({
-    super.barrierDismissible,
+class GeneralDialogOptions extends GeneralModalOptions {
+  const GeneralDialogOptions({
+    super.barrierDismissible = false,
     super.useRootNavigator,
     super.routeSettings,
     super.barrierColor,
     super.anchorPoint,
-    this.barrierLabel = '',
+    this.barrierLabel,
     this.useSafeArea = true,
     this.startOffset,
     this.transitionBuilder,
@@ -62,34 +85,8 @@ class DialogOptions extends GeneralModalOptions {
     this.fromStyle = PopupFromStyle.fromCenter,
   });
 
-  const DialogOptions.cupertino({
-    super.barrierDismissible,
-    super.useRootNavigator,
-    super.routeSettings,
-    super.barrierColor,
-    super.anchorPoint,
-    this.barrierLabel = '',
-  }) : useSafeArea = true,
-       startOffset = null,
-       fromStyle = PopupFromStyle.fromCenter,
-       transitionDuration = const Duration(milliseconds: 200),
-       transitionBuilder = null;
-
-  const DialogOptions.material({
-    super.barrierDismissible,
-    super.useRootNavigator,
-    super.routeSettings,
-    super.anchorPoint,
-    this.barrierLabel = '',
-    this.useSafeArea = true,
-  }) : startOffset = null,
-       fromStyle = PopupFromStyle.fromCenter,
-       transitionDuration = const Duration(milliseconds: 200),
-       transitionBuilder = null,
-       super(barrierColor: kCupertinoModalBarrierColor);
-
   /// 语义化
-  final String barrierLabel;
+  final String? barrierLabel;
 
   final bool useSafeArea;
 
@@ -105,7 +102,7 @@ class DialogOptions extends GeneralModalOptions {
   /// 路由显示和隐藏的过程 这里入参是 animation,secondaryAnimation 和 child, 其中 child 是 是 pageBuilder 构建的 widget
   final RouteTransitionsBuilder? transitionBuilder;
 
-  DialogOptions copyWith({
+  GeneralDialogOptions copyWith({
     double? startOffset,
     PopupFromStyle? fromStyle,
     bool? barrierDismissible,
@@ -117,7 +114,7 @@ class DialogOptions extends GeneralModalOptions {
     RouteSettings? routeSettings,
     Offset? anchorPoint,
     bool? useSafeArea,
-  }) => DialogOptions(
+  }) => GeneralDialogOptions(
     useSafeArea: useSafeArea ?? this.useSafeArea,
     anchorPoint: anchorPoint ?? this.anchorPoint,
     startOffset: startOffset ?? this.startOffset,
@@ -131,7 +128,7 @@ class DialogOptions extends GeneralModalOptions {
     routeSettings: routeSettings ?? this.routeSettings,
   );
 
-  DialogOptions merge([DialogOptions? options]) => copyWith(
+  GeneralDialogOptions merge([GeneralDialogOptions? options]) => copyWith(
     useSafeArea: options?.useSafeArea,
     anchorPoint: options?.anchorPoint,
     startOffset: options?.startOffset,
@@ -146,8 +143,8 @@ class DialogOptions extends GeneralModalOptions {
   );
 }
 
-class BottomSheetOptions extends GeneralModalOptions {
-  const BottomSheetOptions({
+class ModalBottomSheetOptions extends GeneralModalOptions {
+  const ModalBottomSheetOptions({
     super.barrierDismissible,
     super.useRootNavigator,
     super.routeSettings,
@@ -187,7 +184,7 @@ class BottomSheetOptions extends GeneralModalOptions {
 
   final AnimationController? transitionAnimationController;
 
-  BottomSheetOptions copyWith({
+  ModalBottomSheetOptions copyWith({
     Color? backgroundColor,
     double? elevation,
     ShapeBorder? shape,
@@ -201,7 +198,7 @@ class BottomSheetOptions extends GeneralModalOptions {
     AnimationController? transitionAnimationController,
     BoxConstraints? constraints,
     Offset? anchorPoint,
-  }) => BottomSheetOptions(
+  }) => ModalBottomSheetOptions(
     anchorPoint: anchorPoint ?? this.anchorPoint,
     constraints: constraints ?? this.constraints,
     backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -217,7 +214,7 @@ class BottomSheetOptions extends GeneralModalOptions {
     transitionAnimationController: transitionAnimationController ?? this.transitionAnimationController,
   );
 
-  BottomSheetOptions merge([BottomSheetOptions? options]) => copyWith(
+  ModalBottomSheetOptions merge([ModalBottomSheetOptions? options]) => copyWith(
     anchorPoint: options?.anchorPoint,
     constraints: options?.constraints,
     backgroundColor: options?.backgroundColor,
