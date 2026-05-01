@@ -2,11 +2,11 @@ import 'package:fl_extended/fl_extended.dart';
 import 'package:flutter/material.dart';
 
 class FlExtended {
-  factory FlExtended() => _singleton ??= FlExtended._();
-
   FlExtended._();
 
-  static FlExtended? _singleton;
+  static final FlExtended instance = FlExtended._();
+
+  factory FlExtended() => instance;
 
   /// 设置全局 [NavigatorKey]
   /// Set the global [NavigatorKey]

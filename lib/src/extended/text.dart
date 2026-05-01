@@ -182,7 +182,7 @@ class FlText extends StatelessWidget {
     this.fontFeatures,
     this.leadingDistribution,
     this.fontVariations,
-  }) : assert(data != null || inlineSpan != null || inlineSpans != null);
+  });
 
   const FlText(
     String this.data, {

@@ -43,11 +43,11 @@ class LogContent {
 }
 
 class FlLogcat {
-  factory FlLogcat() => _singleton ??= FlLogcat._();
-
   FlLogcat._();
 
-  static FlLogcat? _singleton;
+  static final FlLogcat instance = FlLogcat._();
+
+  factory FlLogcat() => instance;
 
   final ValueNotifiers<List<LogContent>> _logs = ValueNotifiers([]);
 

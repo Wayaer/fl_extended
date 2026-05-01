@@ -1,3 +1,11 @@
+## 3.3.0
+
+* Add the `expandoBinder` extension method to `Listenable`
+
+## 3.2.2
+
+* `FlText.custom()` supports not setting any text.
+
 ## 3.2.1
 
 * Removed `popupCupertinoDialog` and `popupMaterialDialog`
@@ -26,6 +34,7 @@
 * Add `BigInt` extension
 
 ## 2.0.2
+
 * Add a file `global_key_extension`
 * Remove `FlExtended().widgetsBinding` and `FlExtended().schedulerBinding`
 * Add `widgetsBinding` 、 `schedulerBinding` 、 `gestureBinding` 、 `paintingBinding` 、
@@ -37,9 +46,11 @@
 * `ExtendedStatefulBuilder()` renamed as `FlStatefulBuilder()`
 * `ExtendedStreamBuilder()` renamed as `FlStreamBuilder()`
 * `RText()` renamed as `FlRichText()`
-* `BText()` renamed as `FlText()`, `BText.rich()` renamed as `FlText.richText()`, add `FlText.rich()`、
+* `BText()` renamed as `FlText()`, `BText.rich()` renamed as `FlText.richText()`, add
+  `FlText.rich()`、
   `FlText.richSpans()`、`FlText.custom()`,
-* Add `FlSelectableText()`、`FlSelectableText.rich()`,`FlSelectableText.richText()`、`FlSelectableText.richSpans()`、
+* Add `FlSelectableText()`、`FlSelectableText.rich()`,`FlSelectableText.richText()`、
+  `FlSelectableText.richSpans()`、
   `FlSelectableText.custom()`,
 
 ## 1.8.1

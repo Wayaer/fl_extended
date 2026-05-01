@@ -33,8 +33,10 @@ export 'src/extended/popup.dart';
 export 'src/extended/selectable_text.dart';
 export 'src/extended/text.dart';
 export 'src/extended/when.dart';
+export 'src/extended/expando_listenable.dart';
 
 /// extension
+export 'src/extension/controller_extension.dart';
 export 'src/extension/color_extension.dart';
 export 'src/extension/context_extension.dart';
 export 'src/extension/date_time_extension.dart';

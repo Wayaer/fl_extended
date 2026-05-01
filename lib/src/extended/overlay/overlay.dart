@@ -6,11 +6,11 @@ part 'loading.dart';
 part 'toast.dart';
 
 class FlOverlay {
-  factory FlOverlay() => _singleton ??= FlOverlay._();
-
   FlOverlay._();
 
-  static FlOverlay? _singleton;
+  static final FlOverlay instance = FlOverlay._();
+
+  factory FlOverlay() => instance;
 
   final List<FlOverlayEntry> _overlayEntries = <FlOverlayEntry>[];
 
@@ -120,8 +120,8 @@ class FlOverlayEntry extends OverlayEntry {
     super.opaque = false,
     super.maintainState = false,
     super.canSizeOverlay = false,
-  }) : assert(builder != null || widget != null),
-       super(builder: builder ?? (_) => widget!);
+  })  : assert(builder != null || widget != null),
+        super(builder: builder ?? (_) => widget!);
 
   /// 是否缓存至 [FlOverlay().overlayEntries]
   final bool isCached;
