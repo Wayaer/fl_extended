@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 class FlExtended {
   FlExtended._();
 
-  static final FlExtended instance = FlExtended._();
+  static final FlExtended _instance = FlExtended._();
 
-  factory FlExtended() => instance;
+  static FlExtended get instance => _instance;
+
+  factory FlExtended() => _instance;
 
   /// 设置全局 [NavigatorKey]
   /// Set the global [NavigatorKey]

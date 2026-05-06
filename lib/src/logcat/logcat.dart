@@ -45,9 +45,11 @@ class LogContent {
 class FlLogcat {
   FlLogcat._();
 
-  static final FlLogcat instance = FlLogcat._();
+  static final FlLogcat _instance = FlLogcat._();
 
-  factory FlLogcat() => instance;
+  static FlLogcat get instance => _instance;
+
+  factory FlLogcat() => _instance;
 
   final ValueNotifiers<List<LogContent>> _logs = ValueNotifiers([]);
 

@@ -15,11 +15,12 @@ export 'src/components/icon_label.dart';
 export 'src/components/inherited.dart';
 export 'src/components/progress_indicator.dart';
 export 'src/components/universal.dart';
-export 'src/const/const.dart';
-export 'src/const/platform.dart';
+export 'src/components/reg_exp.dart';
 
 /// const
 export 'src/const/typedef.dart';
+export 'src/const/const.dart';
+export 'src/const/platform.dart';
 
 /// extended
 export 'src/extended/abstract_state.dart';

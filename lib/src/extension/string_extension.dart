@@ -94,10 +94,10 @@ extension ExtensionString on String {
   Future<void> toClipboard() => Clipboard.setData(ClipboardData(text: this));
 
   /// 验证邮箱
-  bool get isEmail => RegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$').hasMatch(this);
+  bool get isEmail => FlRegExp(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$').hasMatch(this);
 
   /// 手机号验证
-  bool get isChinaPhone => RegExp(r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$').hasMatch(this);
+  bool get isChinaPhone => FlRegExp(r'^1([38]\d|4[579]|5[0-3,5-9]|66|7[0135678]|9[89])\d{8}$').hasMatch(this);
 
   /// utf8ToList
   List<int> get utf8ToList {
@@ -111,7 +111,7 @@ extension ExtensionString on String {
   /// 每隔 x位 加 pattern
   String formatDigitPattern({int digit = 4, String pattern = ' '}) {
     String text = this;
-    text = text.replaceAllMapped(RegExp('(.{$digit})'), (Match match) => '${match.group(0)}$pattern');
+    text = text.replaceAllMapped(FlRegExp('(.{$digit})'), (Match match) => '${match.group(0)}$pattern');
     if (text.endsWith(pattern)) text = text.substring(0, text.length - 1);
     return text;
   }
@@ -161,7 +161,7 @@ extension ExtensionString on String {
   /// '123abc'.isNumber(); // false
   /// ```
   bool get isNumber {
-    final isMatch = RegExp("[0-9]").hasMatch(this);
+    final isMatch = FlRegExp("[0-9]").hasMatch(this);
     return isMatch;
   }
 
@@ -173,15 +173,15 @@ extension ExtensionString on String {
   /// '123abc'.isDigit(); // false
   /// ```
   bool get isDigit {
-    final isMatch = RegExp(r'\d').hasMatch(this);
+    final isMatch = FlRegExp(r'\d').hasMatch(this);
     return isMatch && length == 1;
   }
 
   /// 是否包含中文
-  bool get isChinese => RegExp('[\u4e00-\u9fa5]').hasMatch(this);
+  bool get isChinese => FlRegExp('[\u4e00-\u9fa5]').hasMatch(this);
 
   /// 是否是小数
-  bool get isLetter => RegExp("[A-Za-z]").hasMatch(this);
+  bool get isLetter => FlRegExp("[A-Za-z]").hasMatch(this);
 
   /// Check if string is json decode
   bool get isJson {

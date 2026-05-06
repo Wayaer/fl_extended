@@ -8,9 +8,11 @@ part 'toast.dart';
 class FlOverlay {
   FlOverlay._();
 
-  static final FlOverlay instance = FlOverlay._();
+  static final FlOverlay _instance = FlOverlay._();
 
-  factory FlOverlay() => instance;
+  static FlOverlay get instance => _instance;
+
+  factory FlOverlay() => _instance;
 
   final List<FlOverlayEntry> _overlayEntries = <FlOverlayEntry>[];
 
