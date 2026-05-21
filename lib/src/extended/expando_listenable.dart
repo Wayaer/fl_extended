@@ -14,11 +14,12 @@ class FlListenableBinder<T> {
   VoidCallback? _listener;
 
   /// 添加监听回调
-  bool addWeakListener<K extends Object>(
-      {required K key,
-      required FlListenableBinderListener<T> listener,
-      required T Function(K) getValue,
-      required FlListenableBinderListener<VoidCallback> onAddListener}) {
+  bool addWeakListener<K extends Object>({
+    required K key,
+    required FlListenableBinderListener<T> listener,
+    required T Function(K) getValue,
+    required FlListenableBinderListener<VoidCallback> onAddListener,
+  }) {
     if (_subscribers.contains(listener)) return false;
 
     /// 添加首次赋值
@@ -30,7 +31,7 @@ class FlListenableBinder<T> {
       _listener = () {
         final k = weakKey.target;
         if (k == null) return;
-        this.change(getValue(k));
+        change(getValue(k));
       };
       onAddListener(_listener!);
     }
@@ -40,11 +41,13 @@ class FlListenableBinder<T> {
 
   /// 移除监听回调
   bool removeListener(
-      FlListenableBinderListener<T> listener, FlListenableBinderListener<VoidCallback> onRemoveListener) {
+    FlListenableBinderListener<T> listener,
+    FlListenableBinderListener<VoidCallback> onRemoveListener,
+  ) {
     final removed = _subscribers.remove(listener);
-    if (_subscribers.isEmpty && this._listener != null) {
-      onRemoveListener(this._listener!);
-      this._listener = null;
+    if (_subscribers.isEmpty && _listener != null) {
+      onRemoveListener(_listener!);
+      _listener = null;
     }
     return removed;
   }

@@ -184,7 +184,7 @@ class IconLabel extends StatelessWidget {
 
   Widget? get buildIcon => [
     if (icon != null) Icon(icon, color: color, size: size, textDirection: textDirection),
-    if (image != null) image!,
+    ?image,
     if (imageProvider != null)
       Image(
         image: imageProvider!,
@@ -194,6 +194,6 @@ class IconLabel extends StatelessWidget {
         fit: BoxFit.scaleDown,
         excludeFromSemantics: true,
       ),
-    if (widget != null) widget!,
+    ?widget,
   ].firstOrNull;
 }

@@ -1,3 +1,7 @@
+## 4.0.0
+
+* Migrate to 3.44
+
 ## 3.3.0
 
 * Add the `expandoBinder` extension method to `Listenable`
