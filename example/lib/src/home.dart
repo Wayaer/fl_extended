@@ -1,5 +1,6 @@
 import 'package:example/src/demo/demo_widgets.dart';
 import 'package:example/src/module/animation_page.dart';
+import 'package:example/src/module/auto_size_text_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
 import 'package:example/src/module/context_page.dart';
@@ -62,6 +63,12 @@ class _HomePageState extends State<HomePage> {
           subtitle: 'FlText / FlRichText / FlSelectableText',
           icon: Icons.text_fields_rounded,
           builder: (_) => const TextPage(),
+        ),
+        DemoEntry(
+          title: 'FlAutoSizeTextBuilder',
+          subtitle: '自动缩放字号、预置字号、溢出兜底与 group 同步',
+          icon: Icons.format_size_rounded,
+          builder: (_) => const AutoSizeTextPage(),
         ),
         DemoEntry(
           title: 'Button & IconLabel',

@@ -10,6 +10,7 @@ export 'src/builder/value_builder.dart';
 
 /// 组件
 export 'src/components/animation.dart';
+export 'src/components/auto_size_text.dart';
 export 'src/components/button.dart';
 export 'src/components/icon_label.dart';
 export 'src/components/inherited.dart';

@@ -138,6 +138,46 @@ widget.popupCupertinoModal();
 
 可配合 `ActionDialog`、`ModalBox` 使用，并在 `FlExtended` 上配置全局 `generalDialogOptions` / `modalBottomSheetOptions` 等。
 
+## 自动缩放文本
+
+`FlAutoSizeTextBuilder` 在父级给出的有限空间内二分查找能放下的最大字号，只负责计算字号，渲染交给 `builder`；`FlText` 通过 `autoSizeOptions` 直接使用同一套能力。
+
+```dart
+SizedBox(
+  width: 220,
+  height: 44,
+  child: FlText(
+    'Flutter 自动缩放文本',
+    fontSize: 28,
+    maxLines: 1,
+    autoSizeOptions: const FlAutoSizeOptions(minFontSize: 10, maxFontSize: 28),
+  ),
+);
+
+SizedBox(
+  width: 220,
+  height: 60,
+  child: FlAutoSizeTextBuilder(
+    const TextSpan(text: 'FlAutoSizeTextBuilder'),
+    options: const FlAutoSizeOptions(minFontSize: 10, maxFontSize: 30),
+    layout: const FlAutoSizeTextLayout(maxLines: 2),
+    builder: (BuildContext context, FlAutoSizeTextData data) => Text.rich(
+      data.textSpan,
+      style: data.style,
+      textScaler: data.textScaler,
+      maxLines: data.maxLines,
+      textDirection: data.textDirection,
+    ),
+  ),
+);
+```
+
+- 需要在 `SizedBox` / `Expanded` 等有限约束内使用，无界空间不会缩放。
+- `presetFontSizes` 必须按降序排列；设置后忽略 `minFontSize` / `maxFontSize` / `stepGranularity`。
+- `overflowReplacement`：缩到最小字号仍放不下时展示的替代组件。
+- 多个文本共用同一个稳定的 `FlAutoSizeGroup` 实例，会统一取组内最小字号。
+- 内容包含 `WidgetSpan` 时不参与自动缩放，按原始字号直接渲染。
+
 ## 组件与扩展
 
 库内既有 `Fl` 前缀组件（如 `FlText`、`FlButton`），也有无前缀组件（如 `Universal`、`IconLabel`、`Toast`）。  

@@ -1,3 +1,11 @@
+## 5.1.0
+
+* 新增 `FlAutoSizeTextBuilder`：在有限约束内二分查找能放下的最大字号，渲染交给 `builder`
+* 新增 `FlAutoSizeOptions` / `FlAutoSizeTextLayout` / `FlAutoSizeTextData`：支持最小 / 最大字号、步长、预置字号、单词换行、溢出兜底等配置
+* 新增 `FlAutoSizeGroup`：多个文本共用时统一取组内最小字号
+* `FlText` 新增 `autoSizeOptions`，开启后按可用空间自动缩放字号
+* 内容包含 `WidgetSpan` 时跳过自动缩放并按原始字号渲染，避免测量阶段崩溃
+
 ## 5.0.0
 
 * 迁移至 Flutter 3.47 / Dart 3.13

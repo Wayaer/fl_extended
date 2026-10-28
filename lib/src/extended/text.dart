@@ -133,6 +133,7 @@ class FlText extends StatelessWidget {
     this.inlineSpans,
     super.key,
     this.useStyleFirst = true,
+    this.autoSizeOptions,
 
     /// [TextSpan]
     this.recognizer,
@@ -188,6 +189,7 @@ class FlText extends StatelessWidget {
     String this.data, {
     super.key,
     this.useStyleFirst = true,
+    this.autoSizeOptions,
 
     /// [TextSpan]
     this.recognizer,
@@ -244,6 +246,7 @@ class FlText extends StatelessWidget {
     InlineSpan this.inlineSpan, {
     super.key,
     this.useStyleFirst = true,
+    this.autoSizeOptions,
 
     /// [Text]
     this.style,
@@ -298,6 +301,7 @@ class FlText extends StatelessWidget {
     List<InlineSpan> this.inlineSpans, {
     super.key,
     this.useStyleFirst = true,
+    this.autoSizeOptions,
 
     /// [TextSpan]
     this.recognizer,
@@ -353,6 +357,7 @@ class FlText extends StatelessWidget {
   FlText.richText({
     super.key,
     this.useStyleFirst = true,
+    this.autoSizeOptions,
 
     /// [TextSpan]
     this.recognizer,
@@ -431,6 +436,11 @@ class FlText extends StatelessWidget {
   /// [useStyleFirst]=true 优先使用 [style],
   /// [useStyleFirst]=false 优先使用外层,
   final bool useStyleFirst;
+
+  /// 自动缩放字号配置；非空时根据可用空间自适应字号
+  ///
+  /// 内容包含 [WidgetSpan] 时不做自动缩放，按原样式直接渲染
+  final FlAutoSizeOptions? autoSizeOptions;
 
   /// ---------- [TextSpan] ----------
   final GestureRecognizer? recognizer;
@@ -595,17 +605,51 @@ class FlText extends StatelessWidget {
     } else if (style != null) {
       effectiveTextStyle = style!.merge(effectiveTextStyle);
     }
+    final TextSpan contentSpan = TextSpan(
+      text: data,
+      recognizer: recognizer,
+      mouseCursor: mouseCursor,
+      onEnter: onEnter,
+      onExit: onExit,
+      spellOut: spellOut,
+      children: inlineSpans,
+    );
+    if (autoSizeOptions != null) {
+      final InlineSpan span = inlineSpan ?? contentSpan;
+      return FlAutoSizeTextBuilder(
+        span,
+        options: autoSizeOptions!,
+        style: effectiveTextStyle,
+        layout: FlAutoSizeTextLayout(
+          textScaler: textScaler,
+          maxLines: maxLines,
+          textDirection: textDirection,
+          locale: locale,
+          softWrap: softWrap,
+          strutStyle: strutStyle,
+          textHeightBehavior: textHeightBehavior,
+        ),
+        builder: (BuildContext context, FlAutoSizeTextData data) => Text.rich(
+          data.textSpan,
+          style: data.style,
+          textScaler: data.textScaler,
+          textAlign: textAlign,
+          textDirection: data.textDirection,
+          locale: data.locale,
+          softWrap: data.softWrap,
+          overflow: overflow,
+          maxLines: data.maxLines,
+          strutStyle: data.strutStyle,
+          semanticsLabel: semanticsLabel,
+          semanticsIdentifier: semanticsIdentifier,
+          textWidthBasis: textWidthBasis,
+          textHeightBehavior: data.textHeightBehavior,
+          selectionColor: selectionColor,
+        ),
+      );
+    }
     return Text.rich(
-      inlineSpan ??
-          TextSpan(
-            text: data,
-            recognizer: recognizer,
-            mouseCursor: mouseCursor,
-            onEnter: onEnter,
-            onExit: onExit,
-            spellOut: spellOut,
-            children: inlineSpans,
-          ),
+      inlineSpan ?? contentSpan,
       style: effectiveTextStyle,
       textAlign: textAlign,
       textDirection: textDirection,

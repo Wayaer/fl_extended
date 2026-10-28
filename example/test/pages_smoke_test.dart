@@ -1,5 +1,6 @@
 import 'package:example/src/home.dart';
 import 'package:example/src/module/animation_page.dart';
+import 'package:example/src/module/auto_size_text_page.dart';
 import 'package:example/src/module/builder_page.dart';
 import 'package:example/src/module/button_page.dart';
 import 'package:example/src/module/context_page.dart';
@@ -29,6 +30,7 @@ void main() {
   final Map<String, Widget> pages = <String, Widget>{
     'HomePage': const HomePage(),
     'TextPage': const TextPage(),
+    'AutoSizeTextPage': const AutoSizeTextPage(),
     'ButtonPage': const ButtonPage(),
     'UniversalPage': const UniversalPage(),
     'AnimationPage': const AnimationPage(),
@@ -59,29 +61,28 @@ void main() {
 
   for (final (Size physicalSize, double pixelRatio) in layouts) {
     for (final MapEntry<String, Widget> entry in pages.entries) {
-      testWidgets(
-        '${entry.key} renders at ${physicalSize.width ~/ pixelRatio}x${physicalSize.height ~/ pixelRatio}',
-        (WidgetTester tester) async {
-          tester.view.physicalSize = physicalSize;
-          tester.view.devicePixelRatio = pixelRatio;
-          addTearDown(tester.view.reset);
+      testWidgets('${entry.key} renders at ${physicalSize.width ~/ pixelRatio}x${physicalSize.height ~/ pixelRatio}', (
+        WidgetTester tester,
+      ) async {
+        tester.view.physicalSize = physicalSize;
+        tester.view.devicePixelRatio = pixelRatio;
+        addTearDown(tester.view.reset);
 
-          await tester.pumpWidget(
-            MaterialApp(
-              navigatorKey: FlExtended().navigatorKey,
-              scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
-              theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF4E6BFF)),
-              home: entry.value
-            )
-          );
-          await tester.pump(const Duration(milliseconds: 400));
-          expect(tester.takeException(), isNull, reason: '${entry.key} 首次渲染异常');
+        await tester.pumpWidget(
+          MaterialApp(
+            navigatorKey: FlExtended().navigatorKey,
+            scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
+            theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF4E6BFF)),
+            home: entry.value,
+          ),
+        );
+        await tester.pump(const Duration(milliseconds: 400));
+        expect(tester.takeException(), isNull, reason: '${entry.key} 首次渲染异常');
 
-          await tester.pumpWidget(const SizedBox());
-          await tester.pump(const Duration(seconds: 3));
-          expect(tester.takeException(), isNull, reason: '${entry.key} 销毁时异常');
-        }
-      );
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(const Duration(seconds: 3));
+        expect(tester.takeException(), isNull, reason: '${entry.key} 销毁时异常');
+      });
     }
   }
 
@@ -95,8 +96,8 @@ void main() {
         navigatorKey: FlExtended().navigatorKey,
         scaffoldMessengerKey: FlExtended().scaffoldMessengerKey,
         theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF4E6BFF)),
-        home: const UniversalPage()
-      )
+        home: const UniversalPage(),
+      ),
     );
     await tester.pump(const Duration(milliseconds: 400));
     expect(tester.takeException(), isNull, reason: 'UniversalPage 全部示例渲染异常');

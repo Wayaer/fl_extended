@@ -314,6 +314,152 @@ void main() {
   });
 
   group('components', () {
+    testWidgets('FlAutoSizeTextBuilder renders WidgetSpan without auto sizing', (WidgetTester tester) async {
+      late FlAutoSizeTextData captured;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Center(
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: FlAutoSizeTextBuilder(
+                const TextSpan(
+                  children: <InlineSpan>[
+                    TextSpan(text: 'hello '),
+                    WidgetSpan(child: Icon(Icons.star, size: 16)),
+                  ],
+                ),
+                style: const TextStyle(fontSize: 30),
+                options: const FlAutoSizeOptions(minFontSize: 10, maxFontSize: 30),
+                builder: (BuildContext context, FlAutoSizeTextData data) {
+                  captured = data;
+                  return Text.rich(data.textSpan, style: data.style);
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(captured.style.fontSize, 30);
+      expect(captured.textSpan.toPlainText(), contains('\uFFFC'));
+      expect(find.byIcon(Icons.star), findsOneWidget);
+    });
+
+    testWidgets('FlAutoSizeTextBuilder shrinks text to fit the available width', (WidgetTester tester) async {
+      double? fontSize;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Center(
+            child: SizedBox(
+              width: 100,
+              height: 40,
+              child: FlAutoSizeTextBuilder(
+                const TextSpan(text: 'abcdefghij'),
+                style: const TextStyle(fontSize: 30),
+                options: const FlAutoSizeOptions(minFontSize: 10, maxFontSize: 30),
+                layout: const FlAutoSizeTextLayout(maxLines: 1),
+                builder: (BuildContext context, FlAutoSizeTextData data) {
+                  fontSize = data.style.fontSize;
+                  return Text.rich(data.textSpan, style: data.style, maxLines: data.maxLines);
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(fontSize, 10);
+    });
+
+    testWidgets('FlAutoSizeTextBuilder picks the largest fitting preset font size', (WidgetTester tester) async {
+      double? fontSize;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Center(
+            child: SizedBox(
+              width: 250,
+              height: 40,
+              child: FlAutoSizeTextBuilder(
+                const TextSpan(text: 'abcdefghij'),
+                style: const TextStyle(fontSize: 30),
+                options: const FlAutoSizeOptions(presetFontSizes: <double>[30, 20, 10]),
+                layout: const FlAutoSizeTextLayout(maxLines: 1),
+                builder: (BuildContext context, FlAutoSizeTextData data) {
+                  fontSize = data.style.fontSize;
+                  return Text.rich(data.textSpan, style: data.style, maxLines: data.maxLines);
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(fontSize, 20);
+    });
+
+    testWidgets('FlAutoSizeTextBuilder shows overflowReplacement when nothing fits', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Center(
+            child: SizedBox(
+              width: 50,
+              height: 40,
+              child: FlAutoSizeTextBuilder(
+                const TextSpan(text: 'abcdefghij'),
+                style: const TextStyle(fontSize: 30),
+                options: const FlAutoSizeOptions(minFontSize: 20, maxFontSize: 30, overflowReplacement: Text('放不下')),
+                layout: const FlAutoSizeTextLayout(maxLines: 1),
+                builder: (BuildContext context, FlAutoSizeTextData data) => Text.rich(data.textSpan, style: data.style),
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('放不下'), findsOneWidget);
+    });
+
+    testWidgets('FlAutoSizeTextBuilder syncs font size through FlAutoSizeGroup', (WidgetTester tester) async {
+      final FlAutoSizeGroup group = FlAutoSizeGroup();
+      double? wideFontSize;
+      double? narrowFontSize;
+      FlAutoSizeTextBuilder builder({required ValueSetter<FlAutoSizeTextData> onData}) {
+        return FlAutoSizeTextBuilder(
+          const TextSpan(text: 'abcdefghij'),
+          style: const TextStyle(fontSize: 30),
+          options: FlAutoSizeOptions(minFontSize: 4, maxFontSize: 30, group: group),
+          layout: const FlAutoSizeTextLayout(maxLines: 1),
+          builder: (BuildContext context, FlAutoSizeTextData data) {
+            onData(data);
+            return Text.rich(data.textSpan, style: data.style, maxLines: data.maxLines);
+          },
+        );
+      }
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 100,
+                  height: 40,
+                  child: builder(onData: (FlAutoSizeTextData data) => wideFontSize = data.style.fontSize),
+                ),
+                SizedBox(
+                  width: 60,
+                  height: 40,
+                  child: builder(onData: (FlAutoSizeTextData data) => narrowFontSize = data.style.fontSize),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(wideFontSize, 6);
+      expect(narrowFontSize, 6);
+    });
+
     testWidgets('Universal builds disabled button without callbacks', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
